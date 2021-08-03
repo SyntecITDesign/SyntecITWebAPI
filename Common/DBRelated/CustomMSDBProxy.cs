@@ -82,6 +82,11 @@ namespace SyntecITWebAPI.Common.DBRelated
 			}
 		}
 
+		public DataTable GetDataWithNoParaCMD( string sql )
+		{
+			throw new NotImplementedException();
+		}
+
 		#endregion Public Methods
 
 		#region Private Fields

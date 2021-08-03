@@ -82,6 +82,11 @@ namespace SyntecITWebAPI.Common.DBRelated
 			}
 		}
 
+		public DataTable GetDataWithNoParaCMD( string sql )
+		{
+			return Instance.GetDataWithNoParaCMD( sql );
+		}
+
 		#endregion Public Methods
 
 		#region Private Fields
