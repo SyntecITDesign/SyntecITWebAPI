@@ -9,6 +9,7 @@ namespace SyntecITWebAPI.Interface
 		bool ChangeDataCMD( string sql, object[] sqlParameterArray );
 
 		DataTable GetDataCMD( string sql, object[] sqlParameterArray );
+		DataTable GetDataWithNoParaCMD( string sql );
 
 		#endregion Public Methods
 	}
