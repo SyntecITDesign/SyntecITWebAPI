@@ -7,7 +7,7 @@ using System.IO;
 
 namespace SyntecITWebAPI.Common.DBRelated
 {
-	public class ExternalMSDBProxy : IDBAccess
+	public class SyntecBBSDBProxy : IDBAccess
 	{
 		#region Public Methods
 
@@ -19,7 +19,7 @@ namespace SyntecITWebAPI.Common.DBRelated
 				{ //確保單一
 					if( Instance == null )
 					{
-						Instance = new ExternalMSDBProxy();
+						Instance = new SyntecBBSDBProxy();
 					}
 				}
 			}
@@ -76,30 +76,15 @@ namespace SyntecITWebAPI.Common.DBRelated
 				}
 				return theDataSet.Tables[ 0 ];
 			}
-			catch( Exception )
+			catch( Exception ex )
 			{
 				return null;
 			}
 		}
 
-		public DataTable GetDataWithNoParaCMD(string sql)
+		public DataTable GetDataWithNoParaCMD( string sql )
 		{
-			DataSet theDataSet = new DataSet();
-			try
-			{
-				using (SqlDataAdapter adapter = new SqlDataAdapter(sql, m_connectionString))
-				{
-					string parameter = "";
-
-					adapter.SelectCommand.CommandTimeout = int.MaxValue;
-					adapter.Fill(theDataSet);
-				}
-				return theDataSet.Tables[0];
-			}
-			catch (Exception)
-			{
-				return null;
-			}
+			throw new NotImplementedException();
 		}
 
 		#endregion Public Methods
@@ -116,11 +101,11 @@ namespace SyntecITWebAPI.Common.DBRelated
 
 		#region Private Constructors + Destructors
 
-		private ExternalMSDBProxy()
+		private SyntecBBSDBProxy()
 		{
 			var configuration = new ConfigurationBuilder()
 			.SetBasePath( $"{Directory.GetCurrentDirectory()}\\Config\\" )
-			.AddJsonFile( path: "ExternalMSDBSetting.json", optional: false )
+			.AddJsonFile( path: "SyntecBBSDBSetting.json", optional: false )
 			.Build();
 
 			string dataSource = configuration[ "dataSource" ].Trim();

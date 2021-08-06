@@ -445,6 +445,17 @@ namespace SyntecITWebAPI.Common.DBRelated
 			}
 		}
 
+		public string InsertWXMessage
+		{
+			get {
+				return $@"INSERT INTO [{m_syntecbbs}].[dbo].[SendWX] (SendOpenid,Title,ContentBody,CreatDate,CurrentStatus,SourcePlatform,
+						MasterID,MasterType,keyword1,keyword2,keyword3,keyword4,keyword5,URL,KeyWords,FlowStatus)
+						VALUES
+						(@Parameter0,@Parameter1,@Parameter2,GETDATE(),N'0',@Parameter4,
+						@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9,@Parameter10,@Parameter11,@Parameter12,@Parameter3,@Parameter13)";
+			}
+		}
+
 		#endregion Public Properties
 
 		#region Public Methods
@@ -476,6 +487,7 @@ namespace SyntecITWebAPI.Common.DBRelated
 		private string m_jirareport;
 		private string m_crm;
 		private string m_gas;
+		private string m_syntecbbs;
 
 		#endregion Private Fields
 
@@ -494,6 +506,7 @@ namespace SyntecITWebAPI.Common.DBRelated
 			m_jirareport = configuration["jirareport"].Trim();
 			m_crm = configuration["crm"].Trim();
 			m_gas = configuration["gas"].Trim();
+			m_syntecbbs = configuration["SyntecBBS"].Trim();
 		}
 
 		#endregion Private Constructors + Destructors

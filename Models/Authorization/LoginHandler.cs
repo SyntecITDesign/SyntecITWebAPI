@@ -67,6 +67,11 @@ namespace SyntecITWebAPI.Models
 						responseHandler.Detail = "帳號密碼錯誤 Account or password wrong";
 						break;
 
+					case "E009":
+						responseHandler.Code = Enums.ErrorCodeList.Password_Wrong;
+						responseHandler.Detail = "帳號密碼錯誤 Account or password wrong";
+						break;
+
 					case "0000":
 						if( loginResult.IndexOf( "Website" ) >= 0 )
 						{
@@ -99,13 +104,11 @@ namespace SyntecITWebAPI.Models
 		{
 			var callClient = WebServiceSetting.USER_SERVICE_CLIENT;
 
-			Task<LoginProcessPlatformOPTIONResponse> loginProcessPlatformOPTIONResponseTask = callClient.LoginProcessPlatformOPTIONAsync( new LoginProcessPlatformOPTIONRequest( userID, userPassword, (int)Syntec.Meta.ICTPlatform.Option ) );
+			Task<string> loginProcessPlatformOPTIONResponseTask = callClient.LoginProcessAsync(  userID, userPassword, (int)Syntec.Meta.ICTPlatform.TQM );
 
-			LoginProcessPlatformOPTIONResponse response = loginProcessPlatformOPTIONResponseTask.Result;
+			string response = loginProcessPlatformOPTIONResponseTask.Result;
 
-			string result = response.LoginProcessPlatformOPTIONResult;
-
-			return result;
+			return response;
 		}
 
 		#endregion Internal Methods
