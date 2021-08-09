@@ -100,10 +100,10 @@ namespace SyntecITWebAPI.Common.DBRelated
 				return null;
 			}
 		}
-		public DataTable GetDataWithNoParaCMD( string sql )
-		{
-			throw new NotImplementedException();
-		}
+		//public DataTable GetDataWithNoParaCMD( string sql )
+		//{
+		//	throw new NotImplementedException();
+		//}
 
 		#endregion Public Methods
 

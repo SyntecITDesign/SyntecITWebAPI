@@ -11,7 +11,7 @@ namespace SyntecITWebAPI.Interface
 		DataTable GetDataCMD( string sql, object[] sqlParameterArray );
 		DataTable GetDataWithNoParaCMD( string sql );
 
-		DataTable GetDataWithNoParaCMD(string sql);
+	
 		#endregion Public Methods
 	}
 }
