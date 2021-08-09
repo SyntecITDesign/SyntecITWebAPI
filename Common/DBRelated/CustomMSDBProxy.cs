@@ -81,29 +81,29 @@ namespace SyntecITWebAPI.Common.DBRelated
 				return null;
 			}
 		}
-		public DataTable GetDataWithNoParaCMD(string sql)
-		{
-			DataSet theDataSet = new DataSet();
-			try
-			{
-				using (SqlDataAdapter adapter = new SqlDataAdapter(sql, m_connectionString))
-				{
-					string parameter = "";
-					
-					adapter.SelectCommand.CommandTimeout = int.MaxValue;
-					adapter.Fill(theDataSet);
-				}
-				return theDataSet.Tables[0];
-			}
-			catch (Exception ex)
-			{
-				return null;
-			}
-		}
-		//public DataTable GetDataWithNoParaCMD( string sql )
+		//public DataTable GetDataWithNoParaCMD(string sql)
 		//{
-		//	throw new NotImplementedException();
+		//	DataSet theDataSet = new DataSet();
+		//	try
+		//	{
+		//		using (SqlDataAdapter adapter = new SqlDataAdapter(sql, m_connectionString))
+		//		{
+		//			string parameter = "";
+
+		//			adapter.SelectCommand.CommandTimeout = int.MaxValue;
+		//			adapter.Fill(theDataSet);
+		//		}
+		//		return theDataSet.Tables[0];
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		return null;
+		//	}
 		//}
+		public DataTable GetDataWithNoParaCMD( string sql )
+		{
+			throw new NotImplementedException();
+		}
 
 		#endregion Public Methods
 
