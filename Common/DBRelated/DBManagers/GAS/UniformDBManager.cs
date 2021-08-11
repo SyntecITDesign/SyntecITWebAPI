@@ -37,13 +37,13 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal bool UpsertUniformSize( UpsertUniformSize UpsertUniformSizeParameter )
 		{
 			string sql = $@"IF EXISTS (SELECT * FROM [jirareport].[dbo].[GAS_UniformMaster] WHERE [EmpID]=@Parameter0 )
-							UPDATE [jirareport].[dbo].[GAS_UniformMaster] 
-							SET [UniformSSSize]=@Parameter1, [UniformSSDate]=@Parameter2, [UniformFWSize]=@Parameter3,[UniformFWDate]=@Parameter4,
-								[JacketSize]=@Parameter5, [JacketDate]=@Parameter6, [SweatShirtSize]=@Parameter7, [SweatShirtDate]=@Parameter8
-							WHERE [EmpID]=@Parameter0 
-						ELSE
-						INSERT INTO [jirareport].[dbo].[GAS_UniformMaster] ([EmpID],[UniformSSSize],[UniformSSDate],[UniformFWSize],[UniformFWDate],[JacketSize],[JacketDate],[SweatShirtSize],[SweatShirtDate]) 
-						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8)";
+												UPDATE [jirareport].[dbo].[GAS_UniformMaster] 
+												SET [UniformSSSize]=@Parameter1, [UniformSSDate]=@Parameter2, [UniformFWSize]=@Parameter3,[UniformFWDate]=@Parameter4,
+													[JacketSize]=@Parameter5, [JacketDate]=@Parameter6, [SweatShirtSize]=@Parameter7, [SweatShirtDate]=@Parameter8,[EmpDept]= (SELECT EmpDept From [jirareport].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0), [EmpName]= (SELECT EmpName From [jirareport].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0)
+												WHERE [EmpID]=@Parameter0 
+							ELSE
+							INSERT INTO [jirareport].[dbo].[GAS_UniformMaster] ([EmpID],[EmpDept],[EmpName],[UniformSSSize],[UniformSSDate],[UniformFWSize],[UniformFWDate],[JacketSize],[JacketDate],[SweatShirtSize],[SweatShirtDate]) 
+							VALUES (@Parameter0, (SELECT EmpDept From [jirareport].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0), (SELECT EmpName From [jirareport].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0),@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8)";
 			
 			List<object> SQLParameterList = new List<object>()
 			{

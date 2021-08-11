@@ -52,6 +52,14 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 		{
 			get; set;
 		}
+		public string CarLicense_Syntec
+		{
+			get; set;
+		}
+		public string DoorCardNum2
+		{
+			get; set;
+		}
 		#endregion Public Properties
 	}
 

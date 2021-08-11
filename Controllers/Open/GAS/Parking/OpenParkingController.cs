@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 namespace SyntecITWebAPI.Controllers.Open.GAS.Parking
 {
 	[EnableCors( "AllowAllPolicy" )]
-	[Route( "Open/SyntecGAS/Parking" )]
+	[Route( "Open/GAS/Parking" )]
 	[ApiController]
 	public class OpenPeronsalInfoController : ControllerBase
 	{
@@ -35,6 +35,25 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Parking
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "UpsertParkingInfo" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertParkingInfo( [FromBody] UpsertParkingInfo UpsertParkingInfoParameter )
+		{
+
+			bool bResult = m_publicParkingHandler.UpsertParkingInfo( UpsertParkingInfoParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 
 
 		#endregion Public Methods

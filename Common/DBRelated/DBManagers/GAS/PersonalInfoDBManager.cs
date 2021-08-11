@@ -15,7 +15,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"SELECT *
 						  FROM [syntecbarcode].[dbo].[TEMP_NAME]
-						  WHERE [EmpID]=@Parameter0 ";
+						  WHERE [EmpID]=@Parameter0 OR [EmpName]=@Parameter0 ";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -63,11 +63,15 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"IF EXISTS (SELECT * FROM [jirareport].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0 )
 							UPDATE [jirareport].[dbo].[GAS_GAInfoMaster] 
-							SET [ExtensionNum]=@Parameter1, [DoorCardNum]=@Parameter2,[MotorLicense]=@Parameter3,[CarLicense]=@Parameter4
+							SET [ExtensionNum]=@Parameter1, [DoorCardNum]=@Parameter2,[MotorLicense]=@Parameter3,[CarLicense]=@Parameter4,[CarLicense_Syntec]=@Parameter5,[DoorCardNum2]=@Parameter6
 							WHERE [EmpID]=@Parameter0 
 						ELSE
-						INSERT INTO [jirareport].[dbo].[GAS_GAInfoMaster] ([EmpID],[ExtensionNum],[DoorCardNum],[MotorLicense],[CarLicense]) 
-						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4)";
+						INSERT INTO [jirareport].[dbo].[GAS_GAInfoMaster] ([EmpID],[ExtensionNum],[DoorCardNum],[MotorLicense],[CarLicense],[CarLicense_Syntec],[DoorCardNum2]) 
+						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6)
+						
+						UPDATE [jirareport].[dbo].[GAS_ParkingSpaceStatusMaster] 
+						SET CarLicence=(SELECT CarLicense FROM [jirareport].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0)
+						WHERE [jirareport].[dbo].[GAS_ParkingSpaceStatusMaster].[EmpID]=@Parameter0";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -75,8 +79,9 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				UpsertPersonalGASInfoParameter.ExtensionNum,
 				UpsertPersonalGASInfoParameter.DoorCardNum,
 				UpsertPersonalGASInfoParameter.MotorLicense,
-				UpsertPersonalGASInfoParameter.CarLicense
-
+				UpsertPersonalGASInfoParameter.CarLicense,
+				UpsertPersonalGASInfoParameter.CarLicense_Syntec,
+				UpsertPersonalGASInfoParameter.DoorCardNum2
 
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );

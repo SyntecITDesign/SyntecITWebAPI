@@ -3792,11 +3792,11 @@
   "project": {
     "version": "1.5.0-alpha",
     "restore": {
-      "projectUniqueName": "D:\\trunk_ITAPI\\SyntecITWebAPI\\SyntecITWebAPI.csproj",
+      "projectUniqueName": "D:\\trunk_ITAPI\\SyntecITWebAPI.csproj",
       "projectName": "SyntecITAPI",
-      "projectPath": "D:\\trunk_ITAPI\\SyntecITWebAPI\\SyntecITWebAPI.csproj",
+      "projectPath": "D:\\trunk_ITAPI\\SyntecITWebAPI.csproj",
       "packagesPath": "C:\\Users\\1435\\.nuget\\packages\\",
-      "outputPath": "D:\\trunk_ITAPI\\SyntecITWebAPI\\obj\\",
+      "outputPath": "D:\\trunk_ITAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

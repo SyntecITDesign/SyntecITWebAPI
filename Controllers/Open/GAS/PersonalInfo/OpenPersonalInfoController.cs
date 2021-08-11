@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 {
 	[EnableCors( "AllowAllPolicy" )]
-	[Route( "Open/SyntecGAS/PersonalInfo" )]
+	[Route( "Open/GAS/PersonalInfo" )]
 	[ApiController]
 	public class OpenPeronsalInfoController : ControllerBase
 	{

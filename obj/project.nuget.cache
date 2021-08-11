@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nHfmUySUdLdsVU/SRlZ040fMdbShgFFG3eXWANjApgn764yituRkA0y0I8U3kciG3+s8vNLVJZs5EwwKMe/A/A==",
+  "dgSpecHash": "+BZtQOrN+Zdg65z1zP2UjUw9Nry8TgacYaoVn4nGkJV1y2TWBnfwIFnSS1cquMmJcGDxwn5vO0zrpzRwHG92cA==",
   "success": true,
-  "projectFilePath": "D:\\trunk_ITAPI\\SyntecITWebAPI\\SyntecITWebAPI.csproj",
+  "projectFilePath": "D:\\trunk_ITAPI\\SyntecITWebAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\1435\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\1435\\.nuget\\packages\\jwt\\8.1.3\\jwt.8.1.3.nupkg.sha512",

@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 namespace SyntecITWebAPI.Controllers.Open.GAS.Dorm
 {
 	[EnableCors( "AllowAllPolicy" )]
-	[Route( "Open/SyntecGAS/Dorm" )]
+	[Route( "Open/GAS/Dorm" )]
 	[ApiController]
 	public class OpenPeronsalInfoController : ControllerBase
 	{

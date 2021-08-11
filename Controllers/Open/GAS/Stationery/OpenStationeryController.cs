@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 namespace SyntecITWebAPI.Controllers.Open.GAS.Stationery
 {
 	[EnableCors("AllowAllPolicy")]
-	[Route("Open/SyntecGAS")]
+	[Route("Open/GAS/Stationery")]
 	[ApiController]
 	public class OpenStationeryController : ControllerBase
 	{

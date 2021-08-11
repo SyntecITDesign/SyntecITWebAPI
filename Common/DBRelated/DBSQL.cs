@@ -444,15 +444,14 @@ namespace SyntecITWebAPI.Common.DBRelated
 						VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))  ";
 			}
 		}
-
 		public string InsertWXMessage
 		{
 			get {
 				return $@"INSERT INTO [{m_syntecbbs}].[dbo].[SendWX] (SendOpenid,Title,ContentBody,CreatDate,CurrentStatus,SourcePlatform,
-						MasterID,MasterType,keyword1,keyword2,keyword3,keyword4,keyword5,URL,KeyWords,FlowStatus)
-						VALUES
-						(@Parameter0,@Parameter1,@Parameter2,GETDATE(),N'0',@Parameter4,
-						@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9,@Parameter10,@Parameter11,@Parameter12,@Parameter3,@Parameter13)";
+                                                MasterID,MasterType,keyword1,keyword2,keyword3,keyword4,keyword5,URL,KeyWords,FlowStatus)
+                                                VALUES
+                                                (@Parameter0,@Parameter1,@Parameter2,GETDATE(),N'0',@Parameter4,
+                                                @Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9,@Parameter10,@Parameter11,@Parameter12,@Parameter3,@Parameter13)";
 			}
 		}
 

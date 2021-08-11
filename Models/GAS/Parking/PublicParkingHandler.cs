@@ -32,6 +32,13 @@ namespace SyntecITWebAPI.Models.GAS.Parking
 			}
 		}
 
+		internal bool UpsertParkingInfo( UpsertParkingInfo UpsertParkingInfoParameter )
+		{
+
+			bool bResult = m_publicParkingDBManager.UpsertParkingInfo( UpsertParkingInfoParameter );
+
+			return bResult;
+		}
 		#endregion Internal Methods
 
 		#region Private Fields

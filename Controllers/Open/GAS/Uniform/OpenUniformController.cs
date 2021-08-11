@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 {
 	[EnableCors( "AllowAllPolicy" )]
-	[Route( "Open/SyntecGAS/Uniform" )]
+	[Route( "Open/GAS/Uniform" )]
 	[ApiController]
 	public class OpenUniformController : ControllerBase
 	{

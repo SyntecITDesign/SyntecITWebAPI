@@ -1,6 +1,6 @@
 {
   "dataSource": "rds63ulurnras8alwosqnpublic.sqlserver.rds.aliyuncs.com,3433",
-  "initialCatalog": "jirareport",
-  "userID": "10190438",
-  "userPassword": "Syntec1234"
+  "initialCatalog": "SyntecGAS",
+  "userID": "sa_sys",
+  "userPassword": "S0larRdS"
 }

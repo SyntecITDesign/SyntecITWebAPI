@@ -16,5 +16,21 @@ namespace SyntecITWebAPI.ParameterModels.GAS.Parking
 
 		#endregion Public Properties
 	}
+	public class UpsertParkingInfo
+	{
+		#region Public Properties
 
+		public string EmpID
+		{
+			get; set;
+		}
+
+		public string ParkingSpaceNum
+		{
+			get; set;
+		}
+
+
+		#endregion Public Properties
+	}
 }
