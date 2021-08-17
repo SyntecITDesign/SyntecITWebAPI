@@ -20,28 +20,24 @@ namespace SyntecITWebAPI.Models.GAS.ApplyUniform
 
 			return bResult;
 		}
-
-		internal bool DeleteUniformInfo(DeleteUniformInfo DeleteUniformInfoParameter)
+		internal bool DeleteUniformStyle(DeleteUniformStyle DeleteUniformStyleParameter)
 		{
 
-			bool bResult = m_ApplyUniformDBManager.DeleteUniformInfo(DeleteUniformInfoParameter);
+			bool bResult = m_ApplyUniformDBManager.DeleteUniformStyle(DeleteUniformStyleParameter);
 
 			return bResult;
 		}
-
-
-		internal bool UpdateUniformInfo(UpdateUniformInfo UpdateUniformInfoParameter)
+		internal bool UpdateUniformStyleInfo(UpdateUniformStyleInfo UpdateUniformStyleInfoParameter)
 		{
 
-			bool bResult = m_ApplyUniformDBManager.UpdateUniformInfo(UpdateUniformInfoParameter);
+			bool bResult = m_ApplyUniformDBManager.UpdateUniformStyleInfo(UpdateUniformStyleInfoParameter);
 
 			return bResult;
 		}
-
-		internal JArray GetUniformInfo(GetUniformInfo GetUniformInfoParameter)
+		internal JArray GetUniformStyleInfo(GetUniformStyleInfo GetUniformStyleInfoParameter)
 		{
 
-			DataTable dtResult = m_ApplyUniformDBManager.GetUniformInfo(GetUniformInfoParameter);
+			DataTable dtResult = m_ApplyUniformDBManager.GetUniformStyleInfo(GetUniformStyleInfoParameter);
 
 			if (dtResult == null || dtResult.Rows.Count <= 0)
 				return null;
@@ -52,12 +48,100 @@ namespace SyntecITWebAPI.Models.GAS.ApplyUniform
 			}
 		}
 
+		internal bool UpsertUniformQuantityInfo( UpsertUniformQuantityInfo UpsertUniformQuantityInfoParameter )
+		{
 
-        #endregion Internal Methods
+			bool bResult = m_ApplyUniformDBManager.UpsertUniformQuantityInfo( UpsertUniformQuantityInfoParameter );
 
-        #region Private Fields
+			return bResult;
+		}
+		internal bool DeleteUniformQuantity( DeleteUniformQuantity DeleteUniformQuantityParameter )
+		{
 
-        private ApplyUniformDBManager m_ApplyUniformDBManager = new ApplyUniformDBManager();
+			bool bResult = m_ApplyUniformDBManager.DeleteUniformQuantity( DeleteUniformQuantityParameter );
+
+			return bResult;
+		}
+		internal JArray GetUniformQuantityInfo( GetUniformQuantityInfo GetUniformQuantityInfoParameter )
+		{
+
+			DataTable dtResult = m_ApplyUniformDBManager.GetUniformQuantityInfo( GetUniformQuantityInfoParameter );
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal bool InsertUniformOrder( InsertUniformOrder InsertUniformOrderParameter )
+		{
+
+			bool bResult = m_ApplyUniformDBManager.InsertUniformOrder( InsertUniformOrderParameter );
+
+			return bResult;
+		}
+
+		internal bool InsertUniformOrderListDetail( InsertUniformOrderListDetail InsertUniformOrderListDetailParameter )
+		{
+
+			bool bResult = m_ApplyUniformDBManager.InsertUniformOrderListDetail( InsertUniformOrderListDetailParameter );
+
+			return bResult;
+		}
+
+		internal JArray GetUniformOrderList( GetUniformOrderList GetUniformOrderListParameter )
+		{
+
+			DataTable dtResult = m_ApplyUniformDBManager.GetUniformOrderList( GetUniformOrderListParameter );
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal JArray GetUniformOrderListDetail( GetUniformOrderListDetail GetUniformOrderListDetailParameter )
+		{
+
+			DataTable dtResult = m_ApplyUniformDBManager.GetUniformOrderListDetail( GetUniformOrderListDetailParameter );
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal bool DeleteUniformOrder( DeleteUniformOrder DeleteUniformOrderParameter )
+		{
+
+			bool bResult = m_ApplyUniformDBManager.DeleteUniformOrder( DeleteUniformOrderParameter );
+
+			return bResult;
+		}
+
+		internal bool UpdateUniformOrder( UpdateUniformOrder UpdateUniformOrderParameter )
+		{
+
+			bool bResult = m_ApplyUniformDBManager.UpdateUniformOrder( UpdateUniformOrderParameter );
+
+			return bResult;
+		}
+
+
+		#endregion Internal Methods
+
+		#region Private Fields
+
+		private ApplyUniformDBManager m_ApplyUniformDBManager = new ApplyUniformDBManager();
 
 		#endregion Private Fields
 	}
