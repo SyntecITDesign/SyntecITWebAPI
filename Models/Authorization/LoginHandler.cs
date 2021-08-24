@@ -45,7 +45,7 @@ namespace SyntecITWebAPI.Models
 				var loginResultCode = jsonLoginResult.Properties().Select( p => p.Name ).FirstOrDefault();
 
 				// select errorCode according to the error code from previous login web service
-				switch( loginResultCode )
+				switch(loginResultCode)
 				{
 					case "E004":
 						responseHandler.Code = Enums.ErrorCodeList.Auth_Error;
@@ -67,8 +67,13 @@ namespace SyntecITWebAPI.Models
 						responseHandler.Detail = "帳號密碼錯誤 Account or password wrong";
 						break;
 
+					case "E009":
+						responseHandler.Code = Enums.ErrorCodeList.Password_Wrong;
+						responseHandler.Detail = "帳號密碼錯誤 Account or password wrong";
+						break;
+
 					case "0000":
-						if( loginResult.IndexOf( "Website" ) >= 0 )
+						if(loginResult.IndexOf( "Website" ) >= 0)
 						{
 							responseHandler.Code = Enums.ErrorCodeList.UserID_UnExist;
 							responseHandler.Detail = "您尚未註冊解密網站，請先完成註冊動作 You have not registered option system, please register first.";
@@ -86,7 +91,7 @@ namespace SyntecITWebAPI.Models
 						break;
 				}
 			}
-			catch( Exception ex )
+			catch(Exception ex)
 			{
 				responseHandler.Code = Enums.ErrorCodeList.System_Error;
 				responseHandler.Detail = ex.ToString();
@@ -99,13 +104,11 @@ namespace SyntecITWebAPI.Models
 		{
 			var callClient = WebServiceSetting.USER_SERVICE_CLIENT;
 
-			Task<LoginProcessPlatformOPTIONResponse> loginProcessPlatformOPTIONResponseTask = callClient.LoginProcessPlatformOPTIONAsync( new LoginProcessPlatformOPTIONRequest( userID, userPassword, (int)Syntec.Meta.ICTPlatform.Option ) );
+			Task<string> loginProcessPlatformOPTIONResponseTask = callClient.LoginProcessAsync( userID, userPassword, (int)Syntec.Meta.ICTPlatform.TQM );
 
-			LoginProcessPlatformOPTIONResponse response = loginProcessPlatformOPTIONResponseTask.Result;
+			string response = loginProcessPlatformOPTIONResponseTask.Result;
 
-			string result = response.LoginProcessPlatformOPTIONResult;
-
-			return result;
+			return response;
 		}
 
 		#endregion Internal Methods
@@ -126,21 +129,21 @@ namespace SyntecITWebAPI.Models
 		{
 			JObject result = new JObject();
 			//若登入不成功
-			if( !loginResult.ContainsKey( "0000" ) )
+			if(!loginResult.ContainsKey( "0000" ))
 				return null;
 
 			//取得json From的值 => 從內部orOption的身分登入
 			JToken loginSourse = null;
-			if( !loginResult.TryGetValue( "From", out loginSourse ) )
+			if(!loginResult.TryGetValue( "From", out loginSourse ))
 				return null;
 
-			switch( loginSourse.ToString() )
+			switch(loginSourse.ToString())
 			{
 				//機械廠或機械廠子帳號
 				case "Option":
 					result.Add( "orgCode", (int)SyntecOrganizationList.Machine_Manufacturer );
 					string characterCode;
-					if( m_userDBManager.IsOptionUserMother( userID ) == true )
+					if(m_userDBManager.IsOptionUserMother( userID ) == true)
 						characterCode = SyntecOrganizationList.Machine_Manufacturer.GetDescriptionText();
 					else
 						characterCode = SyntecOrganizationList.Machine_Manufacturer_Branch.GetDescriptionText();
@@ -153,7 +156,7 @@ namespace SyntecITWebAPI.Models
 				case "SYNTECINSIDE":
 					//取得組織代碼
 					JToken orgID = null;
-					if( !loginResult.TryGetValue( "Org", out orgID ) )
+					if(!loginResult.TryGetValue( "Org", out orgID ))
 						return null;
 					else
 					{
