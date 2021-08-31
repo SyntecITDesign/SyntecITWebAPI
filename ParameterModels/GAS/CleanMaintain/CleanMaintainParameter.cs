@@ -81,6 +81,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CleanMaintain
 		{
 			get; set;
 		}
+		public string MaintainMemo
+		{
+			get; set;
+		}
 	}
 	public class InsertMaintainOrder : MaintainOrderListAllField
 	{
@@ -121,7 +125,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CleanMaintain
 		{
 			get; set;
 		}
-
+		public string MaintainUnit
+		{
+			get; set;
+		}
 	}
 	public class InsertMaintainOrderListDetail : MaintainOrderListDetailAllField
 	{
@@ -197,7 +204,11 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CleanMaintain
 		public string CleanStaffType
 		{
 			get; set;
-		}		
+		}
+		public string CleanStaffColor
+		{
+			get; set;
+		}
 	}
 	public class InsertCleanStaffType : CleanStaffTypeAllField
 	{
@@ -216,4 +227,235 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CleanMaintain
 
 	}
 
+	public class CleanAreaPlanAllField
+	{
+		public int CleanAreaPlanXaxis
+		{
+			get; set;
+		}
+		public int CleanAreaPlanYaxis
+		{
+			get; set;
+		}
+		public string CleanAreaPlanAreaPlan
+		{
+			get; set;
+		}
+		public string CleanAreaPlanFloor
+		{
+			get; set;
+		}
+	}
+	public class InsertCleanAreaPlan : CleanAreaPlanAllField
+	{
+
+	}
+	public class DeleteCleanAreaPlan : CleanAreaPlanAllField
+	{
+
+	}
+	public class UpdateCleanAreaPlan : CleanAreaPlanAllField
+	{
+
+	}
+	public class GetCleanAreaPlan : CleanAreaPlanAllField
+	{
+
+	}
+
+	public class CleanStaffInfoAllField
+	{
+		public string CleanStaffInfoID
+		{
+			get; set;
+		}
+		public string CleanStaffInfoName
+		{
+			get; set;
+		}
+		public string CleanStaffInfoTel
+		{
+			get; set;
+		}
+		public string CleanStaffInfoCell
+		{
+			get; set;
+		}
+		public string CleanStaffInfoAddress
+		{
+			get; set;
+		}
+		public int CleanStaffInfoFirm
+		{
+			get; set;
+		}
+		public int CleanStaffInfoType
+		{
+			get; set;
+		}
+		public string CleanStaffInfoBirthDate
+		{
+			get; set;
+		}
+	}
+	public class InsertCleanStaffInfo : CleanStaffInfoAllField
+	{
+
+	}
+	public class DeleteCleanStaffInfo : CleanStaffInfoAllField
+	{
+
+	}
+	public class UpdateCleanStaffInfo : CleanStaffInfoAllField
+	{
+
+	}
+	public class GetCleanStaffInfo : CleanStaffInfoAllField
+	{
+
+	}
+
+	public class CleanAreaInfoAllField
+	{
+		public int CleanAreaInfoAreaNo
+		{
+			get; set;
+		}
+		public string CleanAreaInfoAreaName
+		{
+			get; set;
+		}
+		public string CleanAreaInfoCleanStaff
+		{
+			get; set;
+		}
+		public string CleanAreaInfoColor
+		{
+			get; set;
+		}
+	}
+	public class InsertCleanAreaInfo : CleanAreaInfoAllField
+	{
+
+	}
+	public class DeleteCleanAreaInfo : CleanAreaInfoAllField
+	{
+
+	}
+	public class UpdateCleanAreaInfo : CleanAreaInfoAllField
+	{
+
+	}
+	public class GetCleanAreaInfo : CleanAreaInfoAllField
+	{
+
+	}
+
+	public class MaintainRecordItemInfoAllField
+	{
+		public int MaintainRecordItemInfoNo
+		{
+			get; set;
+		}
+		public string MaintainRecordItemInfoItems
+		{
+			get; set;
+		}
+	}
+	public class InsertMaintainRecordItem : MaintainRecordItemInfoAllField
+	{
+
+	}
+	public class DeleteMaintainRecordItem : MaintainRecordItemInfoAllField
+	{
+
+	}
+	public class UpdateMaintainRecordItemInfo : MaintainRecordItemInfoAllField
+	{
+
+	}
+	public class GetMaintainRecordItemInfo : MaintainRecordItemInfoAllField
+	{
+
+	}
+
+	public class MaintainRecordTypeInfoAllField
+	{
+		public int MaintainRecordTypeInfoNo
+		{
+			get; set;
+		}
+		public int MaintainRecordTypeInfoItems
+		{
+			get; set;
+		}
+		public string MaintainRecordTypeInfoType
+		{
+			get; set;
+		}
+		public int MaintainRecordTypeInfoPeriod
+		{
+			get; set;
+		}
+		public string MaintainRecordTypeInfoStartDate
+		{
+			get; set;
+		}
+	}
+	public class InsertMaintainRecordType : MaintainRecordTypeInfoAllField
+	{
+
+	}
+	public class DeleteMaintainRecordType : MaintainRecordTypeInfoAllField
+	{
+
+	}
+	public class UpdateMaintainRecordTypeInfo : MaintainRecordTypeInfoAllField
+	{
+
+	}
+	public class GetMaintainRecordTypeInfo : MaintainRecordTypeInfoAllField
+	{
+
+	}
+
+	public class MaintainRecordDetailListAllField
+	{
+		public int MaintainRecordDetailListNo
+		{
+			get; set;
+		}
+		public string MaintainRecordDetailListItems
+		{
+			get; set;
+		}
+		public string MaintainRecordDetailListType
+		{
+			get; set;
+		}
+		public string MaintainRecordDetailListMemo
+		{
+			get; set;
+		}
+		public string MaintainRecordDetailListDate
+		{
+			get; set;
+		}
+	}
+	public class InsertMaintainRecordDetailList : MaintainRecordDetailListAllField
+	{
+
+	}
+	public class DeleteMaintainRecordDetailList : MaintainRecordDetailListAllField
+	{
+
+	}
+	public class UpdateMaintainRecordDetailList : MaintainRecordDetailListAllField
+	{
+
+	}
+	public class GetMaintainRecordDetailList : MaintainRecordDetailListAllField
+	{
+
+	}
 }
