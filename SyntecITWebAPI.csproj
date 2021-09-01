@@ -17,29 +17,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\Open\Notify\**" />
-    <Compile Remove="Controllers\Private\Notify\**" />
-    <Compile Remove="Models\Notify\**" />
-    <Compile Remove="ParameterModels\Notify\**" />
-    <Content Remove="Controllers\Open\Notify\**" />
-    <Content Remove="Controllers\Private\Notify\**" />
-    <Content Remove="Models\Notify\**" />
-    <Content Remove="ParameterModels\Notify\**" />
-    <EmbeddedResource Remove="Controllers\Open\Notify\**" />
-    <EmbeddedResource Remove="Controllers\Private\Notify\**" />
-    <EmbeddedResource Remove="Models\Notify\**" />
-    <EmbeddedResource Remove="ParameterModels\Notify\**" />
-    <None Remove="Controllers\Open\Notify\**" />
-    <None Remove="Controllers\Private\Notify\**" />
-    <None Remove="Models\Notify\**" />
-    <None Remove="ParameterModels\Notify\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Common\DBRelated\DBManagers\PublicNotifyDBManager.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Include="obj\Debug\netcoreapp3.1\.NETCoreApp,Version=v3.1.AssemblyAttributes.cs" />
   </ItemGroup>
 
@@ -52,8 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="aliyun-net-sdk-core" Version="1.5.10" />
-    <PackageReference Include="Aliyun.OSS.SDK.NetCore" Version="2.13.0" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="JWT" Version="8.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.10" />
@@ -75,6 +50,12 @@
   
 
   <ItemGroup>
+    <Reference Include="aliyun-net-sdk-core">
+      <HintPath>ExternalDlls\aliyun-net-sdk-core.dll</HintPath>
+    </Reference>
+    <Reference Include="aliyun-net-sdk-sms">
+      <HintPath>ExternalDlls\aliyun-net-sdk-sms.dll</HintPath>
+    </Reference>
     <Reference Include="myDatabaseCmd">
       <HintPath>ExternalDlls\myDatabaseCmd.dll</HintPath>
     </Reference>
