@@ -393,6 +393,20 @@ namespace SyntecITWebAPI.Common.DBRelated
 			}
 		}
 
+		public string UpsertUnStableIndexV2
+		{
+			get {
+				return $@"IF EXISTS (SELECT * FROM [{m_crm}].[dbo].SynService_UnStableIndexV2 WHERE serial_number=@Parameter0 and [time] = @Parameter1 AND  [is_bootup]=@Parameter2  
+									AND  [bootup_time]=@Parameter3 AND  [cnc_version]=@Parameter4 AND  [first_driver_version]=@Parameter5 AND  [second_driver_version]=@Parameter6)
+							UPDATE [{m_crm}].[dbo].SynService_UnStableIndexV2 SET [detail_json]=@Parameter7, [modi_date]=DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() ))
+							WHERE serial_number=@Parameter0 and [time] = @Parameter1 AND  [is_bootup]=@Parameter2  AND  [bootup_time]=@Parameter3 
+									AND  [cnc_version]=@Parameter4 AND  [first_driver_version]=@Parameter5 AND  [second_driver_version]=@Parameter6
+						ELSE
+						INSERT INTO [{m_crm}].[dbo].SynService_UnStableIndexV2 ([serial_number],[time],[is_bootup],[bootup_time],[cnc_version],[first_driver_version],[second_driver_version],[detail_json],[cons_date],[modi_date]) 
+						VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6, @Parameter7,DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))  ";
+			}
+		}
+
 		public string UpsertEventTypeList
 		{
 			get
