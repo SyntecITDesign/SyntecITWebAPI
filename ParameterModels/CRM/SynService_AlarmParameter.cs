@@ -475,4 +475,60 @@ namespace SyntecITWebAPI.ParameterModels.CRM
 		#endregion Public Properties
 
 	}
+
+	public class Fields
+	{
+		public string customfield_13340
+		{
+			get; set;
+		}
+	}
+
+	public class Issue
+	{
+		public string expand
+		{
+			get; set;
+		}
+		public string id
+		{
+			get; set;
+		}
+		public string self
+		{
+			get; set;
+		}
+		public string key
+		{
+			get; set;
+		}
+		public Fields fields
+		{
+			get; set;
+		}
+	}
+
+	public class Root
+	{
+		public string expand
+		{
+			get; set;
+		}
+		public int startAt
+		{
+			get; set;
+		}
+		public int maxResults
+		{
+			get; set;
+		}
+		public int total
+		{
+			get; set;
+		}
+		public List<Issue> issues
+		{
+			get; set;
+		}
+	}
 }

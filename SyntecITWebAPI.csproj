@@ -80,6 +80,9 @@
     <Reference Include="Syntec.Flow.Utility">
       <HintPath>ExternalDlls\Syntec.Flow.Utility.dll</HintPath>
     </Reference>
+    <Reference Include="Syntec.JiraHelper">
+      <HintPath>..\..\..\SyntecProject\lib\Syntec.JiraHelper.dll</HintPath>
+    </Reference>
     <Reference Include="Syntec.Meta">
       <HintPath>ExternalDlls\Syntec.Meta.dll</HintPath>
     </Reference>

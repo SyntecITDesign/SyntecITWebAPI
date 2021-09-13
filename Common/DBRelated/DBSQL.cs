@@ -323,7 +323,7 @@ namespace SyntecITWebAPI.Common.DBRelated
 				return $@"SELECT R.[crmid],CRM.issuekey as jiraid,CRM.created,CRM.signdate,R.[url],R.[title]
 						  FROM [{m_jirareport}].[dbo].[remotelink] R
 						  left join [{m_jirareport}].[dbo].CRM on R.CRMID = CRM.crmid 
-						  where CRM.SignDate between @Parameter0 and @Parameter1  and R.title like @Parameter2 ";
+						  where R.[crmid] in {{CRMID_REPLACE}}  and R.title like @Parameter0  ";
 			}
 		}
 

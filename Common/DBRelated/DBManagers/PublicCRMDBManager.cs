@@ -3,6 +3,9 @@ using SyntecITWebAPI.ParameterModels.LatestNews;
 using System.Collections.Generic;
 using System.Data;
 using SyntecITWebAPI.ParameterModels.CRM;
+using Syntec.JiraHelper;
+using System.Net;
+using Newtonsoft.Json;
 
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 {
@@ -13,11 +16,18 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 		internal DataTable GetCRMOSSFileLink(GetCRMOSSFileLink GetCRMOSSFileLinkParameter)
 		{
-			string sql = m_dbSQL.GetCRMOSSFileLink;
+			string jqlResult = JiraHelper.GetIssueByJQL( "CRM_ROBOT", "Syntec1234", "project = CRM  AND status changed from 服務處理中 to closed during (\""+ GetCRMOSSFileLinkParameter.start_time + "\",\""+ GetCRMOSSFileLinkParameter.end_time + "\")  and 服務類別 !~  \"业务拜访\"&maxResults=-1&fields=customfield_13340" );
+			Root jo = JsonConvert.DeserializeObject<Root>( jqlResult );
+			string allCRMTickets = "('";
+			foreach(var CSNumber in jo.issues)
+			{
+				allCRMTickets += CSNumber.fields.customfield_13340 + "','";
+			}
+			allCRMTickets = allCRMTickets.Substring( 0, allCRMTickets.Length - 3);//去掉最後一個','
+			allCRMTickets += "')";
+			string sql = m_dbSQL.GetCRMOSSFileLink.Replace( "{CRMID_REPLACE}", allCRMTickets );
 			List<object> SQLParameterList = new List<object>()
 			{
-				GetCRMOSSFileLinkParameter.start_time,
-				GetCRMOSSFileLinkParameter.end_time,
 				"%"+GetCRMOSSFileLinkParameter.title+"%"
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray());
