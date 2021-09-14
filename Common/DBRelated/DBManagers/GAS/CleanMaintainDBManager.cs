@@ -114,10 +114,12 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal DataTable GetMaintainQuantityInfo( GetMaintainQuantityInfo GetMaintainQuantityInfoParameter )
 		{
-			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[MaintainQuantityInfo]
-						WHERE [Type]=@Parameter0
-						ORDER BY [Type],[Items]";
+			string sql = $@"SELECT [MaintainQuantityInfo].[Type],[MaintainQuantityInfo].[Items],[MaintainQuantityInfo].[Quantity],[MaintainQuantityInfo].[AlertQuantity],[MaintainQuantityInfo].[Unit],[MaintainTypeInfo].[Type] as 'TypeName'
+									FROM [SyntecGAS].[dbo].[MaintainQuantityInfo]
+									INNER JOIN[SyntecGAS].[dbo].[MaintainTypeInfo]
+									ON[MaintainQuantityInfo].[Type] =[MaintainTypeInfo].[No]
+									WHERE [MaintainQuantityInfo].[Type] like @Parameter0
+									ORDER BY [Type],[Items]";
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetMaintainQuantityInfoParameter.MaintainTypeNo,
@@ -400,13 +402,15 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 									FROM [SyntecGAS].[dbo].[CleanAreaPlan]
 									left JOIN[SyntecGAS].[dbo].[CleanAreaInfo]
 									ON [CleanAreaInfo].[AreaNo] =[CleanAreaPlan].[AreaPlan]
-									ORDER BY [Yaxis],[Xaxis]";
+									WHERE [Floor] Like @Parameter3 and [AreaPlan] <> 0
+									ORDER BY [Yaxis],[Xaxis],[Floor]";
 
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetCleanAreaPlanParameter.CleanAreaPlanXaxis,
 				GetCleanAreaPlanParameter.CleanAreaPlanYaxis,
-				GetCleanAreaPlanParameter.CleanAreaPlanAreaPlan
+				GetCleanAreaPlanParameter.CleanAreaPlanAreaPlan,
+				GetCleanAreaPlanParameter.CleanAreaPlanFloor
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
@@ -700,11 +704,12 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 												[MaintainRecordTypeInfo].[Type],
 												[MaintainRecordTypeInfo].[Period],
 												[MaintainRecordTypeInfo].[StartDate],
+												[MaintainRecordTypeInfo].[EndDate],
 												[MaintainRecordItemInfo].[Items]
 									FROM [SyntecGAS].[dbo].[MaintainRecordTypeInfo]
 									INNER JOIN [SyntecGAS].[dbo].[MaintainRecordItemInfo]
 									ON [MaintainRecordTypeInfo].[Items]=[MaintainRecordItemInfo].[No]
-WHERE [MaintainRecordTypeInfo].[Items]=@Parameter1";
+WHERE [MaintainRecordTypeInfo].[Items] LIKE @Parameter1";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -712,7 +717,8 @@ WHERE [MaintainRecordTypeInfo].[Items]=@Parameter1";
 				GetMaintainRecordTypeInfoParameter.MaintainRecordTypeInfoItems,
 				GetMaintainRecordTypeInfoParameter.MaintainRecordTypeInfoType,
 				GetMaintainRecordTypeInfoParameter.MaintainRecordTypeInfoPeriod,
-				GetMaintainRecordTypeInfoParameter.MaintainRecordTypeInfoStartDate
+				GetMaintainRecordTypeInfoParameter.MaintainRecordTypeInfoStartDate,
+				GetMaintainRecordTypeInfoParameter.MaintainRecordTypeInfoEndDate
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
@@ -760,7 +766,7 @@ WHERE [MaintainRecordTypeInfo].[Items]=@Parameter1";
 		internal bool UpdateMaintainRecordTypeInfo( UpdateMaintainRecordTypeInfo UpdateMaintainRecordTypeInfoParameter )
 		{
 			string sql = $@"UPDATE [SyntecGAS].[dbo].[MaintainRecordTypeInfo]
-							set [Period]=@Parameter3,[StartDate]=@Parameter4
+							set [Period]=@Parameter3,[StartDate]=@Parameter4,[EndDate]=@Parameter5
 							where [No]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -768,7 +774,8 @@ WHERE [MaintainRecordTypeInfo].[Items]=@Parameter1";
 				UpdateMaintainRecordTypeInfoParameter.MaintainRecordTypeInfoItems,
 				UpdateMaintainRecordTypeInfoParameter.MaintainRecordTypeInfoType,
 				UpdateMaintainRecordTypeInfoParameter.MaintainRecordTypeInfoPeriod,
-				UpdateMaintainRecordTypeInfoParameter.MaintainRecordTypeInfoStartDate
+				UpdateMaintainRecordTypeInfoParameter.MaintainRecordTypeInfoStartDate,
+				UpdateMaintainRecordTypeInfoParameter.MaintainRecordTypeInfoEndDate
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;

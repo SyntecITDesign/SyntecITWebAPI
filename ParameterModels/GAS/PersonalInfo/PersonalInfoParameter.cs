@@ -16,6 +16,33 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 
 		#endregion Public Properties
 	}
+
+	public class GetFuzzyPersonalInfo
+	{
+		#region Public Properties
+
+		public string EmpID
+		{
+			get; set;
+		}
+
+		#endregion Public Properties
+	}
+	public class GetPersonalInfoByNameOrg
+	{
+		#region Public Properties
+
+		public string EmpName
+		{
+			get; set;
+		}
+		public string DeptName
+		{
+			get; set;
+		}
+
+		#endregion Public Properties
+	}
 	public class GetPersonalGASInfo
 	{
 		#region Public Properties

@@ -34,6 +34,47 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+
+		[Route( "GetFuzzyPersonalInfo" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult GetFuzzyPersonalInfo( [FromBody] GetFuzzyPersonalInfo GetFuzzyPersonalInfoParameter )
+		{
+			JArray result = m_publicPersonalInfoHandler.GetFuzzyPersonalInfo( GetFuzzyPersonalInfoParameter );
+
+			if(result == null)
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "GetPersonalInfoByNameOrg" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult GetPersonalInfoByNameOrg( [FromBody] GetPersonalInfoByNameOrg GetPersonalInfoByNameOrgParameter )
+		{
+			JArray result = m_publicPersonalInfoHandler.GetPersonalInfoByNameOrg( GetPersonalInfoByNameOrgParameter );
+
+			if(result == null)
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		[Route( "GetPersonalGASInfo" )]
 		//[CheckTokenFilter]
 		//[PrivateCookieFilter]

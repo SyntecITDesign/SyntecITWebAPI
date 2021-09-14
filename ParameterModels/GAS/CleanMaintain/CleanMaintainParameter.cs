@@ -28,7 +28,7 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CleanMaintain
 
 	public class MaintainQuantityAllField
 	{
-		public int MaintainTypeNo
+		public string MaintainTypeNo
 		{
 			get; set;
 		}
@@ -398,6 +398,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CleanMaintain
 			get; set;
 		}
 		public string MaintainRecordTypeInfoStartDate
+		{
+			get; set;
+		}
+		public string MaintainRecordTypeInfoEndDate
 		{
 			get; set;
 		}

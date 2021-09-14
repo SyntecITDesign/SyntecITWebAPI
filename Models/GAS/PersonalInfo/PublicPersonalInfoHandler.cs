@@ -31,6 +31,36 @@ namespace SyntecITWebAPI.Models.GAS.PersonalInfo
 				return ja;
 			}
 		}
+		internal JArray GetFuzzyPersonalInfo( GetFuzzyPersonalInfo GetFuzzyPersonalInfoParameter )
+		{
+
+			DataTable dtResult = m_publicPersonalInfoDBManager.GetFuzzyPersonalInfo( GetFuzzyPersonalInfoParameter );
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+		internal JArray GetPersonalInfoByNameOrg( GetPersonalInfoByNameOrg GetPersonalInfoByNameOrgParameter )
+		{
+
+			DataTable dtResult = m_publicPersonalInfoDBManager.GetPersonalInfoByNameOrg( GetPersonalInfoByNameOrgParameter );
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
 		internal JArray QueryPersonalGASInfo( GetPersonalGASInfo GetPersonalGASInfoParameter )
 		{
 

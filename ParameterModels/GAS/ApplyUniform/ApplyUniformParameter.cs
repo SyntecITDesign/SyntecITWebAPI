@@ -31,7 +31,7 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyUniform
 
 	public class UniformQuantityAllField
 	{
-		public int UniformStyleNo
+		public string UniformStyleNo
 		{
 			get; set;
 		}

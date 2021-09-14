@@ -417,65 +417,6 @@ namespace SyntecITWebAPI.ParameterModels.CRM
 
 	}
 
-	public class SynService_UnStableIndexV2
-	{
-		#region Public Properties
-
-		public string serial_number
-		{
-			get; set;
-		}
-
-		public long time
-		{
-			get; set;
-		}
-
-		public int is_bootup
-		{
-			get; set;
-		}
-
-		public long bootup_time
-		{
-			get; set;
-		}
-
-		public string cnc_version
-		{
-			get; set;
-		}
-
-		public string first_driver_version
-		{
-			get; set;
-		}
-
-		public string second_driver_version
-		{
-			get; set;
-		}
-
-		public string detail_json
-		{
-			get; set;
-		}
-
-		public long cons_date
-		{
-			get; set;
-		}
-
-		public long modi_date
-		{
-			get; set;
-		}
-
-
-		#endregion Public Properties
-
-	}
-
 	public class Fields
 	{
 		public string customfield_13340

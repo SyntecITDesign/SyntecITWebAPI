@@ -50,12 +50,6 @@
   
 
   <ItemGroup>
-    <Reference Include="aliyun-net-sdk-core">
-      <HintPath>ExternalDlls\aliyun-net-sdk-core.dll</HintPath>
-    </Reference>
-    <Reference Include="aliyun-net-sdk-sms">
-      <HintPath>ExternalDlls\aliyun-net-sdk-sms.dll</HintPath>
-    </Reference>
     <Reference Include="myDatabaseCmd">
       <HintPath>ExternalDlls\myDatabaseCmd.dll</HintPath>
     </Reference>

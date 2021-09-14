@@ -139,26 +139,6 @@ namespace SyntecITWebAPI.Open.User
 			return Ok(m_responseHandler.GetResult());
 		}
 
-		[Route( "UpsertUnStableIndexV2" )]
-		[CheckTokenFilter]
-		[HttpPost]
-		public IActionResult UpsertUnStableIndexV2( [FromBody] SynService_UnStableIndexV2 SynService_UnStableIndexV2Parameter )
-		{
-
-			bool bResult = m_publicCRMHandler.UpsertUnStableIndexV2( SynService_UnStableIndexV2Parameter );
-
-			if(!bResult)
-			{
-				m_responseHandler.Code = ErrorCodeList.Param_Error;
-			}
-			else
-			{
-				m_responseHandler.Content = "true";
-			}
-
-			return Ok( m_responseHandler.GetResult() );
-		}
-
 		[Route("UpsertEventTypeList")]
 		[CheckTokenFilter]
 		[HttpPost]

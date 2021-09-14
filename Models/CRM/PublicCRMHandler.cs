@@ -79,14 +79,6 @@ namespace SyntecITWebAPI.Models
 			return bResult;
 		}
 
-		internal bool UpsertUnStableIndexV2( SynService_UnStableIndexV2 SynService_UnStableIndexV2Parameter )
-		{
-
-			bool bResult = m_publicCRMDBManager.UpsertUnStableIndexV2( SynService_UnStableIndexV2Parameter );
-
-			return bResult;
-		}
-
 		internal bool UpsertEventTypeList(SynService_EventTypeList SynService_EventTypeListParameter)
 		{
 

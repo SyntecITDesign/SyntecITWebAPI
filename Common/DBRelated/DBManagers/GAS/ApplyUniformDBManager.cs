@@ -120,10 +120,13 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal DataTable GetUniformQuantityInfo( GetUniformQuantityInfo GetUniformQuantityInfoParameter )
 		{
-			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[UniformQuantityInfo]
-						WHERE [Style]=@Parameter1
-						ORDER BY [Style],[Size]";
+			string sql = $@"SELECT [UniformStyleInfo].[Style] as 'StyleName',[UniformQuantityInfo].[AlertQuantity], [UniformStyleInfo].[No] as 'Style',[UniformQuantityInfo].[Size],[UniformQuantityInfo].[Quantity]
+									FROM[SyntecGAS].[dbo].[UniformStyleInfo]
+									INNER JOIN[SyntecGAS].[dbo].[UniformQuantityInfo]
+									ON[UniformStyleInfo].[No] =[UniformQuantityInfo].[Style]
+									WHERE[No] like @Parameter1
+									ORDER BY[No],[Size]";
+
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetUniformQuantityInfoParameter.UniformStyleSize,

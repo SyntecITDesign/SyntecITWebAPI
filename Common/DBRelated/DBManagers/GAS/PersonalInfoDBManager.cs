@@ -15,11 +15,61 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"SELECT *
 						  FROM [syntecbarcode].[dbo].[TEMP_NAME]
-						  WHERE [EmpID]=@Parameter0 OR [EmpName]=@Parameter0 ";
+						  WHERE [EmpID]=@Parameter0 OR [EmpName]=@Parameter0";
 
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetPersonalInfoParameter.EmpID
+
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if(result == null || result.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal DataTable GetFuzzyPersonalInfo( GetFuzzyPersonalInfo GetFuzzyPersonalInfoParameter )
+		{
+			string sql = $@"SELECT *
+						  FROM [syntecbarcode].[dbo].[TEMP_NAME]
+						  WHERE ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0) AND [QuitDate] is NULL  ";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+			  '%'+GetFuzzyPersonalInfoParameter.EmpID + '%'
+
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if(result == null || result.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal DataTable GetPersonalInfoByNameOrg( GetPersonalInfoByNameOrg GetPersonalInfoByNameOrgParameter )
+		{
+			string sql = $@"SELECT *
+						  FROM [syntecbarcode].[dbo].[TEMP_NAME]
+						  WHERE [EmpName] = @Parameter0 AND [DeptName] = @Parameter1 ";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+			  GetPersonalInfoByNameOrgParameter.EmpName,
+			  GetPersonalInfoByNameOrgParameter.DeptName
+
 
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
