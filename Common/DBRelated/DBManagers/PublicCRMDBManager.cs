@@ -16,15 +16,34 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 		internal DataTable GetCRMOSSFileLink(GetCRMOSSFileLink GetCRMOSSFileLinkParameter)
 		{
-			string jqlResult = JiraHelper.GetIssueByJQL( "CRM_ROBOT", "Syntec1234", "project = CRM  AND status changed from 服務處理中 to closed during (\""+ GetCRMOSSFileLinkParameter.start_time + "\",\""+ GetCRMOSSFileLinkParameter.end_time + "\")  and 服務類別 !~  \"业务拜访\"&maxResults=-1&fields=customfield_13340" );
-			Root jo = JsonConvert.DeserializeObject<Root>( jqlResult );
+			int startAt = 0;
+			int maxResults = 1000;
 			string allCRMTickets = "('";
-			foreach(var CSNumber in jo.issues)
+			while(true)
 			{
-				allCRMTickets += CSNumber.fields.customfield_13340 + "','";
+				string jqlResult = JiraHelper.GetIssueByJQL( "CRM_ROBOT", "Syntec1234", "project = CRM  AND status changed from 服務處理中 to closed during (\"" + GetCRMOSSFileLinkParameter.start_time + "\",\"" + GetCRMOSSFileLinkParameter.end_time + "\")  and 服務類別 !~  \"业务拜访\"&maxResults=" + maxResults + "&startAt=" + startAt + "&fields=customfield_13340" );
+				Root jo = JsonConvert.DeserializeObject<Root>( jqlResult );
+				foreach(var CSNumber in jo.issues)
+				{
+					allCRMTickets += CSNumber.fields.customfield_13340 + "','";
+				}
+				//檢查是否maxResults > total
+				maxResults = jo.maxResults;
+				startAt = jo.startAt;
+				int total = jo.total;
+				if(total > (maxResults + startAt))
+				{
+					//修改startAt繼續往下跑JQL
+					startAt += maxResults;
+					continue;
+				}
+				else 
+				{
+					allCRMTickets = allCRMTickets.Substring( 0, allCRMTickets.Length - 3 );//去掉最後一個','
+					allCRMTickets += "')";
+					break;
+				}
 			}
-			allCRMTickets = allCRMTickets.Substring( 0, allCRMTickets.Length - 3);//去掉最後一個','
-			allCRMTickets += "')";
 			string sql = m_dbSQL.GetCRMOSSFileLink.Replace( "{CRMID_REPLACE}", allCRMTickets );
 			List<object> SQLParameterList = new List<object>()
 			{
