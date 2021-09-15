@@ -37,6 +37,14 @@ namespace SyntecITWebAPI.Models.GAS.CarBooking
 			return bResult;
 		}
 
+		internal bool DelCarInfo( DelCarInfo DelCarInfoParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.DelCarInfo( DelCarInfoParameter );
+
+			return bResult;
+		}
+
 		internal JArray GetCarTakeInfo( )
 		{
 
@@ -63,6 +71,20 @@ namespace SyntecITWebAPI.Models.GAS.CarBooking
 		{
 
 			DataTable dtResult = m_CarBookingDBManager.GetCarBackInfo(  );
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal JArray GetCarLastBackInfo( GetCarLastBackInfo GetCarLastBackInfoParameter )
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.GetCarLastBackInfo( GetCarLastBackInfoParameter );
 
 			if(dtResult == null || dtResult.Rows.Count <= 0)
 				return null;
@@ -123,6 +145,131 @@ namespace SyntecITWebAPI.Models.GAS.CarBooking
 				JArray ja = JArray.FromObject( dtResult );
 				return ja;
 			}
+		}
+
+		internal JArray GetCarRepairFrequency()
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.GetCarRepairFrequency();
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal bool UpsertCarRepairFrequency( UpsertCarRepairFrequency UpsertCarRepairFrequencyParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.UpsertCarRepairFrequency( UpsertCarRepairFrequencyParameter );
+
+			return bResult;
+		}
+
+		internal bool DeleteCarRepairFrequency( DeleteCarRepairFrequency DeleteCarRepairFrequencyParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.DeleteCarRepairFrequency( DeleteCarRepairFrequencyParameter );
+
+			return bResult;
+		}
+
+		internal JArray GetCarRepairRecord()
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.GetCarRepairRecord();
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal JArray GetCarRepairCost()
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.GetCarRepairCost();
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+		internal bool UpsertCarRepairRecord( UpsertCarRepairRecord UpsertCarRepairRecordParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.UpsertCarRepairRecord( UpsertCarRepairRecordParameter );
+
+			return bResult;
+		}
+
+		internal JArray GetCarFavoriteLink()
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.GetCarFavoriteLink();
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal bool UpsertCarFavoriteLink( UpsertCarFavoriteLink UpsertCarFavoriteLinkParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.UpsertCarFavoriteLink( UpsertCarFavoriteLinkParameter );
+
+			return bResult;
+		}
+
+		internal bool DelCarFavoriteLink( DelCarFavoriteLink DelCarFavoriteLinkParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.DelCarFavoriteLink( DelCarFavoriteLinkParameter );
+
+			return bResult;
+		}
+
+		internal JArray GetCarInsurance()
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.GetCarInsurance();
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal bool UpsertCarInsurance( UpsertCarInsurance UpsertCarInsuranceParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.UpsertCarInsurance( UpsertCarInsuranceParameter );
+
+			return bResult;
+		}
+
+		internal bool DelCarInsurance( DelCarInsurance DelCarInsuranceParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.DelCarInsurance( DelCarInsuranceParameter );
+
+			return bResult;
 		}
 
 		#endregion Internal Methods

@@ -38,10 +38,30 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		[Route( "UpsertCarInfo" )]
 		//[CheckTokenFilter]
 		[HttpPost]
-		public IActionResult UpsertUniformSize( [FromBody] UpsertCarInfo UpsertCarInfoParameter )
+		public IActionResult UpsertCarInfo( [FromBody] UpsertCarInfo UpsertCarInfoParameter )
 		{
 
 			bool bResult = m_publicCarBookingHandler.UpsertCarInfo( UpsertCarInfoParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "DelCarInfo" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DelCarInfo( [FromBody] DelCarInfo DelCarInfoParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.DelCarInfo( DelCarInfoParameter );
 
 			if(!bResult)
 			{
@@ -102,6 +122,25 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		public IActionResult GetCarBackInfo(  )
 		{
 			JArray result = m_publicCarBookingHandler.GetCarBackInfo( );
+
+			if(result == null)
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "GetCarLastBackInfo" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult GetCarLastBackInfo( [FromBody] GetCarLastBackInfo GetCarLastBackInfoParameter )
+		{
+			JArray result = m_publicCarBookingHandler.GetCarLastBackInfo( GetCarLastBackInfoParameter );
 
 			if(result == null)
 			{
@@ -213,6 +252,246 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 			else
 			{
 				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "GetCarRepairFrequency" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpGet]
+		public IActionResult GetCarRepairFrequency()
+		{
+			JArray result = m_publicCarBookingHandler.GetCarRepairFrequency();
+
+			if(result == null)
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "UpsertCarRepairFrequency" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertCarRepairFrequency( [FromBody] UpsertCarRepairFrequency UpsertCarRepairFrequencyParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.UpsertCarRepairFrequency( UpsertCarRepairFrequencyParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "DeleteCarRepairFrequency" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DeleteCarRepairFrequency( [FromBody] DeleteCarRepairFrequency DeleteCarRepairFrequencyParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.DeleteCarRepairFrequency( DeleteCarRepairFrequencyParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "GetCarRepairRecord" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpGet]
+		public IActionResult GetCarRepairRecord()
+		{
+			JArray result = m_publicCarBookingHandler.GetCarRepairRecord();
+
+			if(result == null)
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "GetCarRepairCost" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpGet]
+		public IActionResult GetCarRepairCost()
+		{
+			JArray result = m_publicCarBookingHandler.GetCarRepairCost();
+
+			if(result == null)
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "UpsertCarRepairRecord" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertCarRepairRecord( [FromBody] UpsertCarRepairRecord UpsertCarRepairRecordParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.UpsertCarRepairRecord( UpsertCarRepairRecordParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "GetCarFavoriteLink" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpGet]
+		public IActionResult GetCarFavoriteLink()
+		{
+			JArray result = m_publicCarBookingHandler.GetCarFavoriteLink();
+
+			if(result == null)
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "UpsertCarFavoriteLink" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertCarFavoriteLink( [FromBody] UpsertCarFavoriteLink UpsertCarFavoriteLinkParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.UpsertCarFavoriteLink( UpsertCarFavoriteLinkParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "DelCarFavoriteLink" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DelCarFavoriteLink( [FromBody] DelCarFavoriteLink DelCarFavoriteLinkParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.DelCarFavoriteLink( DelCarFavoriteLinkParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "GetCarInsurance" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpGet]
+		public IActionResult GetCarInsurance()
+		{
+			JArray result = m_publicCarBookingHandler.GetCarInsurance();
+
+			if(result == null)
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "UpsertCarInsurance" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertCarInsurance( [FromBody] UpsertCarInsurance UpsertCarInsuranceParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.UpsertCarInsurance( UpsertCarInsuranceParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "DelCarInsurance" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DelCarInsurance( [FromBody] DelCarInsurance DelCarInsuranceParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.DelCarInsurance( DelCarInsuranceParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
 			}
 
 			return Ok( m_responseHandler.GetResult() );
