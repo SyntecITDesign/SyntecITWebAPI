@@ -50,6 +50,15 @@
   
 
   <ItemGroup>
+    <Reference Include="aliyun-net-sdk-core">
+      <HintPath>..\..\..\SyntecProject\ext-lib\aliyun-net-sdk-core.dll</HintPath>
+    </Reference>
+    <Reference Include="aliyun-net-sdk-sms">
+      <HintPath>..\..\..\SyntecProject\ext-lib\aliyun-net-sdk-sms.dll</HintPath>
+    </Reference>
+    <Reference Include="Aliyun.OSS">
+      <HintPath>..\..\..\SyntecProject\ext-lib\Aliyun.OSS.dll</HintPath>
+    </Reference>
     <Reference Include="myDatabaseCmd">
       <HintPath>ExternalDlls\myDatabaseCmd.dll</HintPath>
     </Reference>

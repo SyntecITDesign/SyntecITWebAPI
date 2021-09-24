@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
   <parameter name="IIS Web Application Name" description="" value="SyntecIT\api\v1" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\fICT_8159_SNOverview\\SyntecITWebAPI\\obj\\Release\\netcoreapp3\.1\\PubTmp\\Out\\$" />
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\Trunk\\ITAPI_trunk\\SyntecITWebAPI\\obj\\Release\\netcoreapp3\.1\\PubTmp\\Out\\$" />
   </parameter>
 </parameters>

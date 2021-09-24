@@ -80,4 +80,60 @@ namespace SyntecITWebAPI.ParameterModels.Notify
 		#endregion Public Properties
 
 	}
+
+	public class SendVerifyCode
+	{
+		#region Public Properties
+
+		public string countryCode
+		{
+			get; set;
+		}
+
+		public string phone
+		{
+			get; set;
+		}
+
+		public string verifyCode
+		{
+			get; set;
+		}
+
+		public string language
+		{
+			get; set;
+		}
+
+		public string application
+		{
+			get; set;
+		}
+
+		#endregion Public Properties
+
+	}
+
+	public class CheckVerifyCode
+	{
+		#region Public Properties
+
+		public string phone
+		{
+			get; set;
+		}
+
+		public string verifyCode
+		{
+			get; set;
+		}
+
+		public string application
+		{
+			get; set;
+		}
+
+		#endregion Public Properties
+
+	}
 }

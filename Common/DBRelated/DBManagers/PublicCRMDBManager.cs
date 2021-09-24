@@ -136,6 +136,24 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			return bResult;
 		}
 
+		internal bool UpsertUnStableIndexV2( SynService_UnStableIndexV2 SynService_UnStableIndexV2Parameter )
+		{
+			string sql = m_dbSQL.UpsertUnStableIndexV2;
+			List<object> SQLParameterList = new List<object>()
+			{
+				SynService_UnStableIndexV2Parameter.serial_number,
+				SynService_UnStableIndexV2Parameter.time,
+				SynService_UnStableIndexV2Parameter.is_bootup,
+				SynService_UnStableIndexV2Parameter.bootup_time,
+				SynService_UnStableIndexV2Parameter.cnc_version,
+				SynService_UnStableIndexV2Parameter.first_driver_version,
+				SynService_UnStableIndexV2Parameter.second_driver_version,
+				SynService_UnStableIndexV2Parameter.detail_json
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
 		internal bool UpsertEventTypeList(SynService_EventTypeList SynService_EventTypeListParameter)
 		{
 			string sql = m_dbSQL.UpsertEventTypeList;
