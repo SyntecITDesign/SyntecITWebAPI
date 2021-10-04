@@ -458,6 +458,30 @@ namespace SyntecITWebAPI.Common.DBRelated
 						VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))  ";
 			}
 		}
+
+		public string UpsertMachineInfo
+		{
+			get {
+				return $@"IF EXISTS (SELECT * FROM [{m_crm}].[dbo].SynService_MachineInfo WHERE crm_number=@Parameter0 and serial_number = @Parameter1 and  [axis]=@Parameter19 )
+							UPDATE [{m_crm}].[dbo].SynService_MachineInfo SET [machine_model] = @Parameter2,[machine_type]=@Parameter3, [cnc_version]=@Parameter4, [prd_version]=@Parameter5,
+								[cpu_board]= @Parameter6,[fpga]=@Parameter7, [image_version]=@Parameter8,[option]=@Parameter9,[machine_id]=@Parameter10,[maker_model]=@Parameter11, 
+								[maker_sn]=@Parameter12,[maker_date]=@Parameter13, [developer_sn]=@Parameter14,[phone]=@Parameter15,[use_limit]=@Parameter16,[maker_id]=@Parameter17, 
+								[plc_version]=@Parameter18,[drive_model]=@Parameter20, [drive_version]=@Parameter21,[motor_model]=@Parameter22,[enc_model]=@Parameter23,[enc_version]=@Parameter24, 
+								[enc_resolution]=@Parameter25,[enc2_model]=@Parameter26, [enc2_version]=@Parameter27,[enc2_resolution]=@Parameter28,[addon_model]=@Parameter29,
+								[addon_version]=@Parameter30, [drive_sn]=@Parameter31,[motor_sn]=@Parameter32, [enc_sn]=@Parameter33,[enc2_sn]=@Parameter33,[addon_sn]=@Parameter34,
+								[modi_date]=DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() ))  		
+						WHERE crm_number=@Parameter0 and serial_number = @Parameter1 and  axis=@Parameter19
+						ELSE
+						INSERT INTO [{m_crm}].[dbo].SynService_MachineInfo ([crm_number],[serial_number],[machine_model],[machine_type],[cnc_version],[prd_version],[cpu_board],[fpga],
+								[image_version],[option],[machine_id],[maker_model],[maker_sn],[maker_date],[developer_sn],[phone],[use_limit],[maker_id],[plc_version],[axis],[drive_model],
+								[drive_version],[motor_model],[enc_model],[enc_version],[enc_resolution],[enc2_model],[enc2_version],[enc2_resolution],[addon_model],[addon_version],
+								[drive_sn],[motor_sn],[enc_sn],[enc2_sn],[addon_sn],[cons_date],[modi_date]) 
+						VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4,@Parameter5, @Parameter6, @Parameter7,
+								@Parameter8, @Parameter9,@Parameter10, @Parameter11, @Parameter12, @Parameter13, @Parameter14,@Parameter15, @Parameter16, @Parameter17,@Parameter18, @Parameter19, @Parameter20,
+								@Parameter21, @Parameter22,@Parameter23, @Parameter24, @Parameter25, @Parameter26, @Parameter27,@Parameter28, @Parameter29, @Parameter30,
+								@Parameter31, @Parameter32, @Parameter33, @Parameter34, @Parameter35,DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))  ";
+			}
+		}
 		public string InsertWXMessage
 		{
 			get {

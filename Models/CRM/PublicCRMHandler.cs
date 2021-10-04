@@ -124,11 +124,19 @@ namespace SyntecITWebAPI.Models
             throw new NotImplementedException();
         }
 
-        #endregion Internal Methods
+		internal bool UpsertMachineInfo( SynService_MachineInfo SynService_MachineInfoParameter )
+		{
 
-        #region Private Fields
+			bool bResult = m_publicCRMDBManager.UpsertMachineInfo( SynService_MachineInfoParameter );
 
-        private PublicCRMDBManager m_publicCRMDBManager = new PublicCRMDBManager();
+			return bResult;
+		}
+
+		#endregion Internal Methods
+
+		#region Private Fields
+
+		private PublicCRMDBManager m_publicCRMDBManager = new PublicCRMDBManager();
 
 		#endregion Private Fields
 

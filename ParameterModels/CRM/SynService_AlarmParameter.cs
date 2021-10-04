@@ -476,6 +476,168 @@ namespace SyntecITWebAPI.ParameterModels.CRM
 
 	}
 
+	public class SynService_MachineInfo
+	{
+		#region Public Properties
+
+		public string crm_number
+		{
+			get; set;
+		}
+		public string serial_number
+		{
+			get; set;
+		}
+		public string machine_model
+		{
+			get; set;
+		}
+		public string machine_type
+		{
+			get; set;
+		}
+		public string cnc_version
+		{
+			get; set;
+		}
+		public string prd_version
+		{
+			get; set;
+		}
+		public string cpu_board
+		{
+			get; set;
+		}
+		public string fpga
+		{
+			get; set;
+		}
+		public string image_version
+		{
+			get; set;
+		}
+		public string option
+		{
+			get; set;
+		}
+		public string machine_id
+		{
+			get; set;
+		}
+		public string maker_model
+		{
+			get; set;
+		}
+		public string maker_sn
+		{
+			get; set;
+		}
+		public string maker_date
+		{
+			get; set;
+		}
+		public string developer_sn
+		{
+			get; set;
+		}
+		public string phone
+		{
+			get; set;
+		}
+		public string use_limit
+		{
+			get; set;
+		}
+		public string maker_id
+		{
+			get; set;
+		}
+		public string plc_version
+		{
+			get; set;
+		}
+		public string axis
+		{
+			get; set;
+		}
+		public string drive_model
+		{
+			get; set;
+		}
+		public string drive_version
+		{
+			get; set;
+		}
+		public string motor_model
+		{
+			get; set;
+		}
+		public string enc_model
+		{
+			get; set;
+		}
+		public string enc_version
+		{
+			get; set;
+		}
+		public string enc_resolution
+		{
+			get; set;
+		}
+		public string enc2_model
+		{
+			get; set;
+		}
+		public string enc2_version
+		{
+			get; set;
+		}
+		public string enc2_resolution
+		{
+			get; set;
+		}
+		public string addon_model
+		{
+			get; set;
+		}
+		public string addon_version
+		{
+			get; set;
+		}
+		public string drive_sn
+		{
+			get; set;
+		}
+		public string motor_sn
+		{
+			get; set;
+		}
+		public string enc_sn
+		{
+			get; set;
+		}
+		public string enc2_sn
+		{
+			get; set;
+		}
+		public string addon_sn
+		{
+			get; set;
+		}
+		public long cons_date
+		{
+			get; set;
+		}
+		public long modi_date
+		{
+			get; set;
+		}
+
+
+		#endregion Public Properties
+
+	}
+
 	public class Fields
 	{
 		public string customfield_13340

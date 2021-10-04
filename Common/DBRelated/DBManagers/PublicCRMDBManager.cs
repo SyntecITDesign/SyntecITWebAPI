@@ -208,6 +208,52 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			bool bResult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
 			return bResult;
 		}
+
+		internal bool UpsertMachineInfo( SynService_MachineInfo SynService_MachineInfoParameter )
+		{
+			string sql = m_dbSQL.UpsertMachineInfo;
+			List<object> SQLParameterList = new List<object>()
+			{
+				SynService_MachineInfoParameter.crm_number,
+				SynService_MachineInfoParameter.serial_number,
+				SynService_MachineInfoParameter.machine_model,
+				SynService_MachineInfoParameter.machine_type,
+				SynService_MachineInfoParameter.cnc_version,
+				SynService_MachineInfoParameter.prd_version,
+				SynService_MachineInfoParameter.cpu_board,
+				SynService_MachineInfoParameter.fpga,
+				SynService_MachineInfoParameter.image_version,
+				SynService_MachineInfoParameter.option,
+				SynService_MachineInfoParameter.machine_id,
+				SynService_MachineInfoParameter.maker_model,
+				SynService_MachineInfoParameter.maker_sn,
+				SynService_MachineInfoParameter.maker_date,
+				SynService_MachineInfoParameter.developer_sn,
+				SynService_MachineInfoParameter.phone,
+				SynService_MachineInfoParameter.use_limit,
+				SynService_MachineInfoParameter.maker_id,
+				SynService_MachineInfoParameter.plc_version,
+				SynService_MachineInfoParameter.axis,
+				SynService_MachineInfoParameter.drive_model,
+				SynService_MachineInfoParameter.drive_version,
+				SynService_MachineInfoParameter.motor_model,
+				SynService_MachineInfoParameter.enc_model,
+				SynService_MachineInfoParameter.enc_version,
+				SynService_MachineInfoParameter.enc_resolution,
+				SynService_MachineInfoParameter.enc2_model,
+				SynService_MachineInfoParameter.enc2_version,
+				SynService_MachineInfoParameter.enc2_resolution,
+				SynService_MachineInfoParameter.addon_model,
+				SynService_MachineInfoParameter.addon_version,
+				SynService_MachineInfoParameter.drive_sn,
+				SynService_MachineInfoParameter.motor_sn,
+				SynService_MachineInfoParameter.enc_sn,
+				SynService_MachineInfoParameter.enc2_sn,
+				SynService_MachineInfoParameter.addon_sn
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
 		#endregion Internal Methods
 	}
 }
