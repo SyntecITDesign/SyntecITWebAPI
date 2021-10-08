@@ -8,6 +8,7 @@ using SyntecITWebAPI.Static;
 using SyntecITWebAPI.Utility;
 using SyntecITWebAPI.ParameterModels.Notify;
 using Newtonsoft.Json.Linq;
+using System;
 
 namespace SyntecITWebAPI.Private.OpenNotifyController
 {
@@ -23,15 +24,15 @@ namespace SyntecITWebAPI.Private.OpenNotifyController
 		[HttpPost]
 		public IActionResult SendVerifyCode( [FromBody] SendVerifyCode SendVerifyCodeParameter )
 		{
-			bool bResult = m_publicNotifyHandler.SendVerifyCode( SendVerifyCodeParameter );
+			ErrorCodeList result = m_publicNotifyHandler.SendVerifyCode( SendVerifyCodeParameter );
 
-			if(!bResult)
+			if(result == ErrorCodeList.Success)
 			{
-				m_responseHandler.Code = ErrorCodeList.Param_Error;
+				m_responseHandler.Content = "true";
 			}
 			else
 			{
-				m_responseHandler.Content = "true";
+				m_responseHandler.Code = result;
 			}
 
 			return Ok( m_responseHandler.GetResult() );
@@ -46,7 +47,7 @@ namespace SyntecITWebAPI.Private.OpenNotifyController
 
 			if(!bResult)
 			{
-				m_responseHandler.Code = ErrorCodeList.Verify_Fail;
+				m_responseHandler.Content = "false";
 			}
 			else
 			{
