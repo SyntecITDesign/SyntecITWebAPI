@@ -84,12 +84,12 @@ namespace SyntecITWebAPI.ParameterModels.Notify
 	public class SendVerifyCode
 	{
 		#region Public Properties
-
+		[Required]
 		public string countryCode
 		{
 			get; set;
 		}
-
+		[Required]
 		public string phone
 		{
 			get; set;
@@ -99,12 +99,12 @@ namespace SyntecITWebAPI.ParameterModels.Notify
 		{
 			get; set;
 		}
-
+		[Required]
 		public string language
 		{
 			get; set;
 		}
-
+		[Required]
 		public string application
 		{
 			get; set;

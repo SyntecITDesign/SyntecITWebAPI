@@ -24,6 +24,7 @@
 		Decode_Failed = 10015,
 		WeChat_GetOpenID_Error = 10016,
 		API_Internet_Error = 10018,
+		SMS_Failed = 10019,
 
 		//DB Related
 		Insert_Problem_Type_Wrong = 20001,
