@@ -440,12 +440,12 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		[Route( "GetCarInsurance" )]
 		//[CheckTokenFilter]
 		//[PrivateCookieFilter]
-		[HttpGet]
-		public IActionResult GetCarInsurance()
+		[HttpPost]
+		public IActionResult GetCarInsurance( [FromBody] GetCarInsurance GetCarInsuranceParameter )
 		{
-			JArray result = m_publicCarBookingHandler.GetCarInsurance();
+			JArray result = m_publicCarBookingHandler.GetCarInsurance( GetCarInsuranceParameter );
 
-			if(result == null)
+			if( result == null )
 			{
 				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
 			}
@@ -456,7 +456,25 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+		[Route( "GetCarInsuranceSpecificTime" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult GetCarInsuranceSpecificTime( [FromBody] GetCarInsuranceSpecificTime GetCarInsuranceSpecificTimeParameter )
+		{
+			JArray result = m_publicCarBookingHandler.GetCarInsuranceSpecificTime( GetCarInsuranceSpecificTimeParameter );
 
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 		[Route( "UpsertCarInsurance" )]
 		//[CheckTokenFilter]
 		[HttpPost]
@@ -497,6 +515,124 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "GetCarInsuranceName" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult GetCarInsuranceName( [FromBody] GetCarInsuranceName GetCarInsuranceNameParameter )
+		{
+			JArray result = m_publicCarBookingHandler.GetCarInsuranceName( GetCarInsuranceNameParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "UpsertCarInsuranceName" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertCarInsuranceName( [FromBody] UpsertCarInsuranceName UpsertCarInsuranceNameParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.UpsertCarInsuranceName( UpsertCarInsuranceNameParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "DelCarInsuranceName" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DelCarInsuranceName( [FromBody] DelCarInsuranceName DelCarInsuranceNameParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.DelCarInsuranceName( DelCarInsuranceNameParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "GetCarInsuranceType" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpGet]
+		public IActionResult GetCarInsuranceType()
+		{
+			JArray result = m_publicCarBookingHandler.GetCarInsuranceType();
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "UpsertCarInsuranceType" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertCarInsuranceType( [FromBody] UpsertCarInsuranceType UpsertCarInsuranceTypeParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.UpsertCarInsuranceType( UpsertCarInsuranceTypeParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "DelCarInsuranceType" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DelCarInsuranceType( [FromBody] DelCarInsuranceType DelCarInsuranceTypeParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.DelCarInsuranceType( DelCarInsuranceTypeParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 		#endregion Public Methods
 
 		#region Private Fields

@@ -88,7 +88,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal DataTable GetPersonalGASInfo( GetPersonalGASInfo GetPersonalGASInfoParameter )
 		{
 			string sql = $@"SELECT *
-						  FROM [jirareport].[dbo].[GAS_GAInfoMaster]
+						  FROM [SyntecGAS].[dbo].[GAS_GAInfoMaster]
 						  WHERE [EmpID]=@Parameter0 ";
 
 			List<object> SQLParameterList = new List<object>()
@@ -111,17 +111,15 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 		internal bool UpsertPersonalGASInfo( UpsertPersonalGASInfo UpsertPersonalGASInfoParameter )
 		{
-			string sql = $@"IF EXISTS (SELECT * FROM [jirareport].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0 )
-							UPDATE [jirareport].[dbo].[GAS_GAInfoMaster] 
+			string sql = $@"IF EXISTS (SELECT * FROM [SyntecGAS].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0 )
+							UPDATE [SyntecGAS].[dbo].[GAS_GAInfoMaster] 
 							SET [ExtensionNum]=@Parameter1, [DoorCardNum]=@Parameter2,[MotorLicense]=@Parameter3,[CarLicense]=@Parameter4,[CarLicense_Syntec]=@Parameter5,[DoorCardNum2]=@Parameter6
 							WHERE [EmpID]=@Parameter0 
 						ELSE
-						INSERT INTO [jirareport].[dbo].[GAS_GAInfoMaster] ([EmpID],[ExtensionNum],[DoorCardNum],[MotorLicense],[CarLicense],[CarLicense_Syntec],[DoorCardNum2]) 
+						INSERT INTO [SyntecGAS].[dbo].[GAS_GAInfoMaster] ([EmpID],[ExtensionNum],[DoorCardNum],[MotorLicense],[CarLicense],[CarLicense_Syntec],[DoorCardNum2]) 
 						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6)
 						
-						UPDATE [jirareport].[dbo].[GAS_ParkingSpaceStatusMaster] 
-						SET CarLicence=(SELECT CarLicense FROM [jirareport].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0)
-						WHERE [jirareport].[dbo].[GAS_ParkingSpaceStatusMaster].[EmpID]=@Parameter0";
+						";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -187,7 +185,56 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			}
 		}
 
+		internal DataTable GetParkingProcessingInfo( GetParkingProcessingInfo GetParkingProcessingInfoParameter )
+		{
+			string sql = $@"Select *
+							FROM(SELECT ROW_NUMBER() Over ( Order by [ApplicationDate]) AS 'Row_num',[EmpID],[ApplicationDate],[ApplicationType]
+							  FROM [SyntecGAS].[dbo].[ParkingSpaceApplicationsMaster]
+							  WHERE [Finished]='0') AS A
+							  WHERE A.EmpID = @Parameter0";
 
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetParkingProcessingInfoParameter.EmpID
+
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal DataTable GetMeetingRoomProcessingInfo( GetMeetingRoomProcessingInfo GetMeetingRoomProcessingInfoParameter )
+		{
+			string sql = $@"SELECT *
+							FROM [SyntecGAS].[dbo].[MRBS]
+							WHERE [EmpID]=@Parameter0 and  [PreserveTimeEnd] between getdate()  and   DATEADD(MONTH, 3, GETDATE())
+							ORDER BY [PreserveTimeStart]";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetMeetingRoomProcessingInfoParameter.EmpID
+
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
 	}
 	#endregion Internal Methods
 }

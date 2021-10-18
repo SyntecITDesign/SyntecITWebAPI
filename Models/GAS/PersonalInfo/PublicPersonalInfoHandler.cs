@@ -99,6 +99,36 @@ namespace SyntecITWebAPI.Models.GAS.PersonalInfo
 				return ja;
 			}
 		}
+		internal JArray GetParkingProcessingInfo( GetParkingProcessingInfo GetParkingProcessingInfoParameter )
+		{
+
+			DataTable dtResult = m_publicPersonalInfoDBManager.GetParkingProcessingInfo( GetParkingProcessingInfoParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+		internal JArray GetMeetingRoomProcessingInfo( GetMeetingRoomProcessingInfo GetMeetingRoomProcessingInfoParameter )
+		{
+
+			DataTable dtResult = m_publicPersonalInfoDBManager.GetMeetingRoomProcessingInfo( GetMeetingRoomProcessingInfoParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
 
 		#endregion Internal Methods
 

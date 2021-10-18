@@ -258,10 +258,37 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CarBooking
 		#endregion Public Properties
 	}
 
+	public class GetCarInsurance
+	{
+		#region Public Properties
+		public string CarID
+		{
+			get; set;
+		}
+		#endregion Public Properties
+	}
+
+	public class GetCarInsuranceSpecificTime
+	{
+		#region Public Properties
+		public string CarID
+		{
+			get; set;
+		}
+		public string InsuranceStart
+		{
+			get; set;
+		}
+		#endregion Public Properties
+	}
+
 	public class UpsertCarInsurance
 	{
 		#region Public Properties
-
+		public string No
+		{
+			get; set;
+		}
 		public string CarID
 		{
 			get; set;
@@ -298,13 +325,17 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CarBooking
 		{
 			get; set;
 		}
+		public string Memo
+		{
+			get; set;
+		}
 		#endregion Public Properties
 	}
 
 	public class DelCarInsurance
 	{
 		#region Public Properties
-		public string CarID
+		public string No
 		{
 			get; set;
 		}
@@ -312,4 +343,70 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CarBooking
 		#endregion Public Properties
 	}
 
+	public class GetCarInsuranceName
+	{
+		public string Type
+		{
+			get; set;
+		}
+
+	}
+
+	public class UpsertCarInsuranceName
+	{
+		#region Public Properties
+
+		public string No
+		{
+			get; set;
+		}
+		public string Items
+		{
+			get; set;
+		}
+		public string Type
+		{
+			get; set;
+		}
+
+		#endregion Public Properties
+	}
+	public class DelCarInsuranceName
+	{
+		#region Public Properties
+
+
+		public string Items
+		{
+			get; set;
+		}
+
+		#endregion Public Properties
+	}
+
+	public class UpsertCarInsuranceType
+	{
+		#region Public Properties
+		public string No
+		{
+			get; set;
+		}
+		public string InsuranceType
+		{
+			get; set;
+		}
+		#endregion Public Properties
+
+	}
+	public class DelCarInsuranceType
+	{
+		#region Public Properties
+
+		public string No
+		{
+			get; set;
+		}
+		#endregion Public Properties
+
+	}
 }

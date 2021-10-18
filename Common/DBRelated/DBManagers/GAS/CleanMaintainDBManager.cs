@@ -27,7 +27,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool DeleteMaintainType( DeleteMaintainType DeleteMaintainTypeParameter )
 		{
 			string sql = $@"DELETE [SyntecGAS].[dbo].[MaintainQuantityInfo]
-								where [Type]=@Parameter0
+								where [Type]=@Parameter0;
 								DELETE [SyntecGAS].[dbo].[MaintainTypeInfo]
 								where No=@Parameter0";
 			List<object> SQLParameterList = new List<object>()

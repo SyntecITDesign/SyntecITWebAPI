@@ -242,12 +242,12 @@ namespace SyntecITWebAPI.Models.GAS.CarBooking
 			return bResult;
 		}
 
-		internal JArray GetCarInsurance()
+		internal JArray GetCarInsurance( GetCarInsurance GetCarInsuranceParameter )
 		{
 
-			DataTable dtResult = m_CarBookingDBManager.GetCarInsurance();
+			DataTable dtResult = m_CarBookingDBManager.GetCarInsurance( GetCarInsuranceParameter );
 
-			if(dtResult == null || dtResult.Rows.Count <= 0)
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
 				return null;
 			else
 			{
@@ -255,7 +255,19 @@ namespace SyntecITWebAPI.Models.GAS.CarBooking
 				return ja;
 			}
 		}
+		internal JArray GetCarInsuranceSpecificTime( GetCarInsuranceSpecificTime GetCarInsuranceSpecificTimeParameter )
+		{
 
+			DataTable dtResult = m_CarBookingDBManager.GetCarInsuranceSpecificTime( GetCarInsuranceSpecificTimeParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
 		internal bool UpsertCarInsurance( UpsertCarInsurance UpsertCarInsuranceParameter )
 		{
 
@@ -272,6 +284,64 @@ namespace SyntecITWebAPI.Models.GAS.CarBooking
 			return bResult;
 		}
 
+		internal JArray GetCarInsuranceName( GetCarInsuranceName GetCarInsuranceNameParameter )
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.GetCarInsuranceName( GetCarInsuranceNameParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal bool UpsertCarInsuranceName( UpsertCarInsuranceName UpsertCarInsuranceNameParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.UpsertCarInsuranceName( UpsertCarInsuranceNameParameter );
+
+			return bResult;
+		}
+
+		internal bool DelCarInsuranceName( DelCarInsuranceName DelCarInsuranceNameParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.DelCarInsuranceName( DelCarInsuranceNameParameter );
+
+			return bResult;
+		}
+		internal JArray GetCarInsuranceType()
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.GetCarInsuranceType();
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal bool UpsertCarInsuranceType( UpsertCarInsuranceType UpsertCarInsuranceTypeParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.UpsertCarInsuranceType( UpsertCarInsuranceTypeParameter );
+
+			return bResult;
+		}
+
+		internal bool DelCarInsuranceType( DelCarInsuranceType DelCarInsuranceTypeParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.DelCarInsuranceType( DelCarInsuranceTypeParameter );
+
+			return bResult;
+		}
 		#endregion Internal Methods
 
 		#region Private Fields

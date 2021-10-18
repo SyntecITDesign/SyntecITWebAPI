@@ -1,6 +1,6 @@
 {
-  "appId": "",
-  "appSecret": "",
+  "appId": "wxcdeaa704474168c8",
+  "appSecret": "5df42521914989c37cd690c59109084e",
   "apiUrl": "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code",
   "sendApiUrl": "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=ACCESSTOKEN"
 }

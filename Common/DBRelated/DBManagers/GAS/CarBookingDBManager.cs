@@ -225,7 +225,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 								,[Date]
 								,[Reason])
 							VALUES
-								((SELECT TOP 1 [EmpName] From [jirareport].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0),@Parameter0,'blocked',GETDATE(),@Parameter1)
+								((SELECT TOP 1 [EmpName] From [SyntecGAS].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0),@Parameter0,'blocked',GETDATE(),@Parameter1)
 							";
 
 			List<object> SQLParameterList = new List<object>()
@@ -437,15 +437,44 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
-		internal DataTable GetCarInsurance()
+		internal DataTable GetCarInsurance( GetCarInsurance GetCarInsuranceParameter )
 		{
 			string sql = $@"SELECT *
 							FROM [SyntecGAS].[dbo].[CarInsurance]
-						  ";
-			DataTable result = m_dbproxy.GetDataWithNoParaCMD( sql );
+							WHERE [CarID] = @Parameter0";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetCarInsuranceParameter.CarID
+
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 
 
-			if(result == null || result.Rows.Count <= 0)
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+		internal DataTable GetCarInsuranceSpecificTime( GetCarInsuranceSpecificTime GetCarInsuranceSpecificTimeParameter )
+		{
+			string sql = $@"SELECT *
+							FROM [SyntecGAS].[dbo].[CarInsurance]
+							WHERE [CarID] = @Parameter0 and [InsuranceStart]=@Parameter1";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetCarInsuranceSpecificTimeParameter.CarID,
+				GetCarInsuranceSpecificTimeParameter.InsuranceStart
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if( result == null || result.Rows.Count <= 0 )
 			{
 				return null;
 			}
@@ -456,13 +485,13 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpsertCarInsurance( UpsertCarInsurance UpsertCarInsuranceParameter )
 		{
-			string sql = $@"IF EXISTS (SELECT * FROM  [SyntecGAS].[dbo].[CarInsurance] WHERE [CarID]=@Parameter0 )
+			string sql = $@"IF EXISTS (SELECT * FROM  [SyntecGAS].[dbo].[CarInsurance] WHERE [No]=@Parameter9 )
 							UPDATE  [SyntecGAS].[dbo].[CarInsurance]
-							SET  [CarNumber]=@Parameter1,[InsuranceStart]=@Parameter2,[InsuranceEnd]=@Parameter3,[InsuranceType]=@Parameter4,[InsuranceMoney]=@Parameter5,[SelfPay]=@Parameter6,[InsuranceCost]=@Parameter7,[InsuranceFileName]=@Parameter8
-							WHERE  [CarID]=@Parameter0
+							SET  [CarNumber]=@Parameter1,[InsuranceStart]=@Parameter2,[InsuranceEnd]=@Parameter3,[InsuranceType]=@Parameter4,[InsuranceMoney]=@Parameter5,[SelfPay]=@Parameter6,[InsuranceCost]=@Parameter7,[InsuranceFileName]=@Parameter8,[Memo]=@Parameter10
+							WHERE  [No]=@Parameter9
 						ELSE
-						INSERT INTO [SyntecGAS].[dbo].[CarInsurance] ([CarID],[CarNumber],[InsuranceStart],[InsuranceEnd],[InsuranceType],[InsuranceMoney],[SelfPay],[InsuranceCost],[InsuranceFileName]) 
-						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8)";
+						INSERT INTO [SyntecGAS].[dbo].[CarInsurance] ([CarID],[CarNumber],[InsuranceStart],[InsuranceEnd],[InsuranceType],[InsuranceMoney],[SelfPay],[InsuranceCost],[InsuranceFileName],[Memo]) 
+						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter10)";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -474,7 +503,9 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				UpsertCarInsuranceParameter.InsuranceMoney,
 				UpsertCarInsuranceParameter.SelfPay,
 				UpsertCarInsuranceParameter.InsuranceCost,
-				UpsertCarInsuranceParameter.InsuranceFileName
+				UpsertCarInsuranceParameter.InsuranceFileName,
+				UpsertCarInsuranceParameter.No,
+				UpsertCarInsuranceParameter.Memo
 
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
@@ -484,11 +515,124 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool DelCarInsurance( DelCarInsurance DelCarInsuranceParameter )
 		{
 			string sql = $@"DELETE FROM [SyntecGAS].[dbo].[CarInsurance]
-							WHERE [CarID]=@Parameter0";
+							WHERE [No]=@Parameter0";
 
 			List<object> SQLParameterList = new List<object>()
 			{
-				DelCarInsuranceParameter.CarID
+				DelCarInsuranceParameter.No
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
+		internal DataTable GetCarInsuranceType()
+		{
+			string sql = $@"SELECT *
+							FROM [SyntecGAS].[dbo].[CarInsuranceTypeInfo]
+						  ";
+			DataTable result = m_dbproxy.GetDataWithNoParaCMD( sql );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal bool UpsertCarInsuranceType( UpsertCarInsuranceType UpsertCarInsuranceTypeParameter )
+		{
+			string sql = $@"IF EXISTS (SELECT * FROM  [SyntecGAS].[dbo].[CarInsuranceTypeInfo] WHERE [No]=@Parameter0 )
+							UPDATE  [SyntecGAS].[dbo].[CarInsuranceTypeInfo]
+							SET  [InsuranceType]=@Parameter1
+							WHERE  [No]=@Parameter0
+						ELSE
+						INSERT INTO [SyntecGAS].[dbo].[CarInsuranceTypeInfo] ([InsuranceType]) 
+						VALUES (@Parameter1)";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpsertCarInsuranceTypeParameter.No,
+				UpsertCarInsuranceTypeParameter.InsuranceType
+
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
+		internal bool DelCarInsuranceType( DelCarInsuranceType DelCarInsuranceTypeParameter )
+		{
+			string sql = $@"DELETE FROM [SyntecGAS].[dbo].[CarInsuranceTypeInfo]
+							WHERE [No]=@Parameter0";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				DelCarInsuranceTypeParameter.No
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		internal DataTable GetCarInsuranceName( GetCarInsuranceName GetCarInsuranceNameParameter )
+		{
+			string sql = $@"SELECT [CarInsuranceName].[No],
+												[CarInsuranceName].[Type] as 'TypeNo',
+												[CarInsuranceName].[Items],
+												[CarInsuranceTypeInfo].[InsuranceType]
+									FROM [SyntecGAS].[dbo].[CarInsuranceName]
+									INNER JOIN [SyntecGAS].[dbo].[CarInsuranceTypeInfo]
+									ON [CarInsuranceName].[Type]=[CarInsuranceTypeInfo].[No]
+WHERE [CarInsuranceName].[Type] = @Parameter0";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetCarInsuranceNameParameter.Type
+
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+		internal bool UpsertCarInsuranceName( UpsertCarInsuranceName UpsertCarInsuranceNameParameter )
+		{
+			string sql = $@"IF EXISTS (SELECT * FROM  [SyntecGAS].[dbo].[CarInsuranceName] WHERE [No]=@Parameter0)
+							UPDATE  [SyntecGAS].[dbo].[CarInsuranceName]
+							SET  [Items]=@Parameter1
+							WHERE  [No] = @Parameter0
+						ELSE
+						INSERT INTO [SyntecGAS].[dbo].[CarInsuranceName] ([Type],[Items]) 
+						VALUES (@Parameter2,@Parameter1)";    
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpsertCarInsuranceNameParameter.No,
+				UpsertCarInsuranceNameParameter.Items,
+				UpsertCarInsuranceNameParameter.Type
+
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
+		internal bool DelCarInsuranceName( DelCarInsuranceName DelCarInsuranceNameParameter )
+		{
+			string sql = $@"DELETE FROM [SyntecGAS].[dbo].[CarInsuranceName]
+							WHERE [Items]=@Parameter0";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+
+				DelCarInsuranceNameParameter.Items
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;

@@ -17,11 +17,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="obj\Debug\netcoreapp3.1\.NETCoreApp,Version=v3.1.AssemblyAttributes.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="obj\Debug\netcoreapp3.1\SyntecITWebAPI.csproj.FileListAbsolute.txt" />
+    <Compile Remove="obj\**" />
+    <Content Remove="obj\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <None Remove="obj\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,11 +40,6 @@
     <PackageReference Include="System.ServiceModel.NetTcp" Version="4.4.*" />
     <PackageReference Include="System.ServiceModel.Security" Version="4.4.*" />
     <FrameworkReference Include="Microsoft.WindowsDesktop.App" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="obj\Debug\netcoreapp3.1\SyntecITWebAPI.AssemblyInfoInputs.cache" />
-    <None Include="obj\Debug\netcoreapp3.1\SyntecITWebAPI.csprojAssemblyReference.cache" />
   </ItemGroup>
   
 

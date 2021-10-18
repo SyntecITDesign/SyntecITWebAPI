@@ -106,4 +106,30 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 
 		#endregion Public Properties
 	}
+
+	public class GetParkingProcessingInfo
+	{
+		#region Public Properties
+
+		public string EmpID
+		{
+			get; set;
+		}
+
+
+		#endregion Public Properties
+	}
+
+	public class GetMeetingRoomProcessingInfo
+	{
+		#region Public Properties
+
+		public string EmpID
+		{
+			get; set;
+		}
+
+
+		#endregion Public Properties
+	}
 }

@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <sitemanifest>
-  <IisApp path="D:\Trunk\ITAPI_trunk\SyntecITWebAPI\obj\Release\netcoreapp3.1\PubTmp\Out\" />
+  <IisApp path="D:\trunk_ITAPI\obj\Release\netcoreapp3.1\PubTmp\Out\" />
 </sitemanifest>
