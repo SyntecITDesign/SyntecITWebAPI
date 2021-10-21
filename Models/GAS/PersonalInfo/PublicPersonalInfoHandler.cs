@@ -84,6 +84,14 @@ namespace SyntecITWebAPI.Models.GAS.PersonalInfo
 
 			return bResult;
 		}
+
+		internal bool InsertFreshmanGASInfo( InsertFreshmanGASInfo InsertFreshmanGASInfoParameter )
+		{
+
+			bool bResult = m_publicPersonalInfoDBManager.InsertFreshmanGASInfo( InsertFreshmanGASInfoParameter );
+
+			return bResult;
+		}
 		internal JArray QueryProcessingInfo( GetProcessingInfo GetProcessingInfoParameter )
 		{
 

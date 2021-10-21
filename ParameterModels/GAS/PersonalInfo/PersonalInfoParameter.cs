@@ -90,6 +90,26 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 		#endregion Public Properties
 	}
 
+	public class InsertFreshmanGASInfo
+	{
+		#region Public Properties
+
+		public string EmpName
+		{
+			get; set;
+		}
+		public string MotorLicense
+		{
+			get; set;
+		}
+		public string CarLicense
+		{
+			get; set;
+		}
+		
+		#endregion Public Properties
+	}
+
 	public class GetProcessingInfo
 	{
 		#region Public Properties

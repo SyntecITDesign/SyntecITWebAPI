@@ -141,8 +141,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool InsertGuestGiftOrder( InsertGuestGiftOrder InsertGuestGiftOrderParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[GuestGiftOrderList] ([OrderDate],[Usage],[Memo])
-								VALUES (@Parameter1,@Parameter2,@Parameter3)";
+			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[GuestGiftOrderList] ([OrderDate],[Usage],[Memo],[Ok])
+								VALUES (@Parameter1,@Parameter2,@Parameter3,0)";
 			List<object> SQLParameterList = new List<object>()
 			{
 				InsertGuestGiftOrderParameter.GuestGiftOrderListNo,

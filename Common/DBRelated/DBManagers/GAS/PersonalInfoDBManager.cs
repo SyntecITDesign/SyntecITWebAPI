@@ -15,7 +15,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"SELECT *
 						  FROM [syntecbarcode].[dbo].[TEMP_NAME]
-						  WHERE [EmpID]=@Parameter0 OR [EmpName]=@Parameter0";
+						  WHERE ([EmpID]=@Parameter0 OR [EmpName]=@Parameter0) and [QuitDate] is NULL";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -63,7 +63,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"SELECT *
 						  FROM [syntecbarcode].[dbo].[TEMP_NAME]
-						  WHERE [EmpName] = @Parameter0 AND [DeptName] = @Parameter1 ";
+						  WHERE [EmpName] = @Parameter0 AND [DeptName] = @Parameter1 AND [QuitDate] is NULL";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -131,6 +131,24 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				UpsertPersonalGASInfoParameter.CarLicense_Syntec,
 				UpsertPersonalGASInfoParameter.DoorCardNum2
 
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
+		internal bool InsertFreshmanGASInfo( InsertFreshmanGASInfo InsertFreshmanGASInfoParameter )
+		{
+			string sql = $@"
+						INSERT INTO [SyntecGAS].[dbo].[GAS_GAInfoMaster] ([EmpName],[MotorLicense],[CarLicense]) 
+						VALUES (@Parameter0,@Parameter1,@Parameter2)
+						";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				InsertFreshmanGASInfoParameter.EmpName,
+				InsertFreshmanGASInfoParameter.MotorLicense,
+				InsertFreshmanGASInfoParameter.CarLicense
+				
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
