@@ -255,6 +255,20 @@ namespace SyntecITWebAPI.Models.GAS.CarBooking
 				return ja;
 			}
 		}
+
+		internal JArray GetCarInsuranceNameLast( )
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.GetCarInsuranceNameLast(  );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
 		internal JArray GetCarInsuranceSpecificTime( GetCarInsuranceSpecificTime GetCarInsuranceSpecificTimeParameter )
 		{
 

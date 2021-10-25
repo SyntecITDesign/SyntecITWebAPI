@@ -5,5 +5,6 @@
   "jirareport": "jirareport",
   "crm": "synteccrm",
   "gas": "SyntecGAS",
-  "syntecbbs": "SyntecBBS"
+  "syntecbbs": "SyntecBBS",
+  "bpm": "BPMPro_QAS"
 }

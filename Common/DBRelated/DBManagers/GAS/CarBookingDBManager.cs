@@ -460,6 +460,23 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				return result;
 			}
 		}
+		internal DataTable GetCarInsuranceNameLast()
+		{
+			string sql = $@"SELECT Max([No]) as MaxNo
+							FROM [SyntecGAS].[dbo].[CarInsuranceName]";
+
+			DataTable result = m_dbproxy.GetDataWithNoParaCMD( sql );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
 		internal DataTable GetCarInsuranceSpecificTime( GetCarInsuranceSpecificTime GetCarInsuranceSpecificTimeParameter )
 		{
 			string sql = $@"SELECT *

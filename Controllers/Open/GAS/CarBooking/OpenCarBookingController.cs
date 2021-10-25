@@ -456,6 +456,27 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+
+
+		[Route( "GetCarInsuranceNameLast" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpGet]
+		public IActionResult GetCarInsuranceNameLast( )
+		{
+			JArray result = m_publicCarBookingHandler.GetCarInsuranceNameLast( );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 		[Route( "GetCarInsuranceSpecificTime" )]
 		//[CheckTokenFilter]
 		//[PrivateCookieFilter]

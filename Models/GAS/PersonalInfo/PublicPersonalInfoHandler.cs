@@ -138,6 +138,22 @@ namespace SyntecITWebAPI.Models.GAS.PersonalInfo
 			}
 		}
 
+		internal JArray GetGuestVisitProcessingInfo( GetGuestVisitProcessingInfo GetGuestVisitProcessingInfoParameter )
+		{
+
+			DataTable dtResult = m_publicPersonalInfoDBManager.GetGuestVisitProcessingInfo( GetGuestVisitProcessingInfoParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
 		#endregion Internal Methods
 
 		#region Private Fields

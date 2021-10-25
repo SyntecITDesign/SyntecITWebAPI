@@ -3,13 +3,24 @@ using System.Collections.Generic;
 using System.Data;
 using SyntecITWebAPI.ParameterModels.GAS.PersonalInfo;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 {
 	internal class PublicPersonalInfoDBManager : AbstractDBManager
 	{
 		#region Internal Methods
+		public string m_bpm;
+		public PublicPersonalInfoDBManager()
+		{
+			var configuration = new ConfigurationBuilder()
+			.SetBasePath( $"{Directory.GetCurrentDirectory()}\\Config\\" )
+			.AddJsonFile( path: "DBTableNameSetting.json", optional: false )
+			.Build();
 
+			m_bpm = configuration[ "bpm" ].Trim();
+		}
 
 		internal DataTable GetPersonalInfo( GetPersonalInfo GetPersonalInfoParameter )
 		{
@@ -157,7 +168,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal DataTable GetProcessingInfo( GetProcessingInfo GetProcessingInfoParameter )
 		{
 
-			//string sql = $@"SELECT " + GetProcessingInfoParameter.ApplyString + ".ApplicantID, " + GetProcessingInfoParameter.ApplyString + ".DiagramID, " + GetProcessingInfoParameter.ApplyString + ".ApplicantDateTime FROM  [BPMPro_QAS].[dbo]." + GetProcessingInfoParameter.ApplyString + "  LEFT JOIN [BPMPro_QAS].[dbo].[FSe7en_Sys_Requisition] ON " + GetProcessingInfoParameter.ApplyString + ".RequisitionID = [FSe7en_Sys_Requisition].RequisitionID WHERE " + GetProcessingInfoParameter.ApplyString + ".ApplicantID=@Parameter0 AND [FSe7en_Sys_Requisition].Status='0'";
+			//string sql = $@"SELECT " + GetProcessingInfoParameter.ApplyString + ".ApplicantID, " + GetProcessingInfoParameter.ApplyString + ".DiagramID, " + GetProcessingInfoParameter.ApplyString + ".ApplicantDateTime FROM  [{m_bpm}].[dbo]." + GetProcessingInfoParameter.ApplyString + "  LEFT JOIN [{m_bpm}].[dbo].[FSe7en_Sys_Requisition] ON " + GetProcessingInfoParameter.ApplyString + ".RequisitionID = [FSe7en_Sys_Requisition].RequisitionID WHERE " + GetProcessingInfoParameter.ApplyString + ".ApplicantID=@Parameter0 AND [FSe7en_Sys_Requisition].Status='0'";
 
 			string sql = "";
 			string[] ApplyStringList = (GetProcessingInfoParameter.ApplyString).Split( "," );
@@ -165,7 +176,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 			if(ApplyStringList.Count() == 1)
 			{
-				sql = $@"SELECT " + ApplyStringList[0] + ".ApplicantID, " + ApplyStringList[0] + ".DiagramID, " + ApplyStringList[0] + ".ApplicantDateTime, [FSe7en_Tep_FormHeader].value   FROM ([BPMPro_QAS].[dbo]." + ApplyStringList[0] + " INNER JOIN [BPMPro_QAS].[dbo].[FSe7en_Sys_Requisition] ON " + ApplyStringList[0] + ".RequisitionID = [FSe7en_Sys_Requisition].RequisitionID) INNER JOIN [BPMPro_QAS].[dbo].[FSe7en_Tep_FormHeader] ON [FSe7en_Sys_Requisition].RequisitionID=[FSe7en_Tep_FormHeader].RequisitionID WHERE " + ApplyStringList[0] + ".ApplicantID=@Parameter0 AND [FSe7en_Sys_Requisition].Status='0'";
+				sql = $@"SELECT " + ApplyStringList[0] + ".ApplicantID, " + ApplyStringList[0] + ".DiagramID, " + ApplyStringList[0] + ".ApplicantDateTime, [FSe7en_Tep_FormHeader].value   FROM (["+m_bpm+"].[dbo]." + ApplyStringList[0] + " INNER JOIN ["+m_bpm+"].[dbo].[FSe7en_Sys_Requisition] ON " + ApplyStringList[0] + ".RequisitionID = [FSe7en_Sys_Requisition].RequisitionID) INNER JOIN ["+m_bpm+"].[dbo].[FSe7en_Tep_FormHeader] ON [FSe7en_Sys_Requisition].RequisitionID=[FSe7en_Tep_FormHeader].RequisitionID WHERE " + ApplyStringList[0] + ".ApplicantID=@Parameter0 AND [FSe7en_Sys_Requisition].Status='0'";
 
 			}
 			else
@@ -173,7 +184,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				for(int i = 0; i < ApplyStringList.Count(); i++)
 				{
 
-					string oneofsql = $@"SELECT " + ApplyStringList[i] + ".ApplicantID, " + ApplyStringList[i] + ".DiagramID, " + ApplyStringList[i] + ".ApplicantDateTime, [FSe7en_Tep_FormHeader].value   FROM [BPMPro_QAS].[dbo]." + ApplyStringList[i] + " INNER JOIN [BPMPro_QAS].[dbo].[FSe7en_Sys_Requisition] ON " + ApplyStringList[i] + ".RequisitionID = [FSe7en_Sys_Requisition].RequisitionID INNER JOIN [BPMPro_QAS].[dbo].[FSe7en_Tep_FormHeader] ON [FSe7en_Sys_Requisition].RequisitionID=[FSe7en_Tep_FormHeader].RequisitionID WHERE " + ApplyStringList[i] + ".ApplicantID=@Parameter0 AND [FSe7en_Sys_Requisition].Status='0'";
+					string oneofsql = $@"SELECT " + ApplyStringList[i] + ".ApplicantID, " + ApplyStringList[i] + ".DiagramID, " + ApplyStringList[i] + ".ApplicantDateTime, [FSe7en_Tep_FormHeader].value   FROM ["+m_bpm+"].[dbo]." + ApplyStringList[i] + " INNER JOIN ["+m_bpm+"].[dbo].[FSe7en_Sys_Requisition] ON " + ApplyStringList[i] + ".RequisitionID = [FSe7en_Sys_Requisition].RequisitionID INNER JOIN ["+m_bpm+"].[dbo].[FSe7en_Tep_FormHeader] ON [FSe7en_Sys_Requisition].RequisitionID=[FSe7en_Tep_FormHeader].RequisitionID WHERE " + ApplyStringList[i] + ".ApplicantID=@Parameter0 AND [FSe7en_Sys_Requisition].Status='0'";
 					sql = sql + oneofsql;
 					if(i != ApplyStringList.Count() - 1) { sql = sql + " UNION ALL "; }
 
@@ -253,7 +264,35 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				return result;
 			}
 		}
+
+		internal DataTable GetGuestVisitProcessingInfo( GetGuestVisitProcessingInfo GetGuestVisitProcessingInfoParameter )
+		{
+			string sql = $@"SELECT *
+							FROM [{m_bpm}].[dbo].[FM7T_GAS_GuestReception_M]
+							WHERE ([VisitDate] + cast([VisitEndTime] as datetime))　> getdate() and [ApplicantID]=@Parameter0
+							ORDER BY ([VisitDate] + cast([VisitEndTime] as datetime))";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetGuestVisitProcessingInfoParameter.EmpID
+
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+		
+		
 	}
 	#endregion Internal Methods
+	
 }
 

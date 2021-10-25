@@ -152,4 +152,11 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 
 		#endregion Public Properties
 	}
+	public class GetGuestVisitProcessingInfo
+	{		public string EmpID
+		{
+			get; set;
+		}
+	}
+	
 }
