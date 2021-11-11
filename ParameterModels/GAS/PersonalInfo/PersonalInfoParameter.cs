@@ -158,5 +158,20 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 			get; set;
 		}
 	}
-	
+
+	public class GetMealOrderInfo
+	{
+		public string EmpID
+		{
+			get; set;
+		}
+	}
+
+	public class GetUniformApplyInfo
+	{
+		public string EmpID
+		{
+			get; set;
+		}
+	}
 }

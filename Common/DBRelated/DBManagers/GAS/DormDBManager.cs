@@ -13,7 +13,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal DataTable GetDormInfo( GetDormInfo GetDormInfoParameter )
 		{
 			string sql = $@"SELECT *
-						  FROM [SyntecGAS].[dbo].[GAS_DormStatusMaster]
+						  FROM [SyntecGAS].[dbo].[DormStatusMaster]
 						  WHERE [RoomTenantID]=@Parameter0 ";
 
 			List<object> SQLParameterList = new List<object>()

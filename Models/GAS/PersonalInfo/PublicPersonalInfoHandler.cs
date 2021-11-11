@@ -154,6 +154,38 @@ namespace SyntecITWebAPI.Models.GAS.PersonalInfo
 			}
 		}
 
+		internal JArray GetMealOrderInfo( GetMealOrderInfo GetMealOrderInfoParameter )
+		{
+
+			DataTable dtResult = m_publicPersonalInfoDBManager.GetMealOrderInfo( GetMealOrderInfoParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal JArray GetUniformApplyInfo( GetUniformApplyInfo GetUniformApplyInfoParameter )
+		{
+
+			DataTable dtResult = m_publicPersonalInfoDBManager.GetUniformApplyInfo( GetUniformApplyInfoParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
 		#endregion Internal Methods
 
 		#region Private Fields

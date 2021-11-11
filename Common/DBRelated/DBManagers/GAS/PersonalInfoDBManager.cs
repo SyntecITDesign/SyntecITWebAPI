@@ -289,8 +289,57 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				return result;
 			}
 		}
-		
-		
+
+		internal DataTable GetMealOrderInfo( GetMealOrderInfo GetMealOrderInfoParameter )
+		{
+			string sql = $@"SELECT *
+							FROM [{m_bpm}].[dbo].[FM7T_GAS_MealOrder_M]
+							WHERE [txt_ApplyDate] >=convert(varchar, getdate(), 23)  and [ApplicantID]=@Parameter0
+							Order By [txt_ApplyDate]";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetMealOrderInfoParameter.EmpID
+
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal DataTable GetUniformApplyInfo( GetUniformApplyInfo GetUniformApplyInfoParameter )
+		{
+			string sql = $@"SELECT *
+							FROM [SyntecGAS].[dbo].[GAS_UniformApplicationsMaster]
+							WHERE [isDone]=0  and [EmpID]=@Parameter0
+							Order By [ApplicationDate]";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetUniformApplyInfoParameter.EmpID
+
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
 	}
 	#endregion Internal Methods
 	

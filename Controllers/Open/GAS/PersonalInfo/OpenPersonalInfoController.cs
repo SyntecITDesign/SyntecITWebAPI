@@ -215,6 +215,46 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+
+		[Route( "GetMealOrderInfo" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult GetMealOrderInfo( [FromBody] GetMealOrderInfo GetMealOrderInfoParameter )
+		{
+			JArray result = m_publicPersonalInfoHandler.GetMealOrderInfo( GetMealOrderInfoParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "GetUniformApplyInfo" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult GetUniformApplyInfo( [FromBody] GetUniformApplyInfo GetUniformApplyInfoParameter )
+		{
+			JArray result = m_publicPersonalInfoHandler.GetUniformApplyInfo( GetUniformApplyInfoParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 		#endregion Public Methods
 
 		#region Private Fields
