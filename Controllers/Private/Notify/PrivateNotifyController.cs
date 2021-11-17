@@ -28,7 +28,7 @@ namespace SyntecITWebAPI.Private.OpenNotifyController
 
 			if(result == ErrorCodeList.Success)
 			{
-				m_responseHandler.Content = "true";
+				m_responseHandler.Content = true;
 			}
 			else
 			{
@@ -44,16 +44,7 @@ namespace SyntecITWebAPI.Private.OpenNotifyController
 		public IActionResult CheckVerifyCode( [FromBody] CheckVerifyCode CheckVerifyCodeParameter )
 		{
 			bool bResult = m_publicNotifyHandler.CheckVerifyCode( CheckVerifyCodeParameter );
-
-			if(!bResult)
-			{
-				m_responseHandler.Content = "false";
-			}
-			else
-			{
-				m_responseHandler.Content = "true";
-			}
-
+			m_responseHandler.Content = bResult;
 			return Ok( m_responseHandler.GetResult() );
 		}
 
