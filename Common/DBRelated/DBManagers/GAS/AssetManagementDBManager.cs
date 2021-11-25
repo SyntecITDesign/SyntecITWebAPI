@@ -8,8 +8,6 @@ using SyntecITWebAPI.ParameterModels.GAS.AssetManagement;
 
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 {
-
-
 	internal class AssetManagementDBManager : AbstractDBManager
 	{
 		#region Internal Methods
@@ -64,11 +62,10 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			bool bResult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
 			return bResult;
 		}
-
 		internal bool UpdateAssetInfo(UpdateAssetInfo UpdateAssetInfoParameter)
 		{
 			string sql = $@"UPDATE [SyntecGAS].[dbo].[AssetManagement]
-							set [AssetName]=@Parameter1,[Spec]=@Parameter2,[AssetType]=@Parameter3,[Property]=@Parameter4,[GetDate]=@Parameter5,[GetCost]=@Parameter6,[Durability]=@Parameter7,[ManagerID]=@Parameter8,[CostCenter]=@Parameter9,[Storage]=@Parameter10,[FirmName]=@Parameter11,[FirmTel]=@Parameter12,[FirmContactWindow]=@Parameter13
+							set [AssetName]=@Parameter1,[Spec]=@Parameter2,[AssetType]=@Parameter3,[Property]=@Parameter4,[GetDate]=@Parameter5,[GetCost]=@Parameter6,[Durability]=@Parameter7,[ManagerID]=@Parameter8,[CostCenter]=@Parameter9,[Storage]=@Parameter10,[FirmName]=@Parameter11,[FirmTel]=@Parameter12,[FirmContactWindow]=@Parameter13, [IsScrap]=@Parameter14
 							where [AssetNo]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -85,13 +82,13 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				UpdateAssetInfoParameter.AssetManagementStorage,
 				UpdateAssetInfoParameter.AssetManagementFirmName,
 				UpdateAssetInfoParameter.AssetManagementFirmTel,
-				UpdateAssetInfoParameter.AssetManagementFirmContactWindow
+				UpdateAssetInfoParameter.AssetManagementFirmContactWindow,
+				UpdateAssetInfoParameter.AssetManagementIsScrap
 
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
 			return bResult;
 		}
-
 		internal DataTable GetAssetInfo(GetAssetInfo GetAssetInfoParameter)
 		{
 			string sql = $@"SELECT *
@@ -128,6 +125,70 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			}
 		}
 
+		internal bool InsertAssetSpecList( InsertAssetSpecList InsertAssetSpecListParameter )
+		{
+			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[AssetSpecList]([Usage],[No],[Name])
+								VALUES (@Parameter0, @Parameter1, @Parameter2)";
+			List<object> SQLParameterList = new List<object>()
+			{
+				InsertAssetSpecListParameter.AssetSpecListUsage,
+				InsertAssetSpecListParameter.AssetSpecListNo,
+				InsertAssetSpecListParameter.AssetSpecListName
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		internal bool DeleteAssetSpecList( DeleteAssetSpecList DeleteAssetSpecListParameter )
+		{
+			string sql = $@"DELETE [SyntecGAS].[dbo].[AssetSpecList]
+								where [Usage]=@Parameter0 AND [No]=@Parameter1";
+			List<object> SQLParameterList = new List<object>()
+			{
+				DeleteAssetSpecListParameter.AssetSpecListUsage,
+				DeleteAssetSpecListParameter.AssetSpecListNo,
+				DeleteAssetSpecListParameter.AssetSpecListName
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		internal bool UpdateAssetSpecList( UpdateAssetSpecList UpdateAssetSpecListParameter )
+		{
+			string sql = $@"UPDATE [SyntecGAS].[dbo].[AssetSpecList]
+							set [Name]=@Parameter2
+							where [Usage]=@Parameter0 AND [No]=@Parameter1";
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpdateAssetSpecListParameter.AssetSpecListUsage,
+				UpdateAssetSpecListParameter.AssetSpecListNo,
+				UpdateAssetSpecListParameter.AssetSpecListName
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		internal DataTable GetAssetSpecList( GetAssetSpecList GetAssetSpecListParameter )
+		{
+			string sql = $@"SELECT *
+						FROM [SyntecGAS].[dbo].[AssetSpecList]
+						WHERE [Usage] LIKE @Parameter0";
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetAssetSpecListParameter.AssetSpecListUsage,
+				GetAssetSpecListParameter.AssetSpecListNo,
+				GetAssetSpecListParameter.AssetSpecListName
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
+			//return bresult;
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
 
 	}
 	#endregion Internal Methods

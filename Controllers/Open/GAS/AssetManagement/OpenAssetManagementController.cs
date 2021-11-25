@@ -91,7 +91,83 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.AssetManagement
 			return Ok(m_responseHandler.GetResult());
 		}
 
-		
+
+		[Route( "InsertAssetSpecList" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult InsertAssetSpecList( [FromBody] InsertAssetSpecList InsertAssetSpecListParameter )
+		{
+
+			bool bResult = m_publicAssetManagementHandler.InsertAssetSpecList( InsertAssetSpecListParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "DeleteAssetSpecList" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DeleteAssetSpecList( [FromBody] DeleteAssetSpecList DeleteAssetSpecListParameter )
+		{
+
+			bool bResult = m_publicAssetManagementHandler.DeleteAssetSpecList( DeleteAssetSpecListParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "UpdateAssetSpecList" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpdateAssetSpecList( [FromBody] UpdateAssetSpecList UpdateAssetSpecListParameter )
+		{
+
+			bool bResult = m_publicAssetManagementHandler.UpdateAssetSpecList( UpdateAssetSpecListParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "GetAssetSpecList" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult GetAssetSpecList( [FromBody] GetAssetSpecList GetAssetSpecListParameter )
+		{
+
+			JArray result = m_publicAssetManagementHandler.GetAssetSpecList( GetAssetSpecListParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 		#endregion Public Methods
 
 		#region Private Fields

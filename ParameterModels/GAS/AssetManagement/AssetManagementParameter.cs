@@ -62,10 +62,12 @@ namespace SyntecITWebAPI.ParameterModels.GAS.AssetManagement
 		{
 			get; set;
 		}
-		public string AssetManagementAssetManagement
+		public string AssetManagementIsScrap
 		{
 			get; set;
 		}
+
+		
 
 	}
 	public class InsertAssetInfo : AssetManagementAllField
@@ -76,7 +78,6 @@ namespace SyntecITWebAPI.ParameterModels.GAS.AssetManagement
 	{
 
 	}
-
 	public class UpdateAssetInfo : AssetManagementAllField
 	{
 
@@ -86,4 +87,36 @@ namespace SyntecITWebAPI.ParameterModels.GAS.AssetManagement
 
 	}
 
+	public class AssetSpecListAllField
+	{
+		public string AssetSpecListUsage
+		{
+			get; set;
+		}
+		public string AssetSpecListNo
+		{
+			get; set;
+		}
+		public string AssetSpecListName
+		{
+			get; set;
+		}
+
+	}
+	public class InsertAssetSpecList : AssetSpecListAllField
+	{
+
+	}
+	public class DeleteAssetSpecList : AssetSpecListAllField
+	{
+
+	}
+	public class UpdateAssetSpecList : AssetSpecListAllField
+	{
+
+	}
+	public class GetAssetSpecList : AssetSpecListAllField
+	{
+
+	}
 }

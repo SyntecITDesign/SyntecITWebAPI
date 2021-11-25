@@ -48,6 +48,40 @@ namespace SyntecITWebAPI.Models.GAS.AssetManagement
 			}
 		}
 
+		internal bool InsertAssetSpecList( InsertAssetSpecList InsertAssetSpecListParameter )
+		{
+
+			bool bResult = m_AssetManagementDBManager.InsertAssetSpecList( InsertAssetSpecListParameter );
+
+			return bResult;
+		}
+		internal bool DeleteAssetSpecList( DeleteAssetSpecList DeleteAssetSpecListParameter )
+		{
+
+			bool bResult = m_AssetManagementDBManager.DeleteAssetSpecList( DeleteAssetSpecListParameter );
+
+			return bResult;
+		}
+		internal bool UpdateAssetSpecList( UpdateAssetSpecList UpdateAssetSpecListParameter )
+		{
+
+			bool bResult = m_AssetManagementDBManager.UpdateAssetSpecList( UpdateAssetSpecListParameter );
+
+			return bResult;
+		}
+		internal JArray GetAssetSpecList( GetAssetSpecList GetAssetSpecListParameter )
+		{
+
+			DataTable dtResult = m_AssetManagementDBManager.GetAssetSpecList( GetAssetSpecListParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
 		#endregion Internal Methods
 
 		#region Private Fields
