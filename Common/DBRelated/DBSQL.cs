@@ -482,6 +482,19 @@ namespace SyntecITWebAPI.Common.DBRelated
 								@Parameter31, @Parameter32, @Parameter33, @Parameter34, @Parameter35,DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))  ";
 			}
 		}
+
+		public string UpsertDailyRecord
+		{
+			get {
+				return $@"IF EXISTS (SELECT * FROM [{m_crm}].[dbo].SynService_DailyRecord WHERE serial_number=@Parameter0 and time = @Parameter1  )
+							UPDATE [{m_crm}].[dbo].SynService_DailyRecord SET detail_json = @Parameter2, [modi_date]=DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() ))
+							WHERE serial_number=@Parameter0 and time = @Parameter1 
+						ELSE
+						INSERT INTO [{m_crm}].[dbo].SynService_DailyRecord ([serial_number],[time],[detail_json],[cons_date],[modi_date]) 
+						VALUES (@Parameter0, @Parameter1, @Parameter2, DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))  ";
+			}
+		}
+
 		public string InsertWXMessage
 		{
 			get {

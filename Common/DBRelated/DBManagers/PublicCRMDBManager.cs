@@ -254,6 +254,20 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
+
+		internal bool UpsertDailyRecord( SynService_DailyRecord SynService_DailyRecordParameter )
+		{
+			string sql = m_dbSQL.UpsertDailyRecord;
+			List<object> SQLParameterList = new List<object>()
+			{
+				SynService_DailyRecordParameter.serial_number,
+				SynService_DailyRecordParameter.time,
+				SynService_DailyRecordParameter.detail_json
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
 		#endregion Internal Methods
 	}
 }

@@ -132,6 +132,14 @@ namespace SyntecITWebAPI.Models
 			return bResult;
 		}
 
+		internal bool UpsertDailyRecord( SynService_DailyRecord SynService_DailyRecordParameter )
+		{
+
+			bool bResult = m_publicCRMDBManager.UpsertDailyRecord( SynService_DailyRecordParameter );
+
+			return bResult;
+		}
+
 		#endregion Internal Methods
 
 		#region Private Fields

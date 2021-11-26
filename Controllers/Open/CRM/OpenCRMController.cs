@@ -8,6 +8,7 @@ using SyntecITWebAPI.Static;
 using SyntecITWebAPI.Utility;
 using SyntecITWebAPI.ParameterModels.CRM;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace SyntecITWebAPI.Open.User
 {
@@ -250,6 +251,35 @@ namespace SyntecITWebAPI.Open.User
 			if(!bResult)
 			{
 				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "UpsertDailyRecord" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertDailyRecord( [FromBody]List<SynService_DailyRecord>  SynService_DailyRecordParameterList )
+		{
+			string errorList = "";
+			foreach(var SynService_DailyRecordParameter in SynService_DailyRecordParameterList)
+			{
+				bool bResult = m_publicCRMHandler.UpsertDailyRecord( SynService_DailyRecordParameter );
+				if(!bResult)
+				{
+					m_responseHandler.Code = ErrorCodeList.Param_Error;
+					errorList += SynService_DailyRecordParameter.serial_number+",";
+				}
+			}
+
+			if(errorList != "")
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+				m_responseHandler.Content = errorList;
 			}
 			else
 			{
