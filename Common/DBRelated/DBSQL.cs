@@ -320,7 +320,7 @@ namespace SyntecITWebAPI.Common.DBRelated
 		{
 			get
 			{
-				return $@"SELECT R.[crmid],CRM.issuekey as jiraid,CRM.created,CRM.signdate,R.[url],R.[title]
+				return $@"SELECT distinct  R.[crmid],CRM.issuekey as jiraid,CRM.created,CRM.signdate,R.[url],R.[title]
 						  FROM [{m_jirareport}].[dbo].[remotelink] R
 						  left join [{m_jirareport}].[dbo].CRM on R.CRMID = CRM.crmid 
 						  where R.[crmid] in {{CRMID_REPLACE}}  and R.title like @Parameter0  ";
