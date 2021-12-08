@@ -62,7 +62,11 @@ namespace SyntecITWebAPI.ParameterModels.GAS.AssetManagement
 		{
 			get; set;
 		}
-		public string AssetManagementIsScrap
+		public string AssetManagementMemo
+		{
+			get; set;
+		}
+		public bool AssetManagementIsScrap
 		{
 			get; set;
 		}

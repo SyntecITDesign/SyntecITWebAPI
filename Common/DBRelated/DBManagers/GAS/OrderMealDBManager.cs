@@ -96,7 +96,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			{
 				GetMenuParameter.MenuResNo,
 				GetMenuParameter.MenuItems,
-				GetMenuParameter.MenuPrice
+				GetMenuParameter.MenuPrice,
+				GetMenuParameter.MenuFat
 			};
 			DataTable result = m_dbproxy.GetDataCMD(sql, SQLParameterList.ToArray());
 			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
@@ -113,13 +114,14 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool InsertMenuItems(InsertMenuItems InsertMenuItemsParameter)
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[Menu] ([ResNo], [Items], [Price])
-								VALUES (@Parameter0, @Parameter1, @Parameter2)";
+			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[Menu] ([ResNo], [Items], [Price], [Fat])
+								VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3)";
 			List<object> SQLParameterList = new List<object>()
 			{
 				InsertMenuItemsParameter.MenuResNo,
 				InsertMenuItemsParameter.MenuItems,
-				InsertMenuItemsParameter.MenuPrice
+				InsertMenuItemsParameter.MenuPrice,
+				InsertMenuItemsParameter.MenuFat
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
 			return bResult;
@@ -132,7 +134,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			{
 				DeleteMenuItemsParameter.MenuResNo,
 				DeleteMenuItemsParameter.MenuItems,
-				DeleteMenuItemsParameter.MenuPrice
+				DeleteMenuItemsParameter.MenuPrice,
+				DeleteMenuItemsParameter.MenuFat
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
 			return bResult;
@@ -140,13 +143,14 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool UpdateMenu(UpdateMenu UpdateMenuParameter)
 		{
 			string sql = $@"UPDATE [SyntecGAS].[dbo].[Menu]
-							set [Price]=@Parameter2
+							set [Price]=@Parameter2, [Fat]=@Parameter3
 							where [ResNo]=@Parameter0 AND [Items]=@Parameter1";
 			List<object> SQLParameterList = new List<object>()
 			{
 				UpdateMenuParameter.MenuResNo,
 				UpdateMenuParameter.MenuItems,
-				UpdateMenuParameter.MenuPrice
+				UpdateMenuParameter.MenuPrice,
+				UpdateMenuParameter.MenuFat
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
 			return bResult;

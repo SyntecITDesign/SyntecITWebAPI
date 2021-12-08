@@ -31,9 +31,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.OrderMeal
         public int MenuResNo { get; set; }
         public string MenuItems { get; set; }
         public string MenuPrice { get; set; }
-    }
+        public int MenuFat { get; set; }
+	}
 
-    public class InsertMenuItems : MenuAllField
+	public class InsertMenuItems : MenuAllField
     {
     }
     public class DeleteMenuItems : MenuAllField

@@ -65,7 +65,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool UpdateAssetInfo(UpdateAssetInfo UpdateAssetInfoParameter)
 		{
 			string sql = $@"UPDATE [SyntecGAS].[dbo].[AssetManagement]
-							set [AssetName]=@Parameter1,[Spec]=@Parameter2,[AssetType]=@Parameter3,[Property]=@Parameter4,[GetDate]=@Parameter5,[GetCost]=@Parameter6,[Durability]=@Parameter7,[ManagerID]=@Parameter8,[CostCenter]=@Parameter9,[Storage]=@Parameter10,[FirmName]=@Parameter11,[FirmTel]=@Parameter12,[FirmContactWindow]=@Parameter13, [IsScrap]=@Parameter14
+							set [AssetName]=@Parameter1,[Spec]=@Parameter2,[AssetType]=@Parameter3,[Property]=@Parameter4,[GetDate]=@Parameter5,[GetCost]=@Parameter6,[Durability]=@Parameter7,[ManagerID]=@Parameter8,[CostCenter]=@Parameter9,[Storage]=@Parameter10,[FirmName]=@Parameter11,[FirmTel]=@Parameter12,[FirmContactWindow]=@Parameter13, [Memo]=@Parameter14, [IsScrap]=@Parameter15
 							where [AssetNo]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -83,6 +83,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				UpdateAssetInfoParameter.AssetManagementFirmName,
 				UpdateAssetInfoParameter.AssetManagementFirmTel,
 				UpdateAssetInfoParameter.AssetManagementFirmContactWindow,
+				UpdateAssetInfoParameter.AssetManagementMemo,
 				UpdateAssetInfoParameter.AssetManagementIsScrap
 
 			};
