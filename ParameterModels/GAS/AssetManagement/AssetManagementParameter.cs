@@ -34,7 +34,7 @@ namespace SyntecITWebAPI.ParameterModels.GAS.AssetManagement
 		{
 			get; set;
 		}
-		public string AssetManagementDurability
+		public string AssetManagementQuantity
 		{
 			get; set;
 		}
@@ -123,4 +123,60 @@ namespace SyntecITWebAPI.ParameterModels.GAS.AssetManagement
 	{
 
 	}
+
+	public class AssetInventoryAllField
+	{
+		public string AssetInventoryAssetNo
+		{
+			get; set;
+		}
+		public string AssetInventoryAssetName
+		{
+			get; set;
+		}
+		public string AssetInventoryQuantity
+		{
+			get; set;
+		}
+		public string AssetInventoryManagerID
+		{
+			get; set;
+		}
+		public string AssetInventoryCostCenter
+		{
+			get; set;
+		}
+		public string AssetInventoryStorage
+		{
+			get; set;
+		}
+		public string AssetInventoryMemo
+		{
+			get; set;
+		}
+		public string AssetInventoryCheckID
+		{
+			get; set;
+		}
+
+
+
+	}
+	public class InsertAssetInventory : AssetInventoryAllField
+	{
+
+	}
+	public class DeleteAssetInventory : AssetInventoryAllField
+	{
+
+	}
+	public class UpdateAssetInventory : AssetInventoryAllField
+	{
+
+	}
+	public class GetAssetInventory : AssetInventoryAllField
+	{
+
+	}
+
 }

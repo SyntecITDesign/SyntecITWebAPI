@@ -168,6 +168,86 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.AssetManagement
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+
+		[Route( "InsertAssetInventory" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult InsertAssetInventory( [FromBody] InsertAssetInventory InsertAssetInventoryParameter )
+		{
+
+			bool bResult = m_publicAssetManagementHandler.InsertAssetInventory( InsertAssetInventoryParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "DeleteAssetInventory" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DeleteAssetInventory( [FromBody] DeleteAssetInventory DeleteAssetInventoryParameter )
+		{
+
+			bool bResult = m_publicAssetManagementHandler.DeleteAssetInventory( DeleteAssetInventoryParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "UpdateAssetInventory" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpdateAssetInventory( [FromBody] UpdateAssetInventory UpdateAssetInventoryParameter )
+		{
+
+			bool bResult = m_publicAssetManagementHandler.UpdateAssetInventory( UpdateAssetInventoryParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "GetAssetInventory" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult GetAssetInventory( [FromBody] GetAssetInventory GetAssetInventoryParameter )
+		{
+
+			JArray result = m_publicAssetManagementHandler.GetAssetInventory( GetAssetInventoryParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+
+
 		#endregion Public Methods
 
 		#region Private Fields
