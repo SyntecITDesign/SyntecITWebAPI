@@ -495,6 +495,18 @@ namespace SyntecITWebAPI.Common.DBRelated
 			}
 		}
 
+		public string UpsertEncryption
+		{
+			get {
+				return $@"IF EXISTS (SELECT * FROM [{m_dwh}].[dbo].SynSerivce_Encryption WHERE serial_number=@Parameter0 and (oplog_encryption_time is  null or oplog_encryption_time = '' )  )
+							UPDATE [{m_dwh}].[dbo].SynSerivce_Encryption SET oplog_encryption_time = @Parameter1, [modi_date]=DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() ))
+							WHERE serial_number=@Parameter0 
+						IF NOT EXISTS (SELECT * FROM [dwh].[dbo].SynSerivce_Encryption WHERE serial_number=@Parameter0 )
+						INSERT INTO [{m_dwh}].[dbo].SynSerivce_Encryption ([serial_number],[oplog_encryption_time],[cons_date],[modi_date]) 
+						VALUES (@Parameter0, @Parameter1, DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))  ";
+			}
+		}
+
 		public string InsertWXMessage
 		{
 			get {
@@ -538,6 +550,8 @@ namespace SyntecITWebAPI.Common.DBRelated
 		private string m_crm;
 		private string m_gas;
 		private string m_syntecbbs;
+		private string m_dwh;
+
 
 		#endregion Private Fields
 
@@ -557,6 +571,7 @@ namespace SyntecITWebAPI.Common.DBRelated
 			m_crm = configuration["crm"].Trim();
 			m_gas = configuration["gas"].Trim();
 			m_syntecbbs = configuration["SyntecBBS"].Trim();
+			m_dwh = configuration[ "dwh" ].Trim();
 		}
 
 		#endregion Private Constructors + Destructors

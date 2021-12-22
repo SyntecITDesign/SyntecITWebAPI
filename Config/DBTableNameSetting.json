@@ -6,5 +6,6 @@
   "crm": "synteccrm",
   "gas": "SyntecGAS",
   "syntecbbs": "SyntecBBS",
-  "bpm": "BPMPro_QAS"
+  "bpm": "BPMPro_QAS",
+  "dwh":  "dwh"
 }

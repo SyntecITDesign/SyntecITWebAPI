@@ -140,6 +140,14 @@ namespace SyntecITWebAPI.Models
 			return bResult;
 		}
 
+		internal bool UpsertEncryption( SynSerivce_Encryption SynService_EncryptionParameter )
+		{
+
+			bool bResult = m_publicCRMDBManager.UpsertEncryption( SynService_EncryptionParameter );
+
+			return bResult;
+		}
+
 		#endregion Internal Methods
 
 		#region Private Fields

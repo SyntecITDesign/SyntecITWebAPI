@@ -268,6 +268,18 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			return bResult;
 		}
 
+		internal bool UpsertEncryption( SynSerivce_Encryption SynService_EncryptionParameter )
+		{
+			string sql = m_dbSQL.UpsertEncryption;
+			List<object> SQLParameterList = new List<object>()
+			{
+				SynService_EncryptionParameter.serial_number,
+				SynService_EncryptionParameter.oplog_encryption_time
+			};
+			bool bResult = m_DWHdbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
 		#endregion Internal Methods
 	}
 }

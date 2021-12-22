@@ -289,6 +289,26 @@ namespace SyntecITWebAPI.Open.User
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "UpsertEncryption" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertEncryption( [FromBody] SynSerivce_Encryption SynService_EncryptionParameter )
+		{
+
+			bool bResult = m_publicCRMHandler.UpsertEncryption( SynService_EncryptionParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		#endregion Public Methods
 
 		#region Private Fields

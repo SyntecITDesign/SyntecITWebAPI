@@ -10,6 +10,8 @@ namespace SyntecITWebAPI.Abstract
 
 		private protected IDBAccess m_dbproxy = CustomMSDBProxy.GetInstance();
 
+		private protected IDBAccess m_DWHdbproxy = DWHDBProxy.GetInstance();
+
 		private protected IDBAccess m_SyntecBBSdbproxy = SyntecBBSDBProxy.GetInstance();
 
 		private protected DBSQL m_dbSQL = DBSQL.GetInstance();

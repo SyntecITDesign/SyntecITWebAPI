@@ -677,6 +677,40 @@ namespace SyntecITWebAPI.ParameterModels.CRM
 
 	}
 
+	public class SynSerivce_Encryption
+	{
+		#region Public Properties
+
+		public string serial_number
+		{
+			get; set;
+		}
+
+		public int sequence
+		{
+			get; set;
+		}
+
+		public string oplog_encryption_time
+		{
+			get; set;
+		}
+
+		public long cons_date
+		{
+			get; set;
+		}
+
+		public long modi_date
+		{
+			get; set;
+		}
+
+
+		#endregion Public Properties
+
+	}
+
 	public class Fields
 	{
 		public string customfield_13340
