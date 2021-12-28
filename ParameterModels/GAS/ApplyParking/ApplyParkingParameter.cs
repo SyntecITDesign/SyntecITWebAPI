@@ -74,11 +74,23 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyParking
 
 	public class ParkingSpaceApplicationsMasterAllField
 	{
-		public string ParkingSpaceApplicationsMasterEmpID
+		public string ParkingSpaceApplicationsMasterRequisitionID
 		{
 			get; set;
 		}
-		public string ParkingSpaceApplicationsMasterEmpName
+		public string ParkingSpaceApplicationsMasterApplicantID
+		{
+			get; set;
+		}
+		public string ParkingSpaceApplicationsMasterApplicantName
+		{
+			get; set;
+		}
+		public string ParkingSpaceApplicationsMasterFillerID
+		{
+			get; set;
+		}
+		public string ParkingSpaceApplicationsMasterFillerName
 		{
 			get; set;
 		}
@@ -112,6 +124,14 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyParking
 
 	}
 	public class GetParkingSpaceApplicationsMaster : ParkingSpaceApplicationsMasterAllField
+	{
+
+	}
+	public class DeleteParkingSpaceApplicationsMaster : ParkingSpaceApplicationsMasterAllField
+	{
+
+	}
+	public class InsertParkingSpaceApplicationsMaster : ParkingSpaceApplicationsMasterAllField
 	{
 
 	}

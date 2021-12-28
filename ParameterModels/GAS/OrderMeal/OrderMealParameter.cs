@@ -12,7 +12,6 @@ namespace SyntecITWebAPI.ParameterModels.GAS.OrderMeal
         public bool RestaurantInfoIsBlacklist { get; set; }
         public string RestaurantInfoResBranch { get; set; }      
     }
-
     public class InsertRestaurant : RestaurantInfoAllField
     {
     }
@@ -33,7 +32,6 @@ namespace SyntecITWebAPI.ParameterModels.GAS.OrderMeal
         public string MenuPrice { get; set; }
         public int MenuFat { get; set; }
 	}
-
 	public class InsertMenuItems : MenuAllField
     {
     }
@@ -56,7 +54,6 @@ namespace SyntecITWebAPI.ParameterModels.GAS.OrderMeal
         public string MemoEmpID { get; set; }
 
     }
-
     public class InsertMemo : RestaurantMemoAllField
     {
     }
@@ -77,7 +74,6 @@ namespace SyntecITWebAPI.ParameterModels.GAS.OrderMeal
         public string MealCalendarItems { get; set; }
         public string MealCalendarInsertDate { get; set; }
     }
-
     public class InsertMealCalendar : MealCalendarAllField
     {
     }
@@ -96,7 +92,6 @@ namespace SyntecITWebAPI.ParameterModels.GAS.OrderMeal
         public int AreaInfoAreaNo { get; set; }
         public string AreaInfoAreaName { get; set; }
     }
-
     public class InsertAreaInfo : AreaInfoAllField
     {
     }
@@ -109,4 +104,90 @@ namespace SyntecITWebAPI.ParameterModels.GAS.OrderMeal
     public class GetAreaInfo : AreaInfoAllField
     {
     }
+
+	public class OrderMealApplicationsMasterAllField
+	{
+		public int OrderMealApplicationsMasterRequisitionID
+		{
+			get; set;
+		}
+		public string OrderMealApplicationsMasterFillerID
+		{
+			get; set;
+		}
+		public string OrderMealApplicationsMasterFillerName
+		{
+			get; set;
+		}
+		public string OrderMealApplicationsMasterApplicationDate
+		{
+			get; set;
+		}
+		public string OrderMealApplicationsMasterOrderState
+		{
+			get; set;
+		}
+		public string OrderMealApplicationsMasterType
+		{
+			get; set;
+		}
+	}
+	public class InsertOrderMealApplicationsMaster : OrderMealApplicationsMasterAllField
+	{
+	}
+	public class UpdateOrderMealApplicationsMaster : OrderMealApplicationsMasterAllField
+	{
+	}
+	public class GetOrderMealApplicationsMaster : OrderMealApplicationsMasterAllField
+	{
+	}
+
+	public class OrderMealApplicationsDetailAllField
+	{
+		public int OrderMealApplicationsDetailRequisitionID
+		{
+			get; set;
+		}
+		public string OrderMealApplicationsDetailApplicantID
+		{
+			get; set;
+		}
+		public string OrderMealApplicationsDetailApplicantName
+		{
+			get; set;
+		}
+		public string OrderMealApplicationsDetailStore
+		{
+			get; set;
+		}
+		public string OrderMealApplicationsDetailMeal
+		{
+			get; set;
+		}
+		public string OrderMealApplicationsDetailPrice
+		{
+			get; set;
+		}
+		public string OrderMealApplicationsDetailAreaName
+		{
+			get; set;
+		}
+		public string OrderMealApplicationsDetailIsCancel
+		{
+			get; set;
+		}
+		public string OrderMealApplicationsDetailOrderDate
+		{
+			get; set;
+		}
+	}
+	public class InsertOrderMealApplicationsDetail : OrderMealApplicationsDetailAllField
+	{
+	}
+	public class UpdateOrderMealApplicationsDetail : OrderMealApplicationsDetailAllField
+	{
+	}
+	public class GetOrderMealApplicationsDetail : OrderMealApplicationsDetailAllField
+	{
+	}
 }

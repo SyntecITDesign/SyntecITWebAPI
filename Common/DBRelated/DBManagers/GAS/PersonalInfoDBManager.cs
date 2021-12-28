@@ -26,11 +26,12 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"SELECT *
 						  FROM [syntecbarcode].[dbo].[TEMP_NAME]
-						  WHERE ([EmpID]=@Parameter0 OR [EmpName]=@Parameter0) and [QuitDate] is NULL";
+						  WHERE ([EmpID]=@Parameter0 OR [EmpName]=@Parameter0) and [QuitDate]=@Parameter1";
 
 			List<object> SQLParameterList = new List<object>()
 			{
-				GetPersonalInfoParameter.EmpID
+				GetPersonalInfoParameter.EmpID,
+				GetPersonalInfoParameter.QuitDate
 
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
@@ -50,12 +51,12 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"SELECT *
 						  FROM [syntecbarcode].[dbo].[TEMP_NAME]
-						  WHERE ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0) AND [QuitDate] is NULL  ";
+						  WHERE ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0) AND Convert(varchar,QuitDate,120) like @Parameter1";
 
 			List<object> SQLParameterList = new List<object>()
 			{
-			  '%'+GetFuzzyPersonalInfoParameter.EmpID + '%'
-
+			  GetFuzzyPersonalInfoParameter.EmpID,
+			  GetFuzzyPersonalInfoParameter.QuitDate
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 
@@ -74,12 +75,13 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"SELECT *
 						  FROM [syntecbarcode].[dbo].[TEMP_NAME]
-						  WHERE [EmpName] = @Parameter0 AND [DeptName] = @Parameter1 AND [QuitDate] is NULL";
+						  WHERE [EmpName] = @Parameter0 AND [DeptName] = @Parameter1 AND [QuitDate]=@Parameter2";
 
 			List<object> SQLParameterList = new List<object>()
 			{
 			  GetPersonalInfoByNameOrgParameter.EmpName,
-			  GetPersonalInfoByNameOrgParameter.DeptName
+			  GetPersonalInfoByNameOrgParameter.DeptName,
+			  GetPersonalInfoByNameOrgParameter.QuitDate
 
 
 			};

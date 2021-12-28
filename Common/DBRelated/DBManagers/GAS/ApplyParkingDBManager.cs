@@ -11,6 +11,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 	internal class ApplyParkingDBManager : AbstractDBManager
 	{
 		#region Internal Methods
+
 		internal bool UpdateParkingSpaceStatusMaster( UpdateParkingSpaceStatusMaster UpdateParkingSpaceStatusMasterParameter )
 		{
 			string sql = $@"UPDATE [SyntecGAS].[dbo].[ParkingSpaceStatusMaster]
@@ -45,7 +46,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 											FROM [SyntecGAS].[dbo].[ParkingSpaceApplicationsMaster]
 											WHERE [Finished]=0) as c
 								ON b.[ParkingSpaceNum]=c.[ParkingSpaceNum]
-								WHERE [SalaryYear] = @Parameter7 and [SalaryMonth] = @Parameter8 and b.[ParkingSpaceNum] like @Parameter1
+								WHERE [SalaryYear] = @Parameter7 and [SalaryMonth] = @Parameter8 and b.[ParkingSpaceNum] like @Parameter1 and b.[EmpID] like @Parameter4
 							) as ParkingSpaceInfo
 							LEFT JOIN(SELECT [GAS_GAInfoMaster].EmpID as MasterEmpID,EmpName,EmpDept,[MotorLicense],[CarLicense]
 									FROM [SyntecGAS].[dbo].[GAS_GAInfoMaster]	
@@ -82,41 +83,46 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool UpdateParkingSpaceApplicationsMaster( UpdateParkingSpaceApplicationsMaster UpdateParkingSpaceApplicationsMasterParameter )
 		{
-			string sql = $@"IF @Parameter5='CheckOut'
+			string sql = $@"IF @Parameter8='CheckOut'
 							UPDATE [SyntecGAS].[dbo].[ParkingSpaceApplicationsMaster]
-							set [Finished]=@Parameter6
-							where [ParkingSpaceNum] = @Parameter3 and [ApplicationType] = @Parameter5
-							ELSE IF @Parameter5='CheckIn'
+							set [Finished]=@Parameter9
+							where [ParkingSpaceNum] = @Parameter6 and [ApplicationType] = @Parameter8
+							ELSE IF @Parameter8='CheckIn'
 							UPDATE [SyntecGAS].[dbo].[ParkingSpaceApplicationsMaster]
-							set [ParkingSpaceNum]=@Parameter3, [Finished]=@Parameter6
-							where [EmpID] = @Parameter0 and [ApplicationType] = @Parameter5";
+							set [ParkingSpaceNum]=@Parameter6, [Finished]=@Parameter9
+							where [ApplicantID] = @Parameter1 and [ApplicationType] = @Parameter8";
 			List<object> SQLParameterList = new List<object>()
 			{
-				UpdateParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterEmpID,
-				UpdateParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterEmpName,
+				UpdateParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterRequisitionID,
+				UpdateParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterApplicantID,
+				UpdateParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterApplicantName,
+				UpdateParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterFillerID,
+				UpdateParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterFillerName,
 				UpdateParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterApplicationDate,
 				UpdateParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterParkingSpaceNum,
 				UpdateParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterReservationTime,
 				UpdateParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterApplicationType,
 				UpdateParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterFinished,
 				UpdateParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterRemarks
-
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
 		internal DataTable GetParkingSpaceApplicationsMaster( GetParkingSpaceApplicationsMaster GetParkingSpaceApplicationsMasterParameter )
 		{
-			string sql = $@"SELECT b.[EmpID],b.[EmpName],b.[ApplicationDate],b.[ParkingSpaceNum],b.[ReservationTime],b.[ApplicationType],b.[Finished],b.[Remarks], a.[SuperDeptName]
+			string sql = $@"SELECT b.[ApplicantID],b.[ApplicantName],b.[ApplicationDate],b.[ParkingSpaceNum],b.[ReservationTime],b.[ApplicationType],b.[Finished],b.[Remarks], a.[SuperDeptName]
 							FROM [SyntecGAS].[dbo].[ParkingSpaceApplicationsMaster] as b
 							Inner join (SELECT * FROM [syntecbarcode].[dbo].[TEMP_NAME]) as a
-							ON b.[EmpID] collate Chinese_Taiwan_Stroke_CI_AS = a.[EmpID]
+							ON b.[ApplicantID] collate Chinese_Taiwan_Stroke_CI_AS = a.[EmpID]
 							WHERE b.[Finished]=0
 							Order by b.[ApplicationDate]";
 			List<object> SQLParameterList = new List<object>()
 			{
-				GetParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterEmpID,
-				GetParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterEmpName,
+				GetParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterRequisitionID,
+				GetParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterApplicantID,
+				GetParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterApplicantName,
+				GetParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterFillerID,
+				GetParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterFillerName,
 				GetParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterApplicationDate,
 				GetParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterParkingSpaceNum,
 				GetParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterReservationTime,
@@ -136,6 +142,26 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			{
 				return result;
 			}
+		}
+		internal bool InsertParkingSpaceApplicationsMaster( InsertParkingSpaceApplicationsMaster InsertParkingSpaceApplicationsMasterParameter )
+		{
+			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[ParkingSpaceApplicationsMaster] ([ApplicantID],[ApplicantName],[FillerID],[FillerName],[ApplicationDate],[ParkingSpaceNum],[ApplicationType],[Finished],[Remarks])
+								VALUES (@Parameter1, @Parameter2, @Parameter3, @Parameter4,@Parameter5, @Parameter6, @Parameter7,@Parameter8,@Parameter9)";
+			List<object> SQLParameterList = new List<object>()
+			{
+				InsertParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterRequisitionID,
+				InsertParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterApplicantID,
+				InsertParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterApplicantName,
+				InsertParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterFillerID,
+				InsertParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterFillerName,
+				InsertParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterApplicationDate,
+				InsertParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterParkingSpaceNum,
+				InsertParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterApplicationType,
+				InsertParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterFinished,
+				InsertParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterRemarks
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
 		}
 
 

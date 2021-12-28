@@ -13,7 +13,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 		{
 			get; set;
 		}
-
+		public string QuitDate
+		{
+			get; set;
+		}
 		#endregion Public Properties
 	}
 
@@ -25,7 +28,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 		{
 			get; set;
 		}
-
+		public string QuitDate
+		{
+			get; set;
+		}
 		#endregion Public Properties
 	}
 	public class GetPersonalInfoByNameOrg
@@ -40,7 +46,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 		{
 			get; set;
 		}
-
+		public string QuitDate
+		{
+			get; set;
+		}
 		#endregion Public Properties
 	}
 	public class GetPersonalGASInfo

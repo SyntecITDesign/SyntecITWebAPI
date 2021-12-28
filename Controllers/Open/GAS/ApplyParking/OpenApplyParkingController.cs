@@ -91,6 +91,25 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyParking
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+		[Route( "InsertParkingSpaceApplicationsMaster" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult InsertParkingSpaceApplicationsMaster( [FromBody] InsertParkingSpaceApplicationsMaster InsertParkingSpaceApplicationsMasterParameter )
+		{
+			bool bResult = m_publicApplyParkingHandler.InsertParkingSpaceApplicationsMaster( InsertParkingSpaceApplicationsMasterParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 
 		#endregion Public Methods
 

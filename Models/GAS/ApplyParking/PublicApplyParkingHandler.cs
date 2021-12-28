@@ -53,6 +53,13 @@ namespace SyntecITWebAPI.Models.GAS.ApplyParking
 				return ja;
 			}
 		}
+		internal bool InsertParkingSpaceApplicationsMaster( InsertParkingSpaceApplicationsMaster InsertParkingSpaceApplicationsMasterParameter )
+		{
+
+			bool bResult = m_ApplyParkingDBManager.InsertParkingSpaceApplicationsMaster( InsertParkingSpaceApplicationsMasterParameter );
+
+			return bResult;
+		}
 
 		#endregion Internal Methods
 

@@ -133,6 +133,50 @@ namespace SyntecITWebAPI.Models.GAS.OrderMeal
 			return bResult;
 		}
 
+		internal JArray GetOrderMealApplicationsMaster( GetOrderMealApplicationsMaster GetOrderMealApplicationsMasterParameter )
+		{
+			DataTable dtResult = m_OrderMealDBManager.GetOrderMealApplicationsMaster( GetOrderMealApplicationsMasterParameter );
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+		internal bool InsertOrderMealApplicationsMaster( InsertOrderMealApplicationsMaster InsertOrderMealApplicationsMasterParameter )
+		{
+			bool bResult = m_OrderMealDBManager.InsertOrderMealApplicationsMaster( InsertOrderMealApplicationsMasterParameter );
+			return bResult;
+		}
+		internal bool UpdateOrderMealApplicationsMaster( UpdateOrderMealApplicationsMaster UpdateOrderMealApplicationsMasterParameter )
+		{
+			bool bResult = m_OrderMealDBManager.UpdateOrderMealApplicationsMaster( UpdateOrderMealApplicationsMasterParameter );
+			return bResult;
+		}
+		
+		internal JArray GetOrderMealApplicationsDetail( GetOrderMealApplicationsDetail GetOrderMealApplicationsDetailParameter )
+		{
+			DataTable dtResult = m_OrderMealDBManager.GetOrderMealApplicationsDetail( GetOrderMealApplicationsDetailParameter );
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+		internal bool InsertOrderMealApplicationsDetail( InsertOrderMealApplicationsDetail InsertOrderMealApplicationsDetailParameter )
+		{
+			bool bResult = m_OrderMealDBManager.InsertOrderMealApplicationsDetail( InsertOrderMealApplicationsDetailParameter );
+			return bResult;
+		}
+		internal bool UpdateOrderMealApplicationsDetail( UpdateOrderMealApplicationsDetail UpdateOrderMealApplicationsDetailParameter )
+		{
+			bool bResult = m_OrderMealDBManager.UpdateOrderMealApplicationsDetail( UpdateOrderMealApplicationsDetailParameter );
+			return bResult;
+		}
+
 		#endregion Internal Methods
 
 		#region Private Fields

@@ -340,6 +340,122 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok(m_responseHandler.GetResult());
 		}
 
+		[Route( "GetOrderMealApplicationsMaster" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult GetOrderMealApplicationsMaster( [FromBody] GetOrderMealApplicationsMaster GetOrderMealApplicationsMasterParameter )
+		{
+
+			JArray result = m_publicOrderMealHandler.GetOrderMealApplicationsMaster( GetOrderMealApplicationsMasterParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "InsertOrderMealApplicationsMaster" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult InsertOrderMealApplicationsMaster( [FromBody] InsertOrderMealApplicationsMaster InsertOrderMealApplicationsMasterParameter )
+		{
+
+			bool bResult = m_publicOrderMealHandler.InsertOrderMealApplicationsMaster( InsertOrderMealApplicationsMasterParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "UpdateOrderMealApplicationsMaster" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpdateOrderMealApplicationsMaster( [FromBody] UpdateOrderMealApplicationsMaster UpdateOrderMealApplicationsMasterParameter )
+		{
+			bool bResult = m_publicOrderMealHandler.UpdateOrderMealApplicationsMaster( UpdateOrderMealApplicationsMasterParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "GetOrderMealApplicationsDetail" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		
+		public IActionResult GetOrderMealApplicationsDetail( [FromBody] GetOrderMealApplicationsDetail GetOrderMealApplicationsDetailParameter )
+		{
+
+			JArray result = m_publicOrderMealHandler.GetOrderMealApplicationsDetail( GetOrderMealApplicationsDetailParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "InsertOrderMealApplicationsDetail" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult InsertOrderMealApplicationsDetail( [FromBody] InsertOrderMealApplicationsDetail InsertOrderMealApplicationsDetailParameter )
+		{
+
+			bool bResult = m_publicOrderMealHandler.InsertOrderMealApplicationsDetail( InsertOrderMealApplicationsDetailParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "UpdateOrderMealApplicationsDetail" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpdateOrderMealApplicationsDetail( [FromBody] UpdateOrderMealApplicationsDetail UpdateOrderMealApplicationsDetailParameter )
+		{
+			bool bResult = m_publicOrderMealHandler.UpdateOrderMealApplicationsDetail( UpdateOrderMealApplicationsDetailParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+
 		#endregion Public Methods
 
 		#region Private Fields

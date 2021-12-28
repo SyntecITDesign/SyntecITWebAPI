@@ -312,6 +312,139 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			bool bResult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
 			return bResult;
 		}
+
+		internal DataTable GetOrderMealApplicationsMaster( GetOrderMealApplicationsMaster GetOrderMealApplicationsMasterParameter )
+		{
+			string sql = $@"SELECT *
+						FROM [SyntecGAS].[dbo].[OrderMealApplicationsMaster]
+						ORDER BY [RequisitionID] desc";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterRequisitionID,
+				GetOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterFillerID,
+				GetOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterFillerName,
+				GetOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterApplicationDate,
+				GetOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterOrderState,
+				GetOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterType
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
+			//return bresult;
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+		internal bool InsertOrderMealApplicationsMaster( InsertOrderMealApplicationsMaster InsertOrderMealApplicationsMasterParameter )
+		{
+			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[OrderMealApplicationsMaster] ([])
+								VALUES (@Parameter1)";
+			List<object> SQLParameterList = new List<object>()
+			{
+				InsertOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterRequisitionID,
+				InsertOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterFillerID,
+				InsertOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterFillerName,
+				InsertOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterApplicationDate,
+				InsertOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterOrderState,
+				InsertOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterType
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		internal bool UpdateOrderMealApplicationsMaster( UpdateOrderMealApplicationsMaster UpdateOrderMealApplicationsMasterParameter )
+		{
+			string sql = $@"UPDATE [SyntecGAS].[dbo].[OrderMealApplicationsMaster]
+							set []=@Parameter1
+							where []=@Parameter0";
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpdateOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterRequisitionID,
+				UpdateOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterFillerID,
+				UpdateOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterFillerName,
+				UpdateOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterApplicationDate,
+				UpdateOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterOrderState,
+				UpdateOrderMealApplicationsMasterParameter.OrderMealApplicationsMasterType
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
+		internal DataTable GetOrderMealApplicationsDetail( GetOrderMealApplicationsDetail GetOrderMealApplicationsDetailParameter )
+		{
+			string sql = $@"SELECT *
+						FROM [SyntecGAS].[dbo].[OrderMealApplicationsDetail]
+						ORDER BY [RequisitionID] desc";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailRequisitionID,
+				GetOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailApplicantID,
+				GetOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailApplicantName,
+				GetOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailStore,
+				GetOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailMeal,
+				GetOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailPrice,
+				GetOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailAreaName,
+				GetOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailIsCancel,
+				GetOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailOrderDate
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
+			//return bresult;
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+		internal bool InsertOrderMealApplicationsDetail( InsertOrderMealApplicationsDetail InsertOrderMealApplicationsDetailParameter )
+		{
+			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[OrderMealApplicationsDetail] ([])
+								VALUES (@Parameter1)";
+			List<object> SQLParameterList = new List<object>()
+			{
+				InsertOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailRequisitionID,
+				InsertOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailApplicantID,
+				InsertOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailApplicantName,
+				InsertOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailStore,
+				InsertOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailMeal,
+				InsertOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailPrice,
+				InsertOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailAreaName,
+				InsertOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailIsCancel,
+				InsertOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailOrderDate
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		internal bool UpdateOrderMealApplicationsDetail( UpdateOrderMealApplicationsDetail UpdateOrderMealApplicationsDetailParameter )
+		{
+			string sql = $@"UPDATE [SyntecGAS].[dbo].[OrderMealApplicationsDetail]
+							set []=@Parameter1
+							where []=@Parameter0";
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailRequisitionID,
+				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailApplicantID,
+				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailApplicantName,
+				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailStore,
+				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailMeal,
+				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailPrice,
+				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailAreaName,
+				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailIsCancel,
+				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailOrderDate
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
 	}
 	#endregion Internal Methods
 }
