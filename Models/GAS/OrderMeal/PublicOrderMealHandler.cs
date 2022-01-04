@@ -176,6 +176,11 @@ namespace SyntecITWebAPI.Models.GAS.OrderMeal
 			bool bResult = m_OrderMealDBManager.UpdateOrderMealApplicationsDetail( UpdateOrderMealApplicationsDetailParameter );
 			return bResult;
 		}
+		internal bool DeleteOrderMealApplicationsDetail( DeleteOrderMealApplicationsDetail DeleteOrderMealApplicationsDetailParameter )
+		{
+			bool bResult = m_OrderMealDBManager.DeleteOrderMealApplicationsDetail( DeleteOrderMealApplicationsDetailParameter );
+			return bResult;
+		}
 
 		#endregion Internal Methods
 

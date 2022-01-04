@@ -399,8 +399,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 
 		[Route( "GetOrderMealApplicationsDetail" )]
 		//[CheckTokenFilter]
-		[HttpPost]
-		
+		[HttpPost]		
 		public IActionResult GetOrderMealApplicationsDetail( [FromBody] GetOrderMealApplicationsDetail GetOrderMealApplicationsDetailParameter )
 		{
 
@@ -442,6 +441,25 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 		public IActionResult UpdateOrderMealApplicationsDetail( [FromBody] UpdateOrderMealApplicationsDetail UpdateOrderMealApplicationsDetailParameter )
 		{
 			bool bResult = m_publicOrderMealHandler.UpdateOrderMealApplicationsDetail( UpdateOrderMealApplicationsDetailParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "DeleteOrderMealApplicationsDetail" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DeleteOrderMealApplicationsDetail( [FromBody] DeleteOrderMealApplicationsDetail DeleteOrderMealApplicationsDetailParameter )
+		{
+
+			bool bResult = m_publicOrderMealHandler.DeleteOrderMealApplicationsDetail( DeleteOrderMealApplicationsDetailParameter );
 
 			if( !bResult )
 			{

@@ -123,14 +123,6 @@ namespace SyntecITWebAPI.ParameterModels.GAS.OrderMeal
 		{
 			get; set;
 		}
-		public string OrderMealApplicationsMasterOrderState
-		{
-			get; set;
-		}
-		public string OrderMealApplicationsMasterType
-		{
-			get; set;
-		}
 	}
 	public class InsertOrderMealApplicationsMaster : OrderMealApplicationsMasterAllField
 	{
@@ -172,11 +164,15 @@ namespace SyntecITWebAPI.ParameterModels.GAS.OrderMeal
 		{
 			get; set;
 		}
-		public string OrderMealApplicationsDetailIsCancel
+		public bool OrderMealApplicationsDetailIsCancel
 		{
 			get; set;
 		}
 		public string OrderMealApplicationsDetailOrderDate
+		{
+			get; set;
+		}
+		public string OrderMealApplicationsDetailType
 		{
 			get; set;
 		}
@@ -188,6 +184,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.OrderMeal
 	{
 	}
 	public class GetOrderMealApplicationsDetail : OrderMealApplicationsDetailAllField
+	{
+	}
+
+	public class DeleteOrderMealApplicationsDetail : OrderMealApplicationsDetailAllField
 	{
 	}
 }
