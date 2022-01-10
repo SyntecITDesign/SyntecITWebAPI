@@ -654,6 +654,142 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+
+		[Route( "GetBeenRentCarSpecTime" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult GetBeenRentCarSpecTime( [FromBody] GetBeenRentCarSpecTime GetBeenRentCarSpecTimeParameter )
+		{
+			JArray result = m_publicCarBookingHandler.GetBeenRentCarSpecTime( GetBeenRentCarSpecTimeParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "GetPersonalCarBookingRecord" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult GetPersonalCarBookingRecord( [FromBody] GetPersonalCarBookingRecord GetPersonalCarBookingRecordParameter )
+		{
+			JArray result = m_publicCarBookingHandler.GetPersonalCarBookingRecord( GetPersonalCarBookingRecordParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "GetPrivatePriorityNumber" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult GetPrivatePriorityNumber( [FromBody] GetPrivatePriorityNumber GetPrivatePriorityNumberParameter )
+		{
+			JArray result = m_publicCarBookingHandler.GetPrivatePriorityNumber( GetPrivatePriorityNumberParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "CheckInner14DaysHasPrivatDate" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult CheckInner14DaysHasPrivatDate( [FromBody] CheckInner14DaysHasPrivatDate CheckInner14DaysHasPrivatDateParameter )
+		{
+			JArray result = m_publicCarBookingHandler.CheckInner14DaysHasPrivatDate( CheckInner14DaysHasPrivatDateParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "CheckPersonalBlockStatus" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult CheckPersonalBlockStatus( [FromBody] CheckPersonalBlockStatus CheckPersonalBlockStatusParameter )
+		{
+			JArray result = m_publicCarBookingHandler.CheckPersonalBlockStatus( CheckPersonalBlockStatusParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "InsertReserveToCarBookingRecord" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult InsertReserveToCarBookingRecord( [FromBody] InsertReserveToCarBookingRecord InsertReserveToCarBookingRecordParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.InsertReserveToCarBookingRecord( InsertReserveToCarBookingRecordParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "DeleteCarBookingRecord" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DeleteCarBookingRecord( [FromBody] DeleteCarBookingRecord DeleteCarBookingRecordParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.DeleteCarBookingRecord( DeleteCarBookingRecordParameter );
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 		#endregion Public Methods
 
 		#region Private Fields

@@ -117,7 +117,6 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
-
 		internal DataTable GetUniformQuantityInfo( GetUniformQuantityInfo GetUniformQuantityInfoParameter )
 		{
 			string sql = $@"SELECT [UniformStyleInfo].[Style] as 'StyleName',[UniformQuantityInfo].[AlertQuantity], [UniformStyleInfo].[No] as 'Style',[UniformQuantityInfo].[Size],[UniformQuantityInfo].[Quantity]
@@ -146,18 +145,6 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			}
 		}
 
-		internal bool InsertUniformOrder( InsertUniformOrder InsertUniformOrderParameter )
-		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[UniformOrderList] ([OrderDate])
-								VALUES (@Parameter1)";
-			List<object> SQLParameterList = new List<object>()
-			{
-				InsertUniformOrderParameter.UniformOrderListNo,
-				InsertUniformOrderParameter.UniformOrderDate
-			};
-			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
-			return bResult;
-		}
 		internal bool InsertUniformOrderListDetail( InsertUniformOrderListDetail InsertUniformOrderListDetailParameter )
 		{
 			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[UniformOrderListDetail] ([OrderList],[Style],[Size],[Price],[Quantity])
@@ -187,7 +174,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 
-			if(result == null || result.Rows.Count <= 0)
+			if( result == null || result.Rows.Count <= 0 )
 			{
 				return null;
 			}
@@ -215,7 +202,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 
-			if(result == null || result.Rows.Count <= 0)
+			if( result == null || result.Rows.Count <= 0 )
 			{
 				return null;
 			}
@@ -223,6 +210,19 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			{
 				return result;
 			}
+		}
+
+		internal bool InsertUniformOrder( InsertUniformOrder InsertUniformOrderParameter )
+		{
+			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[UniformOrderList] ([OrderDate])
+								VALUES (@Parameter1)";
+			List<object> SQLParameterList = new List<object>()
+			{
+				InsertUniformOrderParameter.UniformOrderListNo,
+				InsertUniformOrderParameter.UniformOrderDate
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
 		}
 		internal bool DeleteUniformOrder( DeleteUniformOrder DeleteUniformOrderParameter )
 		{
@@ -236,7 +236,6 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
-
 		internal bool UpdateUniformOrder( UpdateUniformOrder UpdateUniformOrderParameter )
 		{
 			string sql = $@"UPDATE [SyntecGAS].[dbo].[UniformOrderList]
@@ -252,6 +251,124 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
+
+		internal bool InsertUniformApplicationsMaster( InsertUniformApplicationsMaster InsertUniformApplicationsMasterParameter )
+		{
+			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[UniformApplicationsMaster] ([FillerID],[FillerName],[ApplicationDate],[ApplicantID],[ApplicantName],[ApplicantDept],[ClothesType],[ApplyType],[ApplyQuantity],[Size],[Price],[Memo])
+								VALUES (@Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6, @Parameter8, @Parameter9, @Parameter10, @Parameter11, @Parameter12, @Parameter13)";
+			List<object> SQLParameterList = new List<object>()
+			{
+				InsertUniformApplicationsMasterParameter.UniformApplicationsMasterRequisitionID,
+				InsertUniformApplicationsMasterParameter.UniformApplicationsMasterFillerID,
+				InsertUniformApplicationsMasterParameter.UniformApplicationsMasterFillerName,
+				InsertUniformApplicationsMasterParameter.UniformApplicationsMasterApplicationDate,
+				InsertUniformApplicationsMasterParameter.UniformApplicationsMasterApplicantID,
+				InsertUniformApplicationsMasterParameter.UniformApplicationsMasterApplicantName,
+				InsertUniformApplicationsMasterParameter.UniformApplicationsMasterApplicantDept,
+				InsertUniformApplicationsMasterParameter.UniformApplicationsMasterIsCancel,
+				InsertUniformApplicationsMasterParameter.UniformApplicationsMasterClothesType,
+				InsertUniformApplicationsMasterParameter.UniformApplicationsMasterApplyType,
+				InsertUniformApplicationsMasterParameter.UniformApplicationsMasterApplyQuantity,
+				InsertUniformApplicationsMasterParameter.UniformApplicationsMasterSize,
+				InsertUniformApplicationsMasterParameter.UniformApplicationsMasterPrice,
+				InsertUniformApplicationsMasterParameter.UniformApplicationsMasterMemo
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		internal bool DeleteUniformApplicationsMaster( DeleteUniformApplicationsMaster DeleteUniformApplicationsMasterParameter )
+		{
+			string sql = $@"DELETE [SyntecGAS].[dbo].[UniformApplicationsMaster]
+								where No=@Parameter0";
+			List<object> SQLParameterList = new List<object>()
+			{
+				DeleteUniformApplicationsMasterParameter.UniformApplicationsMasterRequisitionID,
+				DeleteUniformApplicationsMasterParameter.UniformApplicationsMasterFillerID,
+				DeleteUniformApplicationsMasterParameter.UniformApplicationsMasterFillerName,
+				DeleteUniformApplicationsMasterParameter.UniformApplicationsMasterApplicationDate,
+				DeleteUniformApplicationsMasterParameter.UniformApplicationsMasterApplicantID,
+				DeleteUniformApplicationsMasterParameter.UniformApplicationsMasterApplicantName,
+				DeleteUniformApplicationsMasterParameter.UniformApplicationsMasterApplicantDept,
+				DeleteUniformApplicationsMasterParameter.UniformApplicationsMasterIsCancel,
+				DeleteUniformApplicationsMasterParameter.UniformApplicationsMasterClothesType,
+				DeleteUniformApplicationsMasterParameter.UniformApplicationsMasterApplyType,
+				DeleteUniformApplicationsMasterParameter.UniformApplicationsMasterApplyQuantity,
+				DeleteUniformApplicationsMasterParameter.UniformApplicationsMasterSize,
+				DeleteUniformApplicationsMasterParameter.UniformApplicationsMasterPrice,
+				DeleteUniformApplicationsMasterParameter.UniformApplicationsMasterMemo
+
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		internal bool UpdateUniformApplicationsMaster( UpdateUniformApplicationsMaster UpdateUniformApplicationsMasterParameter )
+		{
+			string sql = $@"UPDATE [SyntecGAS].[dbo].[UniformApplicationsMaster]
+							set [FillerID]=@Parameter1,[FillerName]=@Parameter2,[ApplicationDate]=@Parameter3,[ApplicantID]=@Parameter4,[ApplicantName]=@Parameter5,[ApplicantDept]=@Parameter6,[IsCancel]=@Parameter7,[ClothesType]=@Parameter8,[ApplyType]=@Parameter9,[ApplyQuantity]=@Parameter10,[Size]=@Parameter11,[Price]=@Parameter12,[Memo]=@Parameter13,[Finished]=@Parameter14
+							where [RequisitionID]=@Parameter0";
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterRequisitionID,
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterFillerID,
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterFillerName,
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterApplicationDate,
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterApplicantID,
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterApplicantName,
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterApplicantDept,
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterIsCancel,
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterClothesType,
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterApplyType,
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterApplyQuantity,
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterSize,
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterPrice,
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterMemo,
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterFinished
+
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		internal DataTable GetUniformApplicationsMaster( GetUniformApplicationsMaster GetUniformApplicationsMasterParameter )
+		{
+			string sql = $@"SELECT *
+						FROM [SyntecGAS].[dbo].[UniformApplicationsMaster]
+						Where Convert(varchar,ApplicationDate,120) like @Parameter3 and [ApplicantID] like @Parameter4 and [ClothesType] like @Parameter8 and [ApplyType] like @Parameter9 and [Finished]=@Parameter14
+						ORDER BY [RequisitionID] desc";
+			List<object> SQLParameterList = new List<object>()
+			{
+
+				GetUniformApplicationsMasterParameter.UniformApplicationsMasterRequisitionID,
+				GetUniformApplicationsMasterParameter.UniformApplicationsMasterFillerID,
+				GetUniformApplicationsMasterParameter.UniformApplicationsMasterFillerName,
+				GetUniformApplicationsMasterParameter.UniformApplicationsMasterApplicationDate,
+				GetUniformApplicationsMasterParameter.UniformApplicationsMasterApplicantID,
+				GetUniformApplicationsMasterParameter.UniformApplicationsMasterApplicantName,
+				GetUniformApplicationsMasterParameter.UniformApplicationsMasterApplicantDept,
+				GetUniformApplicationsMasterParameter.UniformApplicationsMasterIsCancel,
+				GetUniformApplicationsMasterParameter.UniformApplicationsMasterClothesType,
+				GetUniformApplicationsMasterParameter.UniformApplicationsMasterApplyType,
+				GetUniformApplicationsMasterParameter.UniformApplicationsMasterApplyQuantity,
+				GetUniformApplicationsMasterParameter.UniformApplicationsMasterSize,
+				GetUniformApplicationsMasterParameter.UniformApplicationsMasterPrice,
+				GetUniformApplicationsMasterParameter.UniformApplicationsMasterMemo,
+				GetUniformApplicationsMasterParameter.UniformApplicationsMasterFinished
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
+			//return bresult;
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+
+
 
 	}
 	#endregion Internal Methods

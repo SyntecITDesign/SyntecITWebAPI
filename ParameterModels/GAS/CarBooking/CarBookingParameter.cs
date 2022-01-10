@@ -409,4 +409,87 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CarBooking
 		#endregion Public Properties
 
 	}
+
+	public class GetBeenRentCarSpecTime
+	{
+		public string StartTime
+		{
+			get;set;
+		}
+		public string EndTime
+		{
+			get;set;
+		}
+	}
+
+	public class GetPersonalCarBookingRecord
+	{
+		public string EmpID
+		{get;set;
+		}
+	}
+
+	public class GetPrivatePriorityNumber
+	{
+		public string PreserveStartTime
+		{
+			get;set;
+		}
+		public string PreserveEndTime
+		{
+			get; set;
+		}
+	}
+
+	public class CheckInner14DaysHasPrivatDate
+	{
+		public string EmpID
+		{get;set;
+		}
+	}
+
+	public class CheckPersonalBlockStatus
+	{public string EmpID
+		{get;set;
+		}
+	}
+	public class InsertReserveToCarBookingRecord
+	{
+		public string EmpID
+		{get;set;
+		}
+		public string Type
+		{get;set;
+		}
+		public string Title
+		{get;set;
+		}
+		public string StartLocation
+		{get;set;
+		}
+		public string EndLocation
+		{get;set;
+		}
+		public string CarNumber
+		{get;set;
+		}
+		public string PreserveStartTime
+		{get;set;
+		}
+		public string PreserveEndTime
+		{get;set;
+		}
+		public string PriorityNumber
+		{get;set;
+		}
+
+
+	}
+
+	public class DeleteCarBookingRecord
+	{ public string RecordID
+		{get;set;
+		}
+	}
+
 }

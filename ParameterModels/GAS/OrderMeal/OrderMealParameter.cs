@@ -156,7 +156,7 @@ namespace SyntecITWebAPI.ParameterModels.GAS.OrderMeal
 		{
 			get; set;
 		}
-		public string OrderMealApplicationsDetailPrice
+		public int OrderMealApplicationsDetailPrice
 		{
 			get; set;
 		}

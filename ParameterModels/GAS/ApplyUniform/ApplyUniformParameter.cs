@@ -4,30 +4,42 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace SyntecITWebAPI.ParameterModels.GAS.ApplyUniform
 {
-    public class UniformStyleInfoAllField
-    {
-        public int UniformStyleNo { get; set; }
-        public string UniformStyleName { get; set; }
-        public int UniformStylePrice { get; set; }
-        public int UniformStyleApplyQuantity { get; set; }
+	public class UniformStyleInfoAllField
+	{
+		public int UniformStyleNo
+		{
+			get; set;
+		}
+		public string UniformStyleName
+		{
+			get; set;
+		}
+		public int UniformStylePrice
+		{
+			get; set;
+		}
+		public int UniformStyleApplyQuantity
+		{
+			get; set;
+		}
 
-    }
-    public class InsertUniformStyle : UniformStyleInfoAllField
+	}
+	public class InsertUniformStyle : UniformStyleInfoAllField
 	{
 
-    }
-    public class DeleteUniformStyle : UniformStyleInfoAllField
+	}
+	public class DeleteUniformStyle : UniformStyleInfoAllField
 	{
 
-    }
-    public class UpdateUniformStyleInfo : UniformStyleInfoAllField
-    {
+	}
+	public class UpdateUniformStyleInfo : UniformStyleInfoAllField
+	{
 
-    }
-    public class GetUniformStyleInfo : UniformStyleInfoAllField
-    {
+	}
+	public class GetUniformStyleInfo : UniformStyleInfoAllField
+	{
 
-    }
+	}
 
 	public class UniformQuantityAllField
 	{
@@ -57,14 +69,14 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyUniform
 	{
 
 	}
-
 	public class GetUniformQuantityInfo : UniformQuantityAllField
 	{
 
 	}
+
 	public class UniformOrderListAllField
 	{
-		public String UniformOrderListNo
+		public string UniformOrderListNo
 		{
 			get; set;
 		}
@@ -98,7 +110,7 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyUniform
 
 	public class UniformOrderListDetailAllField
 	{
-		public String UniformOrderListNo
+		public string UniformOrderListNo
 		{
 			get; set;
 		}
@@ -136,5 +148,88 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyUniform
 	{
 
 	}
+
+
+	public class UniformApplicationsMasterAllField
+	{
+		public int UniformApplicationsMasterRequisitionID
+		{
+			get; set;
+		}
+		public string UniformApplicationsMasterFillerID
+		{
+			get; set;
+		}
+		public string UniformApplicationsMasterFillerName
+		{
+			get; set;
+		}
+		public string UniformApplicationsMasterApplicationDate
+		{
+			get; set;
+		}
+		public string UniformApplicationsMasterApplicantID
+		{
+			get; set;
+		}
+		public string UniformApplicationsMasterApplicantName
+		{
+			get; set;
+		}
+		public string UniformApplicationsMasterApplicantDept
+		{
+			get; set;
+		}
+		public bool UniformApplicationsMasterIsCancel
+		{
+			get; set;
+		}
+		public string UniformApplicationsMasterClothesType
+		{
+			get; set;
+		}
+		public string UniformApplicationsMasterApplyType
+		{
+			get; set;
+		}
+		public string UniformApplicationsMasterApplyQuantity
+		{
+			get; set;
+		}
+		public string UniformApplicationsMasterSize
+		{
+			get; set;
+		}
+
+		public int UniformApplicationsMasterPrice
+		{
+			get; set;
+		}
+		public string UniformApplicationsMasterMemo
+		{
+			get; set;
+		}
+		public bool UniformApplicationsMasterFinished
+		{
+			get; set;
+		}
+	}
+	public class InsertUniformApplicationsMaster : UniformApplicationsMasterAllField
+	{
+
+	}
+	public class DeleteUniformApplicationsMaster : UniformApplicationsMasterAllField
+	{
+
+	}
+	public class UpdateUniformApplicationsMaster : UniformApplicationsMasterAllField
+	{
+
+	}
+	public class GetUniformApplicationsMaster : UniformApplicationsMasterAllField
+	{
+
+	}
+
 
 }

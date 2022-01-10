@@ -356,6 +356,88 @@ namespace SyntecITWebAPI.Models.GAS.CarBooking
 
 			return bResult;
 		}
+
+		internal JArray GetBeenRentCarSpecTime( GetBeenRentCarSpecTime GetBeenRentCarSpecTimeParamter )
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.GetBeenRentCarSpecTime (GetBeenRentCarSpecTimeParamter);
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal JArray GetPersonalCarBookingRecord( GetPersonalCarBookingRecord GetPersonalCarBookingRecordParamter )
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.GetPersonalCarBookingRecord( GetPersonalCarBookingRecordParamter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+		internal JArray GetPrivatePriorityNumber( GetPrivatePriorityNumber GetPrivatePriorityNumberParamter )
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.GetPrivatePriorityNumber( GetPrivatePriorityNumberParamter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+		internal JArray CheckInner14DaysHasPrivatDate( CheckInner14DaysHasPrivatDate CheckInner14DaysHasPrivatDateParamter )
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.CheckInner14DaysHasPrivatDate( CheckInner14DaysHasPrivatDateParamter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+		internal JArray CheckPersonalBlockStatus( CheckPersonalBlockStatus CheckPersonalBlockStatusParamter )
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.CheckPersonalBlockStatus( CheckPersonalBlockStatusParamter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal bool InsertReserveToCarBookingRecord( InsertReserveToCarBookingRecord InsertReserveToCarBookingRecordParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.InsertReserveToCarBookingRecord( InsertReserveToCarBookingRecordParameter );
+
+			return bResult;
+		}
+		internal bool DeleteCarBookingRecord( DeleteCarBookingRecord DeleteCarBookingRecordParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.DeleteCarBookingRecord( DeleteCarBookingRecordParameter );
+
+			return bResult;
+		}
 		#endregion Internal Methods
 
 		#region Private Fields

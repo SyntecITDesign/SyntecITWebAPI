@@ -5,6 +5,9 @@ using SyntecITWebAPI.Enums;
 using Newtonsoft.Json.Linq;
 using SyntecITWebAPI.ParameterModels.GAS.ApplyUniform;
 using SyntecITWebAPI.Models.GAS.ApplyUniform;
+
+
+
 namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 {
 	[EnableCors("AllowAllPolicy")]
@@ -267,6 +270,85 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+
+		[Route( "InsertUniformApplicationsMaster" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult InsertUniformApplicationsMaster( [FromBody] InsertUniformApplicationsMaster InsertUniformApplicationsMasterParameter )
+		{
+
+			bool bResult = m_publicApplyUniformHandler.InsertUniformApplicationsMaster( InsertUniformApplicationsMasterParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "DeleteUniformApplicationsMaster" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DeleteUniformApplicationsMaster( [FromBody] DeleteUniformApplicationsMaster DeleteUniformApplicationsMasterParameter )
+		{
+
+			bool bResult = m_publicApplyUniformHandler.DeleteUniformApplicationsMaster( DeleteUniformApplicationsMasterParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "UpdateUniformApplicationsMaster" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpdateUniformApplicationsMaster( [FromBody] UpdateUniformApplicationsMaster UpdateUniformApplicationsMasterParameter )
+		{
+
+			bool bResult = m_publicApplyUniformHandler.UpdateUniformApplicationsMaster( UpdateUniformApplicationsMasterParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "GetUniformApplicationsMaster" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult GetUniformApplicationsMaster( [FromBody] GetUniformApplicationsMaster GetUniformApplicationsMasterParameter )
+		{
+
+			JArray result = m_publicApplyUniformHandler.GetUniformApplicationsMaster( GetUniformApplicationsMasterParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+
 
 		#endregion Public Methods
 

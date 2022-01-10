@@ -83,7 +83,6 @@ namespace SyntecITWebAPI.Models.GAS.ApplyUniform
 
 			return bResult;
 		}
-
 		internal bool InsertUniformOrderListDetail( InsertUniformOrderListDetail InsertUniformOrderListDetailParameter )
 		{
 
@@ -91,7 +90,6 @@ namespace SyntecITWebAPI.Models.GAS.ApplyUniform
 
 			return bResult;
 		}
-
 		internal JArray GetUniformOrderList( GetUniformOrderList GetUniformOrderListParameter )
 		{
 
@@ -135,6 +133,42 @@ namespace SyntecITWebAPI.Models.GAS.ApplyUniform
 
 			return bResult;
 		}
+
+		internal bool InsertUniformApplicationsMaster( InsertUniformApplicationsMaster InsertUniformApplicationsMasterParameter )
+		{
+
+			bool bResult = m_ApplyUniformDBManager.InsertUniformApplicationsMaster( InsertUniformApplicationsMasterParameter );
+
+			return bResult;
+		}
+		internal bool DeleteUniformApplicationsMaster( DeleteUniformApplicationsMaster DeleteUniformApplicationsMasterParameter )
+		{
+
+			bool bResult = m_ApplyUniformDBManager.DeleteUniformApplicationsMaster( DeleteUniformApplicationsMasterParameter );
+
+			return bResult;
+		}
+		internal bool UpdateUniformApplicationsMaster( UpdateUniformApplicationsMaster UpdateUniformApplicationsMasterParameter )
+		{
+
+			bool bResult = m_ApplyUniformDBManager.UpdateUniformApplicationsMaster( UpdateUniformApplicationsMasterParameter );
+
+			return bResult;
+		}
+		internal JArray GetUniformApplicationsMaster( GetUniformApplicationsMaster GetUniformApplicationsMasterParameter )
+		{
+
+			DataTable dtResult = m_ApplyUniformDBManager.GetUniformApplicationsMaster( GetUniformApplicationsMasterParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+		
 
 
 		#endregion Internal Methods

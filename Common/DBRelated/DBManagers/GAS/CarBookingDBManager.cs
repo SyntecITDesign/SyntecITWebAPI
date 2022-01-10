@@ -655,6 +655,161 @@ WHERE [CarInsuranceName].[Type] = @Parameter0";
 			return bResult;
 		}
 
+		internal DataTable GetBeenRentCarSpecTime( GetBeenRentCarSpecTime GetBeenRentCarSpecTimeParameter )
+		{
+			string sql = $@"SELECT *
+							FROM [SyntecGAS].[dbo].[CarBookingRecord]
+							WHERE ([PreserveStartTime] > @Parameter0 and [PreserveEndTime] < @Parameter1) 
+							or ([PreserveStartTime] > @Parameter0 and @Parameter1 between [PreserveEndTime] and  [PreserveStartTime])
+							or (@Parameter0 between [PreserveStartTime] and [PreserveEndTime] and  [PreserveEndTime] < @Parameter1 )
+							or ([PreserveStartTime] < @Parameter0 and [PreserveEndTime] > @Parameter1)";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetBeenRentCarSpecTimeParameter.StartTime,
+				GetBeenRentCarSpecTimeParameter.EndTime
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal DataTable GetPersonalCarBookingRecord( GetPersonalCarBookingRecord GetPersonalCarBookingRecordParameter )
+		{
+			string sql = $@"SELECT *  
+							FROM [SyntecGAS].[dbo].[CarBookingRecord] 
+							WHERE EmpID=@Parameter0 and CONVERT(datetime,PreserveStartTime,120)>=CONVERT(datetime,GETDATE(),120) 
+							ORDER BY [PreserveStartTime]";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetPersonalCarBookingRecordParameter.EmpID
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal DataTable GetPrivatePriorityNumber( GetPrivatePriorityNumber GetPrivatePriorityNumberParameter )
+		{
+			string sql = $@"SELECT MAX([PriorityNumber]) as  MAXPriorityNumber 
+							FROM ( Select * FROM [SyntecGAS].[dbo].[CarBookingRecord] 
+						           WHERE Type='private' and ( CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) OR CONVERT(datetime,@Parameter1,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) OR CONVERT(datetime,PreserveStartTime,120)  BETWEEN CONVERT(datetime,@Paramete0,120) AND CONVERT(datetime,@Parameter1,120) OR CONVERT(datetime,PreserveEndTime,120) BETWEEN CONVERT(datetime,@Parameter0,120) AND CONVERT(datetime, @Parameter1 ,120)) )";
+		
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetPrivatePriorityNumberParameter.PreserveStartTime,
+				GetPrivatePriorityNumberParameter.PreserveEndTime
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal DataTable CheckInner14DaysHasPrivatDate( CheckInner14DaysHasPrivatDate CheckInner14DaysHasPrivatDateParameter )
+		{
+			string sql = $@"SELECT *,DateDiff(SECOND,convert(varchar, convert(varchar,getdate() , 121), 121),[PreserveEndTime]),getdate()  
+							FROM [SyntecGAS].[dbo].[CarBookingRecord] where EmpID=@Parameter0 and Type='private' and DateDiff(dd,convert(varchar, convert(varchar,getdate() , 111), 111),[PreserveStartTime])<=14 and DateDiff(SECOND,convert(varchar, convert(varchar,getdate() , 121), 121),[PreserveEndTime])>=0 and ActualEndTime IS NULL";
+		
+
+		List<object> SQLParameterList = new List<object>()
+			{
+				CheckInner14DaysHasPrivatDateParameter.EmpID
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal DataTable CheckPersonalBlockStatus( CheckPersonalBlockStatus CheckPersonalBlockStatusParameter )
+		{
+			string sql = $@"SELECT *  
+							FROM [SyntecGAS].[dbo].[CarBookingStatus]  
+							WHERE Status='blocked' and EmpID=@Parameter0";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				CheckPersonalBlockStatusParameter.EmpID
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal bool InsertReserveToCarBookingRecord( InsertReserveToCarBookingRecord InsertReserveToCarBookingRecordParameter )
+		{
+			string sql = $@"Insert into  [SyntecGAS].[dbo].[CarBookingRecord] 
+							values((SELECT TOP(1) [EmpName] FROM [syntecbarcode].[dbo].[TEMP_NAME] WHERE [EmpID]=@Parameter0),@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,CONVERT(datetime,@Parameter6,120),CONVERT(datetime,@Parameter7,120),NULL,NULL,@Parameter8,NULL,NULL,NULL,(SELECT MAX(ID)+1 FROM [CarBookingRecord]))";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+
+				InsertReserveToCarBookingRecordParameter.EmpID,
+				InsertReserveToCarBookingRecordParameter.Type,
+				InsertReserveToCarBookingRecordParameter.Title,
+				InsertReserveToCarBookingRecordParameter.StartLocation,
+				InsertReserveToCarBookingRecordParameter.EndLocation,
+				InsertReserveToCarBookingRecordParameter.CarNumber,
+				InsertReserveToCarBookingRecordParameter.PreserveStartTime,
+				InsertReserveToCarBookingRecordParameter.PreserveEndTime,
+				InsertReserveToCarBookingRecordParameter.PriorityNumber
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		internal bool DeleteCarBookingRecord( DeleteCarBookingRecord DeleteCarBookingRecordParameter )
+		{
+			string sql = $@"DELETE FROM  [SyntecGAS].[dbo].CarBookingRecord  WHERE ID=@Parameter0";
+			List<object> SQLParameterList = new List<object>()
+			{
+
+				DeleteCarBookingRecordParameter.RecordID
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
 	}
 	#endregion Internal Methods
 }

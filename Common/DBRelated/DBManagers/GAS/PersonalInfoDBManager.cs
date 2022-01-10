@@ -24,9 +24,14 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 		internal DataTable GetPersonalInfo( GetPersonalInfo GetPersonalInfoParameter )
 		{
-			string sql = $@"SELECT *
-						  FROM [syntecbarcode].[dbo].[TEMP_NAME]
-						  WHERE ([EmpID]=@Parameter0 OR [EmpName]=@Parameter0) and [QuitDate] is @Parameter1";
+			string sql = $@"IF @Parameter1 = 'empty'	
+								SELECT *
+								FROM [syntecbarcode].[dbo].[TEMP_NAME]
+								WHERE ([EmpID]=@Parameter0 OR [EmpName]=@Parameter0) and [QuitDate] is NULL
+							ELSE
+								SELECT *
+								FROM [syntecbarcode].[dbo].[TEMP_NAME]
+								WHERE ([EmpID]=@Parameter0 OR [EmpName]=@Parameter0) and [QuitDate] is not  NULL";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -37,7 +42,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 
 
-			if(result == null || result.Rows.Count <= 0)
+			if( result == null || result.Rows.Count <= 0 )
 			{
 				return null;
 			}
@@ -49,9 +54,14 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 		internal DataTable GetFuzzyPersonalInfo( GetFuzzyPersonalInfo GetFuzzyPersonalInfoParameter )
 		{
-			string sql = $@"SELECT *
-						  FROM [syntecbarcode].[dbo].[TEMP_NAME]
-						  WHERE ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0) AND [QuitDate] is null";
+			string sql = $@"IF @Parameter1 = 'empty'
+								SELECT *
+								FROM [syntecbarcode].[dbo].[TEMP_NAME]
+								WHERE ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0) AND [QuitDate] is NULL
+							ELSE
+								SELECT *
+								FROM [syntecbarcode].[dbo].[TEMP_NAME]
+								WHERE ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0) AND [QuitDate] is not NULL";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -61,7 +71,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 
 
-			if(result == null || result.Rows.Count <= 0)
+			if( result == null || result.Rows.Count <= 0 )
 			{
 				return null;
 			}
@@ -73,9 +83,14 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 		internal DataTable GetPersonalInfoByNameOrg( GetPersonalInfoByNameOrg GetPersonalInfoByNameOrgParameter )
 		{
-			string sql = $@"SELECT *
-						  FROM [syntecbarcode].[dbo].[TEMP_NAME]
-						  WHERE [EmpName] = @Parameter0 AND [DeptName] = @Parameter1 AND [QuitDate] is @Parameter2";
+			string sql = $@"IF @Parameter2 = 'empty'
+								SELECT *
+								FROM [syntecbarcode].[dbo].[TEMP_NAME]
+								WHERE [EmpName] = @Parameter0 AND [DeptName] = @Parameter1 AND [QuitDate] is NULL
+							ELSE
+								SELECT *
+								FROM [syntecbarcode].[dbo].[TEMP_NAME]
+								WHERE [EmpName] = @Parameter0 AND [DeptName] = @Parameter1 AND [QuitDate] is not NULL";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -88,7 +103,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 
 
-			if(result == null || result.Rows.Count <= 0)
+			if( result == null || result.Rows.Count <= 0 )
 			{
 				return null;
 			}
@@ -112,7 +127,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 
 
-			if(result == null || result.Rows.Count <= 0)
+			if( result == null || result.Rows.Count <= 0 )
 			{
 				return null;
 			}
@@ -161,7 +176,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				InsertFreshmanGASInfoParameter.EmpName,
 				InsertFreshmanGASInfoParameter.MotorLicense,
 				InsertFreshmanGASInfoParameter.CarLicense
-				
+
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
@@ -173,22 +188,25 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			//string sql = $@"SELECT " + GetProcessingInfoParameter.ApplyString + ".ApplicantID, " + GetProcessingInfoParameter.ApplyString + ".DiagramID, " + GetProcessingInfoParameter.ApplyString + ".ApplicantDateTime FROM  [{m_bpm}].[dbo]." + GetProcessingInfoParameter.ApplyString + "  LEFT JOIN [{m_bpm}].[dbo].[FSe7en_Sys_Requisition] ON " + GetProcessingInfoParameter.ApplyString + ".RequisitionID = [FSe7en_Sys_Requisition].RequisitionID WHERE " + GetProcessingInfoParameter.ApplyString + ".ApplicantID=@Parameter0 AND [FSe7en_Sys_Requisition].Status='0'";
 
 			string sql = "";
-			string[] ApplyStringList = (GetProcessingInfoParameter.ApplyString).Split( "," );
+			string[] ApplyStringList = ( GetProcessingInfoParameter.ApplyString ).Split( "," );
 
 
-			if(ApplyStringList.Count() == 1)
+			if( ApplyStringList.Count() == 1 )
 			{
-				sql = $@"SELECT " + ApplyStringList[0] + ".ApplicantID, " + ApplyStringList[0] + ".DiagramID, " + ApplyStringList[0] + ".ApplicantDateTime, [FSe7en_Tep_FormHeader].value   FROM (["+m_bpm+"].[dbo]." + ApplyStringList[0] + " INNER JOIN ["+m_bpm+"].[dbo].[FSe7en_Sys_Requisition] ON " + ApplyStringList[0] + ".RequisitionID = [FSe7en_Sys_Requisition].RequisitionID) INNER JOIN ["+m_bpm+"].[dbo].[FSe7en_Tep_FormHeader] ON [FSe7en_Sys_Requisition].RequisitionID=[FSe7en_Tep_FormHeader].RequisitionID WHERE " + ApplyStringList[0] + ".ApplicantID=@Parameter0 AND [FSe7en_Sys_Requisition].Status='0'";
+				sql = $@"SELECT " + ApplyStringList[ 0 ] + ".ApplicantID, " + ApplyStringList[ 0 ] + ".DiagramID, " + ApplyStringList[ 0 ] + ".ApplicantDateTime, [FSe7en_Tep_FormHeader].value   FROM ([" + m_bpm + "].[dbo]." + ApplyStringList[ 0 ] + " INNER JOIN [" + m_bpm + "].[dbo].[FSe7en_Sys_Requisition] ON " + ApplyStringList[ 0 ] + ".RequisitionID = [FSe7en_Sys_Requisition].RequisitionID) INNER JOIN [" + m_bpm + "].[dbo].[FSe7en_Tep_FormHeader] ON [FSe7en_Sys_Requisition].RequisitionID=[FSe7en_Tep_FormHeader].RequisitionID WHERE " + ApplyStringList[ 0 ] + ".ApplicantID=@Parameter0 AND [FSe7en_Sys_Requisition].Status='0'";
 
 			}
 			else
 			{
-				for(int i = 0; i < ApplyStringList.Count(); i++)
+				for( int i = 0; i < ApplyStringList.Count(); i++ )
 				{
 
-					string oneofsql = $@"SELECT " + ApplyStringList[i] + ".ApplicantID, " + ApplyStringList[i] + ".DiagramID, " + ApplyStringList[i] + ".ApplicantDateTime, [FSe7en_Tep_FormHeader].value   FROM ["+m_bpm+"].[dbo]." + ApplyStringList[i] + " INNER JOIN ["+m_bpm+"].[dbo].[FSe7en_Sys_Requisition] ON " + ApplyStringList[i] + ".RequisitionID = [FSe7en_Sys_Requisition].RequisitionID INNER JOIN ["+m_bpm+"].[dbo].[FSe7en_Tep_FormHeader] ON [FSe7en_Sys_Requisition].RequisitionID=[FSe7en_Tep_FormHeader].RequisitionID WHERE " + ApplyStringList[i] + ".ApplicantID=@Parameter0 AND [FSe7en_Sys_Requisition].Status='0'";
+					string oneofsql = $@"SELECT " + ApplyStringList[ i ] + ".ApplicantID, " + ApplyStringList[ i ] + ".DiagramID, " + ApplyStringList[ i ] + ".ApplicantDateTime, [FSe7en_Tep_FormHeader].value   FROM [" + m_bpm + "].[dbo]." + ApplyStringList[ i ] + " INNER JOIN [" + m_bpm + "].[dbo].[FSe7en_Sys_Requisition] ON " + ApplyStringList[ i ] + ".RequisitionID = [FSe7en_Sys_Requisition].RequisitionID INNER JOIN [" + m_bpm + "].[dbo].[FSe7en_Tep_FormHeader] ON [FSe7en_Sys_Requisition].RequisitionID=[FSe7en_Tep_FormHeader].RequisitionID WHERE " + ApplyStringList[ i ] + ".ApplicantID=@Parameter0 AND [FSe7en_Sys_Requisition].Status='0'";
 					sql = sql + oneofsql;
-					if(i != ApplyStringList.Count() - 1) { sql = sql + " UNION ALL "; }
+					if( i != ApplyStringList.Count() - 1 )
+					{
+						sql = sql + " UNION ALL ";
+					}
 
 				}
 
@@ -206,7 +224,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 
 
-			if(result == null || result.Rows.Count <= 0)
+			if( result == null || result.Rows.Count <= 0 )
 			{
 				return null;
 			}
@@ -344,6 +362,6 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 	}
 	#endregion Internal Methods
-	
+
 }
 
