@@ -48,6 +48,7 @@ namespace SyntecITWebAPI.Models
 							var result = response.Content.ReadAsStringAsync().Result;
 							CFContent CFContent = Newtonsoft.Json.JsonConvert.DeserializeObject<CFContent>( result );
 							fileName = CFContent.title + ".pdf";
+							fileName = ReplaceText( fileName );
 						}
 						//download pdf by pageid scope current vs descendants
 						string strTemplateID = "0d3b213f-e04a-4d10-820e-765eb051ea04";
@@ -155,5 +156,20 @@ namespace SyntecITWebAPI.Models
 		}
 
 		#endregion Internal Constructors + Destructors
+
+		#region Private Methods
+		private string ReplaceText( string replaceString )
+		{
+			try
+			{
+				return replaceString.Replace( "\\", "" ).Replace( "/", "" ).Replace( ":", "" ).Replace( "*", "" ).Replace( "?", "" )
+					.Replace( "\"", "" ).Replace( "<", "" ).Replace( ">", "" ).Replace( "|", "" ).Trim();
+			}
+			catch( Exception ex )
+			{
+				return replaceString;
+			}
+		}
+		#endregion Private Methods
 	}
 }
