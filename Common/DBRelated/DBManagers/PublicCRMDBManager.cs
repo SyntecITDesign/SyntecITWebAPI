@@ -262,7 +262,10 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			{
 				SynService_DailyRecordParameter.serial_number,
 				SynService_DailyRecordParameter.time,
-				SynService_DailyRecordParameter.detail_json
+				SynService_DailyRecordParameter.detail_json,
+				SynService_DailyRecordParameter.crm_number,
+				SynService_DailyRecordParameter.drv_model,
+				SynService_DailyRecordParameter.drv_SN
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;

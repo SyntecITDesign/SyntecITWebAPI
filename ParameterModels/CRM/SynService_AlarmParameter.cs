@@ -671,7 +671,19 @@ namespace SyntecITWebAPI.ParameterModels.CRM
 		{
 			get; set;
 		}
+		public string crm_number
+		{
+			get; set;
+		}
 
+		public string drv_model
+		{
+			get; set;
+		}
+		public string drv_SN
+		{
+			get; set;
+		}
 
 		#endregion Public Properties
 
