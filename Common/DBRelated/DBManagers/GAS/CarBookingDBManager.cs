@@ -779,8 +779,15 @@ WHERE [CarInsuranceName].[Type] = @Parameter0";
 
 		internal bool InsertReserveToCarBookingRecord( InsertReserveToCarBookingRecord InsertReserveToCarBookingRecordParameter )
 		{
-			string sql = $@"Insert into  [SyntecGAS].[dbo].[CarBookingRecord] 
-							values((SELECT TOP(1) [EmpName] FROM [syntecbarcode].[dbo].[TEMP_NAME] WHERE [EmpID]=@Parameter0),@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,CONVERT(datetime,@Parameter6,120),CONVERT(datetime,@Parameter7,120),NULL,NULL,@Parameter8,NULL,NULL,NULL,(SELECT MAX(ID)+1 FROM [CarBookingRecord]))";
+			string sql = $@"
+							IF @Parameter1 == 'working'
+								Insert into  [SyntecGAS].[dbo].[CarBookingRecord] 
+								values((SELECT TOP(1) [EmpName] FROM [syntecbarcode].[dbo].[TEMP_NAME] WHERE [EmpID]=@Parameter0),@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,CONVERT(datetime,@Parameter6,120),CONVERT(datetime,@Parameter7,120),NULL,NULL,0,NULL,NULL,NULL,(SELECT MAX(ID)+1 FROM [CarBookingRecord]))
+							ELSE
+							Insert into  [SyntecGAS].[dbo].[CarBookingRecord] 
+								values((SELECT TOP(1) [EmpName] FROM [syntecbarcode].[dbo].[TEMP_NAME] WHERE [EmpID]=@Parameter0),@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,NULL,CONVERT(datetime,@Parameter6,120),CONVERT(datetime,@Parameter7,120),NULL,NULL,(SELECT COUNT(*) +1
+									FROM [SyntecGAS].[dbo].[CarBookingRecord] 
+									WHERE ([PreserveStartTime]<'20220114' and ([PreserveEndTime] between '20220114' and '20220116')) or (([PreserveStartTime] between '20220114' and'20220116') and  '20220116'<[PreserveEndTime]) or ([PreserveStartTime]<'20220114' and '20220116'<[PreserveEndTime]) or (([PreserveStartTime] between '20220114' and '20220116') and ([PreserveEndTime] between '20220114'and '20220116'))),NULL,NULL,NULL,(SELECT MAX(ID)+1 FROM [CarBookingRecord])";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -792,8 +799,7 @@ WHERE [CarInsuranceName].[Type] = @Parameter0";
 				InsertReserveToCarBookingRecordParameter.EndLocation,
 				InsertReserveToCarBookingRecordParameter.CarNumber,
 				InsertReserveToCarBookingRecordParameter.PreserveStartTime,
-				InsertReserveToCarBookingRecordParameter.PreserveEndTime,
-				InsertReserveToCarBookingRecordParameter.PriorityNumber
+				InsertReserveToCarBookingRecordParameter.PreserveEndTime
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;

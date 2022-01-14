@@ -15,7 +15,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		{
 			string sql = $@"SELECT *
 							FROM [SyntecGAS].[dbo].[CarBookingApplicationsMaster]
-							WHERE [ApplicationID]=@Parameter0 and [AcutalStartTime] is NULL";
+							WHERE [ApplicationID]=@Parameter0 and [ActualStartTime] is NULL";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -40,12 +40,12 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		{
 			string sql = $@"INSERT INTO [dbo].[CarBookingApplicationsMaster] 
 							([ApplicationID],[ApplicationName],[ApplicationDate],[FillerID],[FillerName]
-							,[TypeApplyCancel],[TypePersonalBusiness]
-							,[PreserveStartTime],[PreserveEndTime],[ActualStartTime],[ActutalEndTime]
+							,[TypePersonalBusiness]
+							,[PreserveStartTime],[PreserveEndTime],[ActualStartTime],[ActualEndTime]
 							,[CarNumber],[Remark],[StartPlace],[EndPlace])
-							VAUES(@Parameter0,  @Parameter1,  @Parameter2,  @Parameter3,  @Parameter4,
-								  @Parameter5,  @Parameter6,  @Parameter7,  @Parameter8,  @Parameter9,
-								  @Parameter10, @Parameter11, @Parameter12, @Parameter13, @Parameter14	)";
+							VAlUES('10190438',  '林展宏',  '20210114',  '10190438',  '林展宏',
+							'private',  '2022-011-14 14:32:32',  '2022-011-16 14:32:32',NULL,NULL,  'AU9005',  '台中出差',
+							'新竹',  '台中')";
 			
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -54,12 +54,9 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				InsertCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldApplicationDate,
 				InsertCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldFillerID,
 				InsertCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldFillerName,
-				InsertCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldTypeApplyCancel,
 				InsertCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldTypePersonalBusiness,
 				InsertCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldPreserveStartTime,
 				InsertCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldPreserveEndTime,
-				InsertCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldActualStartTime,
-				InsertCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldActualEndTime,
 				InsertCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldCarNumber,
 				InsertCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldRemark,
 				InsertCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldStartPlace,
@@ -73,24 +70,16 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		{
 			string sql = $@"DELETE FROM [dbo].[CarBookingApplicationsMaster]
 							WHERE [CarBookingApplicationsMasterAllFieldApplicationID]=@Parameter0 and 
-								  [CarBookingApplicationsMasterAllFieldApplicationName]=@Parameter1 and
-								  [CarBookingApplicationsMasterAllFieldApplicationDate]=@Parameter2 and
-								  [CarBookingApplicationsMasterAllFieldFillerID]=@Parameter3 and
-								  [CarBookingApplicationsMasterAllFieldFillerName]=@Parameter4 and
-								  [CarBookingApplicationsMasterAllFieldTypeApplyCancel]=@Parameter5 and
-								  [CarBookingApplicationsMasterAllFieldTypePersonalBusiness]=@Parameter6 and
-                                  [CarBookingApplicationsMasterAllFieldPreserveStartTime]=@Parameter7 and
-								  [CarBookingApplicationsMasterAllFieldPreserveEndTime]=@Parameter8 and
-								  [CarBookingApplicationsMasterAllFieldCarNumber]=@Parameter9";
+								  [CarBookingApplicationsMasterAllFieldApplicationDate]=@Parameter1 and
+								  [CarBookingApplicationsMasterAllFieldTypePersonalBusiness]=@Parameter2 and
+                                  [CarBookingApplicationsMasterAllFieldPreserveStartTime]=@Parameter3 and
+								  [CarBookingApplicationsMasterAllFieldPreserveEndTime]=@Parameter4 and
+								  [CarBookingApplicationsMasterAllFieldCarNumber]=@Parameter5";
 
 			List<object> SQLParameterList = new List<object>()
 			{
 				DeleteCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldApplicationID,
-				DeleteCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldApplicationName,
 				DeleteCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldApplicationDate,
-				DeleteCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldFillerID,
-				DeleteCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldFillerName,
-				DeleteCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldTypeApplyCancel,
 				DeleteCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldTypePersonalBusiness,
 				DeleteCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldPreserveStartTime,
 				DeleteCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldPreserveEndTime,
