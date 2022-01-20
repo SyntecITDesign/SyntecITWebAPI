@@ -260,34 +260,34 @@ namespace SyntecITWebAPI.Open.User
 			return Ok( m_responseHandler.GetResult() );
 		}
 
-		[Route( "UpsertDailyRecord" )]
-		[CheckTokenFilter]
-		[HttpPost]
-		public IActionResult UpsertDailyRecord( [FromBody]List<SynService_DailyRecord>  SynService_DailyRecordParameterList )
-		{
-			string errorList = "";
-			foreach(var SynService_DailyRecordParameter in SynService_DailyRecordParameterList)
-			{
-				bool bResult = m_publicCRMHandler.UpsertDailyRecord( SynService_DailyRecordParameter );
-				if(!bResult)
-				{
-					m_responseHandler.Code = ErrorCodeList.Param_Error;
-					errorList += SynService_DailyRecordParameter.serial_number+",";
-				}
-			}
+		//[Route( "UpsertDailyRecord" )]
+		//[CheckTokenFilter]
+		//[HttpPost]
+		//public IActionResult UpsertDailyRecord( [FromBody]List<SynService_DailyRecord>  SynService_DailyRecordParameterList )
+		//{
+		//	string errorList = "";
+		//	foreach(var SynService_DailyRecordParameter in SynService_DailyRecordParameterList)
+		//	{
+		//		bool bResult = m_publicCRMHandler.UpsertDailyRecord( SynService_DailyRecordParameter );
+		//		if(!bResult)
+		//		{
+		//			m_responseHandler.Code = ErrorCodeList.Param_Error;
+		//			errorList += SynService_DailyRecordParameter.serial_number+",";
+		//		}
+		//	}
 
-			if(errorList != "")
-			{
-				m_responseHandler.Code = ErrorCodeList.Param_Error;
-				m_responseHandler.Content = errorList;
-			}
-			else
-			{
-				m_responseHandler.Content = "true";
-			}
+		//	if(errorList != "")
+		//	{
+		//		m_responseHandler.Code = ErrorCodeList.Param_Error;
+		//		m_responseHandler.Content = errorList;
+		//	}
+		//	else
+		//	{
+		//		m_responseHandler.Content = "true";
+		//	}
 
-			return Ok( m_responseHandler.GetResult() );
-		}
+		//	return Ok( m_responseHandler.GetResult() );
+		//}
 
 		[Route( "UpsertEncryption" )]
 		[CheckTokenFilter]
