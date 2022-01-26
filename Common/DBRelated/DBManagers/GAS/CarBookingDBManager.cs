@@ -779,15 +779,16 @@ WHERE [CarInsuranceName].[Type] = @Parameter0";
 
 		internal bool InsertReserveToCarBookingRecord( InsertReserveToCarBookingRecord InsertReserveToCarBookingRecordParameter )
 		{
-			string sql = $@"
-							IF @Parameter1 == 'working'
-								Insert into  [SyntecGAS].[dbo].[CarBookingRecord] 
-								values((SELECT TOP(1) [EmpName] FROM [syntecbarcode].[dbo].[TEMP_NAME] WHERE [EmpID]=@Parameter0),@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,CONVERT(datetime,@Parameter6,120),CONVERT(datetime,@Parameter7,120),NULL,NULL,0,NULL,NULL,NULL,(SELECT MAX(ID)+1 FROM [CarBookingRecord]))
-							ELSE
-							Insert into  [SyntecGAS].[dbo].[CarBookingRecord] 
-								values((SELECT TOP(1) [EmpName] FROM [syntecbarcode].[dbo].[TEMP_NAME] WHERE [EmpID]=@Parameter0),@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,NULL,CONVERT(datetime,@Parameter6,120),CONVERT(datetime,@Parameter7,120),NULL,NULL,(SELECT COUNT(*) +1
-									FROM [SyntecGAS].[dbo].[CarBookingRecord] 
-									WHERE ([PreserveStartTime]<'20220114' and ([PreserveEndTime] between '20220114' and '20220116')) or (([PreserveStartTime] between '20220114' and'20220116') and  '20220116'<[PreserveEndTime]) or ([PreserveStartTime]<'20220114' and '20220116'<[PreserveEndTime]) or (([PreserveStartTime] between '20220114' and '20220116') and ([PreserveEndTime] between '20220114'and '20220116'))),NULL,NULL,NULL,(SELECT MAX(ID)+1 FROM [CarBookingRecord])";
+			string sql = $@"IF @Parameter1 = 'working'
+							INSERT INTO  [SyntecGAS].[dbo].[CarBookingRecord] 
+							([Name],[EmpID],[Type],[Title],[StartLocation],[EndLocation],[CarNumber],[PreserveStartTime],[PreserveEndTime],[PriorityNumber],[ID])
+							VALUES((SELECT TOP(1) [EmpName] FROM [syntecbarcode].[dbo].[TEMP_NAME] WHERE [EmpID]=@Parameter0),@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,0,(SELECT MAX(ID)+1 FROM [SyntecGAS].[dbo].[CarBookingRecord]))
+						ELSE
+							INSERT INTO  [SyntecGAS].[dbo].[CarBookingRecord] 
+							([Name],[EmpID],[Type],[Title],[StartLocation],[EndLocation],[PreserveStartTime],[PreserveEndTime],[PriorityNumber],[ID])
+							VALUES((SELECT TOP(1) [EmpName] FROM [syntecbarcode].[dbo].[TEMP_NAME] WHERE [EmpID]=@Parameter0),@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter6,@Parameter7,(SELECT COUNT(*) +1
+							FROM [SyntecGAS].[dbo].[CarBookingRecord] 
+							WHERE ([PreserveStartTime]<@Parameter6 and ([PreserveEndTime] between @Parameter6 and @Parameter7)) or (([PreserveStartTime] between @Parameter6 and @Parameter7) and  @Parameter7 <[PreserveEndTime]) or ([PreserveStartTime]<@Parameter6 and @Parameter7<[PreserveEndTime]) or (([PreserveStartTime] between @Parameter6 and @Parameter7) and ([PreserveEndTime] between @Parameter6 and @Parameter7))),(SELECT MAX(ID)+1 FROM [SyntecGAS].[dbo].[CarBookingRecord]))";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -806,14 +807,49 @@ WHERE [CarInsuranceName].[Type] = @Parameter0";
 		}
 		internal bool DeleteCarBookingRecord( DeleteCarBookingRecord DeleteCarBookingRecordParameter )
 		{
-			string sql = $@"DELETE FROM  [SyntecGAS].[dbo].CarBookingRecord  WHERE ID=@Parameter0";
+			string sql = $@"DELETE FROM  [SyntecGAS].[dbo].[CarBookingRecord]  
+							WHERE ID=@Parameter0";
+
 			List<object> SQLParameterList = new List<object>()
 			{
 
-				DeleteCarBookingRecordParameter.RecordID
+				DeleteCarBookingRecordParameter.ID
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
+		}
+
+		internal DataTable GetCarBookingRecordID( GetCarBookingRecordID GetCarBookingRecordIDParameter )
+		{
+			string sql = $@"IF @Parameter1 = 'private'
+								SELECT *  
+								FROM [SyntecGAS].[dbo].[CarBookingRecord]  
+								WHERE [EmpID]=@Parameter0 and [Type]=@Parameter1 and [Title]=@Parameter2 and [PreserveStartTime]=@Parameter3 and [PreserveEndTime]=@Parameter4
+							ELSE
+								SELECT *  
+								FROM [SyntecGAS].[dbo].[CarBookingRecord]  
+								WHERE [EmpID]=@Parameter0 and [Type]=@Parameter1 and [Title]=@Parameter2 and [PreserveStartTime]=@Parameter3 and [PreserveEndTime]=@Parameter4 and [CarNumber]=@Parameter5";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetCarBookingRecordIDParameter.EmpID,
+				GetCarBookingRecordIDParameter.TypePersonalBusiness,
+				GetCarBookingRecordIDParameter.Remark,
+				GetCarBookingRecordIDParameter.PreserveStartTime,
+				GetCarBookingRecordIDParameter.PreserveEndTime,
+				GetCarBookingRecordIDParameter.CarNumber
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
 		}
 
 	}

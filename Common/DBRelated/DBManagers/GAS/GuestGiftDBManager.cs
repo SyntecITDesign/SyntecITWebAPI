@@ -249,6 +249,114 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			return bResult;
 		}
 
+
+		internal bool InsertGuestReceptionApplicationsMaster( InsertGuestReceptionApplicationsMaster InsertGuestReceptionApplicationsMasterParameter )
+		{
+			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[GuestReceptionApplicationsMaster] ([FillerID] ,[FillerName] ,[ApplicationDate] ,[ApplicantID] ,[ApplicantName] ,[ApplicantDept] ,[ApplicantExt],[IntervieweeID],[IntervieweeDeptName],[Visitors],[VisitorsCompany],[VisitorsNum],[VisitStartDateTime],[VisitEndDateTime],[MeetingRoom],[NeedElectronicPoster],[NeedWater],[NeedCoffee],[NeedTea],[VeggieLunch],[MeatLunch],[ParkingCarName],[ParkingCarCounting],[NeedVideoPPT]
+      ,[NeedCatalog]
+      ,[SouvenirType]
+      ,[SouvenirNum]
+      ,[Memo])
+						VALUES (@Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6, @Parameter7, @Parameter9, @Parameter10, @Parameter11, @Parameter12, @Parameter13, @Parameter14, @Parameter15, @Parameter16, @Parameter17, @Parameter18, @Parameter19, @Parameter20, @Parameter21, @Parameter22, @Parameter23, @Parameter24, @Parameter25, @Parameter26, @Parameter27, @Parameter28, @Parameter29)";
+			List<object> SQLParameterList = new List<object>()
+			{
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterRequisitionID,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterFillerID,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterFillerName,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterApplicationDate,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterApplicantID,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterApplicantName,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterApplicantDept,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterApplicantExt,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterIsCancel,
+				
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterIntervieweeID,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterIntervieweeDeptName,		
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVisitors,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVisitorsCompany,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVisitorsNum,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVisitStartDateTime,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVisitEndDateTime,
+
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterMeetingRoom,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedElectronicPoster,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedWater,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedCoffee,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedTea,
+
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVeggieLunch,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterMeatLunch,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterParkingCarName,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterParkingCarCounting,
+
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedVideoPPT,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedCatalog,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterSouvenirType,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterSouvenirNum,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterMemo,
+				
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterFinished
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		
+		internal DataTable GetGuestReceptionApplicationsMaster( GetGuestReceptionApplicationsMaster GetGuestReceptionApplicationsMasterParameter )
+		{
+			string sql = $@"SELECT *
+						FROM [SyntecGAS].[dbo].[GuestReceptionApplicationsMaster]						
+						ORDER BY [RequisitionID] desc";
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterRequisitionID,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterFillerID,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterFillerName,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterApplicationDate,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterApplicantID,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterApplicantName,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterApplicantDept,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterApplicantExt,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterIsCancel,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterIntervieweeID,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterIntervieweeDeptName,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVisitors,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVisitorsCompany,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVisitorsNum,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVisitStartDateTime,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVisitEndDateTime,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterMeetingRoom,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedElectronicPoster,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedWater,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedCoffee,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedTea,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVeggieLunch,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterMeatLunch,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterParkingCarName,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterParkingCarCounting,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedVideoPPT,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedCatalog,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterSouvenirType,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterSouvenirNum,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterMemo,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterFinished
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
+			//return bresult;
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+
+
+
 	}
 	#endregion Internal Methods
 }

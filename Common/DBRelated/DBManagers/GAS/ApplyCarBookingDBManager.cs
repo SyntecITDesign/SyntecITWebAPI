@@ -38,14 +38,23 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool InsertCarBookingApplicationsMaster( InsertCarBookingApplicationsMaster InsertCarBookingApplicationsMasterParameter )
 		{
-			string sql = $@"INSERT INTO [dbo].[CarBookingApplicationsMaster] 
-							([ApplicationID],[ApplicationName],[ApplicationDate],[FillerID],[FillerName]
-							,[TypePersonalBusiness]
-							,[PreserveStartTime],[PreserveEndTime],[ActualStartTime],[ActualEndTime]
-							,[CarNumber],[Remark],[StartPlace],[EndPlace])
-							VAlUES('10190438',  '林展宏',  '20210114',  '10190438',  '林展宏',
-							'private',  '2022-011-14 14:32:32',  '2022-011-16 14:32:32',NULL,NULL,  'AU9005',  '台中出差',
-							'新竹',  '台中')";
+			string sql = $@"IF @Parameter5 = 'private'
+								INSERT INTO [SyntecGAS].[dbo].[CarBookingApplicationsMaster] 
+								([ApplicationID],[ApplicationName],[ApplicationDate],[FillerID],[FillerName]
+								,[TypePersonalBusiness]
+								,[PreserveStartTime],[PreserveEndTime],[Remark],[StartPlace],[EndPlace])
+								VAlUES(@Parameter0,  @Parameter1,  @Parameter2,  @Parameter3,  @Parameter4,
+								@Parameter5,  @Parameter6,  @Parameter7,@Parameter9,
+								@Parameter10,  @Parameter11)
+							ELSE 
+								INSERT INTO [SyntecGAS].[dbo].[CarBookingApplicationsMaster] 
+								([ApplicationID],[ApplicationName],[ApplicationDate],[FillerID],[FillerName]
+								,[TypePersonalBusiness]
+								,[PreserveStartTime],[PreserveEndTime]
+								,[CarNumber],[Remark],[StartPlace],[EndPlace])
+								VAlUES(@Parameter0,  @Parameter1,  @Parameter2,  @Parameter3,  @Parameter4,
+								@Parameter5,  @Parameter6,  @Parameter7,@Parameter8,  @Parameter9,
+								@Parameter10,  @Parameter11)";
 			
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -68,22 +77,12 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool DeleteCarBookingApplicationsMaster( DeleteCarBookingApplicationsMaster DeleteCarBookingApplicationsMasterParameter )
 		{
-			string sql = $@"DELETE FROM [dbo].[CarBookingApplicationsMaster]
-							WHERE [CarBookingApplicationsMasterAllFieldApplicationID]=@Parameter0 and 
-								  [CarBookingApplicationsMasterAllFieldApplicationDate]=@Parameter1 and
-								  [CarBookingApplicationsMasterAllFieldTypePersonalBusiness]=@Parameter2 and
-                                  [CarBookingApplicationsMasterAllFieldPreserveStartTime]=@Parameter3 and
-								  [CarBookingApplicationsMasterAllFieldPreserveEndTime]=@Parameter4 and
-								  [CarBookingApplicationsMasterAllFieldCarNumber]=@Parameter5";
+			string sql = $@"DELETE FROM [SyntecGAS].[dbo].[CarBookingApplicationsMaster]
+							WHERE  ReuisitionID=@Parameter0";
 
 			List<object> SQLParameterList = new List<object>()
 			{
-				DeleteCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldApplicationID,
-				DeleteCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldApplicationDate,
-				DeleteCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldTypePersonalBusiness,
-				DeleteCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldPreserveStartTime,
-				DeleteCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldPreserveEndTime,
-				DeleteCarBookingApplicationsMasterParameter.CarBookingApplicationsMasterAllFieldCarNumber
+				DeleteCarBookingApplicationsMasterParameter.ReuisitionID
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;

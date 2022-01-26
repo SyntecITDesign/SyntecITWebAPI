@@ -124,7 +124,22 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 									INNER JOIN[SyntecGAS].[dbo].[UniformQuantityInfo]
 									ON[UniformStyleInfo].[No] =[UniformQuantityInfo].[Style]
 									WHERE[No] like @Parameter1
-									ORDER BY[No],[Size]";
+									ORDER BY[No],case 
+	when [No]<>'2' and [No]<>'3' then
+		case 
+         when [Size]='XS' then 1 
+         when [Size]='S' then 2 
+         when [Size]='M' then 3
+		 when [Size]='L' then 4 
+         when [Size]='XL' then 5 
+         when [Size]='2L' then 6
+		 when [Size]='3L' then 7
+        end
+	when [No]='2' or [No]='3' then
+		case 
+         when [Size]='46M' then 1          
+        end
+	end";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -165,7 +180,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			string sql = $@"SELECT *
 						FROM [SyntecGAS].[dbo].[UniformOrderList]
 						WHERE [No] LIKE @Parameter0 and [Ok]=0
-						ORDER BY [OrderDate] DESC";
+						ORDER BY [OrderDate] DESC,[No] Desc";
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetUniformOrderListParameter.UniformOrderListNo,
@@ -191,7 +206,23 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 															  FROM[SyntecGAS].[dbo].[UniformStyleInfo]
 															  INNER JOIN[SyntecGAS].[dbo].[UniformQuantityInfo]
 															  ON[UniformStyleInfo].[No] =[UniformQuantityInfo].[Style]) as UniformInfo
-							  ON[UniformOrderListDetail].[Style] = UniformInfo.[No] and [UniformOrderListDetail].[Size]=UniformInfo.[Size]";
+							  ON[UniformOrderListDetail].[Style] = UniformInfo.[No] and [UniformOrderListDetail].[Size]=UniformInfo.[Size]
+ORDER BY UniformInfo.[No],case 
+	when UniformInfo.[No]<>'2' and UniformInfo.[No]<>'3' then
+		case 
+         when [UniformOrderListDetail].[Size]='XS' then 1 
+         when [UniformOrderListDetail].[Size]='S' then 2 
+         when [UniformOrderListDetail].[Size]='M' then 3
+		 when [UniformOrderListDetail].[Size]='L' then 4 
+         when [UniformOrderListDetail].[Size]='XL' then 5 
+         when [UniformOrderListDetail].[Size]='2L' then 6
+		 when [UniformOrderListDetail].[Size]='3L' then 7
+        end
+	when UniformInfo.[No]='2' or UniformInfo.[No]='3' then
+		case 
+         when [UniformOrderListDetail].[Size]='46M' then 1          
+        end
+	end";
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetUniformOrderListDetailParameter.UniformOrderListNo,

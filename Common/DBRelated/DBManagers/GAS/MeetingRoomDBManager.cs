@@ -177,7 +177,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal bool InsertMRBS( InsertMRBS InsertMRBSParameter )
 		{
 			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[MRBS] ([ID],[MeetingRoom],[Event],[Date],[PreserveTimeStart],[PreserveTimeEnd],[Holder],[PeopleCounting],[Link],[EmpID],[OrgID],[attendant])
-							VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6, @Parameter8, @Parameter9, @Parameter10, @Parameter11)";
+							VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6, @Parameter7,@Parameter8, @Parameter9, @Parameter10, @Parameter11)";
 			List<object> SQLParameterList = new List<object>()
 			{
 				InsertMRBSParameter.MRBSID,
@@ -223,8 +223,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"SELECT *
 						FROM [SyntecGAS].[dbo].[MRBS]
-						Where [ID]=@Parameter0
-						ORDER BY [PreserveTimeStart] desc";
+						Where [ID] like @Parameter0
+						Order by [ID] desc";
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetMRBSParameter.MRBSID,

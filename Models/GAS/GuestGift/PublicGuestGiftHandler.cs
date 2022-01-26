@@ -131,6 +131,28 @@ namespace SyntecITWebAPI.Models.GAS.GuestGift
 			return bResult;
 		}
 
+		internal bool InsertGuestReceptionApplicationsMaster( InsertGuestReceptionApplicationsMaster InsertGuestReceptionApplicationsMasterParameter )
+		{
+
+			bool bResult = m_CleanGuestGiftDBManager.InsertGuestReceptionApplicationsMaster( InsertGuestReceptionApplicationsMasterParameter );
+
+			return bResult;
+		}
+
+		internal JArray GetGuestReceptionApplicationsMaster( GetGuestReceptionApplicationsMaster GetGuestReceptionApplicationsMasterParameter )
+		{
+
+			DataTable dtResult = m_CleanGuestGiftDBManager.GetGuestReceptionApplicationsMaster( GetGuestReceptionApplicationsMasterParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
 
 		#endregion Internal Methods
 

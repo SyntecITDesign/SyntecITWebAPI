@@ -379,7 +379,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		{
 			string sql = $@"SELECT *
 						FROM [SyntecGAS].[dbo].[OrderMealApplicationsDetail]
-						WHERE [ApplicantID] like @Parameter1 and Convert(varchar,OrderDate,120) like @Parameter8";
+						WHERE [ApplicantID] like @Parameter1 and Convert(varchar,OrderDate,120) like @Parameter8 and [Finished]=@Parameter9";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -391,7 +391,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				GetOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailPrice,
 				GetOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailAreaName,
 				GetOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailIsCancel,
-				GetOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailOrderDate
+				GetOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailOrderDate,
+				GetOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailFinished
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());

@@ -438,9 +438,24 @@ namespace SyntecITWebAPI.Models.GAS.CarBooking
 
 			return bResult;
 		}
+
+		internal JArray GetCarBookingRecordID( GetCarBookingRecordID GetCarBookingRecordIDParameter )
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.GetCarBookingRecordID( GetCarBookingRecordIDParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
 		#endregion Internal Methods
 
-		#region Private Fields
+			#region Private Fields
 
 		private PublicCarBookingDBManager m_CarBookingDBManager = new PublicCarBookingDBManager();
 

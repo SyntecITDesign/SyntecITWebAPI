@@ -73,8 +73,13 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyCarBooking
 	{
 
 	}
-	public class DeleteCarBookingApplicationsMaster : CarBookingApplicationsMasterAllField
+	public class DeleteCarBookingApplicationsMaster 
 	{
+		public string ReuisitionID
+		{
+			get; set;
+		}
+
 
 	}
 	public class GetCarBookingApplicationsMaster : CarBookingApplicationsMasterAllField

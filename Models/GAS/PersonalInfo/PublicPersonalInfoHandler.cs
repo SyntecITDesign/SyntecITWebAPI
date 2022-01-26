@@ -186,6 +186,37 @@ namespace SyntecITWebAPI.Models.GAS.PersonalInfo
 			}
 		}
 
+		internal JArray GetCarBookingInfo( GetCarBookingInfo GetCarBookingInfoParameter )
+		{
+
+			DataTable dtResult = m_publicPersonalInfoDBManager.GetCarBookingInfo( GetCarBookingInfoParameter );
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal JArray GetDormInfo( GetDormInfo GetDormInfoParameter )
+		{
+
+			DataTable dtResult = m_publicPersonalInfoDBManager.GetDormInfo( GetDormInfoParameter );
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
 		#endregion Internal Methods
 
 		#region Private Fields

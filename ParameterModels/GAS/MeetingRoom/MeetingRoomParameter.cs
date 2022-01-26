@@ -119,7 +119,7 @@ namespace SyntecITWebAPI.ParameterModels.GAS.MeetingRoom
 
 	public class MRBSAllField
 	{
-		public int MRBSID
+		public string MRBSID
 		{
 			get; set;
 		}
@@ -147,7 +147,7 @@ namespace SyntecITWebAPI.ParameterModels.GAS.MeetingRoom
 		{
 			get; set;
 		}
-		public bool MRBSPeopleCounting
+		public int MRBSPeopleCounting
 		{
 			get; set;
 		}
@@ -163,7 +163,7 @@ namespace SyntecITWebAPI.ParameterModels.GAS.MeetingRoom
 		{
 			get; set;
 		}
-		public bool MRBSattendant
+		public string MRBSattendant
 		{
 			get; set;
 		}

@@ -183,4 +183,18 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 			get; set;
 		}
 	}
+
+	public class GetCarBookingInfo
+	{public string EmpID
+		{get;set;
+		}
+	}
+
+	public class GetDormInfo
+	{
+		public string EmpID
+		{
+			get; set;
+		}
+	}
 }

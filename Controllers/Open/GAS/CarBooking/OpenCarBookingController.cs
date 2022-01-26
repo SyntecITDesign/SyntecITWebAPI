@@ -790,6 +790,27 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+
+		[Route( "GetCarBookingRecordID" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult GetCarBookingRecordID( [FromBody] GetCarBookingRecordID GetCarBookingRecordIDParameter )
+		{
+			JArray result = m_publicCarBookingHandler.GetCarBookingRecordID( GetCarBookingRecordIDParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		#endregion Public Methods
 
 		#region Private Fields

@@ -27,11 +27,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			string sql = $@"IF @Parameter1 = 'empty'	
 								SELECT *
 								FROM [syntecbarcode].[dbo].[TEMP_NAME]
-								WHERE ([EmpID]=@Parameter0 OR [EmpName]=@Parameter0) and [QuitDate] is NULL
+								WHERE [DeptName] IS not null and ([EmpID]=@Parameter0 OR [EmpName]=@Parameter0) and [QuitDate] is NULL
 							ELSE
 								SELECT *
 								FROM [syntecbarcode].[dbo].[TEMP_NAME]
-								WHERE ([EmpID]=@Parameter0 OR [EmpName]=@Parameter0) and [QuitDate] is not  NULL";
+								WHERE [DeptName] IS not null and ([EmpID]=@Parameter0 OR [EmpName]=@Parameter0) and [QuitDate] is not  NULL";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -57,11 +57,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			string sql = $@"IF @Parameter1 = 'empty'
 								SELECT *
 								FROM [syntecbarcode].[dbo].[TEMP_NAME]
-								WHERE ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0) AND [QuitDate] is NULL
+								WHERE [DeptName] IS not null and ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0) AND [QuitDate] is NULL
 							ELSE
 								SELECT *
 								FROM [syntecbarcode].[dbo].[TEMP_NAME]
-								WHERE ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0) AND [QuitDate] is not NULL";
+								WHERE [DeptName] IS not null and ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0) AND [QuitDate] is not NULL";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -359,7 +359,53 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				return result;
 			}
 		}
+		internal DataTable GetCarBookingInfo( GetCarBookingInfo GetCarBookingInfoParameter )
+		{
+			string sql = $@"SELECT *
+						FROM [SyntecGAS].[dbo].[CarBookingRecord]
+						WHERE [ActualStartTime] is NULL and GETDATE() between [PreserveStartTime] and [PreserveEndTime] and [EmpID]=@Parameter0";
 
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetCarBookingInfoParameter.EmpID
+
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if(result == null || result.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal DataTable GetDormInfo( GetDormInfo GetDormInfoParameter )
+		{
+			string sql = $@"SELECT *
+							FROM [SyntecGAS].[dbo].[DormApplicationsMaster]
+							WHERE [Finished]=0 and [EmpID]=@Parameter0";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetDormInfoParameter.EmpID
+
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if(result == null || result.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
 	}
 	#endregion Internal Methods
 

@@ -153,4 +153,153 @@ namespace SyntecITWebAPI.ParameterModels.GAS.GuestGift
 
 	}
 
+	public class GuestReceptionApplicationsMasterAllField
+	{
+		public int GuestReceptionApplicationsMasterRequisitionID
+		{
+			get; set;
+		}
+		public string GuestReceptionApplicationsMasterFillerID
+		{
+			get; set;
+		}
+		public string GuestReceptionApplicationsMasterFillerName
+		{
+			get; set;
+		}
+		public string GuestReceptionApplicationsMasterApplicationDate
+		{
+			get; set;
+		}
+		public string GuestReceptionApplicationsMasterApplicantID
+		{
+			get; set;
+		}
+		public string GuestReceptionApplicationsMasterApplicantName
+		{
+			get; set;
+		}
+		public string GuestReceptionApplicationsMasterApplicantDept
+		{
+			get; set;
+		}
+		public string GuestReceptionApplicationsMasterApplicantExt
+		{
+			get; set;
+		}
+		public bool GuestReceptionApplicationsMasterIsCancel
+		{
+			get; set;
+		}
+		public string GuestReceptionApplicationsMasterIntervieweeID
+		{
+			get; set;
+		}
+		public string GuestReceptionApplicationsMasterIntervieweeDeptName
+		{
+			get; set;
+		}
+		public string GuestReceptionApplicationsMasterVisitors
+		{
+			get; set;
+		}
+		public string GuestReceptionApplicationsMasterVisitorsCompany
+		{
+			get; set;
+		}
+		public int GuestReceptionApplicationsMasterVisitorsNum
+		{
+			get; set;
+		}
+		public string GuestReceptionApplicationsMasterVisitStartDateTime
+		{
+			get; set;
+		}
+		public string GuestReceptionApplicationsMasterVisitEndDateTime
+		{
+			get; set;
+		}
+		public string GuestReceptionApplicationsMasterMeetingRoom
+		{
+			get; set;
+		}
+		public bool GuestReceptionApplicationsMasterNeedElectronicPoster
+		{
+			get; set;
+		}
+		public bool GuestReceptionApplicationsMasterNeedWater
+		{
+			get; set;
+		}
+		public bool GuestReceptionApplicationsMasterNeedCoffee
+		{
+			get; set;
+		}
+		public bool GuestReceptionApplicationsMasterNeedTea
+		{
+			get; set;
+		}
+		public int GuestReceptionApplicationsMasterVeggieLunch
+		{
+			get; set;
+		}
+		public int GuestReceptionApplicationsMasterMeatLunch
+		{
+			get; set;
+		}
+		public string GuestReceptionApplicationsMasterParkingCarName
+		{
+			get; set;
+		}
+		public int GuestReceptionApplicationsMasterParkingCarCounting
+		{
+			get; set;
+		}
+		public bool GuestReceptionApplicationsMasterNeedVideoPPT
+		{
+			get; set;
+		}
+		public bool GuestReceptionApplicationsMasterNeedCatalog
+		{
+			get; set;
+		}
+		public string GuestReceptionApplicationsMasterSouvenirType
+		{
+			get; set;
+		}
+		public int GuestReceptionApplicationsMasterSouvenirNum
+		{
+			get; set;
+		}
+		public string GuestReceptionApplicationsMasterMemo
+		{
+			get; set;
+		}
+		public bool GuestReceptionApplicationsMasterFinished
+		{
+			get; set;
+		}		
+	}
+	public class InsertGuestReceptionApplicationsMaster : GuestReceptionApplicationsMasterAllField
+	{
+
+	}
+	public class DeleteGuestReceptionApplicationsMaster : GuestReceptionApplicationsMasterAllField
+	{
+
+	}
+	public class UpdateGuestReceptionApplicationsMaster : GuestReceptionApplicationsMasterAllField
+	{
+
+	}
+	public class GetGuestReceptionApplicationsMaster : GuestReceptionApplicationsMasterAllField
+	{
+
+	}
+
+
+
+
+
+
 }

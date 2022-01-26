@@ -479,17 +479,49 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CarBooking
 		public string PreserveEndTime
 		{get;set;
 		}
-		public string PriorityNumber
-		{get;set;
-		}
+	
 
 
 	}
 
 	public class DeleteCarBookingRecord
-	{ public string RecordID
-		{get;set;
+	{
+		public string ID
+		{
+			get; set;
 		}
+	
+	
 	}
+
+	public class GetCarBookingRecordID
+	{
+		public string EmpID
+		{
+			get; set;
+		}
+		public string TypePersonalBusiness
+		{
+			get; set;
+		}
+		public string Remark
+		{
+			get; set;
+		}
+		public string PreserveStartTime
+		{
+			get; set;
+		}
+		public string PreserveEndTime
+		{
+			get; set;
+		}
+		public string CarNumber
+		{
+			get; set;
+		}
+
+	}
+
 
 }
