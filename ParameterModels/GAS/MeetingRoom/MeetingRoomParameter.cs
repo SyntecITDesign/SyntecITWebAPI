@@ -99,6 +99,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.MeetingRoom
 		{
 			get; set;
 		}
+		public string MeetingRoomApplicationsMasterStopDate
+		{
+			get; set;
+		}
 	}
 	public class InsertMeetingRoomApplicationsMaster : MeetingRoomApplicationsMasterAllField
 	{

@@ -304,7 +304,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetGuestReceptionApplicationsMaster( GetGuestReceptionApplicationsMaster GetGuestReceptionApplicationsMasterParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[GuestReceptionApplicationsMaster]						
+						FROM [SyntecGAS].[dbo].[GuestReceptionApplicationsMaster]
+						Where [ApplicantID] like @Parameter4 and [Finished]=@Parameter30
 						ORDER BY [RequisitionID] desc";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -354,7 +355,53 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			}
 		}
 
+		internal bool UpdateGuestReceptionApplicationsMaster( UpdateGuestReceptionApplicationsMaster UpdateGuestReceptionApplicationsMasterParameter )
+		{
+			string sql = $@"UPDATE [SyntecGAS].[dbo].[GuestReceptionApplicationsMaster]
+							set [Finished]=@Parameter30
+							where RequisitionID=@Parameter0";
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterRequisitionID,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterFillerID,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterFillerName,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterApplicationDate,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterApplicantID,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterApplicantName,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterApplicantDept,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterApplicantExt,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterIsCancel,
 
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterIntervieweeID,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterIntervieweeDeptName,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVisitors,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVisitorsCompany,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVisitorsNum,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVisitStartDateTime,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVisitEndDateTime,
+
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterMeetingRoom,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedElectronicPoster,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedWater,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedCoffee,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedTea,
+
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVeggieLunch,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterMeatLunch,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterParkingCarName,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterParkingCarCounting,
+
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedVideoPPT,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedCatalog,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterSouvenirType,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterSouvenirNum,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterMemo,
+
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterFinished
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
 
 
 	}

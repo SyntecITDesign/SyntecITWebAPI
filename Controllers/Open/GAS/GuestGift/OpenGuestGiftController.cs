@@ -305,6 +305,27 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "UpdateGuestReceptionApplicationsMaster" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpdateGuestReceptionApplicationsMaster( [FromBody] UpdateGuestReceptionApplicationsMaster UpdateGuestReceptionApplicationsMasterParameter )
+		{
+
+			bool bResult = m_publicGuestGiftHandler.UpdateGuestReceptionApplicationsMaster( UpdateGuestReceptionApplicationsMasterParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+
 		#endregion Public Methods
 
 		#region Private Fields

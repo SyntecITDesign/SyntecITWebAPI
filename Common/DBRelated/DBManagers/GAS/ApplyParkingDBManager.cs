@@ -114,7 +114,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 							FROM [SyntecGAS].[dbo].[ParkingSpaceApplicationsMaster] as b
 							Inner join (SELECT * FROM [syntecbarcode].[dbo].[TEMP_NAME]) as a
 							ON b.[ApplicantID] collate Chinese_Taiwan_Stroke_CI_AS = a.[EmpID]
-							WHERE b.[Finished]=0
+							WHERE b.[Finished]=0 and b.[ApplicantID] like @Parameter1
 							Order by b.[ApplicationDate]";
 			List<object> SQLParameterList = new List<object>()
 			{

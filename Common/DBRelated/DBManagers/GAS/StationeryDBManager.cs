@@ -65,6 +65,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"SELECT *
 						FROM [SyntecGAS].[dbo].[StationeryApplicationsMaster]
+						Where [FillerID] like @Parameter1
 						ORDER BY [RequisitionID] desc";
 
 			List<object> SQLParameterList = new List<object>()
@@ -119,9 +120,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 		internal DataTable GetStationeryApplicationsDetail( GetStationeryApplicationsDetail GetStationeryApplicationsDetailParameter )
 		{
-			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[StationeryApplicationsDetail]
-						WHERE [ApplicantDept] like @Parameter1 and [Finished]=@Parameter7";
+			string sql = $@"SELECT a.RequisitionID,a.ApplicantDept,a.ProductName,a.Specification,a.Unit,a.Quantity,a.Finished,b.FillerID,b.ApplicationDate
+						  FROM [SyntecGAS].[dbo].[StationeryApplicationsDetail] as a
+						  inner join [SyntecGAS].[dbo].[StationeryApplicationsMaster] as b
+						  on a.RequisitionID=b.RequisitionID
+						WHERE b.[FillerID] like @Parameter8 and a.[Finished]=@Parameter7";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -132,7 +135,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				GetStationeryApplicationsDetailParameter.StationeryApplicationsDetailSpecification,
 				GetStationeryApplicationsDetailParameter.StationeryApplicationsDetailUnit,
 				GetStationeryApplicationsDetailParameter.StationeryApplicationsDetailQuantity,
-				GetStationeryApplicationsDetailParameter.StationeryApplicationsDetailFinished
+				GetStationeryApplicationsDetailParameter.StationeryApplicationsDetailFinished,
+				GetStationeryApplicationsDetailParameter.StationeryApplicationsDetailFillerID
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
@@ -168,8 +172,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal bool UpdateStationeryApplicationsDetail( UpdateStationeryApplicationsDetail UpdateStationeryApplicationsDetailParameter )
 		{
 			string sql = $@"UPDATE [SyntecGAS].[dbo].[StationeryApplicationsDetail]
-							set []=@Parameter1
-							where []=@Parameter0";
+							set [Finished]=@Parameter7
+							where [RequisitionID]=@Parameter0 and [ApplicantDept]=@Parameter1";
 			List<object> SQLParameterList = new List<object>()
 			{
 				UpdateStationeryApplicationsDetailParameter.StationeryApplicationsDetailRequisitionID,

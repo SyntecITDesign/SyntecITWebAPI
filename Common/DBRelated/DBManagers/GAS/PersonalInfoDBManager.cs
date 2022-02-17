@@ -167,15 +167,17 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal bool InsertFreshmanGASInfo( InsertFreshmanGASInfo InsertFreshmanGASInfoParameter )
 		{
 			string sql = $@"
-						INSERT INTO [SyntecGAS].[dbo].[GAS_GAInfoMaster] ([EmpName],[MotorLicense],[CarLicense]) 
-						VALUES (@Parameter0,@Parameter1,@Parameter2)
-						";
+						INSERT INTO [SyntecGAS].[dbo].[GAS_GAInfoMaster] ([EmpName],[MotorLicense],[CarLicense],[UniformSize],[JacketSize],[SweatshirtSize]) 
+						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5)";
 
 			List<object> SQLParameterList = new List<object>()
 			{
 				InsertFreshmanGASInfoParameter.EmpName,
 				InsertFreshmanGASInfoParameter.MotorLicense,
-				InsertFreshmanGASInfoParameter.CarLicense
+				InsertFreshmanGASInfoParameter.CarLicense,
+				InsertFreshmanGASInfoParameter.UniformSize,
+				InsertFreshmanGASInfoParameter.JacketSize,
+				InsertFreshmanGASInfoParameter.SweatshirtSize
 
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );

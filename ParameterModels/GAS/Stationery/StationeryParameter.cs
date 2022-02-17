@@ -81,7 +81,7 @@ namespace SyntecITWebAPI.ParameterModels.GAS.Stationery
 
 	public class StationeryApplicationsDetailAllField
 	{
-		public int StationeryApplicationsDetailRequisitionID
+		public string StationeryApplicationsDetailRequisitionID
 		{
 			get; set;
 		}
@@ -110,6 +110,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.Stationery
 			get; set;
 		}
 		public bool StationeryApplicationsDetailFinished
+		{
+			get; set;
+		}
+		public string StationeryApplicationsDetailFillerID
 		{
 			get; set;
 		}

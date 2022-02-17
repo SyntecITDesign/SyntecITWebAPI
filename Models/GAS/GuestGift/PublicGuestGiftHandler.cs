@@ -138,6 +138,13 @@ namespace SyntecITWebAPI.Models.GAS.GuestGift
 
 			return bResult;
 		}
+		internal bool UpdateGuestReceptionApplicationsMaster( UpdateGuestReceptionApplicationsMaster UpdateGuestReceptionApplicationsMasterParameter )
+		{
+
+			bool bResult = m_CleanGuestGiftDBManager.UpdateGuestReceptionApplicationsMaster( UpdateGuestReceptionApplicationsMasterParameter );
+
+			return bResult;
+		}
 
 		internal JArray GetGuestReceptionApplicationsMaster( GetGuestReceptionApplicationsMaster GetGuestReceptionApplicationsMasterParameter )
 		{

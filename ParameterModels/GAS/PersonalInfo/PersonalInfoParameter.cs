@@ -115,7 +115,18 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 		{
 			get; set;
 		}
-		
+		public string UniformSize
+		{
+			get; set;
+		}
+		public string JacketSize
+		{
+			get; set;
+		}
+		public string SweatshirtSize
+		{
+			get; set;
+		}
 		#endregion Public Properties
 	}
 

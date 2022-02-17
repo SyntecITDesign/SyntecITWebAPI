@@ -335,7 +335,7 @@ ORDER BY UniformInfo.[No],case
 		internal bool UpdateUniformApplicationsMaster( UpdateUniformApplicationsMaster UpdateUniformApplicationsMasterParameter )
 		{
 			string sql = $@"UPDATE [SyntecGAS].[dbo].[UniformApplicationsMaster]
-							set [FillerID]=@Parameter1,[FillerName]=@Parameter2,[ApplicationDate]=@Parameter3,[ApplicantID]=@Parameter4,[ApplicantName]=@Parameter5,[ApplicantDept]=@Parameter6,[IsCancel]=@Parameter7,[ClothesType]=@Parameter8,[ApplyType]=@Parameter9,[ApplyQuantity]=@Parameter10,[Size]=@Parameter11,[Price]=@Parameter12,[Memo]=@Parameter13,[Finished]=@Parameter14
+							set [Finished]=@Parameter14
 							where [RequisitionID]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
