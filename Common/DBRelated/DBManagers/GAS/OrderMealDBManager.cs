@@ -9,7 +9,6 @@ using SyntecITWebAPI.ParameterModels.GAS.OrderMeal;
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 {
 
-
 	internal class OrderMealDBManager : AbstractDBManager
 	{
 		#region Internal Methods
@@ -430,7 +429,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool UpdateOrderMealApplicationsDetail( UpdateOrderMealApplicationsDetail UpdateOrderMealApplicationsDetailParameter )
 		{
 			string sql = $@"UPDATE [SyntecGAS].[dbo].[OrderMealApplicationsDetail]
-							set [Finished]=@Parameter9
+							set [Finished]=@Parameter9,[IsCancel]=@Parameter10
 							where [RequisitionID]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -443,7 +442,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailAreaName,
 				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailIsCancel,
 				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailOrderDate,
-				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailFinished
+				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailFinished,
+				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailIsCancel
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;

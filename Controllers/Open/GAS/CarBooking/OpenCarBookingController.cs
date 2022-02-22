@@ -811,6 +811,83 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "GetCarCheckFormByFormID" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult GetCarCheckFormByFormID( [FromBody] GetCarCheckFormByFormID GetCarCheckFormByFormIDParameter )
+		{
+			JArray result = m_publicCarBookingHandler.GetCarCheckFormByFormID( GetCarCheckFormByFormIDParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "GetCarCheckFormByCarNumber" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult GetCarCheckFormByCarNumber( [FromBody] GetCarCheckFormByCarNumber GetCarCheckFormByCarNumberParameter )
+		{
+			JArray result = m_publicCarBookingHandler.GetCarCheckFormByCarNumber( GetCarCheckFormByCarNumberParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "InsertCheckForm" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult InsertCheckForm( [FromBody] InsertCheckForm InsertCheckFormParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.InsertCheckForm( InsertCheckFormParameter );
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "DeleteCheckForm" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DeleteCheckForm( [FromBody] DeleteCheckForm DeleteCheckFormParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.DeleteCheckForm( DeleteCheckFormParameter );
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		#endregion Public Methods
 
 		#region Private Fields

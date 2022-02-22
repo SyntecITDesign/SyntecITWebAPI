@@ -453,9 +453,53 @@ namespace SyntecITWebAPI.Models.GAS.CarBooking
 			}
 		}
 
+		internal JArray GetCarCheckFormByFormID( GetCarCheckFormByFormID GetCarCheckFormByFormIDParameter )
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.GetCarCheckFormByFormID( GetCarCheckFormByFormIDParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal JArray GetCarCheckFormByCarNumber( GetCarCheckFormByCarNumber GetCarCheckFormByCarNumberParameter )
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.GetCarCheckFormByCarNumber( GetCarCheckFormByCarNumberParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal bool InsertCheckForm( InsertCheckForm InsertCheckFormParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.InsertCheckForm( InsertCheckFormParameter );
+
+			return bResult;
+		}
+		internal bool DeleteCheckForm( DeleteCheckForm DeleteCheckFormParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.DeleteCheckForm( DeleteCheckFormParameter );
+
+			return bResult;
+		}
+
+
 		#endregion Internal Methods
 
-			#region Private Fields
+		#region Private Fields
 
 		private PublicCarBookingDBManager m_CarBookingDBManager = new PublicCarBookingDBManager();
 

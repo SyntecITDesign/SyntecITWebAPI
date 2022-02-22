@@ -358,7 +358,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool UpdateGuestReceptionApplicationsMaster( UpdateGuestReceptionApplicationsMaster UpdateGuestReceptionApplicationsMasterParameter )
 		{
 			string sql = $@"UPDATE [SyntecGAS].[dbo].[GuestReceptionApplicationsMaster]
-							set [Finished]=@Parameter30
+							set [Finished]=@Parameter30,[IsCancel]=@Parameter8
 							where RequisitionID=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{

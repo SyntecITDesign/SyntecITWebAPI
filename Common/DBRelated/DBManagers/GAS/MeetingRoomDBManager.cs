@@ -115,7 +115,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal bool UpdateMeetingRoomApplicationsMaster( UpdateMeetingRoomApplicationsMaster UpdateMeetingRoomApplicationsMasterParameter )
 		{
 			string sql = $@"UPDATE [SyntecGAS].[dbo].[MeetingRoomApplicationsMaster]
-							set [Finished]=@Parameter12
+							set [Finished]=@Parameter12,[IsCancel]=@Parameter7
 							where [RequisitionID]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{

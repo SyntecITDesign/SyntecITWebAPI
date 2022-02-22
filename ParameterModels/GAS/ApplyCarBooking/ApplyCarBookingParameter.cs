@@ -86,6 +86,5 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyCarBooking
 	{
 
 	}
-
 	
 }

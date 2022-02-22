@@ -368,11 +368,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		{
 			string sql = $@"IF EXISTS (SELECT * FROM [SyntecGAS].[dbo].[CarRepairRecord] WHERE [id]=@Parameter0 and [RecordMonth]=@Parameter2 and [FileName]=@Parameter4)
 							UPDATE [SyntecGAS].[dbo].[CarRepairRecord]
-							SET  [CarNumber]=@Parameter1,[RecordMonth]=@Parameter2,[Memo]=@Parameter3,[Filename]=@Parameter4,[RecordID]=@Parameter5,[Cost]=@Parameter6
+							SET  [CarNumber]=@Parameter1,[RecordMonth]=@Parameter2,[Memo]=@Parameter3,[Filename]=@Parameter4,[RecordID]=@Parameter5,[Cost]=@Parameter6,[RecordType]=@Parameter7,[NewRecordRoad]=@Parameter8
 							WHERE [id]=@Parameter0 
 						ELSE
-						INSERT INTO [SyntecGAS].[dbo].[CarRepairRecord] ([id],[CarNumber],[RecordMonth],[Memo],[FileName],[RecordID],[Cost]) 
-						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6)";
+						INSERT INTO [SyntecGAS].[dbo].[CarRepairRecord] ([id],[CarNumber],[RecordMonth],[Memo],[FileName],[RecordID],[Cost],[RecordType],[NewRecordRoad]) 
+						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8)";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -382,7 +382,9 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				UpsertCarRepairRecordParameter.Memo,
 				UpsertCarRepairRecordParameter.FileName,
 				UpsertCarRepairRecordParameter.ReordID,
-				UpsertCarRepairRecordParameter.Cost
+				UpsertCarRepairRecordParameter.Cost,
+				UpsertCarRepairRecordParameter.RecordType,
+				UpsertCarRepairRecordParameter.NewRecordRoad
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
@@ -481,12 +483,13 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		{
 			string sql = $@"SELECT *
 							FROM [SyntecGAS].[dbo].[CarInsurance]
-							WHERE [CarID] = @Parameter0 and [InsuranceStart]=@Parameter1";
+							WHERE [CarID] = @Parameter0 and [InsuranceStart]<=@Parameter1 and [InsuranceStart]>@Parameter2  ";
 
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetCarInsuranceSpecificTimeParameter.CarID,
-				GetCarInsuranceSpecificTimeParameter.InsuranceStart
+				GetCarInsuranceSpecificTimeParameter.InsuranceYear,
+				GetCarInsuranceSpecificTimeParameter.InsuranceNextYear
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 
@@ -850,6 +853,93 @@ WHERE [CarInsuranceName].[Type] = @Parameter0";
 			{
 				return result;
 			}
+		}
+
+		internal DataTable GetCarCheckFormByFormID( GetCarCheckFormByFormID GetCarCheckFormByFormIDParameter )
+		{
+			string sql = $@"SELECT *  
+							FROM [SyntecGAS].[dbo].[CarCheckForm]  
+							WHERE [CarCheckFormID]=@Parameter0 ";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetCarCheckFormByFormIDParameter.CarCheckFormID
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal DataTable GetCarCheckFormByCarNumber( GetCarCheckFormByCarNumber GetCarCheckFormByCarNumberParameter )
+		{
+			string sql = $@"SELECT *  
+							FROM [SyntecGAS].[dbo].[CarCheckForm]  
+							WHERE [CarNumber]=@Parameter0 ";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetCarCheckFormByCarNumberParameter.CarNumber
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal bool InsertCheckForm( InsertCheckForm InsertCheckFormParameter )
+		{
+			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[CarCheckForm] ([FillerID],[FillerName],[FillerDate],[OilNormal],[DashboardNormal],				[FanBeltNormal],[PluginNormal],[AcceleratorNormal],[WaterNormal],[BrakeNormal],[LightNormal],[GrassNormal],					[DoorNormal],[TireNormal],[CarNumber]) 
+							VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9,@Parameter10,@Parameter11,@Parameter12,@Parameter13,@Parameter14)";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+
+				InsertCheckFormParameter.FillerID,
+				InsertCheckFormParameter.FillerName,
+				InsertCheckFormParameter.FillerDate,
+				InsertCheckFormParameter.OilNormal,
+				InsertCheckFormParameter.DashboardNormal,
+				InsertCheckFormParameter.FanBeltNormal,
+				InsertCheckFormParameter.PluginNormal,
+				InsertCheckFormParameter.AcceleratorNormal,
+				InsertCheckFormParameter.WaterNormal,
+				InsertCheckFormParameter.BrakeNormal,
+				InsertCheckFormParameter.LightNormal,
+				InsertCheckFormParameter.GrassNormal,
+				InsertCheckFormParameter.DoorNormal,
+				InsertCheckFormParameter.TireNormal,
+				InsertCheckFormParameter.CarNumber
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		internal bool DeleteCheckForm( DeleteCheckForm DeleteCheckFormParameter )
+		{
+			string sql = $@"DELETE FROM  [SyntecGAS].[dbo].[CarBookingRecord]  
+							WHERE CarCheckFormID=@Parameter0";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+
+				DeleteCheckFormParameter.CarCheckFormID
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
 		}
 
 	}

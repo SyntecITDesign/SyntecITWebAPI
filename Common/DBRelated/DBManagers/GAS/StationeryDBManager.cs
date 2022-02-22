@@ -172,7 +172,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal bool UpdateStationeryApplicationsDetail( UpdateStationeryApplicationsDetail UpdateStationeryApplicationsDetailParameter )
 		{
 			string sql = $@"UPDATE [SyntecGAS].[dbo].[StationeryApplicationsDetail]
-							set [Finished]=@Parameter7
+							set [Finished]=@Parameter7,[IsCancel]=@Parameter2
 							where [RequisitionID]=@Parameter0 and [ApplicantDept]=@Parameter1";
 			List<object> SQLParameterList = new List<object>()
 			{

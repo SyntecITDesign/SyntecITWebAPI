@@ -462,4 +462,36 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CleanMaintain
 	{
 
 	}
+
+
+	public class CleanCheckTableAllField
+	{
+		public int CleanCheckTableNo
+		{
+			get; set;
+		}
+		public string CleanCheckTableCleanStaff
+		{
+			get; set;
+		}
+		public string CleanCheckTableCleanArea
+		{
+			get; set;
+		}
+		public string CleanCheckTableDescription
+		{
+			get; set;
+		}
+		public string CleanCheckTableDate
+		{
+			get; set;
+		}
+	}
+	public class InsertCleanCheckTable : CleanCheckTableAllField
+	{
+
+	}
+
+
+
 }

@@ -227,6 +227,14 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CarBooking
 		{
 			get; set;
 		}
+		public string RecordType
+		{
+			get; set;
+		}
+		public string NewRecordRoad
+		{
+			get; set;
+		}
 		#endregion Public Properties
 	}
 
@@ -275,7 +283,11 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CarBooking
 		{
 			get; set;
 		}
-		public string InsuranceStart
+		public string InsuranceYear
+		{
+			get; set;
+		}
+		public string InsuranceNextYear
 		{
 			get; set;
 		}
@@ -523,5 +535,85 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CarBooking
 
 	}
 
+	public class CarCheckFormAllField
+	{
+		public string CarCheckFormID
+		{
+			get; set;
+		}
+		public string FillerID
+		{
+			get; set;
+		}
+		public string FillerName
+		{
+			get; set;
+		}
+		public string FillerDate
+		{
+			get; set;
+		}
+		public string OilNormal
+		{
+			get; set;
+		}
+		public string DashboardNormal
+		{
+			get; set;
+		}
+		public string FanBeltNormal
+		{
+			get; set;
+		}
+		public string PluginNormal
+		{
+			get; set;
+		}
+		public string AcceleratorNormal
+		{
+			get; set;
+		}
+		public string WaterNormal
+		{
+			get; set;
+		}
+		public string BrakeNormal
+		{
+			get; set;
+		}
+		public string LightNormal
+		{
+			get; set;
+		}
+		public string GrassNormal
+		{
+			get; set;
+		}
+		public string DoorNormal
+		{
+			get; set;
+		}
+		public string TireNormal
+		{
+			get; set;
+		}
+		public string CarNumber
+		{
+			get; set;
+		}
+	}
+
+	public class GetCarCheckFormByFormID : CarCheckFormAllField
+	{
+	}
+	public class GetCarCheckFormByCarNumber : CarCheckFormAllField
+	{
+	}
+	public class InsertCheckForm : CarCheckFormAllField
+	{
+	}
+	public class DeleteCheckForm : CarCheckFormAllField
+	{
+	}
 
 }
