@@ -877,7 +877,25 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "InsertCleanCheckTable" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult InsertCleanCheckTable( [FromBody] InsertCleanCheckTable InsertCleanCheckTableParameter )
+		{
 
+			bool bResult = m_publicCleanMaintainHandler.InsertCleanCheckTable( InsertCleanCheckTableParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 		#endregion Public Methods
 
 		#region Private Fields

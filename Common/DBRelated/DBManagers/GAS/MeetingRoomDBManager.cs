@@ -254,6 +254,33 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				return result;
 			}
 		}
+		internal bool UpdateMRBS( UpdateMRBS UpdateMRBSParameter )
+		{
+			string sql = $@"UPDATE [SyntecGAS].[dbo].[MRBS]
+							set [Memo]=@Parameter13
+							where [No]=@Parameter12";
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpdateMRBSParameter.MRBSID,
+				UpdateMRBSParameter.MRBSMeetingRoom,
+				UpdateMRBSParameter.MRBSEvent,
+				UpdateMRBSParameter.MRBSDate,
+				UpdateMRBSParameter.MRBSPreserveTimeStart,
+				UpdateMRBSParameter.MRBSPreserveTimeEnd,
+				UpdateMRBSParameter.MRBSHolder,
+				UpdateMRBSParameter.MRBSPeopleCounting,
+				UpdateMRBSParameter.MRBSLink,
+				UpdateMRBSParameter.MRBSEmpID,
+				UpdateMRBSParameter.MRBSOrgID,
+				UpdateMRBSParameter.MRBSattendant,
+				UpdateMRBSParameter.MRBSNo,
+				UpdateMRBSParameter.MRBSMemo
+
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
 	}
 	#endregion Internal Methods
 }

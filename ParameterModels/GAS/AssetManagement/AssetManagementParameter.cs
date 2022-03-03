@@ -70,8 +70,27 @@ namespace SyntecITWebAPI.ParameterModels.GAS.AssetManagement
 		{
 			get; set;
 		}
+		public string AssetManagementSAPNo
+		{
+			get; set;
+		}
+		public string AssetManagementPRNo
+		{
+			get; set;
+		}
+		public string AssetManagementPONo
+		{
+			get; set;
+		}
+		public string AssetManagementLimit
+		{
+			get; set;
+		}
+		public string AssetManagementBranch
+		{
+			get; set;
+		}
 
-		
 
 	}
 	public class InsertAssetInfo : AssetManagementAllField

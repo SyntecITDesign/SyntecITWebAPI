@@ -85,6 +85,14 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CleanMaintain
 		{
 			get; set;
 		}
+		public string MaintainFloor
+		{
+			get; set;
+		}
+		public string MaintainApplicantName
+		{
+			get; set;
+		}
 	}
 	public class InsertMaintainOrder : MaintainOrderListAllField
 	{
@@ -483,6 +491,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CleanMaintain
 			get; set;
 		}
 		public string CleanCheckTableDate
+		{
+			get; set;
+		}
+		public string CleanCheckTableFillerName
 		{
 			get; set;
 		}

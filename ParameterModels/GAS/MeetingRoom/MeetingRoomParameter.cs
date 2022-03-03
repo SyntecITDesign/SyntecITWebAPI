@@ -171,6 +171,14 @@ namespace SyntecITWebAPI.ParameterModels.GAS.MeetingRoom
 		{
 			get; set;
 		}
+		public string MRBSNo
+		{
+			get; set;
+		}
+		public string MRBSMemo
+		{
+			get; set;
+		}
 	}
 	public class InsertMRBS : MRBSAllField
 	{

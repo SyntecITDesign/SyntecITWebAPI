@@ -108,6 +108,13 @@ namespace SyntecITWebAPI.Models.GAS.MeetingRoom
 				return ja;
 			}
 		}
+		internal bool UpdateMRBS( UpdateMRBS UpdateMRBSParameter )
+		{
+
+			bool bResult = m_publicMeetingRoomDBManager.UpdateMRBS( UpdateMRBSParameter );
+
+			return bResult;
+		}
 
 		#endregion Internal Methods
 

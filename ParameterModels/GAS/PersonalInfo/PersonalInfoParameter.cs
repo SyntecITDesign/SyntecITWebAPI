@@ -127,6 +127,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 		{
 			get; set;
 		}
+		public string Sex
+		{
+			get; set;
+		}
 		#endregion Public Properties
 	}
 

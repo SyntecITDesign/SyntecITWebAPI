@@ -354,7 +354,14 @@ namespace SyntecITWebAPI.Models.GAS.CleanMaintain
 			bool bResult = m_CleanMaintainDBManager.UpdateMaintainRecordDetailList( UpdateMaintainRecordDetailListParameter );
 			return bResult;
 		}
-		
+
+		internal bool InsertCleanCheckTable( InsertCleanCheckTable InsertCleanCheckTableParameter )
+		{
+			bool bResult = m_CleanMaintainDBManager.InsertCleanCheckTable( InsertCleanCheckTableParameter );
+			return bResult;
+		}
+
+
 		#endregion Internal Methods
 
 		#region Private Fields

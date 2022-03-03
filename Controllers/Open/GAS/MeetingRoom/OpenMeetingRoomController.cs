@@ -208,6 +208,29 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+
+		[Route( "UpdateMRBS" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpdateMRBS( [FromBody] UpdateMRBS UpdateMRBSParameter )
+		{
+
+			bool bResult = m_publicMeetigRoomHandler.UpdateMRBS( UpdateMRBSParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+
+
 		#endregion Public Methods
 
 		#region Private Fields

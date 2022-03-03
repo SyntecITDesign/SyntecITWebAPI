@@ -141,14 +141,16 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool InsertMaintainOrder( InsertMaintainOrder InsertMaintainOrderParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[MaintainOrderList] ([OrderDate],[Usage],[Memo])
-								VALUES (@Parameter1,@Parameter2,@Parameter3)";
+			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[MaintainOrderList] ([OrderDate],[Usage],[Memo],[Floor],[ApplicantName])
+								VALUES (@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5)";
 			List<object> SQLParameterList = new List<object>()
 			{
 				InsertMaintainOrderParameter.MaintainOrderListNo,
 				InsertMaintainOrderParameter.MaintainOrderDate,
 				InsertMaintainOrderParameter.MaintainUsage,
-				InsertMaintainOrderParameter.MaintainMemo
+				InsertMaintainOrderParameter.MaintainMemo,
+				InsertMaintainOrderParameter.MaintainFloor,
+				InsertMaintainOrderParameter.MaintainApplicantName
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
@@ -854,8 +856,23 @@ WHERE [MaintainRecordTypeInfo].[Items] LIKE @Parameter1";
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
-	
 
+		internal bool InsertCleanCheckTable( InsertCleanCheckTable InsertCleanCheckTableParameter )
+		{
+			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[CleanCheckTable] ([CleanStaff],[CleanArea],[Description],[Date],[FillerName])
+								VALUES (@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5)";
+			List<object> SQLParameterList = new List<object>()
+			{
+				InsertCleanCheckTableParameter.CleanCheckTableNo,
+				InsertCleanCheckTableParameter.CleanCheckTableCleanStaff,
+				InsertCleanCheckTableParameter.CleanCheckTableCleanArea,
+				InsertCleanCheckTableParameter.CleanCheckTableDescription,
+				InsertCleanCheckTableParameter.CleanCheckTableDate,
+				InsertCleanCheckTableParameter.CleanCheckTableFillerName
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
 	}
 	#endregion Internal Methods
 }
