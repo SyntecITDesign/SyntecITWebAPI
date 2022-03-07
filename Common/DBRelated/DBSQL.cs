@@ -504,6 +504,15 @@ namespace SyntecITWebAPI.Common.DBRelated
 			}
 		}
 
+		public string UpsertHardwareInfo
+		{
+			get {
+				return $@"
+						INSERT INTO [{m_crm}].[dbo].[SALE_DM_SYNSERVICEHARDWAREINFO] ([serial_number],[boot_time],[axis_name],[drv_type],[drv_sn],[motor_sn],[first_enc_sn],[second_enc_sn],[cpu_board],[fpga],[cnc_ver],[image_ver],[drv_ver],[first_enc_ver],[second_enc_ver],[cons_date],[modi_date]) 
+						VALUES (@Parameter0, @Parameter1, @Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9,@Parameter10,@Parameter11,@Parameter12,@Parameter13,@Parameter14, DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))";
+			}
+		}
+
 		public string InsertWXMessage
 		{
 			get {

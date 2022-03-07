@@ -147,6 +147,13 @@ namespace SyntecITWebAPI.Models
 
 			return bResult;
 		}
+		internal bool UpsertHardwareInfo( SynService_HardwareInfo SynService_HardwareInfoParameter )
+		{
+
+			bool bResult = m_publicCRMDBManager.UpsertHardwareInfo( SynService_HardwareInfoParameter );
+
+			return bResult;
+		}
 
 		#endregion Internal Methods
 

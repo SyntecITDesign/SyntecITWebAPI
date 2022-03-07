@@ -309,6 +309,36 @@ namespace SyntecITWebAPI.Open.User
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+
+		[Route( "UpsertHardwareInfo" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertHardwareInfo( [FromBody] List<SynService_HardwareInfo> SynService_HardwareInfoParameterList )
+		{
+			string errorList = "";
+			foreach(var SynService_HardwareInfoParameter in SynService_HardwareInfoParameterList)
+			{
+				bool bResult = m_publicCRMHandler.UpsertHardwareInfo( SynService_HardwareInfoParameter );
+				if(!bResult)
+				{
+					m_responseHandler.Code = ErrorCodeList.Param_Error;
+					errorList += SynService_HardwareInfoParameter.serial_number + ",";
+				}
+			}
+
+			if(errorList != "")
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+				m_responseHandler.Content = errorList;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		#endregion Public Methods
 
 		#region Private Fields

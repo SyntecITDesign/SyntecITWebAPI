@@ -283,6 +283,33 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			return bResult;
 		}
 
+		internal bool UpsertHardwareInfo( SynService_HardwareInfo SynService_HardwareInfoParameter )
+		{
+			string sql = m_dbSQL.UpsertHardwareInfo;
+			List<object> SQLParameterList = new List<object>()
+			{
+				SynService_HardwareInfoParameter.serial_number,
+				SynService_HardwareInfoParameter.boot_time,
+				SynService_HardwareInfoParameter.axis_name,
+				SynService_HardwareInfoParameter.drv_type,
+				SynService_HardwareInfoParameter.drv_sn,
+				SynService_HardwareInfoParameter.motor_sn,
+				SynService_HardwareInfoParameter.first_enc_sn,
+				SynService_HardwareInfoParameter.second_enc_sn,
+				SynService_HardwareInfoParameter.cpu_board,
+				SynService_HardwareInfoParameter.fpga,
+				SynService_HardwareInfoParameter.cnc_ver,
+				SynService_HardwareInfoParameter.image_ver,
+				SynService_HardwareInfoParameter.drv_ver,
+				SynService_HardwareInfoParameter.first_enc_ver,
+				SynService_HardwareInfoParameter.second_enc_ver,
+
+
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
 		#endregion Internal Methods
 	}
 }

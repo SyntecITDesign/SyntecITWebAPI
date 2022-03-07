@@ -723,6 +723,80 @@ namespace SyntecITWebAPI.ParameterModels.CRM
 
 	}
 
+
+	public class SynService_HardwareInfo
+	{
+		#region Public Properties
+
+		public string serial_number
+		{
+			get; set;
+		}
+		public string boot_time
+		{
+			get; set;
+		}
+		public string axis_name
+		{
+			get; set;
+		}
+		public string drv_type
+		{
+			get; set;
+		}
+		public string drv_sn
+		{
+			get; set;
+		}
+		public string motor_sn
+		{
+			get; set;
+		}
+		public string first_enc_sn
+		{
+			get; set;
+		}
+		public string second_enc_sn
+		{
+			get; set;
+		}
+		public string cpu_board
+		{
+			get; set;
+		}
+		public string fpga
+		{
+			get; set;
+		}
+		public string cnc_ver
+		{
+			get; set;
+		}
+		public string image_ver
+		{
+			get; set;
+		}
+		public string drv_ver
+		{
+			get; set;
+		}
+		public string first_enc_ver
+		{
+			get; set;
+		}
+		public string second_enc_ver
+		{
+			get; set;
+		}
+
+
+
+
+
+		#endregion Public Properties
+
+	}
+
 	public class Fields
 	{
 		public string customfield_13340
