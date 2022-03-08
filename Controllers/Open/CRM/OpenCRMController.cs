@@ -271,7 +271,7 @@ namespace SyntecITWebAPI.Open.User
 				bool bResult = m_publicCRMHandler.UpsertDailyRecord( SynService_DailyRecordParameter );
 				if(!bResult)
 				{
-					m_responseHandler.Code = ErrorCodeList.Param_Error;
+					//m_responseHandler.Code = ErrorCodeList.Param_Error;
 					errorList += SynService_DailyRecordParameter.serial_number + ",";
 				}
 			}
@@ -321,7 +321,7 @@ namespace SyntecITWebAPI.Open.User
 				bool bResult = m_publicCRMHandler.UpsertHardwareInfo( SynService_HardwareInfoParameter );
 				if(!bResult)
 				{
-					m_responseHandler.Code = ErrorCodeList.Param_Error;
+					//m_responseHandler.Code = ErrorCodeList.Param_Error;
 					errorList += SynService_HardwareInfoParameter.serial_number + ",";
 				}
 			}

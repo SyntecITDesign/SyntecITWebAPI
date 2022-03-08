@@ -732,7 +732,7 @@ namespace SyntecITWebAPI.ParameterModels.CRM
 		{
 			get; set;
 		}
-		public string boot_time
+		public long boot_time
 		{
 			get; set;
 		}
