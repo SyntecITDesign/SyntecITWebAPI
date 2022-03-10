@@ -398,7 +398,19 @@ ORDER BY UniformInfo.[No],case
 			}
 		}
 
-
+		internal bool UpdateCoatApplication( UpdateCoatApplication UpdateCoatApplicationParameter )
+		{
+			string sql = $@"UPDATE [SyntecGAS].[dbo].[CoatApplication]
+							set ["+ UpdateCoatApplicationParameter.CoatApplicationYear + "]=@Parameter2 where [EmpID]=@Parameter0";
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpdateCoatApplicationParameter.CoatApplicationEmpID,
+				UpdateCoatApplicationParameter.CoatApplicationYear,
+				UpdateCoatApplicationParameter.CoatApplicationSize
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
 
 
 	}

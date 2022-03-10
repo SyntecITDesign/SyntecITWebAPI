@@ -348,6 +348,25 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "UpdateCoatApplication" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpdateCoatApplication( [FromBody] UpdateCoatApplication UpdateCoatApplicationParameter )
+		{
+
+			bool bResult = m_publicApplyUniformHandler.UpdateCoatApplication( UpdateCoatApplicationParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 
 
 		#endregion Public Methods

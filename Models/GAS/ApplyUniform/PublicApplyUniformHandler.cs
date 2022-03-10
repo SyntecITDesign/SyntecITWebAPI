@@ -168,8 +168,14 @@ namespace SyntecITWebAPI.Models.GAS.ApplyUniform
 				return ja;
 			}
 		}
-		
 
+		internal bool UpdateCoatApplication( UpdateCoatApplication UpdateCoatApplicationParameter )
+		{
+
+			bool bResult = m_ApplyUniformDBManager.UpdateCoatApplication( UpdateCoatApplicationParameter );
+
+			return bResult;
+		}
 
 		#endregion Internal Methods
 

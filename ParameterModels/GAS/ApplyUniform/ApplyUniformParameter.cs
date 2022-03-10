@@ -232,4 +232,24 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyUniform
 	}
 
 
+	public class CoatApplicationAllField
+	{
+		public string CoatApplicationEmpID
+		{
+			get; set;
+		}
+		public string CoatApplicationSize
+		{
+			get; set;
+		}
+		public string CoatApplicationYear
+		{
+			get; set;
+		}
+		
+	}
+	public class UpdateCoatApplication : CoatApplicationAllField
+	{
+
+	}
 }

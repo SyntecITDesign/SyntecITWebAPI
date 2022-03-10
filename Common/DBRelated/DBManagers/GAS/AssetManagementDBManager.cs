@@ -97,9 +97,20 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal DataTable GetAssetInfo(GetAssetInfo GetAssetInfoParameter)
 		{
-			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[AssetManagement]
-						WHERE [AssetNo] LIKE @Parameter0";
+			string sql = $@"SELECT Asset.[AssetNo],Asset.[AssetName]
+							  ,Asset.[Spec],Asset.[AssetType]
+							  ,Asset.[Property],Asset.[GetDate]
+							  ,Asset.[GetCost],Asset.[Quantity]
+							  ,Asset.[ManagerID],Asset.[CostCenter]
+							  ,Asset.[Storage],Asset.[FirmName]
+							  ,Asset.[FirmTel],Asset.[FirmContactWindow]
+							  ,Asset.[Memo],Asset.[IsScrap]
+							  ,Asset.[SAPNo],Asset.[PRNo]
+							  ,Asset.[PONo],Asset.[Limit],Asset.[Branch],Emp.EmpName,Emp.EmpDept
+						  FROM [SyntecGAS].[dbo].[AssetManagement] as Asset
+						  inner join [SyntecGAS].[dbo].[GAS_GAInfoMaster] as Emp
+						  on Emp.EmpID=Asset.ManagerID
+						WHERE Asset.[AssetNo] LIKE @Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetAssetInfoParameter.AssetManagementAssetNo,
