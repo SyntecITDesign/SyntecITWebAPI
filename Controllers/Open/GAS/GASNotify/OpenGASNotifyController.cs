@@ -26,13 +26,12 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GASNotify
 			{
 				string NotifyContent = WeComGASNotifyParameter.WeComGASNotifyContent;
 
-
 				#region VDS通知機器人
 				string WeComKey = WeComGASNotifyParameter.WeComGASNotifyKey;
 					//"fd078f6f-e121-41d7-8419-cede6f034f56";
 				Syntec.Notifier.WeixinNotifier _WeixinNotifier = new Syntec.Notifier.WeixinNotifier();
 				bool checkWeixin = _WeixinNotifier.WeixinTextNotify( WeComKey, NotifyContent, "", "" );
-				Console.Write( "aaaaaaa" );
+				Console.Write( "" );
 				#endregion
 			}
 			catch( Exception e ) { Console.Write( e.ToString() ); }

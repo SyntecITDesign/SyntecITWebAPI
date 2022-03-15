@@ -108,7 +108,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 							  ,Asset.[SAPNo],Asset.[PRNo]
 							  ,Asset.[PONo],Asset.[Limit],Asset.[Branch],Emp.EmpName,Emp.EmpDept
 						  FROM [SyntecGAS].[dbo].[AssetManagement] as Asset
-						  inner join [SyntecGAS].[dbo].[GAS_GAInfoMaster] as Emp
+						  left join [SyntecGAS].[dbo].[GAS_GAInfoMaster] as Emp
 						  on Emp.EmpID=Asset.ManagerID
 						WHERE Asset.[AssetNo] LIKE @Parameter0";
 			List<object> SQLParameterList = new List<object>()
