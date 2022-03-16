@@ -141,11 +141,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"IF EXISTS (SELECT * FROM [SyntecGAS].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0 )
 							UPDATE [SyntecGAS].[dbo].[GAS_GAInfoMaster] 
-							SET [ExtensionNum]=@Parameter1, [DoorCardNum]=@Parameter2,[MotorLicense]=@Parameter3,[CarLicense]=@Parameter4,[CarLicense_Syntec]=@Parameter5,[DoorCardNum2]=@Parameter6
+							SET [ExtensionNum]=@Parameter1, [DoorCardNum]=@Parameter2,[MotorLicense]=@Parameter3,[CarLicense]=@Parameter4,[CarLicense_Syntec]=@Parameter5,[DoorCardNum2]=@Parameter6,[UniformSize]=@Parameter7,[JacketSize]=@Parameter8,[SweatshirtSize]=@Parameter9,[UniformLongSize]=@Parameter10
 							WHERE [EmpID]=@Parameter0 
 						ELSE
-						INSERT INTO [SyntecGAS].[dbo].[GAS_GAInfoMaster] ([EmpID],[ExtensionNum],[DoorCardNum],[MotorLicense],[CarLicense],[CarLicense_Syntec],[DoorCardNum2]) 
-						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6)
+						INSERT INTO [SyntecGAS].[dbo].[GAS_GAInfoMaster] ([EmpID],[ExtensionNum],[DoorCardNum],[MotorLicense],[CarLicense],[CarLicense_Syntec],[DoorCardNum2] ,[UniformSize],[JacketSize],[SweatshirtSize],[UniformLongSize]) 
+						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9,@Parameter10)
 						
 						";
 
@@ -157,7 +157,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				UpsertPersonalGASInfoParameter.MotorLicense,
 				UpsertPersonalGASInfoParameter.CarLicense,
 				UpsertPersonalGASInfoParameter.CarLicense_Syntec,
-				UpsertPersonalGASInfoParameter.DoorCardNum2
+				UpsertPersonalGASInfoParameter.DoorCardNum2,
+				UpsertPersonalGASInfoParameter.UniformSize,
+				UpsertPersonalGASInfoParameter.JacketSize,
+				UpsertPersonalGASInfoParameter.SweatshirtSize,
+				UpsertPersonalGASInfoParameter.UniformLongSize
 
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
@@ -167,8 +171,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal bool InsertFreshmanGASInfo( InsertFreshmanGASInfo InsertFreshmanGASInfoParameter )
 		{
 			string sql = $@"
-						INSERT INTO [SyntecGAS].[dbo].[GAS_GAInfoMaster] ([EmpName],[MotorLicense],[CarLicense],[UniformSize],[JacketSize],[SweatshirtSize],[Sex]) 
-						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6)";
+						INSERT INTO [SyntecGAS].[dbo].[GAS_GAInfoMaster] ([EmpName],[MotorLicense],[CarLicense],[UniformSize],[JacketSize],[SweatshirtSize],[Sex],[UniformLongSize]) 
+						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7)";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -178,7 +182,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				InsertFreshmanGASInfoParameter.UniformSize,
 				InsertFreshmanGASInfoParameter.JacketSize,
 				InsertFreshmanGASInfoParameter.SweatshirtSize,
-				InsertFreshmanGASInfoParameter.Sex
+				InsertFreshmanGASInfoParameter.Sex,
+				InsertFreshmanGASInfoParameter.UniformLongSize
 
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );

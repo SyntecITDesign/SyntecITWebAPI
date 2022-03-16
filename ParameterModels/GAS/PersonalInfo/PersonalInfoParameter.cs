@@ -96,6 +96,26 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 		{
 			get; set;
 		}
+		public string UniformSize
+		{
+			get; set;
+		}
+		public string JacketSize
+		{
+			get; set;
+		}
+		public string SweatshirtSize
+		{
+			get; set;
+		}
+		public string UniformLongSize
+		{
+			get; set;
+		}
+
+
+
+
 		#endregion Public Properties
 	}
 
@@ -128,6 +148,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 			get; set;
 		}
 		public string Sex
+		{
+			get; set;
+		}
+		public string UniformLongSize
 		{
 			get; set;
 		}

@@ -377,6 +377,26 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "DelCarRepairRecord" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DelCarRepairRecord( [FromBody] DelCarRepairRecord DelCarRepairRecordParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.DelCarRepairRecord( DelCarRepairRecordParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		[Route( "GetCarFavoriteLink" )]
 		//[CheckTokenFilter]
 		//[PrivateCookieFilter]

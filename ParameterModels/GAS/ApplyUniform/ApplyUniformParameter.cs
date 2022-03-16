@@ -252,4 +252,29 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyUniform
 	{
 
 	}
+
+
+	public class GAS_GAInfoMasterAllField
+	{
+		public string GAS_GAInfoMasterEmpID
+		{
+			get; set;
+		}
+		public string GAS_GAInfoMasterUniformSize
+		{
+			get; set;
+		}
+		
+		public string GAS_GAInfoMasterSizeType
+		{
+			get; set;
+		}
+	}
+	public class UpdateGAS_GAInfoMasterSize : GAS_GAInfoMasterAllField
+	{
+
+	}
+
+
+
 }

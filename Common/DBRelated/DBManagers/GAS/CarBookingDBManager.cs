@@ -389,6 +389,19 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
+		internal bool DelCarRepairRecord( DelCarRepairRecord DelCarRepairRecordParameter )
+		{
+			string sql = $@"DELETE FROM [SyntecGAS].[dbo].[CarRepairRecord]
+							WHERE [CarNumber]=@Parameter0 and [FileName]=@Parameter1";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				DelCarRepairRecordParameter.CarNumber,
+				DelCarRepairRecordParameter.FileName
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
 
 		internal DataTable GetCarFavoriteLink()
 		{

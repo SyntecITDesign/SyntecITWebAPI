@@ -177,6 +177,14 @@ namespace SyntecITWebAPI.Models.GAS.ApplyUniform
 			return bResult;
 		}
 
+		internal bool UpdateGAS_GAInfoMasterSize( UpdateGAS_GAInfoMasterSize UpdateGAS_GAInfoMasterSizeParameter )
+		{
+
+			bool bResult = m_ApplyUniformDBManager.UpdateGAS_GAInfoMasterSize( UpdateGAS_GAInfoMasterSizeParameter );
+
+			return bResult;
+		}
+
 		#endregion Internal Methods
 
 		#region Private Fields

@@ -412,6 +412,21 @@ ORDER BY UniformInfo.[No],case
 			return bResult;
 		}
 
+		internal bool UpdateGAS_GAInfoMasterSize( UpdateGAS_GAInfoMasterSize UpdateGAS_GAInfoMasterSizeParameter )
+		{
+			string sql = $@"UPDATE [SyntecGAS].[dbo].[GAS_GAInfoMaster]
+							set [" + UpdateGAS_GAInfoMasterSizeParameter.GAS_GAInfoMasterSizeType + "]=@Parameter1 where [EmpID]=@Parameter0";
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpdateGAS_GAInfoMasterSizeParameter.GAS_GAInfoMasterEmpID,
+				UpdateGAS_GAInfoMasterSizeParameter.GAS_GAInfoMasterUniformSize,
+				UpdateGAS_GAInfoMasterSizeParameter.GAS_GAInfoMasterSizeType
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
+
 
 	}
 	#endregion Internal Methods

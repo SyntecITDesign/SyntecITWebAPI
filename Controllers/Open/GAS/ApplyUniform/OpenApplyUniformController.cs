@@ -369,6 +369,26 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 		}
 
 
+		[Route( "UpdateGAS_GAInfoMasterSize" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpdateGAS_GAInfoMasterSize( [FromBody] UpdateGAS_GAInfoMasterSize UpdateGAS_GAInfoMasterSizeParameter )
+		{
+
+			bool bResult = m_publicApplyUniformHandler.UpdateGAS_GAInfoMasterSize( UpdateGAS_GAInfoMasterSizeParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		#endregion Public Methods
 
 		#region Private Fields

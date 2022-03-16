@@ -237,6 +237,20 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CarBooking
 		}
 		#endregion Public Properties
 	}
+	public class DelCarRepairRecord
+	{
+		#region Public Properties
+		public string CarNumber
+		{
+			get; set;
+		}
+		public string FileName
+		{
+			get; set;
+		}
+
+		#endregion Public Properties
+	}
 
 	public class UpsertCarFavoriteLink
 	{

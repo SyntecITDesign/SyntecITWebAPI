@@ -211,6 +211,13 @@ namespace SyntecITWebAPI.Models.GAS.CarBooking
 
 			return bResult;
 		}
+		internal bool DelCarRepairRecord( DelCarRepairRecord DelCarRepairRecordParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.DelCarRepairRecord( DelCarRepairRecordParameter );
+
+			return bResult;
+		}
 
 		internal JArray GetCarFavoriteLink()
 		{
