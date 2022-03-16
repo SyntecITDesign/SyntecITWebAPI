@@ -20,6 +20,8 @@ namespace SyntecITWebAPI.Models.GAS.ApplyUniform
 
 			return bResult;
 		}
+		
+		
 		internal bool DeleteUniformStyle(DeleteUniformStyle DeleteUniformStyleParameter)
 		{
 
@@ -34,6 +36,7 @@ namespace SyntecITWebAPI.Models.GAS.ApplyUniform
 
 			return bResult;
 		}
+		
 		internal JArray GetUniformStyleInfo(GetUniformStyleInfo GetUniformStyleInfoParameter)
 		{
 

@@ -36,6 +36,8 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 
 			return Ok(m_responseHandler.GetResult());
 		}
+		
+		
 		[Route("DeleteUniformStyle")]
 		//[CheckTokenFilter]
 		[HttpPost]
