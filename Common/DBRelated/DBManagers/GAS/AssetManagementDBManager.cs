@@ -106,10 +106,10 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 							  ,Asset.[FirmTel],Asset.[FirmContactWindow]
 							  ,Asset.[Memo],Asset.[IsScrap]
 							  ,Asset.[SAPNo],Asset.[PRNo]
-							  ,Asset.[PONo],Asset.[Limit],Asset.[Branch],Emp.EmpName,Emp.EmpDept
+							  ,Asset.[PONo],Asset.[Limit],Asset.[Branch],Emp.EmpName,Emp.DeptName
 						  FROM [SyntecGAS].[dbo].[AssetManagement] as Asset
-						  left join [SyntecGAS].[dbo].[GAS_GAInfoMaster] as Emp
-						  on Emp.EmpID=Asset.ManagerID
+						  left join [syntecbarcode].[dbo].[TEMP_NAME] as Emp
+						  on Emp.EmpID COLLATE Chinese_Taiwan_Stroke_CI_AS =Asset.ManagerID COLLATE Chinese_Taiwan_Stroke_CI_AS
 						WHERE Asset.[AssetNo] LIKE @Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
