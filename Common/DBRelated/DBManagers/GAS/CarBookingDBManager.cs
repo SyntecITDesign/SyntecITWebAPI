@@ -726,7 +726,7 @@ WHERE [CarInsuranceName].[Type] = @Parameter0";
 		{
 			string sql = $@"SELECT MAX([PriorityNumber]) as  MAXPriorityNumber 
 							FROM ( Select * FROM [SyntecGAS].[dbo].[CarBookingRecord] 
-						           WHERE Type='private' and ( CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) OR CONVERT(datetime,@Parameter1,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) OR CONVERT(datetime,PreserveStartTime,120)  BETWEEN CONVERT(datetime,@Paramete0,120) AND CONVERT(datetime,@Parameter1,120) OR CONVERT(datetime,PreserveEndTime,120) BETWEEN CONVERT(datetime,@Parameter0,120) AND CONVERT(datetime, @Parameter1 ,120)) )";
+						           WHERE Type='private' and ( CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) OR CONVERT(datetime,@Parameter1,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) OR CONVERT(datetime,PreserveStartTime,120)  BETWEEN CONVERT(datetime,@Paramete0,120) AND CONVERT(datetime,@Parameter1,120) OR CONVERT(datetime,PreserveEndTime,120) BETWEEN CONVERT(datetime,@Parameter0,120) AND CONVERT(datetime, @Parameter1 ,120)) )AA";
 		
 
 			List<object> SQLParameterList = new List<object>()
@@ -802,9 +802,13 @@ WHERE [CarInsuranceName].[Type] = @Parameter0";
 						ELSE
 							INSERT INTO  [SyntecGAS].[dbo].[CarBookingRecord] 
 							([Name],[EmpID],[Type],[Title],[StartLocation],[EndLocation],[PreserveStartTime],[PreserveEndTime],[PriorityNumber],[ID])
-							VALUES((SELECT TOP(1) [EmpName] FROM [syntecbarcode].[dbo].[TEMP_NAME] WHERE [EmpID]=@Parameter0),@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter6,@Parameter7,(SELECT COUNT(*) +1
-							FROM [SyntecGAS].[dbo].[CarBookingRecord] 
-							WHERE ([PreserveStartTime]<@Parameter6 and ([PreserveEndTime] between @Parameter6 and @Parameter7)) or (([PreserveStartTime] between @Parameter6 and @Parameter7) and  @Parameter7 <[PreserveEndTime]) or ([PreserveStartTime]<@Parameter6 and @Parameter7<[PreserveEndTime]) or (([PreserveStartTime] between @Parameter6 and @Parameter7) and ([PreserveEndTime] between @Parameter6 and @Parameter7))),(SELECT MAX(ID)+1 FROM [SyntecGAS].[dbo].[CarBookingRecord]))";
+							VALUES((SELECT TOP(1) [EmpName] FROM [syntecbarcode].[dbo].[TEMP_NAME] WHERE [EmpID]=@Parameter0),@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter6,@Parameter7,
+							(SELECT MAX([PriorityNumber]) as  MAXPriorityNumber FROM ( Select * FROM [SyntecGAS].[dbo].[CarBookingRecord] WHERE Type='private' 
+							and ( CONVERT(datetime,@Parameter6,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
+							OR CONVERT(datetime,@Parameter7,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
+							OR CONVERT(datetime,PreserveStartTime,120)  BETWEEN CONVERT(datetime,@Parameter6,120) AND CONVERT(datetime,@Parameter7,120) 
+							OR CONVERT(datetime,PreserveEndTime,120) BETWEEN CONVERT(datetime,@Parameter6,120) AND CONVERT(datetime, @Parameter7 ,120)) )AA	)+1
+							,(SELECT MAX(ID)+1 FROM [SyntecGAS].[dbo].[CarBookingRecord]))";
 
 			List<object> SQLParameterList = new List<object>()
 			{

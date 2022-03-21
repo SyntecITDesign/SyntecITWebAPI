@@ -142,6 +142,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"SELECT *
 						FROM [SyntecGAS].[dbo].[MeetingRoomApplicationsMaster]
+						right join [SyntecGAS].[dbo].[MRBS]
+						on [MRBS].ID=[MeetingRoomApplicationsMaster].MRBS_ID
 						WHERE [ApplicantID] like @Parameter4 and [Finished]=@Parameter11
 						ORDER BY [RequisitionID] desc";
 			List<object> SQLParameterList = new List<object>()

@@ -155,6 +155,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 		{
 			get; set;
 		}
+		public string Avatar
+		{
+			get; set;
+		}
 		#endregion Public Properties
 	}
 

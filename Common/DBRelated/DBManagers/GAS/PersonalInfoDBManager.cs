@@ -117,7 +117,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"SELECT *
 						  FROM [SyntecGAS].[dbo].[GAS_GAInfoMaster]
-						  WHERE [EmpID]=@Parameter0 ";
+						  WHERE [EmpID] like @Parameter0
+						  Order by [Avatar] desc";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -171,8 +172,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal bool InsertFreshmanGASInfo( InsertFreshmanGASInfo InsertFreshmanGASInfoParameter )
 		{
 			string sql = $@"
-						INSERT INTO [SyntecGAS].[dbo].[GAS_GAInfoMaster] ([EmpName],[MotorLicense],[CarLicense],[UniformSize],[JacketSize],[SweatshirtSize],[Sex],[UniformLongSize]) 
-						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7)";
+						INSERT INTO [SyntecGAS].[dbo].[GAS_GAInfoMaster] ([EmpName],[MotorLicense],[CarLicense],[UniformSize],[JacketSize],[SweatshirtSize],[Sex],[UniformLongSize],[Avatar]) 
+						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8)";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -183,7 +184,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				InsertFreshmanGASInfoParameter.JacketSize,
 				InsertFreshmanGASInfoParameter.SweatshirtSize,
 				InsertFreshmanGASInfoParameter.Sex,
-				InsertFreshmanGASInfoParameter.UniformLongSize
+				InsertFreshmanGASInfoParameter.UniformLongSize,
+				InsertFreshmanGASInfoParameter.Avatar
 
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
