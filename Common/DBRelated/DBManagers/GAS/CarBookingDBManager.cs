@@ -36,11 +36,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		{
 			string sql = $@"IF EXISTS (SELECT * FROM [SyntecGAS].[dbo].[CarInfo] WHERE [id]=@Parameter0 )
 							UPDATE [SyntecGAS].[dbo].[CarInfo]
-							SET [CarNumber]=@Parameter1, [Model]=@Parameter2,[Seats]=@Parameter3,[BuyYear]=@Parameter4,[Type]=@Parameter5,[Gas]=@Parameter6,[Engine]=@Parameter7,[InsuranceStart]=@Parameter8,[InsuranceEnd]=@Parameter9,[Belongs]=@Parameter10,[CanRent]=@Parameter11
+							SET [CarNumber]=@Parameter1, [Model]=@Parameter2,[Seats]=@Parameter3,[BuyYear]=@Parameter4,[Type]=@Parameter5,[Gas]=@Parameter6,[Engine]=@Parameter7,[Belongs]=@Parameter8,[CanRent]=@Parameter9
 							WHERE [id]=@Parameter0 
 						ELSE
-						INSERT INTO [SyntecGAS].[dbo].[CarInfo] ([id],[CarNumber],[Model],[Seats],[BuyYear],[Type],[Gas],[Engine],[InsuranceStart],[InsuranceEnd],[Belongs],[CanRent]) 
-						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9,@Parameter10,@Parameter11)
+						INSERT INTO [SyntecGAS].[dbo].[CarInfo] ([id],[CarNumber],[Model],[Seats],[BuyYear],[Type],[Gas],[Engine],[Belongs],[CanRent]) 
+						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9)
 						
 						IF EXISTS (SELECT * FROM [SyntecGAS].[dbo].[CarRepairFrequency] WHERE [id]=@Parameter0 )
 							UPDATE [SyntecGAS].[dbo].[CarRepairFrequency]
@@ -60,8 +60,6 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				UpsertCarInfoParameter.Type,
 				UpsertCarInfoParameter.Gas,
 				UpsertCarInfoParameter.Engine,
-				UpsertCarInfoParameter.InsuranceStart,
-				UpsertCarInfoParameter.InsuranceEnd,
 				UpsertCarInfoParameter.Belongs,
 				UpsertCarInfoParameter.CanRent
 
@@ -958,6 +956,7 @@ WHERE [CarInsuranceName].[Type] = @Parameter0";
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
+		
 
 	}
 	#endregion Internal Methods

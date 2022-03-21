@@ -15,7 +15,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		{
 			string sql = $@"SELECT *
 							FROM [SyntecGAS].[dbo].[CarBookingApplicationsMaster]
-							WHERE [ApplicationID]=@Parameter0 and [ActualStartTime] is NULL";
+							WHERE [ApplicationID]=@Parameter0  and (GETDATE() between [PreserveStartTime] and [PreserveEndTime] or GETDATE() < [PreserveStartTime])  and [ActualStartTime] is NULL";
 
 			List<object> SQLParameterList = new List<object>()
 			{
