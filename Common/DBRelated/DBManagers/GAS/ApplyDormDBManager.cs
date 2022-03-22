@@ -15,7 +15,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		{
 			string sql = $@"SELECT * 
 							FROM [SyntecGAS].[dbo].[DormStatusMaster] 
-							WHERE RoomTenantID =@Parameter0 AND Time = substring(convert(varchar, getdate(), 112),0,7)";
+							WHERE RoomTenantID =@Parameter0";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -39,8 +39,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool InsertDormApplicationsMaster( InsertDormApplicationsMaster InsertDormApplicationsMasterParameter )
 		{
 			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[DormApplicationsMaster] 
-							([EmpID],[ApplicationDate],[Dorm],[RoomNum],[ReservationTime],[Finished],[ApplicationType])
-							VAlUES(@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,'CheckOut')";
+							([EmpID],[ApplicationDate],[Dorm],[RoomNum],[ReservationTime],[Finished],[ApplicationType],[LeaveDate])
+							VAlUES(@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,'CheckOut',@Parameter6)";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -49,13 +49,12 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				InsertDormApplicationsMasterParameter.Dorm,
 				InsertDormApplicationsMasterParameter.RoomNum,
 				InsertDormApplicationsMasterParameter.ReservationTime,
-				InsertDormApplicationsMasterParameter.Finished
+				InsertDormApplicationsMasterParameter.Finished,
+				InsertDormApplicationsMasterParameter.LeaveDate
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
-
-
 
 	}
 	#endregion Internal Methods

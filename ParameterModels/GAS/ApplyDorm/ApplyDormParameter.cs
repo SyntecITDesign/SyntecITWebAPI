@@ -40,6 +40,11 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyDorm
 		public string Finished
 		{get;set;
 		}
+
+		public string LeaveDate
+		{
+			get; set;
+		}
 	}
 	
 
