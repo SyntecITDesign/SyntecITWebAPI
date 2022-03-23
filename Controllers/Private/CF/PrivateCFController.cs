@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using SyntecITWebAPI.Common;
+using SyntecITWebAPI.Controllers.Private.CF;
 using SyntecITWebAPI.Enums;
 using SyntecITWebAPI.Filter;
 using SyntecITWebAPI.Models;
 using SyntecITWebAPI.ParameterModels.CF;
+using System.Threading.Tasks;
 
 namespace SyntecITWebAPI.Private.CF
 {
@@ -15,6 +17,26 @@ namespace SyntecITWebAPI.Private.CF
 	public class PrivateCFController : ControllerBase
 	{
 		#region Public Methods
+		[TimeoutFilter( 900000 )]
+		
+		[Route( "CFSendPdfEmailNew" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public async Task<IActionResult> CFSendPdfEmailNew( [FromBody] CFService_CFSendPdfEmail CFService_CFSendPdfEmailParameter )
+		{
+			bool bResult = await m_privateCFHandler.CFSendPdfEmailNewAsync( CFService_CFSendPdfEmailParameter ).ConfigureAwait(false);
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 
 		[Route( "CFSendPdfEmail" )]
 		[CheckTokenFilter]
