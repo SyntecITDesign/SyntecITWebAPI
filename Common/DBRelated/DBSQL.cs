@@ -488,7 +488,7 @@ namespace SyntecITWebAPI.Common.DBRelated
 			get {
 				return $@"
 						INSERT INTO [{m_crm}].[dbo].SynService_DailyRecord ([serial_number],[time],[detail_json],[cons_date],[modi_date],[crm_number],[drv_model],[drv_SN]) 
-						VALUES (@Parameter0, @Parameter1, @Parameter2, DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )),@Parameter3,@Parameter4,@Parameter5)";
+						VALUES (@Parameter0, @Parameter1, @Parameter2, DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, 0, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, 0, GETDATE() )),@Parameter3,@Parameter4,@Parameter5)";
 			}
 		}
 

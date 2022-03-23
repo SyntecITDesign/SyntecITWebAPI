@@ -196,4 +196,20 @@ namespace SyntecITWebAPI.ParameterModels.GAS.MeetingRoom
 	{
 
 	}
+
+	public class GetUsingMeetingRoom
+	{
+		public string TimeStart
+		{
+			get; set;
+		}
+		public string TimeEnd
+		{
+			get; set;
+		}
+		
+	}
+
+
+
 }

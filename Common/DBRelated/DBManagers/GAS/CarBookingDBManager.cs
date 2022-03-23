@@ -671,12 +671,18 @@ WHERE [CarInsuranceName].[Type] = @Parameter0";
 
 		internal DataTable GetBeenRentCarSpecTime( GetBeenRentCarSpecTime GetBeenRentCarSpecTimeParameter )
 		{
-			string sql = $@"SELECT *
-							FROM [SyntecGAS].[dbo].[CarBookingRecord]
-							WHERE ([PreserveStartTime] > @Parameter0 and [PreserveEndTime] < @Parameter1) 
-							or ([PreserveStartTime] > @Parameter0 and @Parameter1 between [PreserveEndTime] and  [PreserveStartTime])
-							or (@Parameter0 between [PreserveStartTime] and [PreserveEndTime] and  [PreserveEndTime] < @Parameter1 )
-							or ([PreserveStartTime] < @Parameter0 and [PreserveEndTime] > @Parameter1)";
+			string sql = $@"select * from [SyntecGAS].[dbo].[CarBookingRecord] where 
+							(CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
+							and  CONVERT(datetime,@Parameter1,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
+							and ActualEndTime IS NULL)
+							or
+							(CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
+							and  CONVERT(datetime,@Parameter1,120) NOT BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
+							and  CONVERT(datetime,@Parameter0,120) != CONVERT(datetime,PreserveEndTime,120) and ActualEndTime IS NULL)
+							or
+							(CONVERT(datetime,@Parameter0,120) NOT BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
+							and  CONVERT(datetime,@Parameter1,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
+							and  CONVERT(datetime,@Parameter1,120) != CONVERT(datetime,PreserveStartTime,120) and ActualEndTime IS NULL)";
 
 			List<object> SQLParameterList = new List<object>()
 			{

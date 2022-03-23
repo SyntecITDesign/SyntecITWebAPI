@@ -283,6 +283,30 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			return bResult;
 		}
 
+		internal DataTable GetUsingMeetingRoom( GetUsingMeetingRoom GetUsingMeetingRoomParameter )
+		{
+			string sql = $@"select * from [SyntecGAS].[dbo].MRBS 
+where (CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,PreserveTimeStart,120)  AND CONVERT(datetime,PreserveTimeEnd,120) and CONVERT( datetime,@Parameter1,120) BETWEEN CONVERT( datetime, PreserveTimeStart,120)  AND CONVERT( datetime, PreserveTimeEnd,120) ) or ( CONVERT( datetime, @Parameter0, 120 ) BETWEEN CONVERT( datetime, PreserveTimeStart, 120 )  AND CONVERT( datetime, PreserveTimeEnd, 120 ) and  CONVERT( datetime, @Parameter1, 120 ) NOT BETWEEN CONVERT( datetime, PreserveTimeStart, 120 )  AND CONVERT( datetime, PreserveTimeEnd, 120 ) and  CONVERT( datetime, @Parameter0, 120 ) != CONVERT( datetime, PreserveTimeEnd, 120 ) ) or ( CONVERT( datetime, @Parameter0, 120 ) NOT BETWEEN CONVERT( datetime, PreserveTimeStart, 120 )  AND CONVERT( datetime, PreserveTimeEnd, 120 ) and  CONVERT( datetime, @Parameter1, 120 ) BETWEEN CONVERT( datetime, PreserveTimeStart, 120 )  AND CONVERT( datetime, PreserveTimeEnd, 120 ) and  CONVERT( datetime, @Parameter1, 120 ) != CONVERT( datetime, PreserveTimeStart, 120 ) )";
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetUsingMeetingRoomParameter.TimeStart,
+				GetUsingMeetingRoomParameter.TimeEnd
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
+			//return bresult;
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+
 	}
 	#endregion Internal Methods
 }
