@@ -335,7 +335,7 @@ ORDER BY UniformInfo.[No],case
 		internal bool UpdateUniformApplicationsMaster( UpdateUniformApplicationsMaster UpdateUniformApplicationsMasterParameter )
 		{
 			string sql = $@"UPDATE [SyntecGAS].[dbo].[UniformApplicationsMaster]
-							set [Finished]=@Parameter14,[IsCancel]=@Parameter7
+							set [Finished]=@Parameter14,[IsCancel]=@Parameter7,[CancelDateTime]=@Parameter15,[FinishedDateTime]=@Parameter16
 							where [RequisitionID]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -353,7 +353,9 @@ ORDER BY UniformInfo.[No],case
 				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterSize,
 				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterPrice,
 				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterMemo,
-				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterFinished
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterFinished,
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterCancelDateTime,
+				UpdateUniformApplicationsMasterParameter.UniformApplicationsMasterFinishedDateTime
 
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );

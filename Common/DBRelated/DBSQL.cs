@@ -513,6 +513,24 @@ namespace SyntecITWebAPI.Common.DBRelated
 			}
 		}
 
+		public string UpsertAlarmRecordEvent
+		{
+			get {
+				return $@"
+						INSERT INTO [{m_crm}].[dbo].[SALE_DM_ALARMRECORDEVENT] ([serial_number],[file_name],[time],[alarm_id],[cons_date],[modi_date]) 
+						VALUES (@Parameter0, @Parameter1, @Parameter2,@Parameter3, DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))";
+			}
+		}
+
+		public string UpsertAlarmRecordData
+		{
+			get {
+				return $@"
+						INSERT INTO [{m_crm}].[dbo].[SALE_DM_ALARMRECORDDATA] ([serial_number],[file_name],[time],[detail_json],[cons_date],[modi_date]) 
+						VALUES (@Parameter0, @Parameter1, @Parameter2,@Parameter3, DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))";
+			}
+		}
+
 		public string InsertWXMessage
 		{
 			get {

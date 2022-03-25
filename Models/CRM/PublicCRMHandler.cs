@@ -155,6 +155,22 @@ namespace SyntecITWebAPI.Models
 			return bResult;
 		}
 
+		internal bool UpsertAlarmRecordEvent( SynService_AlarmRecordEvent SynService_AlarmRecordEventParameter )
+		{
+
+			bool bResult = m_publicCRMDBManager.UpsertAlarmRecordEvent( SynService_AlarmRecordEventParameter );
+
+			return bResult;
+		}
+
+		internal bool UpsertAlarmRecordData( SynService_AlarmRecordData SynService_AlarmRecordDataParameter )
+		{
+
+			bool bResult = m_publicCRMDBManager.UpsertAlarmRecordData( SynService_AlarmRecordDataParameter );
+
+			return bResult;
+		}
+
 		#endregion Internal Methods
 
 		#region Private Fields

@@ -310,6 +310,36 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			return bResult;
 		}
 
+		internal bool UpsertAlarmRecordEvent( SynService_AlarmRecordEvent SynService_AlarmRecordEventParameter )
+		{
+			string sql = m_dbSQL.UpsertAlarmRecordEvent;
+			List<object> SQLParameterList = new List<object>()
+			{
+				SynService_AlarmRecordEventParameter.serial_number,
+				SynService_AlarmRecordEventParameter.file_name,
+				SynService_AlarmRecordEventParameter.time,
+				SynService_AlarmRecordEventParameter.alarm_id
+
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
+		internal bool UpsertAlarmRecordData( SynService_AlarmRecordData SynService_AlarmRecordDataParameter )
+		{
+			string sql = m_dbSQL.UpsertAlarmRecordData;
+			List<object> SQLParameterList = new List<object>()
+			{
+				SynService_AlarmRecordDataParameter.serial_number,
+				SynService_AlarmRecordDataParameter.file_name,
+				SynService_AlarmRecordDataParameter.time,
+				SynService_AlarmRecordDataParameter.detail_json
+
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
 		#endregion Internal Methods
 	}
 }

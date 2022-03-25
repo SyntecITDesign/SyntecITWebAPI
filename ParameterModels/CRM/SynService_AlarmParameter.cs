@@ -788,11 +788,54 @@ namespace SyntecITWebAPI.ParameterModels.CRM
 		{
 			get; set;
 		}
+		#endregion Public Properties
 
+	}
 
+	public class SynService_AlarmRecordEvent
+	{
+		#region Public Properties
 
+		public string serial_number
+		{
+			get; set;
+		}
+		public string file_name
+		{
+			get; set;
+		}
+		public long time
+		{
+			get; set;
+		}
+		public string alarm_id
+		{
+			get; set;
+		}
+		#endregion Public Properties
 
+	}
 
+	public class SynService_AlarmRecordData
+	{
+		#region Public Properties
+
+		public string serial_number
+		{
+			get; set;
+		}
+		public string file_name
+		{
+			get; set;
+		}
+		public long time
+		{
+			get; set;
+		}
+		public string detail_json
+		{
+			get; set;
+		}
 		#endregion Public Properties
 
 	}

@@ -213,6 +213,15 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyUniform
 		{
 			get; set;
 		}
+		public string UniformApplicationsMasterCancelDateTime
+		{
+			get; set;
+		}
+		public string UniformApplicationsMasterFinishedDateTime
+		{
+			get; set;
+		}
+
 	}
 	public class InsertUniformApplicationsMaster : UniformApplicationsMasterAllField
 	{

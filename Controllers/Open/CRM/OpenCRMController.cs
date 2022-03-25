@@ -339,6 +339,64 @@ namespace SyntecITWebAPI.Open.User
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "UpsertAlarmRecordEvent" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertAlarmRecordEvent( [FromBody] List<SynService_AlarmRecordEvent> SynService_AlarmRecordEventParameterList )
+		{
+			string errorList = "";
+			foreach(var SynService_AlarmRecordEventParameter in SynService_AlarmRecordEventParameterList)
+			{
+				bool bResult = m_publicCRMHandler.UpsertAlarmRecordEvent( SynService_AlarmRecordEventParameter );
+				if(!bResult)
+				{
+					//m_responseHandler.Code = ErrorCodeList.Param_Error;
+					errorList += SynService_AlarmRecordEventParameter.serial_number + ",";
+				}
+			}
+
+			if(errorList != "")
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+				m_responseHandler.Content = errorList;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "UpsertAlarmRecordData" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertAlarmRecordData( [FromBody] List<SynService_AlarmRecordData> SynService_AlarmRecordDataParameterList )
+		{
+			string errorList = "";
+			foreach(var SynService_AlarmRecordDataParameter in SynService_AlarmRecordDataParameterList)
+			{
+				bool bResult = m_publicCRMHandler.UpsertAlarmRecordData( SynService_AlarmRecordDataParameter );
+				if(!bResult)
+				{
+					//m_responseHandler.Code = ErrorCodeList.Param_Error;
+					errorList += SynService_AlarmRecordDataParameter.serial_number + ",";
+				}
+			}
+
+			if(errorList != "")
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+				m_responseHandler.Content = errorList;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		#endregion Public Methods
 
 		#region Private Fields
