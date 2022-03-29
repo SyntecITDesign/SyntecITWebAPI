@@ -43,19 +43,19 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CarBooking
 		{
 			get; set;
 		}
-		public string InsuranceStart
-		{
-			get; set;
-		}
-		public string InsuranceEnd
-		{
-			get; set;
-		}
 		public string Belongs
 		{
 			get; set;
 		}
 		public string CanRent
+		{
+			get; set;
+		}
+		public string Mile
+		{
+			get; set;
+		}
+		public string NextRepairMile
 		{
 			get; set;
 		}
