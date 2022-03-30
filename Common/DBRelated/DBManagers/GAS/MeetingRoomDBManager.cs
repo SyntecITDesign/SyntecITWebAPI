@@ -140,12 +140,17 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		}
 		internal DataTable GetMeetingRoomApplicationsMaster( GetMeetingRoomApplicationsMaster GetMeetingRoomApplicationsMasterParameter )
 		{
-			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[MeetingRoomApplicationsMaster]
-						right join [SyntecGAS].[dbo].[MRBS]
-						on [MRBS].ID=[MeetingRoomApplicationsMaster].MRBS_ID
-						WHERE [ApplicantID] like @Parameter4 and [Finished]=@Parameter11
-						ORDER BY [RequisitionID] desc";
+			string sql = $@"SELECT M.[RequisitionID],M.[FillerID],M.[FillerName],M.[ApplicationDate],M.[ApplicantID],M.[ApplicantName],M.[ApplicantDept],
+M.[ApplyType],M.[StartDate],M.[EndDate],M.[Finished],M.[MRBS_ID],M.[StopDate],M.[IsCancel],
+[MRBS].[Event]
+						FROM [SyntecGAS].[dbo].[MeetingRoomApplicationsMaster] as M
+						inner join [SyntecGAS].[dbo].[MRBS]
+						on [MRBS].ID=M.MRBS_ID
+						WHERE M.[ApplicantID] like @Parameter4 and M.[Finished]=@Parameter11
+						GROUP BY M.[RequisitionID],M.[FillerID],M.[FillerName],M.[ApplicationDate],M.[ApplicantID],M.[ApplicantName],M.[ApplicantDept],
+M.[ApplyType],M.[StartDate],M.[EndDate],M.[Finished],M.[MRBS_ID],M.[StopDate],M.[IsCancel],
+[MRBS].[Event]
+ORDER BY M.[RequisitionID] desc";
 			List<object> SQLParameterList = new List<object>()
 			{
 
