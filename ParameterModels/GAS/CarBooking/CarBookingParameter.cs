@@ -164,23 +164,15 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CarBooking
 	public class UpsertCarRepairFrequency
 	{
 		#region Public Properties
-		public string id
+		public string CarID
 		{
 			get; set;
 		}
-		public string CarNumber
+		public string NextRepairMile
 		{
 			get; set;
 		}
 
-		public string Frequency
-		{
-			get; set;
-		}
-		public string Memo
-		{
-			get; set;
-		}
 		#endregion Public Properties
 	}
 

@@ -40,9 +40,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 							WHERE [id]=@Parameter0 
 						ELSE
 						INSERT INTO [SyntecGAS].[dbo].[CarInfo] ([CarNumber],[Model],[Seats],[BuyYear],[Type],[Gas],[Engine],[Belongs],[CanRent],[Mile],[NextRepairMile]) 
-						VALUES (@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9,@Parameter10,@Parameter11)
-						
-						";
+						VALUES (@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9,@Parameter10,@Parameter11)";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -289,20 +287,15 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpsertCarRepairFrequency( UpsertCarRepairFrequency UpsertCarRepairFrequencyParameter )
 		{
-			string sql = $@"IF EXISTS (SELECT * FROM [SyntecGAS].[dbo].[CarRepairFrequency] WHERE [id]=@Parameter0 )
-							UPDATE [SyntecGAS].[dbo].[CarRepairFrequency]
-							SET  [CarNumber]=@Parameter1,[Frequency]=@Parameter2,[Memo]=@Parameter3
+			string sql = $@"UPDATE [SyntecGAS].[dbo].[CarInfo]
+							SET  [NextRepairMile]=@Parameter1
 							WHERE [id]=@Parameter0 
-						ELSE
-						INSERT INTO [SyntecGAS].[dbo].[CarRepairFrequency] ([id],[CarNumber],[Frequency],[Memo]) 
-						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3)";
+						";
 
 			List<object> SQLParameterList = new List<object>()
 			{
-				UpsertCarRepairFrequencyParameter.id,
-				UpsertCarRepairFrequencyParameter.CarNumber,
-				UpsertCarRepairFrequencyParameter.Frequency,
-				UpsertCarRepairFrequencyParameter.Memo
+				UpsertCarRepairFrequencyParameter.CarID,
+				UpsertCarRepairFrequencyParameter.NextRepairMile
 
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
