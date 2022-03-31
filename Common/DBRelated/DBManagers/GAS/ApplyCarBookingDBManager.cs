@@ -5,16 +5,33 @@ using System.Linq;
 using System.Threading.Tasks;
 using SyntecITWebAPI.Abstract;
 using SyntecITWebAPI.ParameterModels.GAS.ApplyCarBooking;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 {
 	internal class ApplyCarBookingDBManager : AbstractDBManager
 	{
 		#region Internal Methods
+		public string m_bpm;
+		public string m_gas;
+		public ApplyCarBookingDBManager()
+		{
+			var configuration = new ConfigurationBuilder()
+			.SetBasePath( $"{Directory.GetCurrentDirectory()}\\Config\\" )
+			.AddJsonFile( path: "DBTableNameSetting.json", optional: false )
+			.Build();
+
+			m_bpm = configuration[ "bpm" ].Trim();
+			m_gas = configuration[ "gas" ].Trim();
+		}
+
+
+
 		internal DataTable GetCarBookingApplicationsMaster( GetCarBookingApplicationsMaster GetCarBookingApplicationsMasterParameter )
 		{
 			string sql = $@"SELECT *
-							FROM [SyntecGAS].[dbo].[CarBookingApplicationsMaster]
+							FROM [{m_gas}].[dbo].[CarBookingApplicationsMaster]
 							WHERE [ApplicationID]=@Parameter0  and (GETDATE() between [PreserveStartTime] and [PreserveEndTime] or GETDATE() < [PreserveStartTime])  and [ActualStartTime] is NULL";
 
 			List<object> SQLParameterList = new List<object>()
@@ -39,7 +56,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool InsertCarBookingApplicationsMaster( InsertCarBookingApplicationsMaster InsertCarBookingApplicationsMasterParameter )
 		{
 			string sql = $@"IF @Parameter5 = 'private'
-								INSERT INTO [SyntecGAS].[dbo].[CarBookingApplicationsMaster] 
+								INSERT INTO [{m_gas}].[dbo].[CarBookingApplicationsMaster] 
 								([ApplicationID],[ApplicationName],[ApplicationDate],[FillerID],[FillerName]
 								,[TypePersonalBusiness]
 								,[PreserveStartTime],[PreserveEndTime],[Remark],[StartPlace],[EndPlace])
@@ -47,7 +64,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 								@Parameter5,  @Parameter6,  @Parameter7,@Parameter9,
 								@Parameter10,  @Parameter11)
 							ELSE 
-								INSERT INTO [SyntecGAS].[dbo].[CarBookingApplicationsMaster] 
+								INSERT INTO [{m_gas}].[dbo].[CarBookingApplicationsMaster] 
 								([ApplicationID],[ApplicationName],[ApplicationDate],[FillerID],[FillerName]
 								,[TypePersonalBusiness]
 								,[PreserveStartTime],[PreserveEndTime]
@@ -77,7 +94,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool DeleteCarBookingApplicationsMaster( DeleteCarBookingApplicationsMaster DeleteCarBookingApplicationsMasterParameter )
 		{
-			string sql = $@"DELETE FROM [SyntecGAS].[dbo].[CarBookingApplicationsMaster]
+			string sql = $@"DELETE FROM [{m_gas}].[dbo].[CarBookingApplicationsMaster]
 							WHERE  ReuisitionID=@Parameter0";
 
 			List<object> SQLParameterList = new List<object>()

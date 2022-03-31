@@ -2,18 +2,32 @@
 using System.Collections.Generic;
 using System.Data;
 using SyntecITWebAPI.ParameterModels.GAS.Parking;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 {
 	internal class PublicParkingDBManager : AbstractDBManager
 	{
 		#region Internal Methods
+		public string m_bpm;
+		public string m_gas;
+		public PublicParkingDBManager()
+		{
+			var configuration = new ConfigurationBuilder()
+			.SetBasePath( $"{Directory.GetCurrentDirectory()}\\Config\\" )
+			.AddJsonFile( path: "DBTableNameSetting.json", optional: false )
+			.Build();
+
+			m_bpm = configuration[ "bpm" ].Trim();
+			m_gas = configuration[ "gas" ].Trim();
+		}
 
 
 		internal DataTable GetParkingInfo( GetParkingInfo GetParkingInfoParameter )
 		{
 			string sql = $@"SELECT *
-						  FROM [SyntecGAS].[dbo].[ParkingSpaceStatusMaster]
+						  FROM [{m_gas}].[dbo].[ParkingSpaceStatusMaster]
 						  WHERE [EmpID]=@Parameter0 ";
 
 			List<object> SQLParameterList = new List<object>()
@@ -37,12 +51,12 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal bool UpsertParkingInfo( UpsertParkingInfo UpsertParkingInfoParameter )
 		{
 
-			string sql = $@"IF EXISTS (SELECT * FROM [SyntecGAS].[dbo].[ParkingSpaceStatusMaster] WHERE [EmpID]=@Parameter0)
-								UPDATE [SyntecGAS].[dbo].[ParkingSpaceStatusMaster] 
+			string sql = $@"IF EXISTS (SELECT * FROM [{m_gas}].[dbo].[ParkingSpaceStatusMaster] WHERE [EmpID]=@Parameter0)
+								UPDATE [{m_gas}].[dbo].[ParkingSpaceStatusMaster] 
 								SET [EmpID]=NULL
 								WHERE [EmpID]=@Parameter0
 
-							UPDATE [SyntecGAS].[dbo].[ParkingSpaceStatusMaster] 
+							UPDATE [{m_gas}].[dbo].[ParkingSpaceStatusMaster] 
 							SET EmpID=@Parameter0
 							WHERE [ParkingSpaceNum]=@Parameter1";
 

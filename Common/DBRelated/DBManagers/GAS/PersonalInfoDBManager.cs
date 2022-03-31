@@ -12,6 +12,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 	{
 		#region Internal Methods
 		public string m_bpm;
+		public string m_gas;
 		public PublicPersonalInfoDBManager()
 		{
 			var configuration = new ConfigurationBuilder()
@@ -20,6 +21,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			.Build();
 
 			m_bpm = configuration[ "bpm" ].Trim();
+			m_gas = configuration[ "gas" ].Trim();
 		}
 
 		internal DataTable GetPersonalInfo( GetPersonalInfo GetPersonalInfoParameter )

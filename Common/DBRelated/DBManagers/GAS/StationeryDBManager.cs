@@ -2,16 +2,30 @@
 using System.Collections.Generic;
 using System.Data;
 using SyntecITWebAPI.ParameterModels.GAS.Stationery;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 {
 	internal class PublicGASDBManager : AbstractDBManager
 	{
 		#region Internal Methods
+		public string m_bpm;
+		public string m_gas;
+		public PublicGASDBManager()
+		{
+			var configuration = new ConfigurationBuilder()
+			.SetBasePath( $"{Directory.GetCurrentDirectory()}\\Config\\" )
+			.AddJsonFile( path: "DBTableNameSetting.json", optional: false )
+			.Build();
+
+			m_bpm = configuration[ "bpm" ].Trim();
+			m_gas = configuration[ "gas" ].Trim();
+		}
 
 		internal DataTable GetStationeryQuantity()
 		{
-			string sql = $@"SELECT * FROM [SyntecGAS].[dbo].[Stationery]";
+			string sql = $@"SELECT * FROM [{m_gas}].[dbo].[Stationery]";
 
 			DataTable result = m_dbproxy.GetDataWithNoParaCMD(sql);
 			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
@@ -28,11 +42,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		}
 		internal bool UpsertStationeryQuantity(UpsertStationeryQuantity UpsertStationeryParameter)
 		{
-			string sql = $@"IF EXISTS (SELECT * FROM [SyntecGAS].[dbo].[Stationery] WHERE [ID]=@Parameter0 )
-							UPDATE [SyntecGAS].[dbo].[Stationery] SET [ProductName]=@Parameter1, [Specification]=@Parameter2,[Unit]=@Parameter3,[Quantity]=@Parameter4
+			string sql = $@"IF EXISTS (SELECT * FROM [{m_gas}].[dbo].[Stationery] WHERE [ID]=@Parameter0 )
+							UPDATE [{m_gas}].[dbo].[Stationery] SET [ProductName]=@Parameter1, [Specification]=@Parameter2,[Unit]=@Parameter3,[Quantity]=@Parameter4
 							WHERE [ID]=@Parameter0 
 						ELSE
-						INSERT INTO [SyntecGAS].[dbo].[Stationery] ([ProductName],[Specification],[Unit],[Quantity]) 
+						INSERT INTO [{m_gas}].[dbo].[Stationery] ([ProductName],[Specification],[Unit],[Quantity]) 
 						VALUES (@Parameter1,@Parameter2,@Parameter3,@Parameter4)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -48,7 +62,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		}
 		internal bool DeleteStationery(DeleteStationery DeleteStationeryParameter)
 		{
-			string sql = $@"DELETE FROM [SyntecGAS].[dbo].[Stationery]
+			string sql = $@"DELETE FROM [{m_gas}].[dbo].[Stationery]
 						WHERE [ID] = @Parameter0" ;
 
 			List<object> SQLParameterList = new List<object>()
@@ -64,7 +78,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal DataTable GetStationeryApplicationsMaster( GetStationeryApplicationsMaster GetStationeryApplicationsMasterParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[StationeryApplicationsMaster]
+						FROM [{m_gas}].[dbo].[StationeryApplicationsMaster]
 						Where [FillerID] like @Parameter1
 						ORDER BY [RequisitionID] desc";
 
@@ -90,7 +104,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		}
 		internal bool InsertStationeryApplicationsMaster( InsertStationeryApplicationsMaster InsertStationeryApplicationsMasterParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[StationeryApplicationsMaster] ([FillerID],[FillerName],[ApplicationDate])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[StationeryApplicationsMaster] ([FillerID],[FillerName],[ApplicationDate])
 								VALUES (@Parameter1,@Parameter2,@Parameter3)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -104,7 +118,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		}
 		internal bool UpdateStationeryApplicationsMaster( UpdateStationeryApplicationsMaster UpdateStationeryApplicationsMasterParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[StationeryApplicationsMaster]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[StationeryApplicationsMaster]
 							set []=@Parameter1
 							where []=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -121,8 +135,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal DataTable GetStationeryApplicationsDetail( GetStationeryApplicationsDetail GetStationeryApplicationsDetailParameter )
 		{
 			string sql = $@"SELECT a.RequisitionID,a.ApplicantDept,a.ProductName,a.Specification,a.Unit,a.Quantity,a.Finished,b.FillerID,b.ApplicationDate
-						  FROM [SyntecGAS].[dbo].[StationeryApplicationsDetail] as a
-						  inner join [SyntecGAS].[dbo].[StationeryApplicationsMaster] as b
+						  FROM [{m_gas}].[dbo].[StationeryApplicationsDetail] as a
+						  inner join [{m_gas}].[dbo].[StationeryApplicationsMaster] as b
 						  on a.RequisitionID=b.RequisitionID
 						WHERE b.[FillerID] like @Parameter8 and a.[Finished]=@Parameter7";
 
@@ -153,7 +167,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		}
 		internal bool InsertStationeryApplicationsDetail( InsertStationeryApplicationsDetail InsertStationeryApplicationsDetailParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[StationeryApplicationsDetail] ([RequisitionID],[ApplicantDept],[ProductName],[Specification],[Unit],[Quantity])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[StationeryApplicationsDetail] ([RequisitionID],[ApplicantDept],[ProductName],[Specification],[Unit],[Quantity])
 								VALUES (@Parameter0,@Parameter1,@Parameter3,@Parameter4,@Parameter5,@Parameter6)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -171,7 +185,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		}
 		internal bool UpdateStationeryApplicationsDetail( UpdateStationeryApplicationsDetail UpdateStationeryApplicationsDetailParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[StationeryApplicationsDetail]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[StationeryApplicationsDetail]
 							set [Finished]=@Parameter7,[IsCancel]=@Parameter2
 							where [RequisitionID]=@Parameter0 and [ApplicantDept]=@Parameter1";
 			List<object> SQLParameterList = new List<object>()
@@ -190,7 +204,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		}
 		internal bool DeleteStationeryApplicationsDetail( DeleteStationeryApplicationsDetail DeleteStationeryApplicationsDetailParameter )
 		{
-			string sql = $@"Delete INTO [SyntecGAS].[dbo].[StationeryApplicationsDetail] ([])
+			string sql = $@"Delete INTO [{m_gas}].[dbo].[StationeryApplicationsDetail] ([])
 								VALUES (@Parameter1)";
 			List<object> SQLParameterList = new List<object>()
 			{

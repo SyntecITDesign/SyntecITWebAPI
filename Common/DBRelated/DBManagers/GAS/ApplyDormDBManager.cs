@@ -5,16 +5,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using SyntecITWebAPI.Abstract;
 using SyntecITWebAPI.ParameterModels.GAS.ApplyDorm;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 {
 	internal class ApplyDormDBManager : AbstractDBManager
 	{
 		#region Internal Methods
+		public string m_bpm;
+		public string m_gas;
+		public ApplyDormDBManager()
+		{
+			var configuration = new ConfigurationBuilder()
+			.SetBasePath( $"{Directory.GetCurrentDirectory()}\\Config\\" )
+			.AddJsonFile( path: "DBTableNameSetting.json", optional: false )
+			.Build();
+
+			m_bpm = configuration[ "bpm" ].Trim();
+			m_gas = configuration[ "gas" ].Trim();
+		}
 		internal DataTable GetEmpDormStatusData( GetEmpDormStatusData GetEmpDormStatusDataParameter )
 		{
 			string sql = $@"SELECT * 
-							FROM [SyntecGAS].[dbo].[DormStatusMaster] 
+							FROM [{m_gas}].[dbo].[DormStatusMaster] 
 							WHERE RoomTenantID =@Parameter0";
 
 			List<object> SQLParameterList = new List<object>()
@@ -38,7 +52,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool InsertDormApplicationsMaster( InsertDormApplicationsMaster InsertDormApplicationsMasterParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[DormApplicationsMaster] 
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[DormApplicationsMaster] 
 							([EmpID],[ApplicationDate],[Dorm],[RoomNum],[ReservationTime],[Finished],[ApplicationType],[LeaveDate])
 							VAlUES(@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,'CheckOut',@Parameter6)";
 

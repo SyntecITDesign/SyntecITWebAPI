@@ -5,17 +5,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using SyntecITWebAPI.Abstract;
 using SyntecITWebAPI.ParameterModels.GAS.Homepage;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 {
 	internal class HomepageDBManager : AbstractDBManager
 	{
 		#region Internal Methods
+		public string m_bpm;
+		public string m_gas;
+		public HomepageDBManager()
+		{
+			var configuration = new ConfigurationBuilder()
+			.SetBasePath( $"{Directory.GetCurrentDirectory()}\\Config\\" )
+			.AddJsonFile( path: "DBTableNameSetting.json", optional: false )
+			.Build();
+
+			m_bpm = configuration[ "bpm" ].Trim();
+			m_gas = configuration[ "gas" ].Trim();
+		}
 
 		internal DataTable GetHomepageAlertEvents( GetHomepageAlertEvents GetHomepageAlertEventsParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[HomepageAlertEvents]
+						FROM [{m_gas}].[dbo].[HomepageAlertEvents]
 						ORDER BY [ID]";
 
 			List<object> SQLParameterList = new List<object>()
@@ -41,7 +55,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool InsertHomepageAlertEvents( InsertHomepageAlertEvents InsertHomepageAlertEventsParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[HomepageAlertEvents] ([Title],[StartDate],[ID],[AlertUrl])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[HomepageAlertEvents] ([Title],[StartDate],[ID],[AlertUrl])
 								VALUES (@Parameter1,@Parameter2,@Parameter3,@Parameter4)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -56,7 +70,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteHomepageAlertEvents( DeleteHomepageAlertEvents DeleteHomepageAlertEventsParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[HomepageAlertEvents]
+			string sql = $@"DELETE [{m_gas}].[dbo].[HomepageAlertEvents]
 								where [ID] LIKE @Parameter3";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -71,7 +85,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateHomepageAlertEvents( UpdateHomepageAlertEvents UpdateHomepageAlertEventsParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[HomepageAlertEvents]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[HomepageAlertEvents]
 							set [Title]=@Parameter1,[StartDate]=@Parameter2,[ID]=@Parameter3,[AlertUrl]=@Parameter4
 							where [ID]=@Parameter3";
 			List<object> SQLParameterList = new List<object>()
@@ -89,7 +103,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetHomepageFinishEvents( GetHomepageFinishEvents GetHomepageFinishEventsParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[HomepageFinishEvents]
+						FROM [{m_gas}].[dbo].[HomepageFinishEvents]
 						ORDER BY [ID]";
 
 			List<object> SQLParameterList = new List<object>()
@@ -115,7 +129,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool InsertHomepageFinishEvents( InsertHomepageFinishEvents InsertHomepageFinishEventsParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[HomepageFinishEvents] ([ID],[Title],[AlertDate],[FinishDate],[EmpID])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[HomepageFinishEvents] ([ID],[Title],[AlertDate],[FinishDate],[EmpID])
 								VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -130,7 +144,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteHomepageFinishEvents( DeleteHomepageFinishEvents DeleteHomepageFinishEventsParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[HomepageFinishEvents]
+			string sql = $@"DELETE [{m_gas}].[dbo].[HomepageFinishEvents]
 								where [ID] LIKE @Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -145,7 +159,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateHomepageFinishEvents( UpdateHomepageFinishEvents UpdateHomepageFinishEventsParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[HomepageFinishEvents]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[HomepageFinishEvents]
 							set [ID]=@Parameter0,[Title]=@Parameter1,[AlertDate]=@Parameter2,[FinishDate]=@Parameter3,[EmpID]=@Parameter4
 							where [ID]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()

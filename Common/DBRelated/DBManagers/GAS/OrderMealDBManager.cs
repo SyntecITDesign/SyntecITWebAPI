@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using SyntecITWebAPI.Abstract;
 using SyntecITWebAPI.ParameterModels.GAS.OrderMeal;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 {
@@ -12,10 +14,23 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 	internal class OrderMealDBManager : AbstractDBManager
 	{
 		#region Internal Methods
+		public string m_bpm;
+		public string m_gas;
+		public OrderMealDBManager()
+		{
+			var configuration = new ConfigurationBuilder()
+			.SetBasePath( $"{Directory.GetCurrentDirectory()}\\Config\\" )
+			.AddJsonFile( path: "DBTableNameSetting.json", optional: false )
+			.Build();
+
+			m_bpm = configuration[ "bpm" ].Trim();
+			m_gas = configuration[ "gas" ].Trim();
+		}
+
 
 		internal bool InsertRestaurant(InsertRestaurant InsertRestaurantParameter)
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[RestaurantInfo] ([ResNo], [ResName], [ResTel], [ResBranch])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[RestaurantInfo] ([ResNo], [ResName], [ResTel], [ResBranch])
 								VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter4)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -30,10 +45,10 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteRestaurant(DeleteRestaurant DeleteRestaurantParameter)
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[RestaurantMemo] WHERE [ResNo]=@Parameter0;
-								   DELETE [SyntecGAS].[dbo].[Menu] WHERE [ResNo]=@Parameter0;
-									DELETE [SyntecGAS].[dbo].[MealCalendar] WHERE [ResNo]=@Parameter0;
-								   DELETE [SyntecGAS].[dbo].[RestaurantInfo] WHERE [ResNo]=@Parameter0";
+			string sql = $@"DELETE [{m_gas}].[dbo].[RestaurantMemo] WHERE [ResNo]=@Parameter0;
+								   DELETE [{m_gas}].[dbo].[Menu] WHERE [ResNo]=@Parameter0;
+									DELETE [{m_gas}].[dbo].[MealCalendar] WHERE [ResNo]=@Parameter0;
+								   DELETE [{m_gas}].[dbo].[RestaurantInfo] WHERE [ResNo]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
 				DeleteRestaurantParameter.RestaurantInfoResNo,
@@ -45,7 +60,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateRestaurantInfo(UpdateRestaurantInfo UpdateRestaurantInfoParameter)
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[RestaurantInfo]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[RestaurantInfo]
 							set [ResName]=@Parameter1, [ResTel]=@Parameter2, [IsBlacklist]=@Parameter3, [ResBranch]=@Parameter4
 							where ResNo=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -62,7 +77,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetRestaurantInfo(GetRestaurantInfo GetRestaurantInfoParameter)
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[RestaurantInfo]
+						FROM [{m_gas}].[dbo].[RestaurantInfo]
 						ORDER BY [ResNo]";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -87,7 +102,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetMenu(GetMenu GetMenuParameter)
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[Menu]
+						FROM [{m_gas}].[dbo].[Menu]
 						where ResNo = @Parameter0";
 
 			
@@ -113,7 +128,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool InsertMenuItems(InsertMenuItems InsertMenuItemsParameter)
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[Menu] ([ResNo], [Items], [Price], [Fat])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[Menu] ([ResNo], [Items], [Price], [Fat])
 								VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -127,7 +142,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteMenuItems(DeleteMenuItems DeleteMenuItemsParameter)
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[Menu]
+			string sql = $@"DELETE [{m_gas}].[dbo].[Menu]
 								where [ResNo]=@Parameter0 AND [Items]=@Parameter1";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -141,7 +156,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateMenu(UpdateMenu UpdateMenuParameter)
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[Menu]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[Menu]
 							set [Price]=@Parameter2, [Fat]=@Parameter3
 							where [ResNo]=@Parameter0 AND [Items]=@Parameter1";
 			List<object> SQLParameterList = new List<object>()
@@ -158,7 +173,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetMemo(GetMemo GetMemoParameter)
 		{
 			string sql = $@"SELECT *
-									FROM [SyntecGAS].[dbo].[RestaurantMemo]
+									FROM [{m_gas}].[dbo].[RestaurantMemo]
 									where ResNo = @Parameter0
 									ORDER BY [InsertDate] desc";
 			List<object> SQLParameterList = new List<object>()
@@ -184,7 +199,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool InsertMemo(InsertMemo InsertMemoParameter)
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[RestaurantMemo] ([ResNo], [MemoNo], [MemoContent], [EmpID])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[RestaurantMemo] ([ResNo], [MemoNo], [MemoContent], [EmpID])
 								VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter4)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -200,7 +215,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool InsertMealCalendar(InsertMealCalendar InsertMealCalendarParameter)
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[MealCalendar] ([ResNo], [Items], [InsertDate])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[MealCalendar] ([ResNo], [Items], [InsertDate])
 								VALUES (@Parameter0, @Parameter1, @Parameter2)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -214,10 +229,10 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetMealCalendar(GetMealCalendar GetMealCalendarParameter)
 		{
 			string sql = $@"SELECT [MealCalendar].[ResNo],MealInfo.[ResName],[MealCalendar].[Items],[MealCalendar].[InsertDate],MealInfo.Price,MealInfo.Fat
-							FROM [SyntecGAS].[dbo].[MealCalendar]
+							FROM [{m_gas}].[dbo].[MealCalendar]
 							inner join(SELECT [Menu].ResNo,[Menu].Price,[Menu].Fat,[RestaurantInfo].ResName,[Menu].Items
-										FROM [SyntecGAS].[dbo].[Menu] 
-										inner join [SyntecGAS].[dbo].[RestaurantInfo] 
+										FROM [{m_gas}].[dbo].[Menu] 
+										inner join [{m_gas}].[dbo].[RestaurantInfo] 
 										on [Menu].ResNo=[RestaurantInfo].ResNo) as MealInfo
 							on MealInfo.ResNo = [MealCalendar].ResNo and MealInfo.Items = [MealCalendar].Items
 							Where Convert(varchar,InsertDate,120) like @Parameter3";
@@ -244,7 +259,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteMealCalendar(DeleteMealCalendar DeleteMealCalendarParameter)
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[MealCalendar]
+			string sql = $@"DELETE [{m_gas}].[dbo].[MealCalendar]
 								where [ResNo]=@Parameter0 AND [Items]=@Parameter1 AND [InsertDate]=@Parameter2";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -259,7 +274,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetAreaInfo(GetAreaInfo GetAreaInfoParameter)
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[AreaInfo]
+						FROM [{m_gas}].[dbo].[AreaInfo]
 						ORDER BY [AreaNo]";
 
 			List<object> SQLParameterList = new List<object>()
@@ -282,7 +297,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool InsertAreaInfo(InsertAreaInfo InsertAreaInfoParameter)
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[AreaInfo] ([AreaName])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[AreaInfo] ([AreaName])
 								VALUES (@Parameter1)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -294,7 +309,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteAreaInfo(DeleteAreaInfo DeleteAreaInfoParameter)
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[AreaInfo]
+			string sql = $@"DELETE [{m_gas}].[dbo].[AreaInfo]
 								where [AreaNo]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -306,7 +321,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateAreaInfo(UpdateAreaInfo UpdateAreaInfoParameter)
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[AreaInfo]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[AreaInfo]
 							set [AreaName]=@Parameter1
 							where [AreaNo]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -321,7 +336,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetOrderMealApplicationsMaster( GetOrderMealApplicationsMaster GetOrderMealApplicationsMasterParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[OrderMealApplicationsMaster]
+						FROM [{m_gas}].[dbo].[OrderMealApplicationsMaster]
 						ORDER BY [RequisitionID] desc";
 
 			List<object> SQLParameterList = new List<object>()
@@ -346,7 +361,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool InsertOrderMealApplicationsMaster( InsertOrderMealApplicationsMaster InsertOrderMealApplicationsMasterParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[OrderMealApplicationsMaster] ([FillerID],[FillerName],[ApplicationDate])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[OrderMealApplicationsMaster] ([FillerID],[FillerName],[ApplicationDate])
 								VALUES (@Parameter1,@Parameter2,@Parameter3)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -360,7 +375,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateOrderMealApplicationsMaster( UpdateOrderMealApplicationsMaster UpdateOrderMealApplicationsMasterParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[OrderMealApplicationsMaster]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[OrderMealApplicationsMaster]
 							set []=@Parameter1
 							where []=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -377,7 +392,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetOrderMealApplicationsDetail( GetOrderMealApplicationsDetail GetOrderMealApplicationsDetailParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[OrderMealApplicationsDetail]
+						FROM [{m_gas}].[dbo].[OrderMealApplicationsDetail]
 						WHERE [ApplicantID] like @Parameter1 and Convert(varchar,OrderDate,120) like @Parameter8 and [Finished]=@Parameter9";
 
 			List<object> SQLParameterList = new List<object>()
@@ -408,7 +423,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool InsertOrderMealApplicationsDetail( InsertOrderMealApplicationsDetail InsertOrderMealApplicationsDetailParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[OrderMealApplicationsDetail] ([RequisitionID],[ApplicantID],[ApplicantName],[Store],[Meal],[Price],[AreaName],[OrderDate],[Type])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[OrderMealApplicationsDetail] ([RequisitionID],[ApplicantID],[ApplicantName],[Store],[Meal],[Price],[AreaName],[OrderDate],[Type])
 								VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter8,@Parameter9)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -428,7 +443,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateOrderMealApplicationsDetail( UpdateOrderMealApplicationsDetail UpdateOrderMealApplicationsDetailParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[OrderMealApplicationsDetail]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[OrderMealApplicationsDetail]
 							set [Finished]=@Parameter9,[IsCancel]=@Parameter10
 							where [RequisitionID]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -450,7 +465,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteOrderMealApplicationsDetail( DeleteOrderMealApplicationsDetail DeleteOrderMealApplicationsDetailParameter )
 		{
-			string sql = $@"Delete INTO [SyntecGAS].[dbo].[OrderMealApplicationsDetail] ([])
+			string sql = $@"Delete INTO [{m_gas}].[dbo].[OrderMealApplicationsDetail] ([])
 								VALUES (@Parameter1)";
 			List<object> SQLParameterList = new List<object>()
 			{

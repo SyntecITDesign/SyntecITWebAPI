@@ -2,16 +2,30 @@
 using System.Collections.Generic;
 using System.Data;
 using SyntecITWebAPI.ParameterModels.GAS.MeetingRoom;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 {
 	internal class PublicMeetingRoomDBManager : AbstractDBManager
 	{
 		#region Internal Methods
+		public string m_bpm;
+		public string m_gas;
+		public PublicMeetingRoomDBManager()
+		{
+			var configuration = new ConfigurationBuilder()
+			.SetBasePath( $"{Directory.GetCurrentDirectory()}\\Config\\" )
+			.AddJsonFile( path: "DBTableNameSetting.json", optional: false )
+			.Build();
+
+			m_bpm = configuration[ "bpm" ].Trim();
+			m_gas = configuration[ "gas" ].Trim();
+		}
 
 		internal DataTable GetMeetingRoom()
 		{
-			string sql = $@"SELECT * FROM [SyntecGAS].[dbo].[MeetingRoom]";
+			string sql = $@"SELECT * FROM [{m_gas}].[dbo].[MeetingRoom]";
 
 			DataTable result = m_dbproxy.GetDataWithNoParaCMD( sql );
 			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
@@ -29,11 +43,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 		internal bool UpsertMeetingRoom( UpsertMeetingRoom UpsertMeetingRoomParameter )
 		{
-			string sql = $@"IF EXISTS (SELECT * FROM [SyntecGAS].[dbo].[MeetingRoom] WHERE [ID]=@Parameter0 )
-							UPDATE [SyntecGAS].[dbo].[MeetingRoom] SET [Floor]=@Parameter1, [MeetingRoom]=@Parameter2
+			string sql = $@"IF EXISTS (SELECT * FROM [{m_gas}].[dbo].[MeetingRoom] WHERE [ID]=@Parameter0 )
+							UPDATE [{m_gas}].[dbo].[MeetingRoom] SET [Floor]=@Parameter1, [MeetingRoom]=@Parameter2
 							WHERE [ID]=@Parameter0 
 						ELSE
-						INSERT INTO [SyntecGAS].[dbo].[MeetingRoom] ([Floor],[MeetingRoom]) 
+						INSERT INTO [{m_gas}].[dbo].[MeetingRoom] ([Floor],[MeetingRoom]) 
 						VALUES (@Parameter1,@Parameter2)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -49,7 +63,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 		internal bool DeleteMeetingRoom( DeleteMeetingRoom DeleteMeetingRoomParameter )
 		{
-			string sql = $@"DELETE FROM [SyntecGAS].[dbo].[MeetingRoom]
+			string sql = $@"DELETE FROM [{m_gas}].[dbo].[MeetingRoom]
 						WHERE [ID] = @Parameter0";
 
 			List<object> SQLParameterList = new List<object>()
@@ -64,7 +78,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 		internal bool InsertMeetingRoomApplicationsMaster( InsertMeetingRoomApplicationsMaster InsertMeetingRoomApplicationsMasterParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[MeetingRoomApplicationsMaster] ([FillerID],[FillerName],[ApplicationDate],[ApplicantID],[ApplicantName],[ApplicantDept],[ApplyType],[StartDate],[EndDate],[Memo],[MRBS_ID],[StopDate])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[MeetingRoomApplicationsMaster] ([FillerID],[FillerName],[ApplicationDate],[ApplicantID],[ApplicantName],[ApplicantDept],[ApplyType],[StartDate],[EndDate],[Memo],[MRBS_ID],[StopDate])
 						VALUES (@Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6, @Parameter8, @Parameter9, @Parameter10, @Parameter11, @Parameter13, @Parameter14)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -89,7 +103,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		}
 		internal bool DeleteMeetingRoomApplicationsMaster( DeleteMeetingRoomApplicationsMaster DeleteMeetingRoomApplicationsMasterParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[MeetingRoomApplicationsMaster]
+			string sql = $@"DELETE [{m_gas}].[dbo].[MeetingRoomApplicationsMaster]
 								where [RequisitionID]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -114,7 +128,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		}
 		internal bool UpdateMeetingRoomApplicationsMaster( UpdateMeetingRoomApplicationsMaster UpdateMeetingRoomApplicationsMasterParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[MeetingRoomApplicationsMaster]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[MeetingRoomApplicationsMaster]
 							set [Finished]=@Parameter12,[IsCancel]=@Parameter7
 							where [RequisitionID]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -143,8 +157,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			string sql = $@"SELECT M.[RequisitionID],M.[FillerID],M.[FillerName],M.[ApplicationDate],M.[ApplicantID],M.[ApplicantName],M.[ApplicantDept],
 M.[ApplyType],M.[StartDate],M.[EndDate],M.[Finished],M.[MRBS_ID],M.[StopDate],M.[IsCancel],
 [MRBS].[Event]
-						FROM [SyntecGAS].[dbo].[MeetingRoomApplicationsMaster] as M
-						inner join [SyntecGAS].[dbo].[MRBS]
+						FROM [{m_gas}].[dbo].[MeetingRoomApplicationsMaster] as M
+						inner join [{m_gas}].[dbo].[MRBS]
 						on [MRBS].ID=M.MRBS_ID
 						WHERE M.[ApplicantID] like @Parameter4 and M.[Finished]=@Parameter11
 						GROUP BY M.[RequisitionID],M.[FillerID],M.[FillerName],M.[ApplicationDate],M.[ApplicantID],M.[ApplicantName],M.[ApplicantDept],
@@ -184,7 +198,7 @@ ORDER BY M.[RequisitionID] desc";
 
 		internal bool InsertMRBS( InsertMRBS InsertMRBSParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[MRBS] ([ID],[MeetingRoom],[Event],[Date],[PreserveTimeStart],[PreserveTimeEnd],[Holder],[PeopleCounting],[Link],[EmpID],[OrgID],[attendant])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[MRBS] ([ID],[MeetingRoom],[Event],[Date],[PreserveTimeStart],[PreserveTimeEnd],[Holder],[PeopleCounting],[Link],[EmpID],[OrgID],[attendant])
 							VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6, @Parameter7,@Parameter8, @Parameter9, @Parameter10, @Parameter11)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -206,7 +220,7 @@ ORDER BY M.[RequisitionID] desc";
 		}
 		internal bool DeleteMRBS( DeleteMRBS DeleteMRBSParameter )
 		{
-			string sql = $@"DELETE FROM [SyntecGAS].[dbo].[MRBS]
+			string sql = $@"DELETE FROM [{m_gas}].[dbo].[MRBS]
 								WHERE [ID] = @Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -230,7 +244,7 @@ ORDER BY M.[RequisitionID] desc";
 		internal DataTable GetMRBS( GetMRBS GetMRBSParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[MRBS]
+						FROM [{m_gas}].[dbo].[MRBS]
 						Where [ID] like @Parameter0
 						Order by [ID] desc";
 			List<object> SQLParameterList = new List<object>()
@@ -263,7 +277,7 @@ ORDER BY M.[RequisitionID] desc";
 		}
 		internal bool UpdateMRBS( UpdateMRBS UpdateMRBSParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[MRBS]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[MRBS]
 							set [Memo]=@Parameter13
 							where [No]=@Parameter12";
 			List<object> SQLParameterList = new List<object>()
@@ -290,7 +304,7 @@ ORDER BY M.[RequisitionID] desc";
 
 		internal DataTable GetUsingMeetingRoom( GetUsingMeetingRoom GetUsingMeetingRoomParameter )
 		{
-			string sql = $@"select * from [SyntecGAS].[dbo].MRBS 
+			string sql = $@"select * from [{m_gas}].[dbo].MRBS 
 where (CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,PreserveTimeStart,120)  AND CONVERT(datetime,PreserveTimeEnd,120) and CONVERT( datetime,@Parameter1,120) BETWEEN CONVERT( datetime, PreserveTimeStart,120)  AND CONVERT( datetime, PreserveTimeEnd,120) ) or ( CONVERT( datetime, @Parameter0, 120 ) BETWEEN CONVERT( datetime, PreserveTimeStart, 120 )  AND CONVERT( datetime, PreserveTimeEnd, 120 ) and  CONVERT( datetime, @Parameter1, 120 ) NOT BETWEEN CONVERT( datetime, PreserveTimeStart, 120 )  AND CONVERT( datetime, PreserveTimeEnd, 120 ) and  CONVERT( datetime, @Parameter0, 120 ) != CONVERT( datetime, PreserveTimeEnd, 120 ) ) or ( CONVERT( datetime, @Parameter0, 120 ) NOT BETWEEN CONVERT( datetime, PreserveTimeStart, 120 )  AND CONVERT( datetime, PreserveTimeEnd, 120 ) and  CONVERT( datetime, @Parameter1, 120 ) BETWEEN CONVERT( datetime, PreserveTimeStart, 120 )  AND CONVERT( datetime, PreserveTimeEnd, 120 ) and  CONVERT( datetime, @Parameter1, 120 ) != CONVERT( datetime, PreserveTimeStart, 120 ) )";
 			List<object> SQLParameterList = new List<object>()
 			{

@@ -5,16 +5,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using SyntecITWebAPI.Abstract;
 using SyntecITWebAPI.ParameterModels.GAS.CleanMaintain;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 {
 	internal class CleanMaintainDBManager : AbstractDBManager
 	{
 		#region Internal Methods
+		public string m_bpm;
+		public string m_gas;
+		public CleanMaintainDBManager()
+		{
+			var configuration = new ConfigurationBuilder()
+			.SetBasePath( $"{Directory.GetCurrentDirectory()}\\Config\\" )
+			.AddJsonFile( path: "DBTableNameSetting.json", optional: false )
+			.Build();
+
+			m_bpm = configuration[ "bpm" ].Trim();
+			m_gas = configuration[ "gas" ].Trim();
+		}
 
 		internal bool InsertMaintainType( InsertMaintainType InsertMaintainTypeParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[MaintainTypeInfo] ([Type])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[MaintainTypeInfo] ([Type])
 								VALUES (@Parameter1)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -26,9 +40,9 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteMaintainType( DeleteMaintainType DeleteMaintainTypeParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[MaintainQuantityInfo]
+			string sql = $@"DELETE [{m_gas}].[dbo].[MaintainQuantityInfo]
 								where [Type]=@Parameter0;
-								DELETE [SyntecGAS].[dbo].[MaintainTypeInfo]
+								DELETE [{m_gas}].[dbo].[MaintainTypeInfo]
 								where No=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -41,7 +55,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateMaintainTypeInfo( UpdateMaintainTypeInfo UpdateMaintainTypeInfoParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[MaintainTypeInfo]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[MaintainTypeInfo]
 							set [Type]=@Parameter1
 							where No=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -56,7 +70,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetMaintainTypeInfo( GetMaintainTypeInfo GetMaintainTypeInfoParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[MaintainTypeInfo]
+						FROM [{m_gas}].[dbo].[MaintainTypeInfo]
 						ORDER BY [No]";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -79,11 +93,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool UpsertMaintainQuantityInfo( UpsertMaintainQuantityInfo UpsertMaintainQuantityInfoParameter )
 		{
-			string sql = $@"IF EXISTS (SELECT * FROM [SyntecGAS].[dbo].[MaintainQuantityInfo] WHERE [Type]=@Parameter0 and [Items]=@Parameter1)
-									UPDATE [SyntecGAS].[dbo].[MaintainQuantityInfo] SET [Type]=@Parameter0, [Items]=@Parameter1,[Quantity]=@Parameter2,[AlertQuantity]=@Parameter3,[Unit]=@Parameter4
+			string sql = $@"IF EXISTS (SELECT * FROM [{m_gas}].[dbo].[MaintainQuantityInfo] WHERE [Type]=@Parameter0 and [Items]=@Parameter1)
+									UPDATE [{m_gas}].[dbo].[MaintainQuantityInfo] SET [Type]=@Parameter0, [Items]=@Parameter1,[Quantity]=@Parameter2,[AlertQuantity]=@Parameter3,[Unit]=@Parameter4
 									WHERE [Type]=@Parameter0 and [Items]=@Parameter1 and [Unit]=@Parameter4
 									ELSE
-									INSERT INTO [SyntecGAS].[dbo].[MaintainQuantityInfo] ([Type], [Items], [Quantity], [AlertQuantity], [Unit])
+									INSERT INTO [{m_gas}].[dbo].[MaintainQuantityInfo] ([Type], [Items], [Quantity], [AlertQuantity], [Unit])
 									VALUES (@Parameter0,@Parameter1, @Parameter2, @Parameter3, @Parameter4)";
 
 			List<object> SQLParameterList = new List<object>()
@@ -99,7 +113,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteMaintainQuantity( DeleteMaintainQuantity DeleteMaintainQuantityParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[MaintainQuantityInfo]
+			string sql = $@"DELETE [{m_gas}].[dbo].[MaintainQuantityInfo]
 								where [Type]=@Parameter0 and [Items]=@Parameter1";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -115,8 +129,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetMaintainQuantityInfo( GetMaintainQuantityInfo GetMaintainQuantityInfoParameter )
 		{
 			string sql = $@"SELECT [MaintainQuantityInfo].[Type],[MaintainQuantityInfo].[Items],[MaintainQuantityInfo].[Quantity],[MaintainQuantityInfo].[AlertQuantity],[MaintainQuantityInfo].[Unit],[MaintainTypeInfo].[Type] as 'TypeName'
-									FROM [SyntecGAS].[dbo].[MaintainQuantityInfo]
-									INNER JOIN[SyntecGAS].[dbo].[MaintainTypeInfo]
+									FROM [{m_gas}].[dbo].[MaintainQuantityInfo]
+									INNER JOIN[{m_gas}].[dbo].[MaintainTypeInfo]
 									ON[MaintainQuantityInfo].[Type] =[MaintainTypeInfo].[No]
 									WHERE [MaintainQuantityInfo].[Type] like @Parameter0
 									ORDER BY [Type],[Items]";
@@ -141,7 +155,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool InsertMaintainOrder( InsertMaintainOrder InsertMaintainOrderParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[MaintainOrderList] ([OrderDate],[Usage],[Memo],[Floor],[ApplicantName])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[MaintainOrderList] ([OrderDate],[Usage],[Memo],[Floor],[ApplicantName])
 								VALUES (@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -157,7 +171,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool InsertMaintainOrderListDetail( InsertMaintainOrderListDetail InsertMaintainOrderListDetailParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[MaintainOrderListDetail] ([OrderList],[Type],[Items],[Price],[Quantity],[Unit])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[MaintainOrderListDetail] ([OrderList],[Type],[Items],[Price],[Quantity],[Unit])
 								VALUES (@Parameter0,@Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -174,7 +188,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetMaintainOrderList( GetMaintainOrderList GetMaintainOrderListParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[MaintainOrderList]
+						FROM [{m_gas}].[dbo].[MaintainOrderList]
 						WHERE [No] LIKE @Parameter0 and [Ok]=0
 						ORDER BY [OrderDate] DESC,[No] DESC";
 			List<object> SQLParameterList = new List<object>()
@@ -197,10 +211,10 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetMaintainOrderListDetail( GetMaintainOrderListDetail GetMaintainOrderListDetailParameter )
 		{
 			string sql = $@"SELECT *
-							  FROM [SyntecGAS].[dbo].[MaintainOrderListDetail]
+							  FROM [{m_gas}].[dbo].[MaintainOrderListDetail]
 							  INNER JOIN (SELECT [MaintainTypeInfo].[Type] as 'TypeName',[MaintainQuantityInfo].[AlertQuantity], [MaintainTypeInfo].[No],[MaintainQuantityInfo].[Items],[MaintainQuantityInfo].[Quantity] as 'QuantitySoFar'
-															  FROM[SyntecGAS].[dbo].[MaintainTypeInfo]
-															  INNER JOIN[SyntecGAS].[dbo].[MaintainQuantityInfo]
+															  FROM[{m_gas}].[dbo].[MaintainTypeInfo]
+															  INNER JOIN[{m_gas}].[dbo].[MaintainQuantityInfo]
 															  ON[MaintainTypeInfo].[No] =[MaintainQuantityInfo].[Type]) as MaintainInfo
 							  ON[MaintainOrderListDetail].[Type] = MaintainInfo.[No] and [MaintainOrderListDetail].[Items]=MaintainInfo.[Items]";
 			List<object> SQLParameterList = new List<object>()
@@ -224,8 +238,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteMaintainOrder( DeleteMaintainOrder DeleteMaintainOrderParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[MaintainOrderListDetail] WHERE [OrderList]=@Parameter0;
-								   DELETE [SyntecGAS].[dbo].[MaintainOrderList] WHERE [No]=@Parameter0";
+			string sql = $@"DELETE [{m_gas}].[dbo].[MaintainOrderListDetail] WHERE [OrderList]=@Parameter0;
+								   DELETE [{m_gas}].[dbo].[MaintainOrderList] WHERE [No]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
 				DeleteMaintainOrderParameter.MaintainOrderListNo,
@@ -236,7 +250,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateMaintainOrder( UpdateMaintainOrder UpdateMaintainOrderParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[MaintainOrderList]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[MaintainOrderList]
 							set [Ok]=@Parameter2, [Memo]=@Parameter3
 							where No=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -253,7 +267,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool InsertCleanFirm( InsertCleanFirm InsertCleanFirmParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[CleanFirmInfo] ([Firm], [Name], [Fax], [Tel], [TaxID],[Address])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[CleanFirmInfo] ([Firm], [Name], [Fax], [Tel], [TaxID],[Address])
 								VALUES (@Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -270,7 +284,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteCleanFirm( DeleteCleanFirm DeleteCleanFirmParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[CleanFirmInfo]
+			string sql = $@"DELETE [{m_gas}].[dbo].[CleanFirmInfo]
 								where No=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -287,7 +301,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateCleanFirmInfo( UpdateCleanFirmInfo UpdateCleanFirmInfoParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[CleanFirmInfo]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[CleanFirmInfo]
 							set [Firm]=@Parameter1, [Name]=@Parameter2, [Fax]=@Parameter3,[Tel]=@Parameter4, [TaxID]=@Parameter5, [Address]=@Parameter6
 							where No=@Parameter0";
 
@@ -307,7 +321,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetCleanFirmInfo( GetCleanFirmInfo GetCleanFirmInfoParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[CleanFirmInfo]
+						FROM [{m_gas}].[dbo].[CleanFirmInfo]
 						ORDER BY [No]";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -336,7 +350,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetCleanStaffType( GetCleanStaffType GetCleanStaffTypeParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[CleanStaffType]
+						FROM [{m_gas}].[dbo].[CleanStaffType]
 						ORDER BY [No]";
 
 			List<object> SQLParameterList = new List<object>()
@@ -360,7 +374,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool InsertCleanStaffType( InsertCleanStaffType InsertCleanStaffTypeParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[CleanStaffType] ([Type],[Color])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[CleanStaffType] ([Type],[Color])
 								VALUES (@Parameter1,@Parameter2)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -373,7 +387,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteCleanStaffType( DeleteCleanStaffType DeleteCleanStaffTypeParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[CleanStaffType]
+			string sql = $@"DELETE [{m_gas}].[dbo].[CleanStaffType]
 								where [No]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -385,7 +399,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateCleanStaffType( UpdateCleanStaffType UpdateCleanStaffTypeParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[CleanStaffType]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[CleanStaffType]
 							set [Type]=@Parameter1,[Color]=@Parameter2
 							where [No]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -401,8 +415,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetCleanAreaPlan( GetCleanAreaPlan GetCleanAreaPlanParameter )
 		{
 			string sql = $@"SELECT [CleanAreaPlan].*,[CleanAreaInfo].[Color]
-									FROM [SyntecGAS].[dbo].[CleanAreaPlan]
-									left JOIN[SyntecGAS].[dbo].[CleanAreaInfo]
+									FROM [{m_gas}].[dbo].[CleanAreaPlan]
+									left JOIN[{m_gas}].[dbo].[CleanAreaInfo]
 									ON [CleanAreaInfo].[AreaNo] =[CleanAreaPlan].[AreaPlan]
 									WHERE [Floor] Like @Parameter3 and [AreaPlan] <> 0
 									ORDER BY [Yaxis],[Xaxis],[Floor]";
@@ -429,7 +443,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool InsertCleanAreaPlan( InsertCleanAreaPlan InsertCleanAreaPlanParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[CleanAreaPlan] ([Xaxis], [Yaxis], [AreaPlan], [Floor])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[CleanAreaPlan] ([Xaxis], [Yaxis], [AreaPlan], [Floor])
 								VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -443,7 +457,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteCleanAreaPlan( DeleteCleanAreaPlan DeleteCleanAreaPlanParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[CleanAreaPlan]
+			string sql = $@"DELETE [{m_gas}].[dbo].[CleanAreaPlan]
 								where [Xaxis]=@Parameter0 and [Yaxis]=@Parameter1";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -456,7 +470,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateCleanAreaPlan( UpdateCleanAreaPlan UpdateCleanAreaPlanParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[CleanAreaPlan]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[CleanAreaPlan]
 							set [AreaPlan]=@Parameter2
 							where [Xaxis]=@Parameter0 and [Yaxis]=@Parameter1 and [Floor]=@Parameter3";
 			List<object> SQLParameterList = new List<object>()
@@ -474,16 +488,16 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		{
 			string sql = $@"SELECT*
 									FROM(SELECT [CleanStaffInfo].[ID],[CleanStaffInfo].[Name],[CleanStaffInfo].[Tel],[CleanStaffInfo].[Cell],[CleanStaffInfo].[Address],FirmInfo.[Firm],[CleanStaffInfo].[Firm] as 'FirmNo',FirmInfo.[Type],[CleanStaffInfo].[Type] as 'TypeNo',FirmInfo.[TypeColor],[CleanStaffInfo].[BirthDate]
-									FROM [SyntecGAS].[dbo].[CleanStaffInfo]
+									FROM [{m_gas}].[dbo].[CleanStaffInfo]
 									INNER JOIN (SELECT TypeInfo.[StaffID],TypeInfo.[Type],[CleanFirmInfo].[Firm],TypeInfo.[TypeColor]
-														FROM[SyntecGAS].[dbo].[CleanFirmInfo]
+														FROM[{m_gas}].[dbo].[CleanFirmInfo]
 														INNER JOIN(SELECT [CleanStaffInfo].[ID] as 'StaffID',[CleanStaffInfo].[Firm] as 'FirmNo',[CleanStaffType].[Type],[CleanStaffType].[Color] as 'TypeColor'
-																			FROM[SyntecGAS].[dbo].[CleanStaffInfo]
-																			INNER JOIN[SyntecGAS].[dbo].[CleanStaffType]
+																			FROM[{m_gas}].[dbo].[CleanStaffInfo]
+																			INNER JOIN[{m_gas}].[dbo].[CleanStaffType]
 																			ON[CleanStaffInfo].[Type] =[CleanStaffType].[No]) as TypeInfo
 														ON[CleanFirmInfo].[No] =TypeInfo.[FirmNo]) as FirmInfo
 									ON[CleanStaffInfo].[ID] = FirmInfo.[StaffID]) as StaffInfo
-									Left JOIN[SyntecGAS].[dbo].[CleanAreaInfo]
+									Left JOIN[{m_gas}].[dbo].[CleanAreaInfo]
 									ON StaffInfo.[ID] =[CleanAreaInfo].[CleanStaff]
 									ORDER BY [ID]";
 
@@ -513,7 +527,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool InsertCleanStaffInfo( InsertCleanStaffInfo InsertCleanStaffInfoParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[CleanStaffInfo] ([ID],[Name],[Tel],[Cell],[Address],[Firm],[Type],[BirthDate])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[CleanStaffInfo] ([ID],[Name],[Tel],[Cell],[Address],[Firm],[Type],[BirthDate])
 								VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -531,7 +545,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteCleanStaffInfo( DeleteCleanStaffInfo DeleteCleanStaffInfoParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[CleanStaffInfo]
+			string sql = $@"DELETE [{m_gas}].[dbo].[CleanStaffInfo]
 								where [ID]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -549,7 +563,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateCleanStaffInfo( UpdateCleanStaffInfo UpdateCleanStaffInfoParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[CleanStaffInfo]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[CleanStaffInfo]
 							set [Name]=@Parameter1,[Tel]=@Parameter2,[Cell]=@Parameter3,[Address]=@Parameter4,[Firm]=@Parameter5,[Type]=@Parameter6,[BirthDate]=@Parameter7
 							where [ID]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -570,7 +584,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetCleanAreaInfo( GetCleanAreaInfo GetCleanAreaInfoParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[CleanAreaInfo]
+						FROM [{m_gas}].[dbo].[CleanAreaInfo]
 						ORDER BY [AreaNo]";
 
 			List<object> SQLParameterList = new List<object>()
@@ -595,7 +609,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool InsertCleanAreaInfo( InsertCleanAreaInfo InsertCleanAreaInfoParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[CleanAreaInfo] ([AreaName], [CleanStaff], [Color])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[CleanAreaInfo] ([AreaName], [CleanStaff], [Color])
 								VALUES (@Parameter1,@Parameter2,@Parameter3)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -609,7 +623,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteCleanAreaInfo( DeleteCleanAreaInfo DeleteCleanAreaInfoParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[CleanAreaInfo]
+			string sql = $@"DELETE [{m_gas}].[dbo].[CleanAreaInfo]
 								where [AreaNo]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -623,7 +637,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateCleanAreaInfo( UpdateCleanAreaInfo UpdateCleanAreaInfoParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[CleanAreaInfo]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[CleanAreaInfo]
 							set [AreaName]=@Parameter1,[CleanStaff]=@Parameter2,[Color]=@Parameter3
 							where [AreaNo]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -640,7 +654,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetMaintainRecordItemInfo( GetMaintainRecordItemInfo GetMaintainRecordItemInfoParameter )
 		{
 			string sql = $@"SELECT *
-									FROM [SyntecGAS].[dbo].[MaintainRecordItemInfo]
+									FROM [{m_gas}].[dbo].[MaintainRecordItemInfo]
 									ORDER BY [No]";
 
 			List<object> SQLParameterList = new List<object>()
@@ -663,7 +677,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool InsertMaintainRecordItem( InsertMaintainRecordItem InsertMaintainRecordItemParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[MaintainRecordItemInfo] ([Items])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[MaintainRecordItemInfo] ([Items])
 								VALUES (@Parameter1)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -675,7 +689,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteMaintainRecordItem( DeleteMaintainRecordItem DeleteMaintainRecordItemParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[MaintainRecordItemInfo]
+			string sql = $@"DELETE [{m_gas}].[dbo].[MaintainRecordItemInfo]
 								where [No]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -687,7 +701,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateMaintainRecordItemInfo( UpdateMaintainRecordItemInfo UpdateMaintainRecordItemInfoParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[MaintainRecordItemInfo]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[MaintainRecordItemInfo]
 							set [Items]=@Parameter1
 							where [No]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -708,8 +722,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 												[MaintainRecordTypeInfo].[StartDate],
 												[MaintainRecordTypeInfo].[EndDate],
 												[MaintainRecordItemInfo].[Items]
-									FROM [SyntecGAS].[dbo].[MaintainRecordTypeInfo]
-									INNER JOIN [SyntecGAS].[dbo].[MaintainRecordItemInfo]
+									FROM [{m_gas}].[dbo].[MaintainRecordTypeInfo]
+									INNER JOIN [{m_gas}].[dbo].[MaintainRecordItemInfo]
 									ON [MaintainRecordTypeInfo].[Items]=[MaintainRecordItemInfo].[No]
 WHERE [MaintainRecordTypeInfo].[Items] LIKE @Parameter1";
 
@@ -737,7 +751,7 @@ WHERE [MaintainRecordTypeInfo].[Items] LIKE @Parameter1";
 		}
 		internal bool InsertMaintainRecordType( InsertMaintainRecordType InsertMaintainRecordTypeParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[MaintainRecordTypeInfo] ([Items],[Type])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[MaintainRecordTypeInfo] ([Items],[Type])
 								VALUES (@Parameter1,@Parameter2)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -752,7 +766,7 @@ WHERE [MaintainRecordTypeInfo].[Items] LIKE @Parameter1";
 		}
 		internal bool DeleteMaintainRecordType( DeleteMaintainRecordType DeleteMaintainRecordTypeParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[MaintainRecordTypeInfo]
+			string sql = $@"DELETE [{m_gas}].[dbo].[MaintainRecordTypeInfo]
 								where [No]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -767,7 +781,7 @@ WHERE [MaintainRecordTypeInfo].[Items] LIKE @Parameter1";
 		}
 		internal bool UpdateMaintainRecordTypeInfo( UpdateMaintainRecordTypeInfo UpdateMaintainRecordTypeInfoParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[MaintainRecordTypeInfo]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[MaintainRecordTypeInfo]
 							set [Period]=@Parameter3,[StartDate]=@Parameter4,[EndDate]=@Parameter5
 							where [No]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -786,7 +800,7 @@ WHERE [MaintainRecordTypeInfo].[Items] LIKE @Parameter1";
 		internal DataTable GetMaintainRecordDetailList( GetMaintainRecordDetailList GetMaintainRecordDetailListParameter )
 		{
 			string sql = $@"SELECT *
-									FROM [SyntecGAS].[dbo].[MaintainRecordDetailList]
+									FROM [{m_gas}].[dbo].[MaintainRecordDetailList]
 									ORDER BY [Date] DESC,[No] DESC";
 
 			List<object> SQLParameterList = new List<object>()
@@ -812,7 +826,7 @@ WHERE [MaintainRecordTypeInfo].[Items] LIKE @Parameter1";
 		}
 		internal bool InsertMaintainRecordDetailList( InsertMaintainRecordDetailList InsertMaintainRecordDetailListParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[MaintainRecordDetailList] ([Items],[Type],[Memo],[Date])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[MaintainRecordDetailList] ([Items],[Type],[Memo],[Date])
 								VALUES (@Parameter1,@Parameter2,@Parameter3,@Parameter4)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -827,7 +841,7 @@ WHERE [MaintainRecordTypeInfo].[Items] LIKE @Parameter1";
 		}
 		internal bool DeleteMaintainRecordDetailList( DeleteMaintainRecordDetailList DeleteMaintainRecordDetailListParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[MaintainRecordDetailList]
+			string sql = $@"DELETE [{m_gas}].[dbo].[MaintainRecordDetailList]
 								where [No]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -842,7 +856,7 @@ WHERE [MaintainRecordTypeInfo].[Items] LIKE @Parameter1";
 		}
 		internal bool UpdateMaintainRecordDetailList( UpdateMaintainRecordDetailList UpdateMaintainRecordDetailListParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[MaintainRecordDetailListInfo]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[MaintainRecordDetailListInfo]
 							set [Items]=@Parameter1,[Type]=@Parameter2,[Period]=@Parameter3,[StartDate]=@Parameter4
 							where [No]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -859,7 +873,7 @@ WHERE [MaintainRecordTypeInfo].[Items] LIKE @Parameter1";
 
 		internal bool InsertCleanCheckTable( InsertCleanCheckTable InsertCleanCheckTableParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[CleanCheckTable] ([CleanStaff],[CleanArea],[Description],[Date],[FillerName])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[CleanCheckTable] ([CleanStaff],[CleanArea],[Description],[Date],[FillerName])
 								VALUES (@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5)";
 			List<object> SQLParameterList = new List<object>()
 			{

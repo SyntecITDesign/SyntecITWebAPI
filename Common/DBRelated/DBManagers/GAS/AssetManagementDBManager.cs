@@ -5,16 +5,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using SyntecITWebAPI.Abstract;
 using SyntecITWebAPI.ParameterModels.GAS.AssetManagement;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+
 
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 {
 	internal class AssetManagementDBManager : AbstractDBManager
 	{
 		#region Internal Methods
+		public string m_bpm;
+		public string m_gas;
+		public AssetManagementDBManager()
+		{
+			var configuration = new ConfigurationBuilder()
+			.SetBasePath( $"{Directory.GetCurrentDirectory()}\\Config\\" )
+			.AddJsonFile( path: "DBTableNameSetting.json", optional: false )
+			.Build();
+
+			m_bpm = configuration[ "bpm" ].Trim();
+			m_gas = configuration[ "gas" ].Trim();
+		}
 
 		internal bool InsertAssetInfo(InsertAssetInfo InsertAssetInfoParameter)
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[AssetManagement]([AssetNo],[AssetName],[Spec],[AssetType],[Property],[GetDate],[GetCost],[Quantity],[ManagerID],[CostCenter],[Storage],[FirmName],[FirmTel],[FirmContactWindow])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[AssetManagement]([AssetNo],[AssetName],[Spec],[AssetType],[Property],[GetDate],[GetCost],[Quantity],[ManagerID],[CostCenter],[Storage],[FirmName],[FirmTel],[FirmContactWindow])
 								VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6, @Parameter7, @Parameter8, @Parameter9, @Parameter10, @Parameter11, @Parameter12, @Parameter13)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -39,7 +54,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteAssetInfo(DeleteAssetInfo DeleteAssetInfoParameter)
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[AssetManagement]
+			string sql = $@"DELETE [{m_gas}].[dbo].[AssetManagement]
 								where [AssetNo]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -64,7 +79,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateAssetInfo(UpdateAssetInfo UpdateAssetInfoParameter)
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[AssetManagement]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[AssetManagement]
 							set [AssetName]=@Parameter1,[Spec]=@Parameter2,[AssetType]=@Parameter3,[Property]=@Parameter4,[GetDate]=@Parameter5,[GetCost]=@Parameter6,[Quantity]=@Parameter7,[ManagerID]=@Parameter8,[CostCenter]=@Parameter9,[Storage]=@Parameter10,[FirmName]=@Parameter11,[FirmTel]=@Parameter12,[FirmContactWindow]=@Parameter13, [Memo]=@Parameter14, [IsScrap]=@Parameter15, [SAPNo]=@Parameter16, [PRNo]=@Parameter17, [PONo]=@Parameter18, [Limit]=@Parameter19, [Branch]=@Parameter20
 							where [AssetNo]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -107,7 +122,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 							  ,Asset.[Memo],Asset.[IsScrap]
 							  ,Asset.[SAPNo],Asset.[PRNo]
 							  ,Asset.[PONo],Asset.[Limit],Asset.[Branch],Emp.EmpName,Emp.DeptName
-						  FROM [SyntecGAS].[dbo].[AssetManagement] as Asset
+						  FROM [{m_gas}].[dbo].[AssetManagement] as Asset
 						  left join [syntecbarcode].[dbo].[TEMP_NAME] as Emp
 						  on Emp.EmpID COLLATE Chinese_Taiwan_Stroke_CI_AS =Asset.ManagerID COLLATE Chinese_Taiwan_Stroke_CI_AS
 						WHERE Asset.[AssetNo] LIKE @Parameter0";
@@ -144,7 +159,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool InsertAssetSpecList( InsertAssetSpecList InsertAssetSpecListParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[AssetSpecList]([Usage],[No],[Name])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[AssetSpecList]([Usage],[No],[Name])
 								VALUES (@Parameter0, @Parameter1, @Parameter2)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -157,7 +172,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteAssetSpecList( DeleteAssetSpecList DeleteAssetSpecListParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[AssetSpecList]
+			string sql = $@"DELETE [{m_gas}].[dbo].[AssetSpecList]
 								where [Usage]=@Parameter0 AND [No]=@Parameter1";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -170,7 +185,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateAssetSpecList( UpdateAssetSpecList UpdateAssetSpecListParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[AssetSpecList]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[AssetSpecList]
 							set [Name]=@Parameter2
 							where [Usage]=@Parameter0 AND [No]=@Parameter1";
 			List<object> SQLParameterList = new List<object>()
@@ -185,7 +200,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetAssetSpecList( GetAssetSpecList GetAssetSpecListParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[AssetSpecList]
+						FROM [{m_gas}].[dbo].[AssetSpecList]
 						WHERE [Usage] LIKE @Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -209,7 +224,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool InsertAssetInventory( InsertAssetInventory InsertAssetInventoryParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[AssetInventory]([AssetNo],[AssetName],[Quantity],[ManagerID],[CostCenter],[Storage],[Memo],[CheckID])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[AssetInventory]([AssetNo],[AssetName],[Quantity],[ManagerID],[CostCenter],[Storage],[Memo],[CheckID])
 								VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6, @Parameter7)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -228,7 +243,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteAssetInventory( DeleteAssetInventory DeleteAssetInventoryParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[AssetInventory]
+			string sql = $@"DELETE [{m_gas}].[dbo].[AssetInventory]
 								where [AssetNo]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -247,7 +262,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateAssetInventory( UpdateAssetInventory UpdateAssetInventoryParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[AssetInventory]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[AssetInventory]
 							set [AssetName]=@Parameter1,[Quantity]=@Parameter2,[ManagerID]=@Parameter3,[CostCenter]=@Parameter4,[Storage]=@Parameter5,[Memo]=@Parameter6,[CheckID]=@Parameter7
 							where [AssetNo]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -268,7 +283,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetAssetInventory( GetAssetInventory GetAssetInventoryParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[AssetInventory]
+						FROM [{m_gas}].[dbo].[AssetInventory]
 						WHERE [AssetNo] LIKE @Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{

@@ -5,16 +5,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using SyntecITWebAPI.Abstract;
 using SyntecITWebAPI.ParameterModels.GAS.ApplyUniform;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+
 
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 {
 	internal class ApplyUniformDBManager : AbstractDBManager
 	{
 		#region Internal Methods
+		public string m_bpm;
+		public string m_gas;
+		public ApplyUniformDBManager()
+		{
+			var configuration = new ConfigurationBuilder()
+			.SetBasePath( $"{Directory.GetCurrentDirectory()}\\Config\\" )
+			.AddJsonFile( path: "DBTableNameSetting.json", optional: false )
+			.Build();
+
+			m_bpm = configuration[ "bpm" ].Trim();
+			m_gas = configuration[ "gas" ].Trim();
+		}
 
 		internal bool InsertUniformStyle( InsertUniformStyle InsertUniformStyleParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[UniformStyleInfo] ([Style], [Price], [ApplyQuantity])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[UniformStyleInfo] ([Style], [Price], [ApplyQuantity])
 								VALUES (@Parameter1, @Parameter2, @Parameter3)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -28,7 +43,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteUniformStyle( DeleteUniformStyle DeleteUniformStyleParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[UniformStyleInfo]
+			string sql = $@"DELETE [{m_gas}].[dbo].[UniformStyleInfo]
 								where No=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -43,7 +58,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateUniformStyleInfo( UpdateUniformStyleInfo UpdateUniformStyleInfoParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[UniformStyleInfo]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[UniformStyleInfo]
 							set [Style]=@Parameter1, [Price]=@Parameter2, [ApplyQuantity]=@Parameter3
 							where No=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -60,7 +75,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetUniformStyleInfo( GetUniformStyleInfo GetUniformStyleInfoParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[UniformStyleInfo]
+						FROM [{m_gas}].[dbo].[UniformStyleInfo]
 						ORDER BY [No]";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -85,11 +100,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool UpsertUniformQuantityInfo( UpsertUniformQuantityInfo UpsertUniformQuantityInfoParameter )
 		{
-			string sql = $@"IF EXISTS (SELECT * FROM [SyntecGAS].[dbo].[UniformQuantityInfo] WHERE [Size]=@Parameter0 and [Style]=@Parameter1)
-									UPDATE [SyntecGAS].[dbo].[UniformQuantityInfo] SET [Size]=@Parameter0, [Style]=@Parameter1,[Quantity]=@Parameter2,[AlertQuantity]=@Parameter3
+			string sql = $@"IF EXISTS (SELECT * FROM [{m_gas}].[dbo].[UniformQuantityInfo] WHERE [Size]=@Parameter0 and [Style]=@Parameter1)
+									UPDATE [{m_gas}].[dbo].[UniformQuantityInfo] SET [Size]=@Parameter0, [Style]=@Parameter1,[Quantity]=@Parameter2,[AlertQuantity]=@Parameter3
 									WHERE [Size]=@Parameter0 and [Style]=@Parameter1
 									ELSE
-									INSERT INTO [SyntecGAS].[dbo].[UniformQuantityInfo] ([Size], [Style], [Quantity], [AlertQuantity])
+									INSERT INTO [{m_gas}].[dbo].[UniformQuantityInfo] ([Size], [Style], [Quantity], [AlertQuantity])
 									VALUES (@Parameter0,@Parameter1, @Parameter2, @Parameter3)";
 
 			List<object> SQLParameterList = new List<object>()
@@ -104,7 +119,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteUniformQuantity( DeleteUniformQuantity DeleteUniformQuantityParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[UniformQuantityInfo]
+			string sql = $@"DELETE [{m_gas}].[dbo].[UniformQuantityInfo]
 								where [Size]=@Parameter0 and [Style]=@Parameter1";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -120,8 +135,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetUniformQuantityInfo( GetUniformQuantityInfo GetUniformQuantityInfoParameter )
 		{
 			string sql = $@"SELECT [UniformStyleInfo].[Style] as 'StyleName',[UniformQuantityInfo].[AlertQuantity], [UniformStyleInfo].[No] as 'Style',[UniformQuantityInfo].[Size],[UniformQuantityInfo].[Quantity]
-									FROM[SyntecGAS].[dbo].[UniformStyleInfo]
-									INNER JOIN[SyntecGAS].[dbo].[UniformQuantityInfo]
+									FROM[{m_gas}].[dbo].[UniformStyleInfo]
+									INNER JOIN[{m_gas}].[dbo].[UniformQuantityInfo]
 									ON[UniformStyleInfo].[No] =[UniformQuantityInfo].[Style]
 									WHERE[No] like @Parameter1
 									ORDER BY[No],case 
@@ -162,7 +177,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool InsertUniformOrderListDetail( InsertUniformOrderListDetail InsertUniformOrderListDetailParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[UniformOrderListDetail] ([OrderList],[Style],[Size],[Price],[Quantity])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[UniformOrderListDetail] ([OrderList],[Style],[Size],[Price],[Quantity])
 								VALUES (@Parameter0,@Parameter1, @Parameter2, @Parameter3, @Parameter4)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -178,7 +193,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetUniformOrderList( GetUniformOrderList GetUniformOrderListParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[UniformOrderList]
+						FROM [{m_gas}].[dbo].[UniformOrderList]
 						WHERE [No] LIKE @Parameter0 and [Ok]=0
 						ORDER BY [OrderDate] DESC,[No] Desc";
 			List<object> SQLParameterList = new List<object>()
@@ -201,10 +216,10 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetUniformOrderListDetail( GetUniformOrderListDetail GetUniformOrderListDetailParameter )
 		{
 			string sql = $@"SELECT *
-							  FROM [SyntecGAS].[dbo].[UniformOrderListDetail]
+							  FROM [{m_gas}].[dbo].[UniformOrderListDetail]
 							  INNER JOIN (SELECT [UniformStyleInfo].[Style] as 'StyleName',[UniformQuantityInfo].[AlertQuantity], [UniformStyleInfo].[No],[UniformQuantityInfo].[Size],[UniformQuantityInfo].[Quantity] as 'QuantitySoFar'
-															  FROM[SyntecGAS].[dbo].[UniformStyleInfo]
-															  INNER JOIN[SyntecGAS].[dbo].[UniformQuantityInfo]
+															  FROM[{m_gas}].[dbo].[UniformStyleInfo]
+															  INNER JOIN[{m_gas}].[dbo].[UniformQuantityInfo]
 															  ON[UniformStyleInfo].[No] =[UniformQuantityInfo].[Style]) as UniformInfo
 							  ON[UniformOrderListDetail].[Style] = UniformInfo.[No] and [UniformOrderListDetail].[Size]=UniformInfo.[Size]
 ORDER BY UniformInfo.[No],case 
@@ -245,7 +260,7 @@ ORDER BY UniformInfo.[No],case
 
 		internal bool InsertUniformOrder( InsertUniformOrder InsertUniformOrderParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[UniformOrderList] ([OrderDate])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[UniformOrderList] ([OrderDate])
 								VALUES (@Parameter1)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -257,8 +272,8 @@ ORDER BY UniformInfo.[No],case
 		}
 		internal bool DeleteUniformOrder( DeleteUniformOrder DeleteUniformOrderParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[UniformOrderListDetail] WHERE [OrderList]=@Parameter0;
-								   DELETE [SyntecGAS].[dbo].[UniformOrderList] WHERE [No]=@Parameter0";
+			string sql = $@"DELETE [{m_gas}].[dbo].[UniformOrderListDetail] WHERE [OrderList]=@Parameter0;
+								   DELETE [{m_gas}].[dbo].[UniformOrderList] WHERE [No]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
 				DeleteUniformOrderParameter.UniformOrderListNo,
@@ -269,7 +284,7 @@ ORDER BY UniformInfo.[No],case
 		}
 		internal bool UpdateUniformOrder( UpdateUniformOrder UpdateUniformOrderParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[UniformOrderList]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[UniformOrderList]
 							set [Ok]=@Parameter2
 							where No=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -285,7 +300,7 @@ ORDER BY UniformInfo.[No],case
 
 		internal bool InsertUniformApplicationsMaster( InsertUniformApplicationsMaster InsertUniformApplicationsMasterParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[UniformApplicationsMaster] ([FillerID],[FillerName],[ApplicationDate],[ApplicantID],[ApplicantName],[ApplicantDept],[ClothesType],[ApplyType],[ApplyQuantity],[Size],[Price],[Memo])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[UniformApplicationsMaster] ([FillerID],[FillerName],[ApplicationDate],[ApplicantID],[ApplicantName],[ApplicantDept],[ClothesType],[ApplyType],[ApplyQuantity],[Size],[Price],[Memo])
 								VALUES (@Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6, @Parameter8, @Parameter9, @Parameter10, @Parameter11, @Parameter12, @Parameter13)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -309,7 +324,7 @@ ORDER BY UniformInfo.[No],case
 		}
 		internal bool DeleteUniformApplicationsMaster( DeleteUniformApplicationsMaster DeleteUniformApplicationsMasterParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[UniformApplicationsMaster]
+			string sql = $@"DELETE [{m_gas}].[dbo].[UniformApplicationsMaster]
 								where No=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -334,7 +349,7 @@ ORDER BY UniformInfo.[No],case
 		}
 		internal bool UpdateUniformApplicationsMaster( UpdateUniformApplicationsMaster UpdateUniformApplicationsMasterParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[UniformApplicationsMaster]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[UniformApplicationsMaster]
 							set [Finished]=@Parameter14,[IsCancel]=@Parameter7,[CancelDateTime]=@Parameter15,[FinishedDateTime]=@Parameter16
 							where [RequisitionID]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -364,7 +379,7 @@ ORDER BY UniformInfo.[No],case
 		internal DataTable GetUniformApplicationsMaster( GetUniformApplicationsMaster GetUniformApplicationsMasterParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[UniformApplicationsMaster]
+						FROM [{m_gas}].[dbo].[UniformApplicationsMaster]
 						Where Convert(varchar,ApplicationDate,120) like @Parameter3 and [ApplicantID] like @Parameter4 and [ClothesType] like @Parameter8 and [ApplyType] like @Parameter9 and [Finished]=@Parameter14
 						ORDER BY [RequisitionID] desc";
 			List<object> SQLParameterList = new List<object>()
@@ -402,7 +417,7 @@ ORDER BY UniformInfo.[No],case
 
 		internal bool UpdateCoatApplication( UpdateCoatApplication UpdateCoatApplicationParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[CoatApplication]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[CoatApplication]
 							set ["+ UpdateCoatApplicationParameter.CoatApplicationYear + "]=@Parameter2 where [EmpID]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -416,7 +431,7 @@ ORDER BY UniformInfo.[No],case
 
 		internal bool UpdateGAS_GAInfoMasterSize( UpdateGAS_GAInfoMasterSize UpdateGAS_GAInfoMasterSizeParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[GAS_GAInfoMaster]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[GAS_GAInfoMaster]
 							set [" + UpdateGAS_GAInfoMasterSizeParameter.GAS_GAInfoMasterSizeType + "]=@Parameter1 where [EmpID]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using SyntecITWebAPI.Abstract;
 using SyntecITWebAPI.ParameterModels.GAS.Module;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 {
@@ -13,10 +15,23 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 	internal class ModuleDBManager : AbstractDBManager
 	{
 		#region Internal Methods
+		public string m_bpm;
+		public string m_gas;
+		public ModuleDBManager()
+		{
+			var configuration = new ConfigurationBuilder()
+			.SetBasePath( $"{Directory.GetCurrentDirectory()}\\Config\\" )
+			.AddJsonFile( path: "DBTableNameSetting.json", optional: false )
+			.Build();
+
+			m_bpm = configuration[ "bpm" ].Trim();
+			m_gas = configuration[ "gas" ].Trim();
+		}
+
 
 		internal bool InsertFeatures(InsertFeatures InsertFeaturesParameter)
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[Table1] ([Table1Field1], [Table1Field2], [Table1Field3], [Table1Field4])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[Table1] ([Table1Field1], [Table1Field2], [Table1Field3], [Table1Field4])
 								VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -31,7 +46,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteFeatures(DeleteFeatures DeleteFeaturesParameter)
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[Table1]
+			string sql = $@"DELETE [{m_gas}].[dbo].[Table1]
 								where Table1Field1=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -47,7 +62,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool UpdateFeatures(UpdateFeatures UpdateFeaturesParameter)
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[Table1]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[Table1]
 							set [Table1Field3]=@Parameter3
 							where Table1Field1=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -65,7 +80,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetFeatures1(GetFeatures1 GetFeatures1Parameter)
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[Table1]
+						FROM [{m_gas}].[dbo].[Table1]
 						WHERE [Table1Field1] = @Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -91,7 +106,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetFeatures2(GetFeatures2 GetFeatures2Parameter)
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[Table2]
+						FROM [{m_gas}].[dbo].[Table2]
 						WHERE [Table2Field1] = @Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{

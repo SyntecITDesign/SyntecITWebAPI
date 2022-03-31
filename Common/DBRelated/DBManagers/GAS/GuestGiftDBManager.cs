@@ -5,16 +5,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using SyntecITWebAPI.Abstract;
 using SyntecITWebAPI.ParameterModels.GAS.GuestGift;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 {
 	internal class GuestGiftDBManager : AbstractDBManager
 	{
 		#region Internal Methods
+		public string m_bpm;
+		public string m_gas;
+		public GuestGiftDBManager()
+		{
+			var configuration = new ConfigurationBuilder()
+			.SetBasePath( $"{Directory.GetCurrentDirectory()}\\Config\\" )
+			.AddJsonFile( path: "DBTableNameSetting.json", optional: false )
+			.Build();
+
+			m_bpm = configuration[ "bpm" ].Trim();
+			m_gas = configuration[ "gas" ].Trim();
+		}
 
 		internal bool InsertGuestGiftType( InsertGuestGiftType InsertGuestGiftTypeParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[GuestGiftTypeInfo] ([Type])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[GuestGiftTypeInfo] ([Type])
 								VALUES (@Parameter1)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -26,9 +40,9 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteGuestGiftType( DeleteGuestGiftType DeleteGuestGiftTypeParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[GuestGiftQuantityInfo]
+			string sql = $@"DELETE [{m_gas}].[dbo].[GuestGiftQuantityInfo]
 								where [Type]=@Parameter0
-								DELETE [SyntecGAS].[dbo].[GuestGiftTypeInfo]
+								DELETE [{m_gas}].[dbo].[GuestGiftTypeInfo]
 								where No=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -41,7 +55,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateGuestGiftTypeInfo( UpdateGuestGiftTypeInfo UpdateGuestGiftTypeInfoParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[GuestGiftTypeInfo]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[GuestGiftTypeInfo]
 							set [Type]=@Parameter1
 							where No=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -56,7 +70,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetGuestGiftTypeInfo( GetGuestGiftTypeInfo GetGuestGiftTypeInfoParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[GuestGiftTypeInfo]
+						FROM [{m_gas}].[dbo].[GuestGiftTypeInfo]
 						ORDER BY [No]";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -79,11 +93,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool UpsertGuestGiftQuantityInfo( UpsertGuestGiftQuantityInfo UpsertGuestGiftQuantityInfoParameter )
 		{
-			string sql = $@"IF EXISTS (SELECT * FROM [SyntecGAS].[dbo].[GuestGiftQuantityInfo] WHERE [Type]=@Parameter0 and [Items]=@Parameter1)
-									UPDATE [SyntecGAS].[dbo].[GuestGiftQuantityInfo] SET [Type]=@Parameter0, [Items]=@Parameter1,[Quantity]=@Parameter2,[AlertQuantity]=@Parameter3,[Unit]=@Parameter4
+			string sql = $@"IF EXISTS (SELECT * FROM [{m_gas}].[dbo].[GuestGiftQuantityInfo] WHERE [Type]=@Parameter0 and [Items]=@Parameter1)
+									UPDATE [{m_gas}].[dbo].[GuestGiftQuantityInfo] SET [Type]=@Parameter0, [Items]=@Parameter1,[Quantity]=@Parameter2,[AlertQuantity]=@Parameter3,[Unit]=@Parameter4
 									WHERE [Type]=@Parameter0 and [Items]=@Parameter1 and [Unit]=@Parameter4
 									ELSE
-									INSERT INTO [SyntecGAS].[dbo].[GuestGiftQuantityInfo] ([Type], [Items], [Quantity], [AlertQuantity], [Unit])
+									INSERT INTO [{m_gas}].[dbo].[GuestGiftQuantityInfo] ([Type], [Items], [Quantity], [AlertQuantity], [Unit])
 									VALUES (@Parameter0,@Parameter1, @Parameter2, @Parameter3, @Parameter4)";
 
 			List<object> SQLParameterList = new List<object>()
@@ -99,7 +113,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteGuestGiftQuantity( DeleteGuestGiftQuantity DeleteGuestGiftQuantityParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[GuestGiftQuantityInfo]
+			string sql = $@"DELETE [{m_gas}].[dbo].[GuestGiftQuantityInfo]
 								where [Type]=@Parameter0 and [Items]=@Parameter1";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -115,8 +129,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetGuestGiftQuantityInfo( GetGuestGiftQuantityInfo GetGuestGiftQuantityInfoParameter )
 		{
 			string sql = $@"SELECT [GuestGiftQuantityInfo].[Type],[GuestGiftQuantityInfo].[Items],[GuestGiftQuantityInfo].[Quantity],[GuestGiftQuantityInfo].[AlertQuantity],[GuestGiftQuantityInfo].[Unit],[GuestGiftTypeInfo].[Type] as 'TypeName'
-									FROM [SyntecGAS].[dbo].[GuestGiftQuantityInfo]
-									INNER JOIN[SyntecGAS].[dbo].[GuestGiftTypeInfo]
+									FROM [{m_gas}].[dbo].[GuestGiftQuantityInfo]
+									INNER JOIN[{m_gas}].[dbo].[GuestGiftTypeInfo]
 									ON[GuestGiftQuantityInfo].[Type] =[GuestGiftTypeInfo].[No]
 									WHERE [GuestGiftQuantityInfo].[Type] like @Parameter0
 									ORDER BY [Type],[Items]";
@@ -141,7 +155,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool InsertGuestGiftOrder( InsertGuestGiftOrder InsertGuestGiftOrderParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[GuestGiftOrderList] ([OrderDate],[Usage],[Memo],[Ok])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[GuestGiftOrderList] ([OrderDate],[Usage],[Memo],[Ok])
 								VALUES (@Parameter1,@Parameter2,@Parameter3,0)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -155,7 +169,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool InsertGuestGiftOrderListDetail( InsertGuestGiftOrderListDetail InsertGuestGiftOrderListDetailParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[GuestGiftOrderListDetail] ([OrderList],[Type],[Items],[Price],[Quantity],[Unit])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[GuestGiftOrderListDetail] ([OrderList],[Type],[Items],[Price],[Quantity],[Unit])
 								VALUES (@Parameter0,@Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -172,7 +186,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetGuestGiftOrderList( GetGuestGiftOrderList GetGuestGiftOrderListParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[GuestGiftOrderList]
+						FROM [{m_gas}].[dbo].[GuestGiftOrderList]
 						WHERE [No] LIKE @Parameter0 and [Ok]=0
 						ORDER BY [OrderDate] DESC,[No] DESC";
 			List<object> SQLParameterList = new List<object>()
@@ -195,10 +209,10 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetGuestGiftOrderListDetail( GetGuestGiftOrderListDetail GetGuestGiftOrderListDetailParameter )
 		{
 			string sql = $@"SELECT *
-							  FROM [SyntecGAS].[dbo].[GuestGiftOrderListDetail]
+							  FROM [{m_gas}].[dbo].[GuestGiftOrderListDetail]
 							  INNER JOIN (SELECT [GuestGiftTypeInfo].[Type] as 'TypeName',[GuestGiftQuantityInfo].[AlertQuantity], [GuestGiftTypeInfo].[No],[GuestGiftQuantityInfo].[Items],[GuestGiftQuantityInfo].[Quantity] as 'QuantitySoFar'
-															  FROM[SyntecGAS].[dbo].[GuestGiftTypeInfo]
-															  INNER JOIN[SyntecGAS].[dbo].[GuestGiftQuantityInfo]
+															  FROM[{m_gas}].[dbo].[GuestGiftTypeInfo]
+															  INNER JOIN[{m_gas}].[dbo].[GuestGiftQuantityInfo]
 															  ON[GuestGiftTypeInfo].[No] =[GuestGiftQuantityInfo].[Type]) as GuestGiftInfo
 							  ON[GuestGiftOrderListDetail].[Type] = GuestGiftInfo.[No] and [GuestGiftOrderListDetail].[Items]=GuestGiftInfo.[Items]";
 			List<object> SQLParameterList = new List<object>()
@@ -222,8 +236,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool DeleteGuestGiftOrder( DeleteGuestGiftOrder DeleteGuestGiftOrderParameter )
 		{
-			string sql = $@"DELETE [SyntecGAS].[dbo].[GuestGiftOrderListDetail] WHERE [OrderList]=@Parameter0;
-								   DELETE [SyntecGAS].[dbo].[GuestGiftOrderList] WHERE [No]=@Parameter0";
+			string sql = $@"DELETE [{m_gas}].[dbo].[GuestGiftOrderListDetail] WHERE [OrderList]=@Parameter0;
+								   DELETE [{m_gas}].[dbo].[GuestGiftOrderList] WHERE [No]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
 				DeleteGuestGiftOrderParameter.GuestGiftOrderListNo,
@@ -234,7 +248,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateGuestGiftOrder( UpdateGuestGiftOrder UpdateGuestGiftOrderParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[GuestGiftOrderList]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[GuestGiftOrderList]
 							set [Ok]=@Parameter2, [Memo]=@Parameter3
 							where No=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
@@ -252,7 +266,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool InsertGuestReceptionApplicationsMaster( InsertGuestReceptionApplicationsMaster InsertGuestReceptionApplicationsMasterParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[GuestReceptionApplicationsMaster] ([FillerID] ,[FillerName] ,[ApplicationDate] ,[ApplicantID] ,[ApplicantName] ,[ApplicantDept] ,[ApplicantExt],[IntervieweeID],[IntervieweeDeptName],[Visitors],[VisitorsCompany],[VisitorsNum],[VisitStartDateTime],[VisitEndDateTime],[MeetingRoom],[NeedElectronicPoster],[NeedWater],[NeedCoffee],[NeedTea],[VeggieLunch],[MeatLunch],[ParkingCarName],[ParkingCarCounting],[NeedVideoPPT]
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[GuestReceptionApplicationsMaster] ([FillerID] ,[FillerName] ,[ApplicationDate] ,[ApplicantID] ,[ApplicantName] ,[ApplicantDept] ,[ApplicantExt],[IntervieweeID],[IntervieweeDeptName],[Visitors],[VisitorsCompany],[VisitorsNum],[VisitStartDateTime],[VisitEndDateTime],[MeetingRoom],[NeedElectronicPoster],[NeedWater],[NeedCoffee],[NeedTea],[VeggieLunch],[MeatLunch],[ParkingCarName],[ParkingCarCounting],[NeedVideoPPT]
       ,[NeedCatalog]
       ,[SouvenirType]
       ,[SouvenirNum]
@@ -304,7 +318,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetGuestReceptionApplicationsMaster( GetGuestReceptionApplicationsMaster GetGuestReceptionApplicationsMasterParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[GuestReceptionApplicationsMaster]
+						FROM [{m_gas}].[dbo].[GuestReceptionApplicationsMaster]
 						Where [ApplicantID] like @Parameter4 and [Finished]=@Parameter30
 						ORDER BY [RequisitionID] desc";
 			List<object> SQLParameterList = new List<object>()
@@ -357,7 +371,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool UpdateGuestReceptionApplicationsMaster( UpdateGuestReceptionApplicationsMaster UpdateGuestReceptionApplicationsMasterParameter )
 		{
-			string sql = $@"UPDATE [SyntecGAS].[dbo].[GuestReceptionApplicationsMaster]
+			string sql = $@"UPDATE [{m_gas}].[dbo].[GuestReceptionApplicationsMaster]
 							set [Finished]=@Parameter30,[IsCancel]=@Parameter8
 							where RequisitionID=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
