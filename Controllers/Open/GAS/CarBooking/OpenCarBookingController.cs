@@ -35,6 +35,46 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "GetSpecificCarInfo" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult GetSpecificCarInfo( [FromBody] GetSpecificCarInfo GetSpecificCarInfoParameter )
+		{
+			JArray result = m_publicCarBookingHandler.GetSpecificCarInfo( GetSpecificCarInfoParameter );
+
+			if(result == null)
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "UpdateSpecificCarMileInfo" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpdateSpecificCarMileInfo( [FromBody] UpdateSpecificCarMileInfo UpdateSpecificCarMileInfoParameter )
+		{
+
+			bool bResult = m_publicCarBookingHandler.UpdateSpecificCarMileInfo( UpdateSpecificCarMileInfoParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		[Route( "UpsertCarInfo" )]
 		//[CheckTokenFilter]
 		[HttpPost]

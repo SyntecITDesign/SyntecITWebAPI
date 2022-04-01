@@ -4,11 +4,11 @@ using Syntec.CRM;
 using Syntec.Flow.Utility;
 using SyntecITWebAPI.Common;
 using SyntecITWebAPI.Common.DBRelated.DBManagers;
-using SyntecITWebAPI.ParameterModels.GAS.MeetingRoom;
+using SyntecITWebAPI.ParameterModels.GAS.StationBooking;
 using System.Data;
 using Newtonsoft.Json;
 
-namespace SyntecITWebAPI.Models.GAS.MeetingRoom
+namespace SyntecITWebAPI.Models.GAS.StationBooking
 {
 	internal class PublicStationBookingHandler
 	{

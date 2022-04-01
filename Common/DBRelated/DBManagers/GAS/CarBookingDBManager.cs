@@ -44,6 +44,45 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			}
 		}
 
+		internal DataTable GetSpecificCarInfo( GetSpecificCarInfo GetSpecificCarInfoParameter )
+		{
+			string sql = $@"SELECT *
+							FROM [{m_gas}].[dbo].[CarInfo]
+							WHERE [CarNumber]=@Parameter0";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetSpecificCarInfoParameter.CarNumber
+
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if(result == null || result.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal bool UpdateSpecificCarMileInfo( UpdateSpecificCarMileInfo UpdateSpecificCarMileInfoParameter )
+		{
+			string sql = $@"UPDATE [{m_gas}].[dbo].[CarInfo]
+							SET [Mile]=@Parameter1
+							WHERE [CarNumber]=@Parameter0 ";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpdateSpecificCarMileInfoParameter.CarNumber,
+				UpdateSpecificCarMileInfoParameter.Mile
+
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
 
 		internal bool UpsertCarInfo( UpsertCarInfo UpsertCarInfoParameter )
 		{

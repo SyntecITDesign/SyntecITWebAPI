@@ -5,8 +5,32 @@ using System.Threading.Tasks;
 
 namespace SyntecITWebAPI.ParameterModels.GAS.CarBooking
 {
+	public class GetSpecificCarInfo
+	{
+		#region Public Properties
 
-	
+		public string CarNumber
+		{
+			get; set;
+		}
+
+		#endregion Public Properties
+	}
+	public class UpdateSpecificCarMileInfo
+	{
+		#region Public Properties
+
+		public string CarNumber
+		{
+			get; set;
+		}
+		public string Mile
+		{
+			get; set;
+		}
+
+		#endregion Public Properties
+	}
 
 	public class UpsertCarInfo
 	{

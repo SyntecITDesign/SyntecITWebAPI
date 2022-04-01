@@ -29,6 +29,27 @@ namespace SyntecITWebAPI.Models.GAS.CarBooking
 			}
 		}
 
+		internal JArray GetSpecificCarInfo( GetSpecificCarInfo GetSpecificCarInfoParameter )
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.GetSpecificCarInfo( GetSpecificCarInfoParameter );
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+		internal bool UpdateSpecificCarMileInfo( UpdateSpecificCarMileInfo UpdateSpecificCarMileInfoParameter )
+		{
+
+			bool bResult = m_CarBookingDBManager.UpdateSpecificCarMileInfo( UpdateSpecificCarMileInfoParameter );
+
+			return bResult;
+		}
+
 		internal bool UpsertCarInfo( UpsertCarInfo UpsertCarInfoParameter )
 		{
 

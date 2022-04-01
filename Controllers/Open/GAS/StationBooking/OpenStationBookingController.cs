@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using SyntecITWebAPI.Common;
 using SyntecITWebAPI.Enums;
-using SyntecITWebAPI.Models.GAS.MeetingRoom;
-using SyntecITWebAPI.ParameterModels.GAS.MeetingRoom;
+using SyntecITWebAPI.Models.GAS.StationBooking;
+using SyntecITWebAPI.ParameterModels.GAS.StationBooking;
 using Newtonsoft.Json.Linq;
 
-namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
+namespace SyntecITWebAPI.Controllers.Open.GAS.StationBooking
 {
 	[EnableCors( "AllowAllPolicy" )]
 	[Route( "Open/GAS/MeetingRoom" )]
