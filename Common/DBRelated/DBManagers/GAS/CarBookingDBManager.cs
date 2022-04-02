@@ -303,7 +303,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		{
 			string sql = $@"SELECT *
 							FROM [{m_gas}].[dbo].[CarBookingRecord]
-							WHERE　 (GETDATE() between  [PreserveStartTime] and [PreserveEndTime])　
+							WHERE　 (GETDATE() between  [PreserveStartTime] and [PreserveEndTime])　and ActualEndTime IS NULL 
 						  ";
 			DataTable result = m_dbproxy.GetDataWithNoParaCMD( sql );
 

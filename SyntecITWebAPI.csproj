@@ -10,6 +10,7 @@
     <Copyright>Copyright © SYNTEC 1995-2021</Copyright>
     <AssemblyName>SyntecITWebAPI</AssemblyName>
     <RootNamespace>SyntecITWebAPI</RootNamespace>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -49,6 +50,7 @@
 
   <ItemGroup>
     <Folder Include="ExternalDlls\" />
+    <Folder Include="obj\Release\" />
   </ItemGroup>
 
   <ItemGroup>
