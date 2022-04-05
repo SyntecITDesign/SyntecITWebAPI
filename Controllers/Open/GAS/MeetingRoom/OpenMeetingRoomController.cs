@@ -11,7 +11,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
 	[EnableCors( "AllowAllPolicy" )]
 	[Route( "Open/GAS/MeetingRoom" )]
 	[ApiController]
-	public class OpenStationeryController : ControllerBase
+	public class OpenMeetingRoomController : ControllerBase
 	{
 		#region Public Methods
 

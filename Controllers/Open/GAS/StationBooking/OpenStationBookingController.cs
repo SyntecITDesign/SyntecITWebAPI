@@ -8,254 +8,118 @@ using Newtonsoft.Json.Linq;
 
 namespace SyntecITWebAPI.Controllers.Open.GAS.StationBooking
 {
-	//[EnableCors( "AllowAllPolicy" )]
-	//[Route( "Open/GAS/MeetingRoom" )]
-	//[ApiController]
-	//public class OpenStationeryController : ControllerBase
-	//{
-	//	#region Public Methods
+	[EnableCors( "AllowAllPolicy" )]
+	[Route( "Open/GAS/StationBooking" )]
+	[ApiController]
+	public class OpenStationBookingController : ControllerBase
+	{
+		#region Public Methods
 
-	//	[Route( "GetMeetingRoom" )]
-	//	//[CheckTokenFilter]
-	//	//[PrivateCookieFilter]
-	//	[HttpGet]
-	//	public IActionResult GetMeetingRoom()
-	//	{
-	//		JArray result = m_publicMeetigRoomHandler.GetMeetingRoom();
+		
+		[Route( "InsertStationApplicationsMaster" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult InsertStationApplicationsMaster( [FromBody] InsertStationApplicationsMaster InsertStationApplicationsMasterParameter )
+		{
 
-	//		if(result == null)
-	//		{
-	//			m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
-	//		}
-	//		else
-	//		{
-	//			m_responseHandler.Content = result;
-	//		}
+			bool bResult = m_publicStationBookingHandler.InsertStationApplicationsMaster( InsertStationApplicationsMasterParameter );
 
-	//		return Ok( m_responseHandler.GetResult() );
-	//	}
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
 
-	//	[Route( "UpsertMeetingRoom" )]
-	//	//[CheckTokenFilter]
-	//	[HttpPost]
-	//	public IActionResult UpsertMeetingRoom( [FromBody] UpsertMeetingRoom UpsertMeetingRoomParameter )
-	//	{
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "DeleteStationApplicationsMaster" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DeleteStationApplicationsMaster( [FromBody] DeleteStationApplicationsMaster DeleteStationApplicationsMasterParameter )
+		{
 
-	//		bool bResult = m_publicMeetigRoomHandler.UpsertMeetingRoom( UpsertMeetingRoomParameter );
+			bool bResult = m_publicStationBookingHandler.DeleteStationApplicationsMaster( DeleteStationApplicationsMasterParameter );
 
-	//		if(!bResult)
-	//		{
-	//			m_responseHandler.Code = ErrorCodeList.Param_Error;
-	//		}
-	//		else
-	//		{
-	//			m_responseHandler.Content = "true";
-	//		}
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
 
-	//		return Ok( m_responseHandler.GetResult() );
-	//	}
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "UpdateStationApplicationsMaster" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpdateStationApplicationsMaster( [FromBody] UpdateStationApplicationsMaster UpdateStationApplicationsMasterParameter )
+		{
 
-	//	[Route( "DeleteMeetingRoom" )]
-	//	//[CheckTokenFilter]
-	//	[HttpPost]
-	//	public IActionResult DeleteMeetingRoom( [FromBody] DeleteMeetingRoom DeleteMeetingRoomParameter )
-	//	{
+			bool bResult = m_publicStationBookingHandler.UpdateStationApplicationsMaster( UpdateStationApplicationsMasterParameter );
 
-	//		bool bResult = m_publicMeetigRoomHandler.DeleteMeetingRoom( DeleteMeetingRoomParameter );
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
 
-	//		if(!bResult)
-	//		{
-	//			m_responseHandler.Code = ErrorCodeList.Param_Error;
-	//		}
-	//		else
-	//		{
-	//			m_responseHandler.Content = "true";
-	//		}
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "GetStationApplicationsMaster" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult GetStationApplicationsMaster( [FromBody] GetStationApplicationsMaster GetStationApplicationsMasterParameter )
+		{
 
-	//		return Ok( m_responseHandler.GetResult() );
-	//	}
+			JArray result = m_publicStationBookingHandler.GetStationApplicationsMaster( GetStationApplicationsMasterParameter );
 
-	//	[Route( "InsertMeetingRoomApplicationsMaster" )]
-	//	//[CheckTokenFilter]
-	//	[HttpPost]
-	//	public IActionResult InsertMeetingRoomApplicationsMaster( [FromBody] InsertMeetingRoomApplicationsMaster InsertMeetingRoomApplicationsMasterParameter )
-	//	{
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
 
-	//		bool bResult = m_publicMeetigRoomHandler.InsertMeetingRoomApplicationsMaster( InsertMeetingRoomApplicationsMasterParameter );
+			return Ok( m_responseHandler.GetResult() );
+		}
 
-	//		if( !bResult )
-	//		{
-	//			m_responseHandler.Code = ErrorCodeList.Param_Error;
-	//		}
-	//		else
-	//		{
-	//			m_responseHandler.Content = "true";
-	//		}
+		[Route( "GetUsingStation" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult GetUsingMeetingRoom( [FromBody] GetUsingStation GetUsingStationParameter )
+		{
 
-	//		return Ok( m_responseHandler.GetResult() );
-	//	}
-	//	[Route( "DeleteMeetingRoomApplicationsMaster" )]
-	//	//[CheckTokenFilter]
-	//	[HttpPost]
-	//	public IActionResult DeleteMeetingRoomApplicationsMaster( [FromBody] DeleteMeetingRoomApplicationsMaster DeleteMeetingRoomApplicationsMasterParameter )
-	//	{
+			JArray result = m_publicStationBookingHandler.GetUsingStation( GetUsingStationParameter );
 
-	//		bool bResult = m_publicMeetigRoomHandler.DeleteMeetingRoomApplicationsMaster( DeleteMeetingRoomApplicationsMasterParameter );
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
 
-	//		if( !bResult )
-	//		{
-	//			m_responseHandler.Code = ErrorCodeList.Param_Error;
-	//		}
-	//		else
-	//		{
-	//			m_responseHandler.Content = "true";
-	//		}
+			return Ok( m_responseHandler.GetResult() );
+		}
 
-	//		return Ok( m_responseHandler.GetResult() );
-	//	}
-	//	[Route( "UpdateMeetingRoomApplicationsMaster" )]
-	//	//[CheckTokenFilter]
-	//	[HttpPost]
-	//	public IActionResult UpdateMeetingRoomApplicationsMaster( [FromBody] UpdateMeetingRoomApplicationsMaster UpdateMeetingRoomApplicationsMasterParameter )
-	//	{
+		#endregion Public Methods
 
-	//		bool bResult = m_publicMeetigRoomHandler.UpdateMeetingRoomApplicationsMaster( UpdateMeetingRoomApplicationsMasterParameter );
+		#region Private Fields
 
-	//		if( !bResult )
-	//		{
-	//			m_responseHandler.Code = ErrorCodeList.Param_Error;
-	//		}
-	//		else
-	//		{
-	//			m_responseHandler.Content = "true";
-	//		}
+		private ResponseHandler m_responseHandler = new ResponseHandler();
+		private PublicStationBookingHandler m_publicStationBookingHandler = new PublicStationBookingHandler();
 
-	//		return Ok( m_responseHandler.GetResult() );
-	//	}
-	//	[Route( "GetMeetingRoomApplicationsMaster" )]
-	//	//[CheckTokenFilter]
-	//	[HttpPost]
-	//	public IActionResult GetMeetingRoomApplicationsMaster( [FromBody] GetMeetingRoomApplicationsMaster GetMeetingRoomApplicationsMasterParameter )
-	//	{
-
-	//		JArray result = m_publicMeetigRoomHandler.GetMeetingRoomApplicationsMaster( GetMeetingRoomApplicationsMasterParameter );
-
-	//		if( result == null )
-	//		{
-	//			m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
-	//		}
-	//		else
-	//		{
-	//			m_responseHandler.Content = result;
-	//		}
-
-	//		return Ok( m_responseHandler.GetResult() );
-	//	}
-	//	[Route( "InsertMRBS" )]
-	//	//[CheckTokenFilter]
-	//	[HttpPost]
-	//	public IActionResult InsertMRBS( [FromBody] InsertMRBS InsertMRBSParameter )
-	//	{
-
-	//		bool bResult = m_publicMeetigRoomHandler.InsertMRBS( InsertMRBSParameter );
-
-	//		if( !bResult )
-	//		{
-	//			m_responseHandler.Code = ErrorCodeList.Param_Error;
-	//		}
-	//		else
-	//		{
-	//			m_responseHandler.Content = "true";
-	//		}
-
-	//		return Ok( m_responseHandler.GetResult() );
-	//	}
-	//	[Route( "DeleteMRBS" )]
-	//	//[CheckTokenFilter]
-	//	[HttpPost]
-	//	public IActionResult DeleteMRBS( [FromBody] DeleteMRBS DeleteMRBSParameter )
-	//	{
-
-	//		bool bResult = m_publicMeetigRoomHandler.DeleteMRBS( DeleteMRBSParameter );
-
-	//		if( !bResult )
-	//		{
-	//			m_responseHandler.Code = ErrorCodeList.Param_Error;
-	//		}
-	//		else
-	//		{
-	//			m_responseHandler.Content = "true";
-	//		}
-
-	//		return Ok( m_responseHandler.GetResult() );
-	//	}
-	//	[Route( "GetMRBS" )]
-	//	//[CheckTokenFilter]
-	//	[HttpPost]
-	//	public IActionResult GetMRBS( [FromBody] GetMRBS GetMRBSParameter )
-	//	{
-
-	//		JArray result = m_publicMeetigRoomHandler.GetMRBS( GetMRBSParameter );
-
-	//		if( result == null )
-	//		{
-	//			m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
-	//		}
-	//		else
-	//		{
-	//			m_responseHandler.Content = result;
-	//		}
-
-	//		return Ok( m_responseHandler.GetResult() );
-	//	}
-
-	//	[Route( "UpdateMRBS" )]
-	//	//[CheckTokenFilter]
-	//	[HttpPost]
-	//	public IActionResult UpdateMRBS( [FromBody] UpdateMRBS UpdateMRBSParameter )
-	//	{
-
-	//		bool bResult = m_publicMeetigRoomHandler.UpdateMRBS( UpdateMRBSParameter );
-
-	//		if( !bResult )
-	//		{
-	//			m_responseHandler.Code = ErrorCodeList.Param_Error;
-	//		}
-	//		else
-	//		{
-	//			m_responseHandler.Content = "true";
-	//		}
-
-	//		return Ok( m_responseHandler.GetResult() );
-	//	}
-
-	//	[Route( "GetUsingMeetingRoom" )]
-	//	//[CheckTokenFilter]
-	//	[HttpPost]
-	//	public IActionResult GetUsingMeetingRoom( [FromBody] GetUsingMeetingRoom GetUsingMeetingRoomParameter )
-	//	{
-
-	//		JArray result = m_publicMeetigRoomHandler.GetUsingMeetingRoom( GetUsingMeetingRoomParameter );
-
-	//		if( result == null )
-	//		{
-	//			m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
-	//		}
-	//		else
-	//		{
-	//			m_responseHandler.Content = result;
-	//		}
-
-	//		return Ok( m_responseHandler.GetResult() );
-	//	}
-
-	//	#endregion Public Methods
-
-	//	#region Private Fields
-
-	//	private ResponseHandler m_responseHandler = new ResponseHandler();
-	//	private PublicStationBookingHandler m_publicMeetigRoomHandler = new PublicStationBookingHandler();
-
-	//	#endregion Private Fields
-	//}
+		#endregion Private Fields
+	}
 }

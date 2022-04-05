@@ -4,200 +4,87 @@ using System.ComponentModel.DataAnnotations;
 namespace SyntecITWebAPI.ParameterModels.GAS.StationBooking
 {
 
-	public class UpsertMeetingRoom
+
+	public class StationApplicationsMasterAllField
 	{
-		#region Public Properties
-
-		public int ID
+		public int StationApplicationsMasterRequisitionID
 		{
 			get; set;
 		}
-
-		public string Floor
+		public string StationApplicationsMasterFillerID
 		{
 			get; set;
 		}
-
-		public string MeetingRoom
+		public string StationApplicationsMasterFillerName
 		{
 			get; set;
 		}
-
-
-		#endregion Public Properties
-	}
-
-	public class DeleteMeetingRoom
-	{
-		#region Public Properties
-
-
-		public int ID
+		public string StationApplicationsMasterApplicationDate
 		{
 			get; set;
 		}
-
-
-		#endregion Public Properties
-	}
-
-	public class MeetingRoomApplicationsMasterAllField
-	{
-		public int MeetingRoomApplicationsMasterRequisitionID
+		public string StationApplicationsMasterApplicantID
 		{
 			get; set;
 		}
-		public string MeetingRoomApplicationsMasterFillerID
+		public string StationApplicationsMasterApplicantName
 		{
 			get; set;
 		}
-		public string MeetingRoomApplicationsMasterFillerName
+		public string StationApplicationsMasterApplicantDept
+		{
+			get; set;
+		}		
+		public string StationApplicationsMasterApplyType
 		{
 			get; set;
 		}
-		public string MeetingRoomApplicationsMasterApplicationDate
+		public string StationApplicationsMasterStartDate
 		{
 			get; set;
 		}
-		public string MeetingRoomApplicationsMasterApplicantID
+		public string StationApplicationsMasterEndDate
 		{
 			get; set;
 		}
-		public string MeetingRoomApplicationsMasterApplicantName
+		public string StationApplicationsMasterMemo
 		{
 			get; set;
 		}
-		public string MeetingRoomApplicationsMasterApplicantDept
+		public bool StationApplicationsMasterFinished
 		{
 			get; set;
 		}
-		public bool MeetingRoomApplicationsMasterIsCancel
+		
+		public bool StationApplicationsMasterIsCancel
 		{
 			get; set;
 		}
-		public string MeetingRoomApplicationsMasterApplyType
-		{
-			get; set;
-		}
-		public string MeetingRoomApplicationsMasterStartDate
-		{
-			get; set;
-		}
-		public string MeetingRoomApplicationsMasterEndDate
-		{
-			get; set;
-		}
-		public string MeetingRoomApplicationsMasterMemo
-		{
-			get; set;
-		}
-		public bool MeetingRoomApplicationsMasterFinished
-		{
-			get; set;
-		}
-		public int MeetingRoomApplicationsMasterMRBS_ID
-		{
-			get; set;
-		}
-		public string MeetingRoomApplicationsMasterStopDate
+		public string StationApplicationsMasterStation
 		{
 			get; set;
 		}
 	}
-	public class InsertMeetingRoomApplicationsMaster : MeetingRoomApplicationsMasterAllField
+	public class InsertStationApplicationsMaster : StationApplicationsMasterAllField
 	{
 
 	}
-	public class DeleteMeetingRoomApplicationsMaster : MeetingRoomApplicationsMasterAllField
+	public class DeleteStationApplicationsMaster : StationApplicationsMasterAllField
 	{
 
 	}
-	public class UpdateMeetingRoomApplicationsMaster : MeetingRoomApplicationsMasterAllField
+	public class UpdateStationApplicationsMaster : StationApplicationsMasterAllField
 	{
 
 	}
-	public class GetMeetingRoomApplicationsMaster : MeetingRoomApplicationsMasterAllField
-	{
-
-	}
-
-	public class MRBSAllField
-	{
-		public string MRBSID
-		{
-			get; set;
-		}
-		public string MRBSMeetingRoom
-		{
-			get; set;
-		}
-		public string MRBSEvent
-		{
-			get; set;
-		}
-		public string MRBSDate
-		{
-			get; set;
-		}
-		public string MRBSPreserveTimeStart
-		{
-			get; set;
-		}
-		public string MRBSPreserveTimeEnd
-		{
-			get; set;
-		}
-		public string MRBSHolder
-		{
-			get; set;
-		}
-		public int MRBSPeopleCounting
-		{
-			get; set;
-		}
-		public string MRBSLink
-		{
-			get; set;
-		}
-		public string MRBSEmpID
-		{
-			get; set;
-		}
-		public string MRBSOrgID
-		{
-			get; set;
-		}
-		public string MRBSattendant
-		{
-			get; set;
-		}
-		public string MRBSNo
-		{
-			get; set;
-		}
-		public string MRBSMemo
-		{
-			get; set;
-		}
-	}
-	public class InsertMRBS : MRBSAllField
-	{
-
-	}
-	public class DeleteMRBS : MRBSAllField
-	{
-
-	}
-	public class UpdateMRBS : MRBSAllField
-	{
-
-	}
-	public class GetMRBS : MRBSAllField
+	public class GetStationApplicationsMaster : StationApplicationsMasterAllField
 	{
 
 	}
 
-	public class GetUsingMeetingRoom
+
+
+	public class GetUsingStation
 	{
 		public string TimeStart
 		{

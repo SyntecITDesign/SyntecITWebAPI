@@ -10,137 +10,75 @@ using Newtonsoft.Json;
 
 namespace SyntecITWebAPI.Models.GAS.StationBooking
 {
-	//internal class PublicStationBookingHandler
-	//{
-	//	#region Internal Methods
+	internal class PublicStationBookingHandler
+	{
+		#region Internal Methods
 
-	//	// this function will update user verify code & mail user with
-	//	// QueryString(userID,verifyCode) . urlHelper and scheme are used to generate url
-	//	internal JArray GetMeetingRoom()
-	//	{
+		// this function will update user verify code & mail user with
+		// QueryString(userID,verifyCode) . urlHelper and scheme are used to generate url
+		
+		internal bool InsertStationApplicationsMaster( InsertStationApplicationsMaster InsertStationApplicationsMasterParameter )
+		{
 
-	//		DataTable dtResult = m_publicMeetingRoomDBManager.GetMeetingRoom();
+			bool bResult = m_publicStationBookingDBManager.InsertStationApplicationsMaster( InsertStationApplicationsMasterParameter );
 
-	//		if(dtResult == null || dtResult.Rows.Count <= 0)
-	//			return null;
-	//		else
-	//		{
-	//			JArray ja = JArray.FromObject( dtResult );
-	//			return ja;
-	//		}
-	//	}
+			return bResult;
+		}
+		internal bool DeleteStationApplicationsMaster( DeleteStationApplicationsMaster DeleteStationApplicationsMasterParameter )
+		{
 
-	//	internal bool UpsertMeetingRoom( UpsertMeetingRoom UpsertMeetingRoomParameter )
-	//	{
+			bool bResult = m_publicStationBookingDBManager.DeleteStationApplicationsMaster( DeleteStationApplicationsMasterParameter );
 
-	//		bool bResult = m_publicMeetingRoomDBManager.UpsertMeetingRoom( UpsertMeetingRoomParameter );
+			return bResult;
+		}
+		internal bool UpdateStationApplicationsMaster( UpdateStationApplicationsMaster UpdateStationApplicationsMasterParameter )
+		{
 
-	//		return bResult;
-	//	}
+			bool bResult = m_publicStationBookingDBManager.UpdateStationApplicationsMaster( UpdateStationApplicationsMasterParameter );
 
-	//	internal bool DeleteMeetingRoom( DeleteMeetingRoom DeleteMeetingRoomParameter )
-	//	{
+			return bResult;
+		}
+		internal JArray GetStationApplicationsMaster( GetStationApplicationsMaster GetStationApplicationsMasterParameter )
+		{
 
-	//		bool bResult = m_publicMeetingRoomDBManager.DeleteMeetingRoom( DeleteMeetingRoomParameter );
+			DataTable dtResult = m_publicStationBookingDBManager.GetStationApplicationsMaster( GetStationApplicationsMasterParameter );
 
-	//		return bResult;
-	//	}
-
-	//	internal bool InsertMeetingRoomApplicationsMaster( InsertMeetingRoomApplicationsMaster InsertMeetingRoomApplicationsMasterParameter )
-	//	{
-
-	//		bool bResult = m_publicMeetingRoomDBManager.InsertMeetingRoomApplicationsMaster( InsertMeetingRoomApplicationsMasterParameter );
-
-	//		return bResult;
-	//	}
-	//	internal bool DeleteMeetingRoomApplicationsMaster( DeleteMeetingRoomApplicationsMaster DeleteMeetingRoomApplicationsMasterParameter )
-	//	{
-
-	//		bool bResult = m_publicMeetingRoomDBManager.DeleteMeetingRoomApplicationsMaster( DeleteMeetingRoomApplicationsMasterParameter );
-
-	//		return bResult;
-	//	}
-	//	internal bool UpdateMeetingRoomApplicationsMaster( UpdateMeetingRoomApplicationsMaster UpdateMeetingRoomApplicationsMasterParameter )
-	//	{
-
-	//		bool bResult = m_publicMeetingRoomDBManager.UpdateMeetingRoomApplicationsMaster( UpdateMeetingRoomApplicationsMasterParameter );
-
-	//		return bResult;
-	//	}
-	//	internal JArray GetMeetingRoomApplicationsMaster( GetMeetingRoomApplicationsMaster GetMeetingRoomApplicationsMasterParameter )
-	//	{
-
-	//		DataTable dtResult = m_publicMeetingRoomDBManager.GetMeetingRoomApplicationsMaster( GetMeetingRoomApplicationsMasterParameter );
-
-	//		if( dtResult == null || dtResult.Rows.Count <= 0 )
-	//			return null;
-	//		else
-	//		{
-	//			JArray ja = JArray.FromObject( dtResult );
-	//			return ja;
-	//		}
-	//	}
-
-	//	internal bool InsertMRBS( InsertMRBS InsertMRBSParameter )
-	//	{
-
-	//		bool bResult = m_publicMeetingRoomDBManager.InsertMRBS( InsertMRBSParameter );
-
-	//		return bResult;
-	//	}
-	//	internal bool DeleteMRBS( DeleteMRBS DeleteMRBSParameter )
-	//	{
-
-	//		bool bResult = m_publicMeetingRoomDBManager.DeleteMRBS( DeleteMRBSParameter );
-
-	//		return bResult;
-	//	}
-	//	internal JArray GetMRBS( GetMRBS GetMRBSParameter )
-	//	{
-
-	//		DataTable dtResult = m_publicMeetingRoomDBManager.GetMRBS( GetMRBSParameter );
-
-	//		if( dtResult == null || dtResult.Rows.Count <= 0 )
-	//			return null;
-	//		else
-	//		{
-	//			JArray ja = JArray.FromObject( dtResult );
-	//			return ja;
-	//		}
-	//	}
-	//	internal bool UpdateMRBS( UpdateMRBS UpdateMRBSParameter )
-	//	{
-
-	//		bool bResult = m_publicMeetingRoomDBManager.UpdateMRBS( UpdateMRBSParameter );
-
-	//		return bResult;
-	//	}
-
-	//	internal JArray GetUsingMeetingRoom( GetUsingMeetingRoom GetUsingMeetingRoomParameter )
-	//	{
-
-	//		DataTable dtResult = m_publicMeetingRoomDBManager.GetUsingMeetingRoom( GetUsingMeetingRoomParameter );
-
-	//		if( dtResult == null || dtResult.Rows.Count <= 0 )
-	//			return null;
-	//		else
-	//		{
-	//			JArray ja = JArray.FromObject( dtResult );
-	//			return ja;
-	//		}
-	//	}
-
-	//	#endregion Internal Methods
-
-	//	#region Private Fields
-
-	//	private PublicMeetingRoomDBManager m_publicMeetingRoomDBManager = new PublicMeetingRoomDBManager();
-
-	//	#endregion Private Fields
-
-	//	#region Private Methods
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
 
 
-	//	#endregion Private Methods
-	//}
+
+		internal JArray GetUsingStation( GetUsingStation GetUsingStationParameter )
+		{
+
+			DataTable dtResult = m_publicStationBookingDBManager.GetUsingStation( GetUsingStationParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		#endregion Internal Methods
+
+		#region Private Fields
+
+		private PublicStationBookingDBManager m_publicStationBookingDBManager = new PublicStationBookingDBManager();
+
+		#endregion Private Fields
+
+		#region Private Methods
+
+
+		#endregion Private Methods
+	}
 }
