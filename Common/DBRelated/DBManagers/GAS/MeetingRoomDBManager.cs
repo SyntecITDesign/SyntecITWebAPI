@@ -305,7 +305,8 @@ ORDER BY M.[RequisitionID] desc";
 		internal DataTable GetUsingMeetingRoom( GetUsingMeetingRoom GetUsingMeetingRoomParameter )
 		{
 			string sql = $@"select * from [{m_gas}].[dbo].MRBS 
-where (CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,PreserveTimeStart,120)  AND CONVERT(datetime,PreserveTimeEnd,120) and CONVERT( datetime,@Parameter1,120) BETWEEN CONVERT( datetime, PreserveTimeStart,120)  AND CONVERT( datetime, PreserveTimeEnd,120) ) or ( CONVERT( datetime, @Parameter0, 120 ) BETWEEN CONVERT( datetime, PreserveTimeStart, 120 )  AND CONVERT( datetime, PreserveTimeEnd, 120 ) and  CONVERT( datetime, @Parameter1, 120 ) NOT BETWEEN CONVERT( datetime, PreserveTimeStart, 120 )  AND CONVERT( datetime, PreserveTimeEnd, 120 ) and  CONVERT( datetime, @Parameter0, 120 ) != CONVERT( datetime, PreserveTimeEnd, 120 ) ) or ( CONVERT( datetime, @Parameter0, 120 ) NOT BETWEEN CONVERT( datetime, PreserveTimeStart, 120 )  AND CONVERT( datetime, PreserveTimeEnd, 120 ) and  CONVERT( datetime, @Parameter1, 120 ) BETWEEN CONVERT( datetime, PreserveTimeStart, 120 )  AND CONVERT( datetime, PreserveTimeEnd, 120 ) and  CONVERT( datetime, @Parameter1, 120 ) != CONVERT( datetime, PreserveTimeStart, 120 ) )";
+where (([PreserveTimeStart] BETWEEN CONVERT(datetime,@Parameter0,120) and CONVERT(datetime,@Parameter1,120)) AND ([PreserveTimeStart]<>CONVERT(datetime,@Parameter1,120))) or (([PreserveTimeEnd] BETWEEN CONVERT(datetime,@Parameter0,120) and CONVERT(datetime,@Parameter1,120)) AND ([PreserveTimeEnd]<>CONVERT(datetime,@Parameter0,120)))";
+
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetUsingMeetingRoomParameter.TimeStart,

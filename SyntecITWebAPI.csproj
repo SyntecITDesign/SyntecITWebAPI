@@ -18,8 +18,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="obj\Debug\netcoreapp3.1\.NETCoreApp,Version=v3.1.AssemblyAttributes.cs" />
-    <Compile Include="obj\Debug\netcoreapp3.1\SyntecITWebAPI.AssemblyInfo.cs" />
+    <Compile Remove="obj\**" />
+    <Content Remove="obj\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <None Remove="obj\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,15 +44,10 @@
     <Content Include="bin\Debug\netcoreapp3.1\SyntecITWebAPI.deps.json" />
     <Content Include="bin\Debug\netcoreapp3.1\SyntecITWebAPI.runtimeconfig.dev.json" />
     <Content Include="bin\Debug\netcoreapp3.1\SyntecITWebAPI.runtimeconfig.json" />
-    <Content Include="obj\Debug\netcoreapp3.1\staticwebassets\SyntecITWebAPI.StaticWebAssets.xml" />
-    <Content Include="obj\Debug\netcoreapp3.1\SyntecITWebAPI.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\project.assets.json" />
-    <Content Include="obj\SyntecITWebAPI.csproj.nuget.dgspec.json" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ExternalDlls\" />
-    <Folder Include="obj\Release\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -133,23 +130,6 @@
     <None Include="bin\Debug\netcoreapp3.1\TokenCreator.dll" />
     <None Include="bin\Debug\netcoreapp3.1\TQMLibrary.dll" />
     <None Include="bin\Debug\netcoreapp3.1\WechatLibrary.dll" />
-    <None Include="obj\Debug\netcoreapp3.1\apphost.exe" />
-    <None Include="obj\Debug\netcoreapp3.1\staticwebassets\SyntecITWebAPI.StaticWebAssets.Manifest.cache" />
-    <None Include="obj\Debug\netcoreapp3.1\SyntecITWebAPI.AssemblyInfoInputs.cache" />
-    <None Include="obj\Debug\netcoreapp3.1\SyntecITWebAPI.assets.cache" />
-    <None Include="obj\Debug\netcoreapp3.1\SyntecITWebAPI.csproj.AssemblyReference.cache" />
-    <None Include="obj\Debug\netcoreapp3.1\SyntecITWebAPI.csproj.CopyComplete" />
-    <None Include="obj\Debug\netcoreapp3.1\SyntecITWebAPI.csproj.CoreCompileInputs.cache" />
-    <None Include="obj\Debug\netcoreapp3.1\SyntecITWebAPI.csprojAssemblyReference.cache" />
-    <None Include="obj\Debug\netcoreapp3.1\SyntecITWebAPI.dll" />
-    <None Include="obj\Debug\netcoreapp3.1\SyntecITWebAPI.GeneratedMSBuildEditorConfig.editorconfig" />
-    <None Include="obj\Debug\netcoreapp3.1\SyntecITWebAPI.genruntimeconfig.cache" />
-    <None Include="obj\Debug\netcoreapp3.1\SyntecITWebAPI.MvcApplicationPartsAssemblyInfo.cache" />
-    <None Include="obj\Debug\netcoreapp3.1\SyntecITWebAPI.pdb" />
-    <None Include="obj\Debug\netcoreapp3.1\SyntecITWebAPI.RazorTargetAssemblyInfo.cache" />
-    <None Include="obj\project.nuget.cache" />
-    <None Include="obj\SyntecITWebAPI.csproj.nuget.g.props" />
-    <None Include="obj\SyntecITWebAPI.csproj.nuget.g.targets" />
     <None Include="SyntecITWebAPI.sln" />
   </ItemGroup>
   
