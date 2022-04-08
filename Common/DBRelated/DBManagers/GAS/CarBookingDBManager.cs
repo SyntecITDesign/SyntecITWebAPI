@@ -713,9 +713,21 @@ WHERE [CarInsuranceName].[Type] = @Parameter0";
 		internal DataTable GetBeenRentCarSpecTime( GetBeenRentCarSpecTime GetBeenRentCarSpecTimeParameter )
 		{
 			
-			string sql = $@"select * from [SyntecGAS].[dbo].[CarBookingRecord] 
-where 
-(CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) and  CONVERT(datetime,@Parameter1,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) and ActualEndTime IS NULL) or (CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) and  CONVERT(datetime,@Parameter1,120) NOT BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) and  CONVERT(datetime,@Parameter0,120) != CONVERT(datetime,PreserveEndTime,120) and ActualEndTime IS NULL) or (CONVERT(datetime,@Parameter0,120) NOT BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) and  CONVERT(datetime,@Parameter1,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) and  CONVERT(datetime,@Parameter1,120) != CONVERT(datetime,PreserveStartTime,120) and ActualEndTime IS NULL) or (CONVERT(datetime,@Parameter0,120)<CONVERT(datetime,PreserveStartTime,120) and CONVERT(datetime,@Parameter1,120)>CONVERT(datetime,PreserveEndTime,120) and ActualEndTime IS NULL)";
+			string sql = $@"select * from [{m_gas}].[dbo].[CarBookingRecord] where 
+						(CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
+						and  CONVERT(datetime,@Parameter1,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
+						and ActualEndTime IS NULL)
+						or
+						(CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
+						and  CONVERT(datetime,@Parameter1,120) NOT BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
+						and  CONVERT(datetime,@Parameter0,120) != CONVERT(datetime,PreserveEndTime,120) and ActualEndTime IS NULL)
+						or
+						(CONVERT(datetime,@Parameter0,120) NOT BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
+						and  CONVERT(datetime,@Parameter1,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
+						and  CONVERT(datetime,@Parameter1,120) != CONVERT(datetime,PreserveStartTime,120) and ActualEndTime IS NULL)
+						or
+						(CONVERT(datetime,@Parameter0,120)<CONVERT(datetime,PreserveStartTime,120) 
+						and CONVERT(datetime,@Parameter1,120)>CONVERT(datetime,PreserveEndTime,120) and ActualEndTime IS NULL)";
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetBeenRentCarSpecTimeParameter.StartTime,
@@ -994,7 +1006,32 @@ where
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
-		
+
+
+
+
+		internal DataTable CheckCarInCompany( CheckCarInCompany CheckCarInCompanyParameter )
+		{
+			string sql = $@"SELECT *  FROM [{m_gas}].[dbo].[CarBookingRecord] 
+						where CarNumber=@Parameter0 and (DATEDIFF(DAY,ActualStartTime,GETDATE())<7 and ActualStartTime IS NOT NULL and ActualEndTime IS NULL)";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				CheckCarInCompanyParameter.CarNumber
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if(result == null || result.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
 
 	}
 	#endregion Internal Methods

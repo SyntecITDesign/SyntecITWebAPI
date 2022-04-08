@@ -646,6 +646,17 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CarBooking
 	{
 	}
 
+	public class CheckCarInCompany
+	{
+		#region Public Properties
+		public string CarNumber
+		{
+			get; set;
+		}
+
+		#endregion Public Properties
+	}
+
 
 
 }

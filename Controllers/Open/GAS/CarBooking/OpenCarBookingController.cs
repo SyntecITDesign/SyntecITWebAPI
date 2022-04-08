@@ -948,6 +948,27 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "CheckCarInCompany" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult CheckCarInCompany( [FromBody] CheckCarInCompany CheckCarInCompanyParameter )
+		{
+			JArray result = m_publicCarBookingHandler.CheckCarInCompany( CheckCarInCompanyParameter );
+
+			if(result == null)
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+
 		#endregion Public Methods
 
 		#region Private Fields

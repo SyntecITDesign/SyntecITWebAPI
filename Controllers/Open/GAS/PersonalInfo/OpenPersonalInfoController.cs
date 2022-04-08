@@ -5,7 +5,7 @@ using SyntecITWebAPI.Enums;
 using SyntecITWebAPI.Models.GAS.PersonalInfo;
 using SyntecITWebAPI.ParameterModels.GAS.PersonalInfo;
 using Newtonsoft.Json.Linq;
-
+using SyntecITWebAPI.Filter;
 namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 {
 	[EnableCors( "AllowAllPolicy" )]
@@ -16,7 +16,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 		#region Public Methods
 
 		[Route( "GetPersonalInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetPersonalInfo( [FromBody] GetPersonalInfo GetPersonalInfoParameter )

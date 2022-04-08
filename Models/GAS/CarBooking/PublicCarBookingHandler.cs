@@ -525,6 +525,21 @@ namespace SyntecITWebAPI.Models.GAS.CarBooking
 		}
 
 
+		internal JArray CheckCarInCompany( CheckCarInCompany CheckCarInCompanyParameter )
+		{
+
+			DataTable dtResult = m_CarBookingDBManager.CheckCarInCompany( CheckCarInCompanyParameter );
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+
 		#endregion Internal Methods
 
 		#region Private Fields

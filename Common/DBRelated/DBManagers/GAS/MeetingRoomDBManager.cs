@@ -156,14 +156,14 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"SELECT M.[RequisitionID],M.[FillerID],M.[FillerName],M.[ApplicationDate],M.[ApplicantID],M.[ApplicantName],M.[ApplicantDept],
 M.[ApplyType],M.[StartDate],M.[EndDate],M.[Finished],M.[MRBS_ID],M.[StopDate],M.[IsCancel],
-[MRBS].[Event]
+[MRBS].[Event],[MRBS].MeetingRoom
 						FROM [{m_gas}].[dbo].[MeetingRoomApplicationsMaster] as M
 						inner join [{m_gas}].[dbo].[MRBS]
 						on [MRBS].ID=M.MRBS_ID
 						WHERE M.[ApplicantID] like @Parameter4 and M.[Finished]=@Parameter11
 						GROUP BY M.[RequisitionID],M.[FillerID],M.[FillerName],M.[ApplicationDate],M.[ApplicantID],M.[ApplicantName],M.[ApplicantDept],
 M.[ApplyType],M.[StartDate],M.[EndDate],M.[Finished],M.[MRBS_ID],M.[StopDate],M.[IsCancel],
-[MRBS].[Event]
+[MRBS].[Event],[MRBS].MeetingRoom
 ORDER BY M.[RequisitionID] desc";
 			List<object> SQLParameterList = new List<object>()
 			{
