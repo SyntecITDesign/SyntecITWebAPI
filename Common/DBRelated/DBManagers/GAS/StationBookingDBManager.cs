@@ -138,7 +138,9 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal DataTable GetUsingStation( GetUsingStation GetUsingStationParameter )
 		{
 			string sql = $@"select * from [{m_gas}].[dbo].StationApplicationsMaster 
-where (([StartDate] BETWEEN CONVERT(datetime,@Parameter0,120) and CONVERT(datetime,@Parameter1,120)) AND ([StartDate]<>CONVERT(datetime,@Parameter1,120))) or (([EndDate] BETWEEN CONVERT(datetime,@Parameter0,120) and CONVERT(datetime,@Parameter1,120)) AND ([EndDate]<>CONVERT(datetime,@Parameter0,120)))";
+where [Finished]=0 and (CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,StartDate,120) AND CONVERT(datetime,EndDate,120) and  CONVERT(datetime,@Parameter1,120) BETWEEN CONVERT(datetime,StartDate,120) AND CONVERT(datetime,EndDate,120)) or (CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,StartDate,120) AND CONVERT(datetime,EndDate,120) and  CONVERT(datetime,@Parameter1,120) NOT BETWEEN CONVERT(datetime,StartDate,120) AND CONVERT(datetime,EndDate,120) and CONVERT(datetime,@Parameter0,120) != CONVERT(datetime,EndDate,120) )or(CONVERT(datetime,@Parameter0,120) NOT BETWEEN CONVERT(datetime,StartDate,120) AND CONVERT(datetime,EndDate,120) and CONVERT(datetime,@Parameter1,120) BETWEEN CONVERT(datetime,StartDate,120) AND CONVERT(datetime,EndDate,120) and CONVERT(datetime,@Parameter1,120) != CONVERT(datetime,StartDate,120) ) or (CONVERT(datetime,@Parameter0,120)<CONVERT(datetime,StartDate,120) and CONVERT(datetime,@Parameter1,120)>CONVERT(datetime,EndDate,120))";
+
+
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetUsingStationParameter.TimeStart,
