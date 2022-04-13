@@ -445,7 +445,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		{
 			string sql = $@"UPDATE [{m_gas}].[dbo].[OrderMealApplicationsDetail]
 							set [Finished]=@Parameter9,[IsCancel]=@Parameter10
-							where [RequisitionID]=@Parameter0";
+							where [DetailID]=@Parameter11";
 			List<object> SQLParameterList = new List<object>()
 			{
 				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailRequisitionID,
@@ -458,7 +458,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailIsCancel,
 				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailOrderDate,
 				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailFinished,
-				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailIsCancel
+				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailIsCancel,
+				UpdateOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailDetailID
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;

@@ -11,7 +11,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.StationBooking
 	[EnableCors( "AllowAllPolicy" )]
 	[Route( "Open/GAS/StationBooking" )]
 	[ApiController]
-	public class OpenStationBookingController : ControllerBase
+	public class OpenModuleAccessController : ControllerBase
 	{
 		#region Public Methods
 

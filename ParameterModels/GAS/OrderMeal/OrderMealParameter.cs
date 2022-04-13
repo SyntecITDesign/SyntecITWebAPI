@@ -183,6 +183,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.OrderMeal
 		{
 			get; set;
 		}
+		public int OrderMealApplicationsDetailDetailID
+		{
+			get; set;
+		}
 	}
 	public class InsertOrderMealApplicationsDetail : OrderMealApplicationsDetailAllField
 	{
