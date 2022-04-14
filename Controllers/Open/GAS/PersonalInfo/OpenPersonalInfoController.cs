@@ -16,7 +16,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 		#region Public Methods
 
 		[Route( "GetPersonalInfo" )]
-		[CheckTokenFilter]
+		//[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetPersonalInfo( [FromBody] GetPersonalInfo GetPersonalInfoParameter )
