@@ -5,6 +5,8 @@ using SyntecITWebAPI.Enums;
 using Newtonsoft.Json.Linq;
 using SyntecITWebAPI.ParameterModels.GAS.OrderMeal;
 using SyntecITWebAPI.Models.GAS.OrderMeal;
+using SyntecITWebAPI.Filter;
+
 namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 {
 	[EnableCors("AllowAllPolicy")]
@@ -15,7 +17,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 		#region Public Methods
 
 		[Route("InsertRestaurant")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertRestaurant([FromBody] InsertRestaurant InsertRestaurantParameter)
 		{
@@ -34,7 +36,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("DeleteRestaurant")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteRestaurant([FromBody] DeleteRestaurant DeleteRestaurantParameter)
 		{
@@ -53,7 +55,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("UpdateRestaurantInfo")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateRestaurantInfo([FromBody] UpdateRestaurantInfo UpdateRestaurantInfoParameter)
 		{
@@ -72,7 +74,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("GetRestaurantInfo")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetRestaurantInfo([FromBody] GetRestaurantInfo GetRestaurantInfoParameter)
 		{
@@ -92,7 +94,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 		}
 
 		[Route("GetMenu")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetMenu([FromBody] GetMenu GetMenuParameter)
 		{
@@ -111,7 +113,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("InsertMenuItems")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertMenuItems([FromBody] InsertMenuItems InsertMenuItemsParameter)
 		{
@@ -130,7 +132,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("DeleteMenuItems")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteMenuItems([FromBody] DeleteMenuItems DeleteMenuItemsParameter)
 		{
@@ -149,7 +151,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("UpdateMenu")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateMenu([FromBody] UpdateMenu UpdateMenuParameter)
 		{
@@ -169,7 +171,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 		}
 
 		[Route("GetMemo")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetMemo([FromBody] GetMemo GetMemoParameter)
 		{
@@ -188,7 +190,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("InsertMemo")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertMemo([FromBody] InsertMemo InsertMemoParameter)
 		{
@@ -208,7 +210,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 		}
 
 		[Route("InsertMealCalendar")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertMealCalendar([FromBody] InsertMealCalendar InsertMealCalendarParameter)
 		{
@@ -227,7 +229,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("GetMealCalendar")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetMealCalendar([FromBody] GetMealCalendar GetMealCalendarParameter)
 		{
@@ -246,7 +248,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("DeleteMealCalendar")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteMealCalendar([FromBody] DeleteMealCalendar DeleteMealCalendarParameter)
 		{
@@ -265,7 +267,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 		}
 
 		[Route("GetAreaInfo")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetAreaInfo([FromBody] GetAreaInfo GetAreaInfoParameter)
 		{
@@ -284,7 +286,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("InsertAreaInfo")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertAreaInfo([FromBody] InsertAreaInfo InsertAreaInfoParameter)
 		{
@@ -303,7 +305,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("DeleteAreaInfo")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteAreaInfo([FromBody] DeleteAreaInfo DeleteAreaInfoParameter)
 		{
@@ -322,7 +324,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("UpdateAreaInfo")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateAreaInfo([FromBody] UpdateAreaInfo UpdateAreaInfoParameter)
 		{
@@ -341,7 +343,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 		}
 
 		[Route( "GetOrderMealApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetOrderMealApplicationsMaster( [FromBody] GetOrderMealApplicationsMaster GetOrderMealApplicationsMasterParameter )
 		{
@@ -360,7 +362,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "InsertOrderMealApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertOrderMealApplicationsMaster( [FromBody] InsertOrderMealApplicationsMaster InsertOrderMealApplicationsMasterParameter )
 		{
@@ -379,7 +381,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateOrderMealApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateOrderMealApplicationsMaster( [FromBody] UpdateOrderMealApplicationsMaster UpdateOrderMealApplicationsMasterParameter )
 		{
@@ -398,7 +400,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 		}
 
 		[Route( "GetOrderMealApplicationsDetail" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]		
 		public IActionResult GetOrderMealApplicationsDetail( [FromBody] GetOrderMealApplicationsDetail GetOrderMealApplicationsDetailParameter )
 		{
@@ -417,7 +419,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "InsertOrderMealApplicationsDetail" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertOrderMealApplicationsDetail( [FromBody] InsertOrderMealApplicationsDetail InsertOrderMealApplicationsDetailParameter )
 		{
@@ -436,7 +438,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateOrderMealApplicationsDetail" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateOrderMealApplicationsDetail( [FromBody] UpdateOrderMealApplicationsDetail UpdateOrderMealApplicationsDetailParameter )
 		{
@@ -454,7 +456,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteOrderMealApplicationsDetail" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteOrderMealApplicationsDetail( [FromBody] DeleteOrderMealApplicationsDetail DeleteOrderMealApplicationsDetailParameter )
 		{

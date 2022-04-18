@@ -5,6 +5,8 @@ using SyntecITWebAPI.Enums;
 using Newtonsoft.Json.Linq;
 using SyntecITWebAPI.ParameterModels.GAS.CleanMaintain;
 using SyntecITWebAPI.Models.GAS.CleanMaintain;
+using SyntecITWebAPI.Filter;
+
 namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 {
 	[EnableCors("AllowAllPolicy")]
@@ -15,7 +17,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 		#region Public Methods
 
 		[Route("InsertMaintainType")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertMaintainType([FromBody] InsertMaintainType InsertMaintainTypeParameter)
 		{
@@ -34,7 +36,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("DeleteMaintainType")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteMaintainType([FromBody] DeleteMaintainType DeleteMaintainTypeParameter)
 		{
@@ -53,7 +55,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("UpdateMaintainTypeInfo")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateMaintainTypeInfo( [FromBody] UpdateMaintainTypeInfo UpdateMaintainTypeInfoParameter)
 		{
@@ -72,7 +74,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("GetMaintainTypeInfo")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetMaintainTypeInfo([FromBody] GetMaintainTypeInfo GetMaintainTypeInfoParameter)
 		{
@@ -92,7 +94,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 		}
 
 		[Route( "UpsertMaintainQuantityInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpsertMaintainQuantityInfo( [FromBody] UpsertMaintainQuantityInfo UpsertMaintainQuantityInfoParameter )
 		{
@@ -111,7 +113,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteMaintainQuantity" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteMaintainQuantity( [FromBody] DeleteMaintainQuantity DeleteMaintainQuantityParameter )
 		{
@@ -130,7 +132,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetMaintainQuantityInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetMaintainQuantityInfo( [FromBody] GetMaintainQuantityInfo GetMaintainQuantityInfoParameter )
 		{
@@ -150,7 +152,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 		}
 
 		[Route( "InsertMaintainOrder" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertMaintainOrder( [FromBody] InsertMaintainOrder InsertMaintainOrderParameter )
 		{
@@ -169,7 +171,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetMaintainOrderList")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetMaintainOrderList( [FromBody] GetMaintainOrderList GetMaintainOrderListParameter )
 		{
@@ -188,7 +190,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteMaintainOrder" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteMaintainOrder( [FromBody] DeleteMaintainOrder DeleteMaintainOrderParameter )
 		{
@@ -207,7 +209,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateMaintainOrder" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateMaintainOrder( [FromBody] UpdateMaintainOrder UpdateMaintainOrderParameter )
 		{
@@ -227,7 +229,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 		}
 
 		[Route( "InsertMaintainOrderDetail" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertMaintainOrderListDetail( [FromBody] InsertMaintainOrderListDetail InsertMaintainOrderListDetailParameter )
 		{
@@ -246,7 +248,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetMaintainOrderListDetail" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetMaintainOrderListDetail( [FromBody] GetMaintainOrderListDetail GetMaintainOrderListDetailParameter )
 		{
@@ -266,7 +268,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 		}
 
 		[Route( "InsertCleanFirm" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertCleanFirm( [FromBody] InsertCleanFirm InsertCleanFirmParameter )
 		{
@@ -285,7 +287,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteCleanFirm" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteCleanFirm( [FromBody] DeleteCleanFirm DeleteCleanFirmParameter )
 		{
@@ -304,7 +306,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateCleanFirmInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateCleanFirmInfo( [FromBody] UpdateCleanFirmInfo UpdateCleanFirmInfoParameter )
 		{
@@ -323,7 +325,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetCleanFirmInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetCleanFirmInfo( [FromBody] GetCleanFirmInfo GetCleanFirmInfoParameter )
 		{
@@ -343,7 +345,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 		}
 
 		[Route( "GetCleanStaffType" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetCleanStaffType( [FromBody] GetCleanStaffType GetCleanStaffTypeParameter )
 		{
@@ -362,7 +364,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "InsertCleanStaffType" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertCleanStaffType( [FromBody] InsertCleanStaffType InsertCleanStaffTypeParameter )
 		{
@@ -381,7 +383,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteCleanStaffType" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteCleanStaffType( [FromBody] DeleteCleanStaffType DeleteCleanStaffTypeParameter )
 		{
@@ -400,7 +402,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateCleanStaffType" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateCleanStaffType( [FromBody] UpdateCleanStaffType UpdateCleanStaffTypeParameter )
 		{
@@ -419,7 +421,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 		}
 
 		[Route( "GetCleanAreaPlan" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetCleanAreaPlan( [FromBody] GetCleanAreaPlan GetCleanAreaPlanParameter )
 		{
@@ -438,7 +440,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "InsertCleanAreaPlan" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertCleanAreaPlan( [FromBody] InsertCleanAreaPlan InsertCleanAreaPlanParameter )
 		{
@@ -457,7 +459,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteCleanAreaPlan" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteCleanAreaPlan([FromBody] DeleteCleanAreaPlan DeleteCleanAreaPlanParameter )
 		{
@@ -476,7 +478,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateCleanAreaPlan" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateCleanAreaPlan( [FromBody] UpdateCleanAreaPlan UpdateCleanAreaPlanParameter )
 		{
@@ -495,7 +497,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 		}
 
 		[Route( "GetCleanStaffInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetCleanStaffInfo( [FromBody] GetCleanStaffInfo GetCleanStaffInfoParameter )
 		{
@@ -514,7 +516,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "InsertCleanStaffInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertCleanStaffInfo( [FromBody] InsertCleanStaffInfo InsertCleanStaffInfoParameter )
 		{
@@ -533,7 +535,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteCleanStaffInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteCleanStaffInfo( [FromBody] DeleteCleanStaffInfo DeleteCleanStaffInfoParameter )
 		{
@@ -552,7 +554,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateCleanStaffInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateCleanStaffInfo( [FromBody] UpdateCleanStaffInfo UpdateCleanStaffInfoParameter )
 		{
@@ -572,7 +574,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 
 
 		[Route( "GetCleanAreaInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetCleanAreaInfo( [FromBody] GetCleanAreaInfo GetCleanAreaInfoParameter )
 		{
@@ -591,7 +593,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "InsertCleanAreaInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertCleanAreaInfo( [FromBody] InsertCleanAreaInfo InsertCleanAreaInfoParameter )
 		{
@@ -610,7 +612,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteCleanAreaInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteCleanAreaInfo( [FromBody] DeleteCleanAreaInfo DeleteCleanAreaInfoParameter )
 		{
@@ -629,7 +631,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateCleanAreaInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateCleanAreaInfo( [FromBody] UpdateCleanAreaInfo UpdateCleanAreaInfoParameter )
 		{
@@ -649,7 +651,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 
 
 		[Route( "GetMaintainRecordItemInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetMaintainRecordItemInfo( [FromBody] GetMaintainRecordItemInfo GetMaintainRecordItemInfoParameter )
 		{
@@ -668,7 +670,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "InsertMaintainRecordItem" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertMaintainRecordItem( [FromBody] InsertMaintainRecordItem InsertMaintainRecordItemParameter )
 		{
@@ -687,7 +689,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteMaintainRecordItem" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteMaintainRecordItem( [FromBody] DeleteMaintainRecordItem DeleteMaintainRecordItemParameter )
 		{
@@ -706,7 +708,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateMaintainRecordItemInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateMaintainRecordItemInfo( [FromBody] UpdateMaintainRecordItemInfo UpdateMaintainRecordItemInfoParameter )
 		{
@@ -725,7 +727,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 		}
 
 		[Route( "GetMaintainRecordTypeInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetMaintainRecordTypeInfo( [FromBody] GetMaintainRecordTypeInfo GetMaintainRecordTypeInfoParameter )
 		{
@@ -744,7 +746,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "InsertMaintainRecordType" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertMaintainRecordType( [FromBody] InsertMaintainRecordType InsertMaintainRecordTypeParameter )
 		{
@@ -763,7 +765,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteMaintainRecordType" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteMaintainRecordType( [FromBody] DeleteMaintainRecordType DeleteMaintainRecordTypeParameter )
 		{
@@ -782,7 +784,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateMaintainRecordTypeInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateMaintainRecordTypeInfo( [FromBody] UpdateMaintainRecordTypeInfo UpdateMaintainRecordTypeInfoParameter )
 		{
@@ -802,7 +804,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 
 
 		[Route( "GetMaintainRecordDetailList" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetMaintainRecordDetailList( [FromBody] GetMaintainRecordDetailList GetMaintainRecordDetailListParameter )
 		{
@@ -821,7 +823,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "InsertMaintainRecordDetailList" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertMaintainRecordDetailList( [FromBody] InsertMaintainRecordDetailList InsertMaintainRecordDetailListParameter )
 		{
@@ -840,7 +842,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteMaintainRecordDetailList" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteMaintainRecordDetailList( [FromBody] DeleteMaintainRecordDetailList DeleteMaintainRecordDetailListParameter )
 		{
@@ -859,7 +861,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateMaintainRecordDetailList" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateMaintainRecordDetailList( [FromBody] UpdateMaintainRecordDetailList UpdateMaintainRecordDetailListParameter )
 		{
@@ -878,7 +880,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.CleanMaintain
 		}
 
 		[Route( "InsertCleanCheckTable" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertCleanCheckTable( [FromBody] InsertCleanCheckTable InsertCleanCheckTableParameter )
 		{

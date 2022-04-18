@@ -5,6 +5,7 @@ using SyntecITWebAPI.Enums;
 using SyntecITWebAPI.Models.GAS.CarBooking;
 using SyntecITWebAPI.ParameterModels.GAS.CarBooking;
 using Newtonsoft.Json.Linq;
+using SyntecITWebAPI.Filter;
 
 namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 {
@@ -16,7 +17,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		#region Public Methods
 
 		[Route( "GetCarInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpGet]
 		public IActionResult GetCarInfo( )
@@ -36,7 +37,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "GetSpecificCarInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetSpecificCarInfo( [FromBody] GetSpecificCarInfo GetSpecificCarInfoParameter )
@@ -56,7 +57,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "UpdateSpecificCarMileInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateSpecificCarMileInfo( [FromBody] UpdateSpecificCarMileInfo UpdateSpecificCarMileInfoParameter )
 		{
@@ -76,7 +77,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "UpsertCarInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpsertCarInfo( [FromBody] UpsertCarInfo UpsertCarInfoParameter )
 		{
@@ -96,7 +97,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "DelCarInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DelCarInfo( [FromBody] DelCarInfo DelCarInfoParameter )
 		{
@@ -116,7 +117,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "GetCarTakeInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpGet]
 		public IActionResult GetCarTakeInfo(  )
@@ -136,7 +137,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "UpdateCarTakeInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateCarTakeInfo( [FromBody] UpdateCarTakeInfo UpdateCarTakeInfoParameter )
 		{
@@ -156,7 +157,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "GetCarBackInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpGet]
 		public IActionResult GetCarBackInfo(  )
@@ -175,7 +176,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetCarLastBackInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetCarLastBackInfo( [FromBody] GetCarLastBackInfo GetCarLastBackInfoParameter )
@@ -194,7 +195,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateCarBackInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateCarBackInfo( [FromBody] UpdateCarBackInfo UpdateCarBackInfoParameter )
 		{
@@ -215,7 +216,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 
 
 		[Route( "GetBlackListInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpGet]
 		public IActionResult GetBlackListInfo()
@@ -237,7 +238,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 
 
 		[Route( "InserBlackListInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InserBlackListInfo( [FromBody] InserBlackListInfo InserBlackListInfoParameter )
 		{
@@ -257,7 +258,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "BlacktoWhite" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult BlacktoWhite( [FromBody] BlacktoWhite BlacktoWhiteParameter )
 		{
@@ -278,7 +279,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 
 
 		[Route( "GetPreserveCar" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpGet]
 		public IActionResult GetPreserveCar()
@@ -298,7 +299,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "GetCarRepairFrequency" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpGet]
 		public IActionResult GetCarRepairFrequency()
@@ -318,7 +319,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "UpsertCarRepairFrequency" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpsertCarRepairFrequency( [FromBody] UpsertCarRepairFrequency UpsertCarRepairFrequencyParameter )
 		{
@@ -338,7 +339,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "DeleteCarRepairFrequency" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteCarRepairFrequency( [FromBody] DeleteCarRepairFrequency DeleteCarRepairFrequencyParameter )
 		{
@@ -358,7 +359,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "GetCarRepairRecord" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpGet]
 		public IActionResult GetCarRepairRecord()
@@ -378,7 +379,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "GetCarRepairCost" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpGet]
 		public IActionResult GetCarRepairCost()
@@ -398,7 +399,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "UpsertCarRepairRecord" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpsertCarRepairRecord( [FromBody] UpsertCarRepairRecord UpsertCarRepairRecordParameter )
 		{
@@ -418,7 +419,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "DelCarRepairRecord" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DelCarRepairRecord( [FromBody] DelCarRepairRecord DelCarRepairRecordParameter )
 		{
@@ -438,7 +439,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "GetCarFavoriteLink" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpGet]
 		public IActionResult GetCarFavoriteLink()
@@ -458,7 +459,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "UpsertCarFavoriteLink" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpsertCarFavoriteLink( [FromBody] UpsertCarFavoriteLink UpsertCarFavoriteLinkParameter )
 		{
@@ -478,7 +479,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "DelCarFavoriteLink" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DelCarFavoriteLink( [FromBody] DelCarFavoriteLink DelCarFavoriteLinkParameter )
 		{
@@ -498,7 +499,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "GetCarInsurance" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetCarInsurance( [FromBody] GetCarInsurance GetCarInsuranceParameter )
@@ -519,7 +520,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 
 
 		[Route( "GetCarInsuranceNameLast" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpGet]
 		public IActionResult GetCarInsuranceNameLast( )
@@ -538,7 +539,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetCarInsuranceSpecificTime" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetCarInsuranceSpecificTime( [FromBody] GetCarInsuranceSpecificTime GetCarInsuranceSpecificTimeParameter )
@@ -557,7 +558,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpsertCarInsurance" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpsertCarInsurance( [FromBody] UpsertCarInsurance UpsertCarInsuranceParameter )
 		{
@@ -577,7 +578,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "DelCarInsurance" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DelCarInsurance( [FromBody] DelCarInsurance DelCarInsuranceParameter )
 		{
@@ -597,7 +598,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "GetCarInsuranceName" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetCarInsuranceName( [FromBody] GetCarInsuranceName GetCarInsuranceNameParameter )
@@ -617,7 +618,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "UpsertCarInsuranceName" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpsertCarInsuranceName( [FromBody] UpsertCarInsuranceName UpsertCarInsuranceNameParameter )
 		{
@@ -637,7 +638,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "DelCarInsuranceName" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DelCarInsuranceName( [FromBody] DelCarInsuranceName DelCarInsuranceNameParameter )
 		{
@@ -656,7 +657,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetCarInsuranceType" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpGet]
 		public IActionResult GetCarInsuranceType()
@@ -676,7 +677,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "UpsertCarInsuranceType" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpsertCarInsuranceType( [FromBody] UpsertCarInsuranceType UpsertCarInsuranceTypeParameter )
 		{
@@ -696,7 +697,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "DelCarInsuranceType" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DelCarInsuranceType( [FromBody] DelCarInsuranceType DelCarInsuranceTypeParameter )
 		{
@@ -716,7 +717,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "GetBeenRentCarSpecTime" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetBeenRentCarSpecTime( [FromBody] GetBeenRentCarSpecTime GetBeenRentCarSpecTimeParameter )
@@ -736,7 +737,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "GetPersonalCarBookingRecord" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetPersonalCarBookingRecord( [FromBody] GetPersonalCarBookingRecord GetPersonalCarBookingRecordParameter )
@@ -756,7 +757,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "GetPrivatePriorityNumber" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetPrivatePriorityNumber( [FromBody] GetPrivatePriorityNumber GetPrivatePriorityNumberParameter )
@@ -775,7 +776,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "CheckInner14DaysHasPrivatDate" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult CheckInner14DaysHasPrivatDate( [FromBody] CheckInner14DaysHasPrivatDate CheckInner14DaysHasPrivatDateParameter )
@@ -794,7 +795,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "CheckPersonalBlockStatus" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult CheckPersonalBlockStatus( [FromBody] CheckPersonalBlockStatus CheckPersonalBlockStatusParameter )
@@ -814,7 +815,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "InsertReserveToCarBookingRecord" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertReserveToCarBookingRecord( [FromBody] InsertReserveToCarBookingRecord InsertReserveToCarBookingRecordParameter )
 		{
@@ -833,7 +834,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteCarBookingRecord" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteCarBookingRecord( [FromBody] DeleteCarBookingRecord DeleteCarBookingRecordParameter )
 		{
@@ -852,7 +853,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "GetCarBookingRecordID" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetCarBookingRecordID( [FromBody] GetCarBookingRecordID GetCarBookingRecordIDParameter )
@@ -872,7 +873,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "GetCarCheckFormByFormID" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetCarCheckFormByFormID( [FromBody] GetCarCheckFormByFormID GetCarCheckFormByFormIDParameter )
@@ -892,7 +893,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "GetCarCheckFormByCarNumber" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetCarCheckFormByCarNumber( [FromBody] GetCarCheckFormByCarNumber GetCarCheckFormByCarNumberParameter )
@@ -912,7 +913,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "InsertCheckForm" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertCheckForm( [FromBody] InsertCheckForm InsertCheckFormParameter )
 		{
@@ -930,7 +931,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteCheckForm" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteCheckForm( [FromBody] DeleteCheckForm DeleteCheckFormParameter )
 		{
@@ -949,7 +950,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "CheckCarInCompany" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult CheckCarInCompany( [FromBody] CheckCarInCompany CheckCarInCompanyParameter )

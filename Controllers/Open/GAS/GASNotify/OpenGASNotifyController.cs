@@ -5,6 +5,7 @@ using SyntecITWebAPI.Enums;
 using Newtonsoft.Json.Linq;
 using SyntecITWebAPI.ParameterModels.GAS.GASNotify;
 using System;
+using SyntecITWebAPI.Filter;
 
 using Syntec.Notifier;
 
@@ -18,7 +19,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GASNotify
 	{
 		#region Public Methods
 		[Route( "WeComGASNotify" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult WeComGASNotify( [FromBody] WeComGASNotify WeComGASNotifyParameter )
 		{

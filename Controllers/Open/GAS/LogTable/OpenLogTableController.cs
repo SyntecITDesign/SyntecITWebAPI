@@ -5,6 +5,7 @@ using SyntecITWebAPI.Enums;
 using SyntecITWebAPI.Models.GAS.LogTable;
 using SyntecITWebAPI.ParameterModels.GAS.LogTable;
 using Newtonsoft.Json.Linq;
+using SyntecITWebAPI.Filter;
 
 namespace SyntecITWebAPI.Controllers.Open.GAS.LogTable
 {
@@ -16,7 +17,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.LogTable
 		#region Public Methods
 
 		[Route( "InsertLogTable" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult InsertLogTable( [FromBody] InsertLogTable InsertLogTableParameter )

@@ -5,6 +5,7 @@ using SyntecITWebAPI.Enums;
 using SyntecITWebAPI.Models.GAS.Dorm;
 using SyntecITWebAPI.ParameterModels.GAS.Dorm;
 using Newtonsoft.Json.Linq;
+using SyntecITWebAPI.Filter;
 
 namespace SyntecITWebAPI.Controllers.Open.GAS.Dorm
 {
@@ -16,7 +17,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Dorm
 		#region Public Methods
 
 		[Route( "GetDormInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetDormInfo( [FromBody] GetDormInfo GetDormInfoParameter )

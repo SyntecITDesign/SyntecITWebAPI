@@ -16,7 +16,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 		#region Public Methods
 
 		[Route( "GetPersonalInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetPersonalInfo( [FromBody] GetPersonalInfo GetPersonalInfoParameter )
@@ -36,7 +36,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 		}
 
 		[Route( "GetFuzzyPersonalInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetFuzzyPersonalInfo( [FromBody] GetFuzzyPersonalInfo GetFuzzyPersonalInfoParameter )
@@ -56,7 +56,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 		}
 
 		[Route( "GetPersonalInfoByNameOrg" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetPersonalInfoByNameOrg( [FromBody] GetPersonalInfoByNameOrg GetPersonalInfoByNameOrgParameter )
@@ -76,7 +76,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 		}
 
 		[Route( "GetPersonalGASInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetPersonalGASInfo( [FromBody] GetPersonalGASInfo GetPersonalGASInfoParameter )
@@ -96,7 +96,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 		}
 
 		[Route( "UpsertPersonalGASInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpsertPersonalGASInfo( [FromBody] UpsertPersonalGASInfo UpsertPersonalGASInfoParameter )
 		{
@@ -116,7 +116,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 		}
 
 		[Route( "InsertFreshmanGASInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertFreshmanGASInfo( [FromBody] InsertFreshmanGASInfo InsertFreshmanGASInfoParameter )
 		{
@@ -136,7 +136,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 		}
 
 		[Route( "GetProcessingInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetProcessingInfo( [FromBody] GetProcessingInfo GetProcessingInfoParameter )
@@ -157,7 +157,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 
 
 		[Route( "GetParkingProcessingInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetParkingProcessingInfo( [FromBody] GetParkingProcessingInfo GetParkingProcessingInfoParameter )
@@ -177,7 +177,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 		}
 
 		[Route( "GetMeetingRoomProcessingInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetMeetingRoomProcessingInfo( [FromBody] GetMeetingRoomProcessingInfo GetMeetingRoomProcessingInfoParameter )
@@ -197,7 +197,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 		}
 
 		[Route( "GetGuestVisitProcessingInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetGuestVisitProcessingInfo( [FromBody] GetGuestVisitProcessingInfo GetGuestVisitProcessingInfoParameter )
@@ -217,7 +217,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 		}
 
 		[Route( "GetMealOrderInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetMealOrderInfo( [FromBody] GetMealOrderInfo GetMealOrderInfoParameter )
@@ -237,7 +237,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 		}
 
 		[Route( "GetUniformApplyInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetUniformApplyInfo( [FromBody] GetUniformApplyInfo GetUniformApplyInfoParameter )
@@ -257,7 +257,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 		}
 
 		[Route( "GetCarBookingInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetCarBookingInfo( [FromBody] GetCarBookingInfo GetCarBookingInfoParameter )
@@ -278,7 +278,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 
 
 		[Route( "GetDormInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetDormInfo( [FromBody] GetDormInfo GetDormInfoParameter )

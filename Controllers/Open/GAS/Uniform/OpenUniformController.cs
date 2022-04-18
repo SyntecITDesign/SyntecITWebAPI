@@ -5,6 +5,7 @@ using SyntecITWebAPI.Enums;
 using SyntecITWebAPI.Models.GAS.Uniform;
 using SyntecITWebAPI.ParameterModels.GAS.Uniform;
 using Newtonsoft.Json.Linq;
+using SyntecITWebAPI.Filter;
 
 namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 {
@@ -16,7 +17,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		#region Public Methods
 
 		[Route( "GetUniformSize" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetUniformSize([FromBody] GetUniformSize GetUniformSizeParameter )
@@ -36,7 +37,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 		}
 
 		[Route( "UpsertUniformSize" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpsertUniformSize( [FromBody] UpsertUniformSize UpsertUniformSizeParameter )
 		{

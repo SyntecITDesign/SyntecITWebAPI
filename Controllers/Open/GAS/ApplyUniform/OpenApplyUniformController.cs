@@ -5,6 +5,7 @@ using SyntecITWebAPI.Enums;
 using Newtonsoft.Json.Linq;
 using SyntecITWebAPI.ParameterModels.GAS.ApplyUniform;
 using SyntecITWebAPI.Models.GAS.ApplyUniform;
+using SyntecITWebAPI.Filter;
 
 
 
@@ -18,7 +19,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 		#region Public Methods
 
 		[Route("InsertUniformStyle")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertUniformStyle([FromBody] InsertUniformStyle InsertUniformStyleParameter)
 		{
@@ -39,7 +40,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 		
 		
 		[Route("DeleteUniformStyle")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteUniformStyle([FromBody] DeleteUniformStyle DeleteUniformStyleParameter)
 		{
@@ -58,7 +59,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("UpdateUniformStyleInfo")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateUniformStyleInfo( [FromBody] UpdateUniformStyleInfo UpdateUniformStyleInfoParameter)
 		{
@@ -77,7 +78,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("GetUniformStyleInfo")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetUniformStyleInfo([FromBody] GetUniformStyleInfo GetUniformStyleInfoParameter)
 		{
@@ -97,7 +98,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 		}
 
 		[Route( "UpsertUniformQuantityInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpsertUniformQuantityInfo( [FromBody] UpsertUniformQuantityInfo UpsertUniformQuantityInfoParameter )
 		{
@@ -116,7 +117,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteUniformQuantity" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteUniformQuantity( [FromBody] DeleteUniformQuantity DeleteUniformQuantityParameter )
 		{
@@ -135,7 +136,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetUniformQuantityInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetUniformQuantityInfo( [FromBody] GetUniformQuantityInfo GetUniformQuantityInfoParameter )
 		{
@@ -155,7 +156,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 		}
 
 		[Route( "InsertUniformOrder" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertUniformOrder( [FromBody] InsertUniformOrder InsertUniformOrderParameter )
 		{
@@ -174,7 +175,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "InsertUniformOrderDetail" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertUniformOrderListDetail( [FromBody] InsertUniformOrderListDetail InsertUniformOrderListDetailParameter )
 		{
@@ -194,7 +195,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 		}
 
 		[Route( "GetUniformOrderList")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetUniformOrderList( [FromBody] GetUniformOrderList GetUniformOrderListParameter )
 		{
@@ -214,7 +215,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 		}
 
 		[Route( "GetUniformOrderListDetail" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetUniformOrderListDetail( [FromBody] GetUniformOrderListDetail GetUniformOrderListDetailParameter )
 		{
@@ -234,7 +235,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 		}
 
 		[Route( "DeleteUniformOrder" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteUniformOrder( [FromBody] DeleteUniformOrder DeleteUniformOrderParameter )
 		{
@@ -254,7 +255,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 		}
 
 		[Route( "UpdateUniformOrder" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateUniformOrder( [FromBody] UpdateUniformOrder UpdateUniformOrderParameter )
 		{
@@ -274,7 +275,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 		}
 
 		[Route( "InsertUniformApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertUniformApplicationsMaster( [FromBody] InsertUniformApplicationsMaster InsertUniformApplicationsMasterParameter )
 		{
@@ -293,7 +294,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteUniformApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteUniformApplicationsMaster( [FromBody] DeleteUniformApplicationsMaster DeleteUniformApplicationsMasterParameter )
 		{
@@ -312,7 +313,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateUniformApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateUniformApplicationsMaster( [FromBody] UpdateUniformApplicationsMaster UpdateUniformApplicationsMasterParameter )
 		{
@@ -331,7 +332,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetUniformApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetUniformApplicationsMaster( [FromBody] GetUniformApplicationsMaster GetUniformApplicationsMasterParameter )
 		{
@@ -351,7 +352,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 		}
 
 		[Route( "UpdateCoatApplication" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateCoatApplication( [FromBody] UpdateCoatApplication UpdateCoatApplicationParameter )
 		{
@@ -372,7 +373,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 
 
 		[Route( "UpdateGAS_GAInfoMasterSize" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateGAS_GAInfoMasterSize( [FromBody] UpdateGAS_GAInfoMasterSize UpdateGAS_GAInfoMasterSizeParameter )
 		{

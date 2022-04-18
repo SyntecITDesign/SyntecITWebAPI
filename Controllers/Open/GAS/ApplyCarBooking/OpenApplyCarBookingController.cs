@@ -5,6 +5,7 @@ using SyntecITWebAPI.Enums;
 using SyntecITWebAPI.Models.GAS.ApplyCarBooking;
 using SyntecITWebAPI.ParameterModels.GAS.ApplyCarBooking;
 using Newtonsoft.Json.Linq;
+using SyntecITWebAPI.Filter;
 
 namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyCarBooking
 {
@@ -16,7 +17,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyCarBooking
 		#region Public Methods
 
 		[Route( "GetCarBookingApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetCarBookingApplicationsMaster( [FromBody] GetCarBookingApplicationsMaster GetCarBookingApplicationsMasterParameter )
@@ -36,7 +37,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyCarBooking
 		}
 
 		[Route( "InsertCarBookingApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertCarBookingApplicationsMaster( [FromBody] InsertCarBookingApplicationsMaster InsertCarBookingApplicationsMasterParameter )
 		{
@@ -56,7 +57,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyCarBooking
 		}
 
 		[Route( "DeleteCarBookingApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteCarBookingApplicationsMaster( [FromBody] DeleteCarBookingApplicationsMaster DeleteCarBookingApplicationsMasterParameter )
 		{

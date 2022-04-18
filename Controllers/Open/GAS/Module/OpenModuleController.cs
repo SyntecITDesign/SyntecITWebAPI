@@ -5,6 +5,8 @@ using SyntecITWebAPI.Enums;
 using Newtonsoft.Json.Linq;
 using SyntecITWebAPI.ParameterModels.GAS.Module;
 using SyntecITWebAPI.Models.GAS.Module;
+using SyntecITWebAPI.Filter;
+
 namespace SyntecITWebAPI.Controllers.Open.GAS.Module
 {
 	[EnableCors("AllowAllPolicy")]
@@ -15,7 +17,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Module
 		#region Public Methods
 
 		[Route("InsertFeatures")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertPersonData([FromBody] InsertFeatures InsertFeaturesParameter)
 		{
@@ -35,7 +37,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Module
 		}
 
 		[Route("DeleteFeatures")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteFeatures([FromBody] DeleteFeatures DeleteFeaturesParameter)
 		{
@@ -56,7 +58,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Module
 
 
 		[Route("UpdateFeatures")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateFeatures([FromBody] UpdateFeatures UpdateFeaturesParameter)
 		{
@@ -76,7 +78,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Module
 		}
 
 		[Route("GetFeatures1")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetFeatures1([FromBody] GetFeatures1 GetFeatures1Parameter)
 		{
@@ -96,7 +98,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Module
 		}
 
 		[Route("GetFeatures2")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetFeatures2([FromBody] GetFeatures2 GetFeatures2Parameter)
 		{

@@ -5,6 +5,8 @@ using SyntecITWebAPI.Enums;
 using Newtonsoft.Json.Linq;
 using SyntecITWebAPI.ParameterModels.GAS.AssetManagement;
 using SyntecITWebAPI.Models.GAS.AssetManagement;
+using SyntecITWebAPI.Filter;
+
 namespace SyntecITWebAPI.Controllers.Open.GAS.AssetManagement
 {
 	[EnableCors("AllowAllPolicy")]
@@ -15,7 +17,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.AssetManagement
 		#region Public Methods
 
 		[Route("InsertAssetInfo")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertAssetInfo([FromBody] InsertAssetInfo InsertAssetInfoParameter)
 		{
@@ -34,7 +36,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.AssetManagement
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("DeleteAssetInfo")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteAssetInfo([FromBody] DeleteAssetInfo DeleteAssetInfoParameter)
 		{
@@ -53,7 +55,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.AssetManagement
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("UpdateAssetInfo")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateAssetInfo( [FromBody] UpdateAssetInfo UpdateAssetInfoParameter)
 		{
@@ -72,7 +74,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.AssetManagement
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("GetAssetInfo")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetAssetInfo([FromBody] GetAssetInfo GetAssetInfoParameter)
 		{
@@ -93,7 +95,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.AssetManagement
 
 
 		[Route( "InsertAssetSpecList" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertAssetSpecList( [FromBody] InsertAssetSpecList InsertAssetSpecListParameter )
 		{
@@ -112,7 +114,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.AssetManagement
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteAssetSpecList" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteAssetSpecList( [FromBody] DeleteAssetSpecList DeleteAssetSpecListParameter )
 		{
@@ -131,7 +133,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.AssetManagement
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateAssetSpecList" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateAssetSpecList( [FromBody] UpdateAssetSpecList UpdateAssetSpecListParameter )
 		{
@@ -150,7 +152,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.AssetManagement
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetAssetSpecList" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetAssetSpecList( [FromBody] GetAssetSpecList GetAssetSpecListParameter )
 		{
@@ -170,7 +172,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.AssetManagement
 		}
 
 		[Route( "InsertAssetInventory" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertAssetInventory( [FromBody] InsertAssetInventory InsertAssetInventoryParameter )
 		{
@@ -189,7 +191,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.AssetManagement
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteAssetInventory" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteAssetInventory( [FromBody] DeleteAssetInventory DeleteAssetInventoryParameter )
 		{
@@ -208,7 +210,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.AssetManagement
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateAssetInventory" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateAssetInventory( [FromBody] UpdateAssetInventory UpdateAssetInventoryParameter )
 		{
@@ -227,7 +229,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.AssetManagement
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetAssetInventory" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetAssetInventory( [FromBody] GetAssetInventory GetAssetInventoryParameter )
 		{

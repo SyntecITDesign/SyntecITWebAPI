@@ -5,6 +5,7 @@ using SyntecITWebAPI.Enums;
 using SyntecITWebAPI.Models.GAS.Stationery;
 using SyntecITWebAPI.ParameterModels.GAS.Stationery;
 using Newtonsoft.Json.Linq;
+using SyntecITWebAPI.Filter;
 
 namespace SyntecITWebAPI.Controllers.Open.GAS.Stationery
 {
@@ -16,7 +17,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Stationery
 		#region Public Methods
 
 		[Route("GetStationeryQuantity")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpGet]
 		public IActionResult GetStationeryQuantity()
@@ -35,7 +36,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Stationery
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("UpsertStationeryQuantity")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpsertStationeryQuantity([FromBody] UpsertStationeryQuantity UpsertStationeryQuantityParameter)
 		{
@@ -54,7 +55,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Stationery
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("DeleteStationery")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteStationery([FromBody] DeleteStationery DeleteStationeryParameter)
 		{
@@ -77,7 +78,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Stationery
 
 
 		[Route( "GetStationeryApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetStationeryApplicationsMaster( [FromBody] GetStationeryApplicationsMaster GetStationeryApplicationsMasterParameter )
 		{
@@ -96,7 +97,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Stationery
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "InsertStationeryApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertStationeryApplicationsMaster( [FromBody] InsertStationeryApplicationsMaster InsertStationeryApplicationsMasterParameter )
 		{
@@ -115,7 +116,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Stationery
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateStationeryApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateStationeryApplicationsMaster( [FromBody] UpdateStationeryApplicationsMaster UpdateStationeryApplicationsMasterParameter )
 		{
@@ -134,7 +135,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Stationery
 		}
 
 		[Route( "GetStationeryApplicationsDetail" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetStationeryApplicationsDetail( [FromBody] GetStationeryApplicationsDetail GetStationeryApplicationsDetailParameter )
 		{
@@ -154,7 +155,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Stationery
 		}
 		
 		[Route( "InsertStationeryApplicationsDetail" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertStationeryApplicationsDetail( [FromBody] InsertStationeryApplicationsDetail InsertStationeryApplicationsDetailParameter )
 		{
@@ -173,7 +174,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Stationery
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateStationeryApplicationsDetail" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateStationeryApplicationsDetail( [FromBody] UpdateStationeryApplicationsDetail UpdateStationeryApplicationsDetailParameter )
 		{
@@ -191,7 +192,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Stationery
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteStationeryApplicationsDetail" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteStationeryApplicationsDetail( [FromBody] DeleteStationeryApplicationsDetail DeleteStationeryApplicationsDetailParameter )
 		{
@@ -212,7 +213,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Stationery
 
 
 		[Route( "GetStationeryApplicationsDept" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpGet]
 		public IActionResult GetStationeryApplicationsDept()

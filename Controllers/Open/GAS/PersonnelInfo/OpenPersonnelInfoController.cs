@@ -20,7 +20,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonnelInfo
 		#region Public Methods
 
 		[Route("InsertPersonData")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertPersonData([FromBody] InsertPersonData InsertPersonDataParameter)
 		{
@@ -40,7 +40,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonnelInfo
 		}
 
 		[Route("DeletePersonData")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeletePersonData([FromBody] DeletePersonData DeletePersonDataParameter)
 		{
@@ -61,7 +61,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonnelInfo
 
 
 		[Route("UpdatePersonDept")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdatePersonDept([FromBody] UpdatePersonDept UpdatePersonDeptParameter)
 		{
@@ -81,7 +81,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonnelInfo
 		}
 
 		[Route("GetPersonDept")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetPersonDept([FromBody] GetPersonDept GetPersonDeptParameter)
 		{
@@ -101,7 +101,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonnelInfo
 		}
 
 		[Route("GetQuantity")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetQuantity([FromBody] GetQuantity GetQuantityParameter)
 		{

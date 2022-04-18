@@ -5,6 +5,7 @@ using SyntecITWebAPI.Enums;
 using SyntecITWebAPI.Models.GAS.WorkCalendar;
 using SyntecITWebAPI.ParameterModels.GAS.WorkCalendar;
 using Newtonsoft.Json.Linq;
+using SyntecITWebAPI.Filter;
 
 namespace SyntecITWebAPI.Controllers.Open.GAS.WorkCalendar
 {
@@ -16,7 +17,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.WorkCalendar
 		#region Public Methods
 
 		[Route( "GetWorkDayInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetWorkDayInfo( [FromBody] GetWorkDayInfo GetWorkDayInfoParameter )

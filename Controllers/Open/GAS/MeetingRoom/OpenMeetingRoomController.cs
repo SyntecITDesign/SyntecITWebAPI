@@ -5,6 +5,7 @@ using SyntecITWebAPI.Enums;
 using SyntecITWebAPI.Models.GAS.MeetingRoom;
 using SyntecITWebAPI.ParameterModels.GAS.MeetingRoom;
 using Newtonsoft.Json.Linq;
+using SyntecITWebAPI.Filter;
 
 namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
 {
@@ -16,7 +17,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
 		#region Public Methods
 
 		[Route( "GetMeetingRoom" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpGet]
 		public IActionResult GetMeetingRoom()
@@ -36,7 +37,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
 		}
 
 		[Route( "UpsertMeetingRoom" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpsertMeetingRoom( [FromBody] UpsertMeetingRoom UpsertMeetingRoomParameter )
 		{
@@ -56,7 +57,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
 		}
 
 		[Route( "DeleteMeetingRoom" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteMeetingRoom( [FromBody] DeleteMeetingRoom DeleteMeetingRoomParameter )
 		{
@@ -76,7 +77,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
 		}
 
 		[Route( "InsertMeetingRoomApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertMeetingRoomApplicationsMaster( [FromBody] InsertMeetingRoomApplicationsMaster InsertMeetingRoomApplicationsMasterParameter )
 		{
@@ -95,7 +96,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteMeetingRoomApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteMeetingRoomApplicationsMaster( [FromBody] DeleteMeetingRoomApplicationsMaster DeleteMeetingRoomApplicationsMasterParameter )
 		{
@@ -114,7 +115,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateMeetingRoomApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateMeetingRoomApplicationsMaster( [FromBody] UpdateMeetingRoomApplicationsMaster UpdateMeetingRoomApplicationsMasterParameter )
 		{
@@ -133,7 +134,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetMeetingRoomApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetMeetingRoomApplicationsMaster( [FromBody] GetMeetingRoomApplicationsMaster GetMeetingRoomApplicationsMasterParameter )
 		{
@@ -152,7 +153,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "InsertMRBS" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertMRBS( [FromBody] InsertMRBS InsertMRBSParameter )
 		{
@@ -171,7 +172,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteMRBS" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteMRBS( [FromBody] DeleteMRBS DeleteMRBSParameter )
 		{
@@ -190,7 +191,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetMRBS" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetMRBS( [FromBody] GetMRBS GetMRBSParameter )
 		{
@@ -210,7 +211,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
 		}
 
 		[Route( "UpdateMRBS" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateMRBS( [FromBody] UpdateMRBS UpdateMRBSParameter )
 		{
@@ -230,7 +231,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
 		}
 
 		[Route( "GetUsingMeetingRoom" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetUsingMeetingRoom( [FromBody] GetUsingMeetingRoom GetUsingMeetingRoomParameter )
 		{

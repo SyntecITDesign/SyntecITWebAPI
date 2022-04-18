@@ -5,6 +5,7 @@ using SyntecITWebAPI.Enums;
 using SyntecITWebAPI.Models.GAS.Parking;
 using SyntecITWebAPI.ParameterModels.GAS.Parking;
 using Newtonsoft.Json.Linq;
+using SyntecITWebAPI.Filter;
 
 namespace SyntecITWebAPI.Controllers.Open.GAS.Parking
 {
@@ -16,7 +17,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Parking
 		#region Public Methods
 
 		[Route( "GetParkingInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetParkingInfo( [FromBody] GetParkingInfo GetParkingInfoParameter )
@@ -36,7 +37,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Parking
 		}
 
 		[Route( "UpsertParkingInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpsertParkingInfo( [FromBody] UpsertParkingInfo UpsertParkingInfoParameter )
 		{

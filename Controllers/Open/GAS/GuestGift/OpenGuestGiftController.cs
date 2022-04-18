@@ -5,6 +5,8 @@ using SyntecITWebAPI.Enums;
 using Newtonsoft.Json.Linq;
 using SyntecITWebAPI.ParameterModels.GAS.GuestGift;
 using SyntecITWebAPI.Models.GAS.GuestGift;
+using SyntecITWebAPI.Filter;
+
 namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 {
 	[EnableCors( "AllowAllPolicy" )]
@@ -15,7 +17,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 		#region Public Methods
 
 		[Route( "InsertGuestGiftType" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertGuestGiftType( [FromBody] InsertGuestGiftType InsertGuestGiftTypeParameter )
 		{
@@ -34,7 +36,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteGuestGiftType" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteGuestGiftType( [FromBody] DeleteGuestGiftType DeleteGuestGiftTypeParameter )
 		{
@@ -53,7 +55,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateGuestGiftTypeInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateGuestGiftTypeInfo( [FromBody] UpdateGuestGiftTypeInfo UpdateGuestGiftTypeInfoParameter )
 		{
@@ -72,7 +74,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetGuestGiftTypeInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetGuestGiftTypeInfo( [FromBody] GetGuestGiftTypeInfo GetGuestGiftTypeInfoParameter )
 		{
@@ -92,7 +94,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 		}
 
 		[Route( "UpsertGuestGiftQuantityInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpsertGuestGiftQuantityInfo( [FromBody] UpsertGuestGiftQuantityInfo UpsertGuestGiftQuantityInfoParameter )
 		{
@@ -111,7 +113,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteGuestGiftQuantity" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteGuestGiftQuantity( [FromBody] DeleteGuestGiftQuantity DeleteGuestGiftQuantityParameter )
 		{
@@ -130,7 +132,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetGuestGiftQuantityInfo" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetGuestGiftQuantityInfo( [FromBody] GetGuestGiftQuantityInfo GetGuestGiftQuantityInfoParameter )
 		{
@@ -150,7 +152,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 		}
 
 		[Route( "InsertGuestGiftOrder" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertGuestGiftOrder( [FromBody] InsertGuestGiftOrder InsertGuestGiftOrderParameter )
 		{
@@ -169,7 +171,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetGuestGiftOrderList" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetGuestGiftOrderList( [FromBody] GetGuestGiftOrderList GetGuestGiftOrderListParameter )
 		{
@@ -188,7 +190,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteGuestGiftOrder" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteGuestGiftOrder( [FromBody] DeleteGuestGiftOrder DeleteGuestGiftOrderParameter )
 		{
@@ -207,7 +209,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateGuestGiftOrder" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateGuestGiftOrder( [FromBody] UpdateGuestGiftOrder UpdateGuestGiftOrderParameter )
 		{
@@ -227,7 +229,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 		}
 
 		[Route( "InsertGuestGiftOrderDetail" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertGuestGiftOrderListDetail( [FromBody] InsertGuestGiftOrderListDetail InsertGuestGiftOrderListDetailParameter )
 		{
@@ -246,7 +248,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetGuestGiftOrderListDetail" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetGuestGiftOrderListDetail( [FromBody] GetGuestGiftOrderListDetail GetGuestGiftOrderListDetailParameter )
 		{
@@ -266,7 +268,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 		}
 
 		[Route( "InsertGuestReceptionApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertGuestReceptionApplicationsMaster( [FromBody] InsertGuestReceptionApplicationsMaster InsertGuestReceptionApplicationsMasterParameter )
 		{
@@ -286,7 +288,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 		}
 
 		[Route( "GetGuestReceptionApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetGuestReceptionApplicationsMaster( [FromBody] GetGuestReceptionApplicationsMaster GetGuestReceptionApplicationsMasterParameter )
 		{
@@ -306,7 +308,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 		}
 
 		[Route( "UpdateGuestReceptionApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateGuestReceptionApplicationsMaster( [FromBody] UpdateGuestReceptionApplicationsMaster UpdateGuestReceptionApplicationsMasterParameter )
 		{

@@ -5,6 +5,7 @@ using SyntecITWebAPI.Enums;
 using SyntecITWebAPI.Models.GAS.ApplyDorm;
 using SyntecITWebAPI.ParameterModels.GAS.ApplyDorm;
 using Newtonsoft.Json.Linq;
+using SyntecITWebAPI.Filter;
 
 namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyDorm
 {
@@ -16,7 +17,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyDorm
 		#region Public Methods
 
 		[Route( "GetEmpDormStatusData" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetEmpDormStatusData( [FromBody] GetEmpDormStatusData GetEmpDormStatusDataParameter )
@@ -36,7 +37,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyDorm
 		}
 
 		[Route( "InsertDormApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertDormApplicationsMaster( [FromBody] InsertDormApplicationsMaster InsertDormApplicationsMasterParameter )
 		{

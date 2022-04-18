@@ -5,6 +5,7 @@ using SyntecITWebAPI.Enums;
 using SyntecITWebAPI.Models.GAS.ModuleAccess;
 using SyntecITWebAPI.ParameterModels.GAS.ModuleAccess;
 using Newtonsoft.Json.Linq;
+using SyntecITWebAPI.Filter;
 
 namespace SyntecITWebAPI.Controllers.Open.GAS.ModuleAccess
 {
@@ -18,7 +19,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ModuleAccess
 		
 		
 		[Route( "GetModuleAccess" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetModuleAccess( [FromBody] GetModuleAccess GetModuleAccessParameter)
 		{

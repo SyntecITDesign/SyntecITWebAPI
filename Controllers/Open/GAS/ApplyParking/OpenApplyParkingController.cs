@@ -5,6 +5,8 @@ using SyntecITWebAPI.Enums;
 using Newtonsoft.Json.Linq;
 using SyntecITWebAPI.ParameterModels.GAS.ApplyParking;
 using SyntecITWebAPI.Models.GAS.ApplyParking;
+using SyntecITWebAPI.Filter;
+
 namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyParking
 {
 	[EnableCors("AllowAllPolicy")]
@@ -15,7 +17,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyParking
 		#region Public Methods
 
 		[Route( "UpdateParkingSpaceStatusMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateParkingSpaceStatusMaster( [FromBody] UpdateParkingSpaceStatusMaster UpdateParkingSpaceStatusMasterParameter )
 		{
@@ -34,7 +36,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyParking
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetParkingSpaceStatusMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetParkingSpaceStatusMaster( [FromBody] GetParkingSpaceStatusMaster GetParkingSpaceStatusMasterParameter )
 		{
@@ -54,7 +56,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyParking
 		}
 
 		[Route( "UpdateParkingSpaceApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateParkingSpaceApplicationsMaster( [FromBody] UpdateParkingSpaceApplicationsMaster UpdateParkingSpaceApplicationsMasterParameter )
 		{
@@ -73,7 +75,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyParking
 		}
 
 		[Route( "GetParkingSpaceApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetParkingSpaceApplicationsMaster( [FromBody] GetParkingSpaceApplicationsMaster GetParkingSpaceApplicationsMasterParameter )
 		{
@@ -92,7 +94,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyParking
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "InsertParkingSpaceApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertParkingSpaceApplicationsMaster( [FromBody] InsertParkingSpaceApplicationsMaster InsertParkingSpaceApplicationsMasterParameter )
 		{

@@ -5,6 +5,7 @@ using SyntecITWebAPI.Enums;
 using SyntecITWebAPI.Models.GAS.StationBooking;
 using SyntecITWebAPI.ParameterModels.GAS.StationBooking;
 using Newtonsoft.Json.Linq;
+using SyntecITWebAPI.Filter;
 
 namespace SyntecITWebAPI.Controllers.Open.GAS.StationBooking
 {
@@ -17,7 +18,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.StationBooking
 
 		
 		[Route( "InsertStationApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertStationApplicationsMaster( [FromBody] InsertStationApplicationsMaster InsertStationApplicationsMasterParameter )
 		{
@@ -36,7 +37,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.StationBooking
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteStationApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteStationApplicationsMaster( [FromBody] DeleteStationApplicationsMaster DeleteStationApplicationsMasterParameter )
 		{
@@ -55,7 +56,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.StationBooking
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateStationApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateStationApplicationsMaster( [FromBody] UpdateStationApplicationsMaster UpdateStationApplicationsMasterParameter )
 		{
@@ -74,7 +75,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.StationBooking
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetStationApplicationsMaster" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetStationApplicationsMaster( [FromBody] GetStationApplicationsMaster GetStationApplicationsMasterParameter )
 		{
@@ -94,7 +95,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.StationBooking
 		}
 
 		[Route( "GetUsingStation" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetUsingMeetingRoom( [FromBody] GetUsingStation GetUsingStationParameter )
 		{

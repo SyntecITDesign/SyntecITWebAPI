@@ -5,6 +5,8 @@ using SyntecITWebAPI.Enums;
 using Newtonsoft.Json.Linq;
 using SyntecITWebAPI.ParameterModels.GAS.Homepage;
 using SyntecITWebAPI.Models.GAS.Homepage;
+using SyntecITWebAPI.Filter;
+
 namespace SyntecITWebAPI.Controllers.Open.GAS.Homepage
 {
 	[EnableCors("AllowAllPolicy")]
@@ -15,7 +17,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Homepage
 		#region Public Methods
 
 		[Route("InsertHomepageAlertEvents")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertHomepageAlertEvents( [FromBody] InsertHomepageAlertEvents InsertHomepageAlertEventsParameter)
 		{
@@ -34,7 +36,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Homepage
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("DeleteHomepageAlertEvents")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteHomepageAlertEvents([FromBody] DeleteHomepageAlertEvents DeleteHomepageAlertEventsParameter)
 		{
@@ -53,7 +55,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Homepage
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("UpdateHomepageAlertEvents")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateHomepageAlertEvents([FromBody] UpdateHomepageAlertEvents UpdateHomepageAlertEventsParameter)
 		{
@@ -72,7 +74,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Homepage
 			return Ok(m_responseHandler.GetResult());
 		}
 		[Route("GetHomepageAlertEvents")]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetHomepageAlertEvents([FromBody] GetHomepageAlertEvents GetHomepageAlertEventsParameter)
 		{
@@ -93,7 +95,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Homepage
 		
 		
 		[Route( "InsertHomepageFinishEvents" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertHomepageFinishEvents( [FromBody] InsertHomepageFinishEvents InsertHomepageFinishEventsParameter )
 		{
@@ -112,7 +114,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Homepage
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "DeleteHomepageFinishEvents" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult DeleteHomepageFinishEvents( [FromBody] DeleteHomepageFinishEvents DeleteHomepageFinishEventsParameter )
 		{
@@ -131,7 +133,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Homepage
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "UpdateHomepageFinishEvents" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult UpdateHomepageFinishEvents( [FromBody] UpdateHomepageFinishEvents UpdateHomepageFinishEventsParameter )
 		{
@@ -150,7 +152,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Homepage
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetHomepageFinishEvents" )]
-		//[CheckTokenFilter]
+		[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetHomepageFinishEvents( [FromBody] GetHomepageFinishEvents GetHomepageFinishEventsParameter )
 		{
