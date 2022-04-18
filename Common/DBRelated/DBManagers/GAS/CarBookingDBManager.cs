@@ -851,11 +851,11 @@ WHERE [CarInsuranceName].[Type] = @Parameter0";
 							INSERT INTO  [{m_gas}].[dbo].[CarBookingRecord] 
 							([Name],[EmpID],[Type],[Title],[StartLocation],[EndLocation],[PreserveStartTime],[PreserveEndTime],[PriorityNumber],[ID])
 							VALUES((SELECT TOP(1) [EmpName] FROM [syntecbarcode].[dbo].[TEMP_NAME] WHERE [EmpID]=@Parameter0),@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter6,@Parameter7,
-							(SELECT MAX([PriorityNumber]) as  MAXPriorityNumber FROM ( Select * FROM [{m_gas}].[dbo].[CarBookingRecord] WHERE Type='private' 
+							(SELECT case when MAX([PriorityNumber]) IS NULL then '0' else MAX([PriorityNumber])+1 end as  MAXPriorityNumber FROM ( Select * FROM [{m_gas}].[dbo].[CarBookingRecord] WHERE Type='private' 
 							and ( CONVERT(datetime,@Parameter6,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
 							OR CONVERT(datetime,@Parameter7,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
 							OR CONVERT(datetime,PreserveStartTime,120)  BETWEEN CONVERT(datetime,@Parameter6,120) AND CONVERT(datetime,@Parameter7,120) 
-							OR CONVERT(datetime,PreserveEndTime,120) BETWEEN CONVERT(datetime,@Parameter6,120) AND CONVERT(datetime, @Parameter7 ,120)) )AA	)+1
+							OR CONVERT(datetime,PreserveEndTime,120) BETWEEN CONVERT(datetime,@Parameter6,120) AND CONVERT(datetime, @Parameter7 ,120)) )AA	)
 							,(SELECT MAX(ID)+1 FROM [{m_gas}].[dbo].[CarBookingRecord]))";
 
 			List<object> SQLParameterList = new List<object>()
