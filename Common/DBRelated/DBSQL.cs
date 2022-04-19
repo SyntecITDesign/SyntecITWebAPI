@@ -367,18 +367,6 @@ namespace SyntecITWebAPI.Common.DBRelated
 			}
 		}
 
-		public string UpsertExceptionLog
-		{
-			get
-			{
-				return $@"IF EXISTS (SELECT * FROM [{m_crm}].[dbo].SynService_ExceptionLog WHERE serial_number=@Parameter0 and exception_type_id = @Parameter1 and [time] = @Parameter3)
-							UPDATE [{m_crm}].[dbo].SynService_ExceptionLog SET [version]=@Parameter2,[exception_info]=@Parameter4,[physical_memory]=@Parameter5,[diskA_space]=@Parameter6,[diskC_space]=@Parameter7, [modi_date]=DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() ))
-							WHERE serial_number=@Parameter0 and exception_type_id = @Parameter1 and [time] = @Parameter3
-						ELSE
-						INSERT INTO [{m_crm}].[dbo].SynService_ExceptionLog ([serial_number],[exception_type_id],[version],[time],[exception_info],[physical_memory],[diskA_space],[diskC_space],[cons_date],[modi_date]) 
-						VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6, @Parameter7, DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))  ";
-			}
-		}
 
 		public string UpsertUnStableIndex
 		{
@@ -534,11 +522,19 @@ namespace SyntecITWebAPI.Common.DBRelated
 		public string InsertWXMessage
 		{
 			get {
-				return $@"INSERT INTO [{m_syntecbbs}].[dbo].[SendWX] (SendOpenid,Title,ContentBody,CreatDate,CurrentStatus,SourcePlatform,
+				return $@"INSERT INTO [{m_messagenotice}].[dbo].[SendWX] (SendOpenid,Title,ContentBody,CreatDate,CurrentStatus,SourcePlatform,
                                                 MasterID,MasterType,keyword1,keyword2,keyword3,keyword4,keyword5,URL,KeyWords,FlowStatus)
                                                 VALUES
                                                 (@Parameter0,@Parameter1,@Parameter2,GETDATE(),N'0',@Parameter4,
                                                 @Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9,@Parameter10,@Parameter11,@Parameter12,@Parameter3,@Parameter13)";
+			}
+		}
+
+		public string UpsertExceptionLog
+		{
+			get {
+				return $@"INSERT INTO [{m_crm}].[dbo].SynService_ExceptionLog ([serial_number],[type],[sub_type],[version],[time],[exception_info],[physical_memory],[diskA_space],[diskC_space],[cons_date],[modi_date]) 
+						VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6, @Parameter7, @Parameter8,DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))  ";
 			}
 		}
 
@@ -575,6 +571,7 @@ namespace SyntecITWebAPI.Common.DBRelated
 		private string m_gas;
 		private string m_syntecbbs;
 		private string m_dwh;
+		private string m_messagenotice;
 
 
 		#endregion Private Fields
@@ -596,6 +593,7 @@ namespace SyntecITWebAPI.Common.DBRelated
 			m_gas = configuration["gas"].Trim();
 			m_syntecbbs = configuration["SyntecBBS"].Trim();
 			m_dwh = configuration[ "dwh" ].Trim();
+			m_messagenotice = configuration["MessageNotice"].Trim();
 		}
 
 		#endregion Private Constructors + Destructors

@@ -130,64 +130,6 @@ namespace SyntecITWebAPI.ParameterModels.CRM
 
 	}
 
-	public class SynService_ExceptionLog
-	{
-		#region Public Properties
-
-		public string serial_number
-		{
-			get; set;
-		}
-
-		public int exception_type_id
-		{
-			get; set;
-		}
-
-		public string version
-		{
-			get; set;
-		}
-
-		public long time
-		{
-			get; set;
-		}
-
-		public string exception_info
-		{
-			get; set;
-		}
-
-		public long physical_memory
-		{
-			get; set;
-		}
-
-		public long diskA_space
-		{
-			get; set;
-		}
-
-		public long diskC_space
-		{
-			get; set;
-		}
-
-		public long cons_date
-		{
-			get; set;
-		}
-
-		public long modi_date
-		{
-			get; set;
-		}
-
-
-		#endregion Public Properties
-
-	}
 
 	public class SynService_UnStableIndex
 	{
@@ -840,6 +782,70 @@ namespace SyntecITWebAPI.ParameterModels.CRM
 
 	}
 
+	public class SynService_ExceptionLog
+	{
+		#region Public Properties
+
+		public string serial_number
+		{
+			get; set;
+		}
+
+		public int type
+		{
+			get; set;
+		}
+
+		public int sub_type
+		{
+			get; set;
+		}
+
+		public string version
+		{
+			get; set;
+		}
+
+		public long time
+		{
+			get; set;
+		}
+
+		public string exception_info
+		{
+			get; set;
+		}
+
+		public long physical_memory
+		{
+			get; set;
+		}
+
+		public long diskA_space
+		{
+			get; set;
+		}
+
+		public long diskC_space
+		{
+			get; set;
+		}
+
+		public long cons_date
+		{
+			get; set;
+		}
+
+		public long modi_date
+		{
+			get; set;
+		}
+
+
+		#endregion Public Properties
+
+	}
+
 	public class Fields
 	{
 		public string customfield_13340
@@ -895,4 +901,5 @@ namespace SyntecITWebAPI.ParameterModels.CRM
 			get; set;
 		}
 	}
+
 }

@@ -99,26 +99,6 @@ namespace SyntecITWebAPI.Open.User
 
 			return Ok(m_responseHandler.GetResult());
 		}
-		
-		[Route("UpsertExceptionLog")]
-		[CheckTokenFilter]
-		[HttpPost]
-		public IActionResult UpsertExceptionLog([FromBody] SynService_ExceptionLog SynService_ExceptionLogParameter)
-		{
-
-			bool bResult = m_publicCRMHandler.UpsertExceptionLog(SynService_ExceptionLogParameter);
-
-			if (!bResult)
-			{
-				m_responseHandler.Code = ErrorCodeList.Param_Error;
-			}
-			else
-			{
-				m_responseHandler.Content = "true";
-			}
-
-			return Ok(m_responseHandler.GetResult());
-		}
 
 		[Route("UpsertUnStableIndex")]
 		[CheckTokenFilter]
@@ -381,6 +361,37 @@ namespace SyntecITWebAPI.Open.User
 				{
 					//m_responseHandler.Code = ErrorCodeList.Param_Error;
 					errorList += SynService_AlarmRecordDataParameter.serial_number + ",";
+				}
+			}
+
+			if(errorList != "")
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+				m_responseHandler.Content = errorList;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+
+
+		[Route( "UpsertExceptionLog" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertExceptionLog( [FromBody] List<SynService_ExceptionLog> SynService_ExceptionLogParameterList )
+		{
+			string errorList = "";
+			foreach(var SynService_ExceptionLogParameter in SynService_ExceptionLogParameterList)
+			{
+				bool bResult = m_publicCRMHandler.UpsertExceptionLog( SynService_ExceptionLogParameter );
+				if(!bResult)
+				{
+					//m_responseHandler.Code = ErrorCodeList.Param_Error;
+					errorList += SynService_ExceptionLogParameter.serial_number + ",";
 				}
 			}
 

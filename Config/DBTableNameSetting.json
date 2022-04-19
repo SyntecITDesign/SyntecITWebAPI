@@ -7,5 +7,6 @@
   "gas": "SyntecGAS_test",
   "syntecbbs": "SyntecBBS",
   "bpm": "BPMPro_QAS",
-  "dwh":  "dwh"
+  "dwh": "dwh",
+  "MessageNotice": "MessageNotice"
 }

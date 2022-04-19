@@ -104,23 +104,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			return bResult;
 		}
 
-		internal bool UpsertExceptionLog(SynService_ExceptionLog SynService_ExceptionLogParameter)
-		{
-			string sql = m_dbSQL.UpsertExceptionLog;
-			List<object> SQLParameterList = new List<object>()
-			{
-				SynService_ExceptionLogParameter.serial_number,
-				SynService_ExceptionLogParameter.exception_type_id,
-				SynService_ExceptionLogParameter.version,
-				SynService_ExceptionLogParameter.time,
-				SynService_ExceptionLogParameter.exception_info,
-				SynService_ExceptionLogParameter.physical_memory,
-				SynService_ExceptionLogParameter.diskA_space,
-				SynService_ExceptionLogParameter.diskC_space
-			};
-			bool bResult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
-			return bResult;
-		}
+		
 
 		internal bool UpsertUnStableIndex(SynService_UnStableIndex SynService_UnStableIndexParameter)
 		{
@@ -335,6 +319,25 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				SynService_AlarmRecordDataParameter.time,
 				SynService_AlarmRecordDataParameter.detail_json
 
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
+		internal bool UpsertExceptionLog( SynService_ExceptionLog SynService_ExceptionLogParameter )
+		{
+			string sql = m_dbSQL.UpsertExceptionLog;
+			List<object> SQLParameterList = new List<object>()
+			{
+				SynService_ExceptionLogParameter.serial_number,
+				SynService_ExceptionLogParameter.type,
+				SynService_ExceptionLogParameter.sub_type,
+				SynService_ExceptionLogParameter.version,
+				SynService_ExceptionLogParameter.time,
+				SynService_ExceptionLogParameter.exception_info,
+				SynService_ExceptionLogParameter.physical_memory,
+				SynService_ExceptionLogParameter.diskA_space,
+				SynService_ExceptionLogParameter.diskC_space
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;

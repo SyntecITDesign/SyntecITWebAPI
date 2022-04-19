@@ -29,7 +29,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				WXNotifyParameter.url,
 				WXNotifyParameter.flowStatus
 			};
-			bool bResult = m_SyntecBBSdbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
+			bool bResult = m_DWHdbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
 			return bResult;
 		}
 
