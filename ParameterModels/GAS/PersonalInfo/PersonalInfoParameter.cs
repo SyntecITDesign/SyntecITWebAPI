@@ -113,7 +113,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 			get; set;
 		}
 
-
+		public string MotorLicense_Syntec
+		{
+			get; set;
+		}
 
 
 		#endregion Public Properties

@@ -144,7 +144,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"IF EXISTS (SELECT * FROM [SyntecGAS].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0 )
 							UPDATE [SyntecGAS].[dbo].[GAS_GAInfoMaster] 
-							SET [ExtensionNum]=@Parameter1, [DoorCardNum]=@Parameter2,[MotorLicense]=@Parameter3,[CarLicense]=@Parameter4,[CarLicense_Syntec]=@Parameter5,[DoorCardNum2]=@Parameter6,[UniformSize]=@Parameter7,[JacketSize]=@Parameter8,[SweatshirtSize]=@Parameter9,[UniformLongSize]=@Parameter10
+							SET [ExtensionNum]=@Parameter1, [DoorCardNum]=@Parameter2,[MotorLicense]=@Parameter3,[CarLicense]=@Parameter4,[CarLicense_Syntec]=@Parameter5,[MotorLicense_Syntec]=@Parameter11,[DoorCardNum2]=@Parameter6,[UniformSize]=@Parameter7,[JacketSize]=@Parameter8,[SweatshirtSize]=@Parameter9,[UniformLongSize]=@Parameter10
 							WHERE [EmpID]=@Parameter0 
 						ELSE
 						INSERT INTO [SyntecGAS].[dbo].[GAS_GAInfoMaster] ([EmpID],[ExtensionNum],[DoorCardNum],[MotorLicense],[CarLicense],[CarLicense_Syntec],[DoorCardNum2] ,[UniformSize],[JacketSize],[SweatshirtSize],[UniformLongSize]) 
@@ -164,7 +164,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				UpsertPersonalGASInfoParameter.UniformSize,
 				UpsertPersonalGASInfoParameter.JacketSize,
 				UpsertPersonalGASInfoParameter.SweatshirtSize,
-				UpsertPersonalGASInfoParameter.UniformLongSize
+				UpsertPersonalGASInfoParameter.UniformLongSize,
+				UpsertPersonalGASInfoParameter.MotorLicense_Syntec
 
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
