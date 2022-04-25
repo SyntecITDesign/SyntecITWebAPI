@@ -419,6 +419,33 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				return result;
 			}
 		}
+
+		internal DataTable GetGASLicenseInfo( GetGASLicenseInfo GetGASLicenseInfoParameter )
+		{
+			string sql = $@"SELECT *
+						  FROM [SyntecGAS].[dbo].[GAS_GAInfoMaster]
+						  WHERE [MotorLicense] like @Parameter0 or [CarLicense] like @Parameter0
+						  Order by [Avatar] desc";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetGASLicenseInfoParameter.License
+
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+
 	}
 	#endregion Internal Methods
 

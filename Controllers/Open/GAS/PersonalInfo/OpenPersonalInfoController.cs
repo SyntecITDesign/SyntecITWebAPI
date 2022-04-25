@@ -95,6 +95,26 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "GetGASLicenseInfo" )]
+		[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult GetGASLicenseInfo( [FromBody] GetGASLicenseInfo GetGASLicenseInfoParameter )
+		{
+			JArray result = m_publicPersonalInfoHandler.GetGASLicenseInfo( GetGASLicenseInfoParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		[Route( "UpsertPersonalGASInfo" )]
 		[CheckTokenFilter]
 		[HttpPost]

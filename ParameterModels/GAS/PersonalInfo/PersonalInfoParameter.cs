@@ -63,6 +63,17 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 
 		#endregion Public Properties
 	}
+	public class GetGASLicenseInfo
+	{
+		#region Public Properties
+
+		public string License
+		{
+			get; set;
+		}
+
+		#endregion Public Properties
+	}
 
 	public class UpsertPersonalGASInfo
 	{

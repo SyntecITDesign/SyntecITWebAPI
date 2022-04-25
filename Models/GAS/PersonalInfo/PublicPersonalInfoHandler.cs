@@ -76,7 +76,21 @@ namespace SyntecITWebAPI.Models.GAS.PersonalInfo
 				return ja;
 			}
 		}
+		internal JArray GetGASLicenseInfo( GetGASLicenseInfo GetGASLicenseInfoParameter )
+		{
 
+			DataTable dtResult = m_publicPersonalInfoDBManager.GetGASLicenseInfo( GetGASLicenseInfoParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
 		internal bool UpsertPersonalGASInfo( UpsertPersonalGASInfo UpsertPersonalGASInfoParameter )
 		{
 
