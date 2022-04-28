@@ -422,10 +422,10 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 		internal DataTable GetGASLicenseInfo( GetGASLicenseInfo GetGASLicenseInfoParameter )
 		{
-			string sql = $@"SELECT *
+			string sql = $@"SELECT [EmpID],[EmpName],[EmpDept],[ExtensionNum],[ManageRight],[MotorLicense],[MotorLicense_Syntec],[CarLicense],[CarLicense_Syntec],[Sex]
 						  FROM [SyntecGAS].[dbo].[GAS_GAInfoMaster]
 						  WHERE [MotorLicense] like @Parameter0 or [CarLicense] like @Parameter0
-						  Order by [Avatar] desc";
+						  group by [EmpID],[EmpName],[EmpDept],[ExtensionNum],[ManageRight],[MotorLicense],[MotorLicense_Syntec],[CarLicense],[CarLicense_Syntec],[Sex]";
 
 			List<object> SQLParameterList = new List<object>()
 			{

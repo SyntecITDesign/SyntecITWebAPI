@@ -221,7 +221,7 @@ ORDER BY M.[RequisitionID] desc";
 		internal bool DeleteMRBS( DeleteMRBS DeleteMRBSParameter )
 		{
 			string sql = $@"DELETE FROM [{m_gas}].[dbo].[MRBS]
-								WHERE [ID] = @Parameter0";
+								WHERE ["+ DeleteMRBSParameter.MRBSUsage + "] = @Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
 				DeleteMRBSParameter.MRBSID,
@@ -235,7 +235,8 @@ ORDER BY M.[RequisitionID] desc";
 				DeleteMRBSParameter.MRBSLink,
 				DeleteMRBSParameter.MRBSEmpID,
 				DeleteMRBSParameter.MRBSOrgID,
-				DeleteMRBSParameter.MRBSattendant
+				DeleteMRBSParameter.MRBSattendant,
+				DeleteMRBSParameter.MRBSUsage
 
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );

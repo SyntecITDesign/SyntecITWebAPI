@@ -332,7 +332,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 		[Route( "GetUniformApplicationsMaster" )]
-		[CheckTokenFilter]
+		//[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetUniformApplicationsMaster( [FromBody] GetUniformApplicationsMaster GetUniformApplicationsMasterParameter )
 		{
