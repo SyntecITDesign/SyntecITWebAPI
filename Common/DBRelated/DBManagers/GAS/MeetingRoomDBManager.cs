@@ -248,7 +248,7 @@ ORDER BY M.[RequisitionID] desc";
 								SELECT *
 								FROM [{m_gas}].[dbo].[MRBS]
 								Where [ID] like @Parameter0
-								Order by [ID] desc
+								Order by [ID] desc, [PreserveTimeStart]
 							ELSE
 								SELECT MAX(ID)+1 as 'MAXID'
   FROM [{m_gas}].[dbo].[MRBS] where ID!='NaN' and ID!='undefined' ";

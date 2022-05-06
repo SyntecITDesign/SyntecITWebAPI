@@ -28,7 +28,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"SELECT *
 						  FROM [{m_gas}].[dbo].[DormStatusMaster]
-						  WHERE [RoomTenantID]=@Parameter0 ";
+						  WHERE [RoomTenantID]=@Parameter0
+						order by [RoomCheckInDate] desc, [Time] desc";
 
 			List<object> SQLParameterList = new List<object>()
 			{
