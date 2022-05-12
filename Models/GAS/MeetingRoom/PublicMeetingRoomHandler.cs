@@ -29,6 +29,19 @@ namespace SyntecITWebAPI.Models.GAS.MeetingRoom
 				return ja;
 			}
 		}
+		internal JArray GetMeetingRoom_SZ()
+		{
+
+			DataTable dtResult = m_publicMeetingRoomDBManager.GetMeetingRoom_SZ();
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
 
 		internal bool UpsertMeetingRoom( UpsertMeetingRoom UpsertMeetingRoomParameter )
 		{

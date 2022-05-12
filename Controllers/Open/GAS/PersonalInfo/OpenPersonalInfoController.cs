@@ -76,7 +76,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 		}
 
 		[Route( "GetPersonalGASInfo" )]
-		[CheckTokenFilter]
+		//[CheckTokenFilter]
 		//[PrivateCookieFilter]
 		[HttpPost]
 		public IActionResult GetPersonalGASInfo( [FromBody] GetPersonalGASInfo GetPersonalGASInfoParameter )
@@ -136,7 +136,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 		}
 
 		[Route( "InsertFreshmanGASInfo" )]
-		[CheckTokenFilter]
+		//[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult InsertFreshmanGASInfo( [FromBody] InsertFreshmanGASInfo InsertFreshmanGASInfoParameter )
 		{

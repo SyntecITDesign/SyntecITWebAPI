@@ -18,32 +18,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="bin\**" />
     <Compile Remove="obj\**" />
+    <Content Remove="bin\**" />
     <Content Remove="obj\**" />
+    <EmbeddedResource Remove="bin\**" />
     <EmbeddedResource Remove="obj\**" />
+    <None Remove="bin\**" />
     <None Remove="obj\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include=".config\dotnet-tools.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\appsettings.Development.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\appsettings.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\Config\AliSetting.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\Config\CFSetting.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\Config\CustomMSDBSetting.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\Config\DBTableNameSetting.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\Config\DWHDBSetting.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\Config\ExternalMSDBSetting.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\Config\SyntecBBSDBSetting.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\Config\WebServiceKey.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\Config\WeChatSetting.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\Connected Services\CloudService\ConnectedService.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\Connected Services\CRMService\ConnectedService.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\Connected Services\OldUserService\ConnectedService.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\Connected Services\SNService\ConnectedService.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\SyntecITWebAPI.deps.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\SyntecITWebAPI.runtimeconfig.dev.json" />
-    <Content Include="bin\Debug\netcoreapp3.1\SyntecITWebAPI.runtimeconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -70,66 +56,6 @@
     <None Include=".vs\SyntecITWebAPI\config\applicationhost.config" />
     <None Include=".vs\SyntecITWebAPI\DesignTimeBuild\.dtbcache.v2" />
     <None Include=".vs\SyntecITWebAPI\v16\.suo" />
-    <None Include="bin\Debug\netcoreapp3.1\aliyun-net-sdk-core.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\aliyun-net-sdk-sms.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Aliyun.OSS.Core.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\AutoMapper.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\JWT.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.FileExtensions.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Abstractions.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Physical.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileSystemGlobbing.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\myDatabaseCmd.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\myDBinfo.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\myHistoryCMD.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\PasswordLib.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\runtimes\unix\lib\netstandard2.0\System.Private.ServiceModel.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\runtimes\win7\lib\netstandard2.0\System.Private.ServiceModel.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Net.Http.WinHttpHandler.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Syntec.Base.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Syntec.Command.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Syntec.Component.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Syntec.Controller.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Syntec.CRM.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Syntec.Crypto.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Syntec.DataAccess.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Syntec.DataAccess.TQM.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Syntec.Database.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Syntec.DataTransfer.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Syntec.DesignPattern.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Syntec.Flow.Utility.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Syntec.JiraHelper.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Syntec.Meta.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\Syntec.Notifier.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\SyntecAuthoPassword.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\SyntecITWebAPI.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\SyntecITWebAPI.exe" />
-    <None Include="bin\Debug\netcoreapp3.1\SyntecITWebAPI.pdb" />
-    <None Include="bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\System.Net.Http.WinHttpHandler.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\System.ServiceModel.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\System.ServiceModel.Duplex.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\System.ServiceModel.Http.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\System.ServiceModel.NetTcp.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\System.ServiceModel.Primitives.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\System.ServiceModel.Security.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\System.Web.Extensions.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\TokenChecker.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\TokenCreator.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\TQMLibrary.dll" />
-    <None Include="bin\Debug\netcoreapp3.1\WechatLibrary.dll" />
     <None Include="SyntecITWebAPI.sln" />
   </ItemGroup>
   

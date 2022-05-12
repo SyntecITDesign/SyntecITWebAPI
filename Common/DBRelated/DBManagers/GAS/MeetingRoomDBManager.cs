@@ -40,7 +40,23 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				return result;
 			}
 		}
+		internal DataTable GetMeetingRoom_SZ()
+		{
+			string sql = $@"SELECT * FROM [{m_gas}].[dbo].[MeetingRoom_SZ]";
 
+			DataTable result = m_dbproxy.GetDataWithNoParaCMD( sql );
+			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
+			//return bresult;
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
 		internal bool UpsertMeetingRoom( UpsertMeetingRoom UpsertMeetingRoomParameter )
 		{
 			string sql = $@"IF EXISTS (SELECT * FROM [{m_gas}].[dbo].[MeetingRoom] WHERE [ID]=@Parameter0 )

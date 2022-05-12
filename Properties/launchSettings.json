@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:52832/SyntecIT/api/v1",
+      "applicationUrl": "http://localhost:52831/SyntecIT/api/v1",
       "sslPort": 44303
     }
   },

@@ -36,6 +36,26 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "GetMeetingRoom_SZ" )]
+		[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpGet]
+		public IActionResult GetMeetingRoom_SZ()
+		{
+			JArray result = m_publicMeetigRoomHandler.GetMeetingRoom_SZ();
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		[Route( "UpsertMeetingRoom" )]
 		[CheckTokenFilter]
 		[HttpPost]
