@@ -121,6 +121,8 @@ namespace SyntecITWebAPI.Common.DBRelated
 			$"Password={userPassword};";
 		}
 
+		
+
 		#endregion Private Constructors + Destructors
 	}
 }

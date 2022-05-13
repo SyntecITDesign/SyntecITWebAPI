@@ -6,7 +6,7 @@
   "crm": "synteccrm",
   "gas": "SyntecGAS_test",
   "syntecbbs": "SyntecBBS",
-  "bpm": "BPMPro_QAS",
+  "bpm": "BPMPro",
   "dwh": "dwh",
   "MessageNotice": "MessageNotice"
 }

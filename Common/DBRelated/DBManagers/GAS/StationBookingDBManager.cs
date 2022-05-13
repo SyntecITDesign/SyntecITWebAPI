@@ -76,7 +76,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal bool UpdateStationApplicationsMaster( UpdateStationApplicationsMaster UpdateStationApplicationsMasterParameter )
 		{
 			string sql = $@"UPDATE [{m_gas}].[dbo].[StationApplicationsMaster]
-							set [Finished]=@Parameter12,[IsCancel]=@Parameter7
+							set [Finished]=@Parameter12,[EndDate]=@Parameter10
 							where [RequisitionID]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{

@@ -7,7 +7,7 @@ using System.IO;
 
 namespace SyntecITWebAPI.Common.DBRelated
 {
-	public class CustomMSDBProxy : IDBAccess
+	public class BPMDBProxy : IDBAccess
 	{
 		#region Public Methods
 
@@ -19,7 +19,7 @@ namespace SyntecITWebAPI.Common.DBRelated
 				{ //確保單一
 					if( Instance == null )
 					{
-						Instance = new CustomMSDBProxy();
+						Instance = new BPMDBProxy();
 					}
 				}
 			}
@@ -89,16 +89,16 @@ namespace SyntecITWebAPI.Common.DBRelated
 			DataSet theDataSet = new DataSet();
 			try
 			{
-				using(SqlDataAdapter adapter = new SqlDataAdapter( sql, m_connectionString ))
+				using( SqlDataAdapter adapter = new SqlDataAdapter( sql, m_connectionString ) )
 				{
 					string parameter = "";
 
 					adapter.SelectCommand.CommandTimeout = int.MaxValue;
 					adapter.Fill( theDataSet );
 				}
-				return theDataSet.Tables[0];
+				return theDataSet.Tables[ 0 ];
 			}
-			catch(Exception ex)
+			catch( Exception ex )
 			{
 				return null;
 			}
@@ -118,15 +118,15 @@ namespace SyntecITWebAPI.Common.DBRelated
 
 		#region Private Constructors + Destructors
 
-		private CustomMSDBProxy()
+		private BPMDBProxy()
 		{
 			var configuration = new ConfigurationBuilder()
 			.SetBasePath( $"{Directory.GetCurrentDirectory()}\\Config\\" )
 			.AddJsonFile( path: "CustomMSDBSetting.json", optional: false )
 			.Build();
 
-			string dataSource = configuration[ "dataSource" ].Trim();
-			string initialCatalog = configuration[ "initialCatalog" ].Trim();
+			string dataSource = configuration[ "dataSource_bpm" ].Trim();
+			string initialCatalog = configuration[ "initialCatalog_bpm" ].Trim();
 			string userID = configuration[ "userID" ].Trim();
 			string userPassword = configuration[ "userPassword" ].Trim();
 

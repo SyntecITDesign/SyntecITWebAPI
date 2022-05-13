@@ -19,7 +19,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			.AddJsonFile( path: "DBTableNameSetting.json", optional: false )
 			.Build();
 
-			m_bpm = configuration[ "bpm" ].Trim();
+			//m_bpm = configuration[ "bpm" ].Trim();
 			m_gas = configuration[ "gas" ].Trim();
 		}
 
@@ -232,7 +232,7 @@ SELECT Distinct [FSe7en_Org_DeptInfo].DisplayName, [FSe7en_Org_DeptStruct].[Dept
 FROM [BPMPro].dbo.[FSe7en_Org_DeptInfo],[BPMPro].dbo.[FSe7en_Org_DeptStruct]  
 where  [FSe7en_Org_DeptInfo].DeptID = [FSe7en_Org_DeptStruct].[DeptID] AND [FSe7en_Org_DeptInfo].DeptID ='LEANTECTWLT5010'";
 
-			DataTable result = m_dbproxy.GetDataWithNoParaCMD( sql );
+			DataTable result = m_BPMdbproxy.GetDataWithNoParaCMD( sql );
 			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
 			//return bresult;
 
