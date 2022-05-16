@@ -40,44 +40,62 @@ namespace SyntecITWebAPI.Open.User
 			return Ok(m_responseHandler.GetResult());
 		}
 
-		[Route("UpsertAlarm")]
+		[Route( "UpsertAlarm" )]
 		[CheckTokenFilter]
 		[HttpPost]
-		public IActionResult UpsertAlarm([FromBody] SynService_Alarm SynService_AlarmParameter)
+		public IActionResult UpsertAlarm( [FromBody] List<SynService_Alarm> SynService_AlarmParameterList )
 		{
+			string errorList = "";
+			foreach(var SynService_AlarmParameter in SynService_AlarmParameterList)
+			{
+				bool bResult = m_publicCRMHandler.UpsertAlarm( SynService_AlarmParameter );
+				if(!bResult)
+				{
+					//m_responseHandler.Code = ErrorCodeList.Param_Error;
+					errorList += SynService_AlarmParameter.serial_number + ",";
+				}
+			}
 
-			bool bResult = m_publicCRMHandler.UpsertAlarm(SynService_AlarmParameter);
-
-			if (!bResult)
+			if(errorList != "")
 			{
 				m_responseHandler.Code = ErrorCodeList.Param_Error;
+				m_responseHandler.Content = errorList;
 			}
 			else
 			{
 				m_responseHandler.Content = "true";
 			}
 
-			return Ok(m_responseHandler.GetResult());
+			return Ok( m_responseHandler.GetResult() );
 		}
 
-		[Route("UpsertCNCStateLog")]
+		[Route( "UpsertCNCStateLog" )]
 		[CheckTokenFilter]
 		[HttpPost]
-		public IActionResult UpsertCNCStateLog([FromBody] SynService_CNCStateLog SynService_CNCStateLogParameter)
+		public IActionResult UpsertCNCStateLog( [FromBody] List<SynService_CNCStateLog> SynService_CNCStateLogParameterList )
 		{
+			string errorList = "";
+			foreach(var SynService_CNCStateLogParameter in SynService_CNCStateLogParameterList)
+			{
+				bool bResult = m_publicCRMHandler.UpsertCNCStateLog( SynService_CNCStateLogParameter );
+				if(!bResult)
+				{
+					//m_responseHandler.Code = ErrorCodeList.Param_Error;
+					errorList += SynService_CNCStateLogParameter.serial_number + ",";
+				}
+			}
 
-			bool bResult = m_publicCRMHandler.UpsertCNCStateLog(SynService_CNCStateLogParameter);
-
-			if (!bResult)
+			if(errorList != "")
 			{
 				m_responseHandler.Code = ErrorCodeList.Param_Error;
+				m_responseHandler.Content = errorList;
 			}
 			else
 			{
 				m_responseHandler.Content = "true";
 			}
 
-			return Ok(m_responseHandler.GetResult());
+			return Ok( m_responseHandler.GetResult() );
 		}
 
 		[Route("UpsertCRM")]
@@ -100,37 +118,55 @@ namespace SyntecITWebAPI.Open.User
 			return Ok(m_responseHandler.GetResult());
 		}
 
-		[Route("UpsertUnStableIndex")]
+		[Route( "UpsertUnStableIndex" )]
 		[CheckTokenFilter]
 		[HttpPost]
-		public IActionResult UpsertUnStableIndex([FromBody] SynService_UnStableIndex SynService_UnStableIndexParameter)
+		public IActionResult UpsertUnStableIndex( [FromBody] List<SynService_UnStableIndex> SynService_UnStableIndexParameterList )
 		{
+			string errorList = "";
+			foreach(var SynService_UnStableIndexParameter in SynService_UnStableIndexParameterList)
+			{
+				bool bResult = m_publicCRMHandler.UpsertUnStableIndex( SynService_UnStableIndexParameter );
+				if(!bResult)
+				{
+					//m_responseHandler.Code = ErrorCodeList.Param_Error;
+					errorList += SynService_UnStableIndexParameter.serial_number + ",";
+				}
+			}
 
-			bool bResult = m_publicCRMHandler.UpsertUnStableIndex(SynService_UnStableIndexParameter);
-
-			if (!bResult)
+			if(errorList != "")
 			{
 				m_responseHandler.Code = ErrorCodeList.Param_Error;
+				m_responseHandler.Content = errorList;
 			}
 			else
 			{
 				m_responseHandler.Content = "true";
 			}
 
-			return Ok(m_responseHandler.GetResult());
+			return Ok( m_responseHandler.GetResult() );
 		}
 
 		[Route( "UpsertUnStableIndexV2" )]
 		[CheckTokenFilter]
 		[HttpPost]
-		public IActionResult UpsertUnStableIndexV2( [FromBody] SynService_UnStableIndexV2 SynService_UnStableIndexV2Parameter )
+		public IActionResult UpsertUnStableIndexV2( [FromBody] List<SynService_UnStableIndexV2> SynService_UnStableIndexV2ParameterList )
 		{
+			string errorList = "";
+			foreach(var SynService_UnStableIndexV2Parameter in SynService_UnStableIndexV2ParameterList)
+			{
+				bool bResult = m_publicCRMHandler.UpsertUnStableIndexV2( SynService_UnStableIndexV2Parameter );
+				if(!bResult)
+				{
+					//m_responseHandler.Code = ErrorCodeList.Param_Error;
+					errorList += SynService_UnStableIndexV2Parameter.serial_number + ",";
+				}
+			}
 
-			bool bResult = m_publicCRMHandler.UpsertUnStableIndexV2( SynService_UnStableIndexV2Parameter );
-
-			if(!bResult)
+			if(errorList != "")
 			{
 				m_responseHandler.Code = ErrorCodeList.Param_Error;
+				m_responseHandler.Content = errorList;
 			}
 			else
 			{
@@ -180,57 +216,84 @@ namespace SyntecITWebAPI.Open.User
 			return Ok(m_responseHandler.GetResult());
 		}
 
-		[Route("UpsertAlarmHistory")]
+		[Route( "UpsertAlarmHistory" )]
 		[CheckTokenFilter]
 		[HttpPost]
-		public IActionResult UpsertAlarmHistory([FromBody] SynService_AlarmHistory SynServiceAlarmHistoryParameter)
+		public IActionResult UpsertAlarmHistory( [FromBody] List<SynService_AlarmHistory> SynServiceAlarmHistoryParameterList )
 		{
+			string errorList = "";
+			foreach(var SynServiceAlarmHistoryParameter in SynServiceAlarmHistoryParameterList)
+			{
+				bool bResult = m_publicCRMHandler.UpsertAlarmHistory( SynServiceAlarmHistoryParameter );
+				if(!bResult)
+				{
+					//m_responseHandler.Code = ErrorCodeList.Param_Error;
+					errorList += SynServiceAlarmHistoryParameter.serial_number + ",";
+				}
+			}
 
-			bool bResult = m_publicCRMHandler.UpsertAlarmHistory(SynServiceAlarmHistoryParameter);
-
-			if (!bResult)
+			if(errorList != "")
 			{
 				m_responseHandler.Code = ErrorCodeList.Param_Error;
+				m_responseHandler.Content = errorList;
 			}
 			else
 			{
 				m_responseHandler.Content = "true";
 			}
 
-			return Ok(m_responseHandler.GetResult());
+			return Ok( m_responseHandler.GetResult() );
 		}
 
-		[Route("UpsertEventHistory")]
+		[Route( "UpsertEventHistory" )]
 		[CheckTokenFilter]
 		[HttpPost]
-		public IActionResult UpsertEventHistory([FromBody] SynService_EventHistory SynServiceEventHistoryParameter)
+		public IActionResult UpsertEventHistory( [FromBody] List<SynService_EventHistory> SynServiceEventHistoryParameterList )
 		{
+			string errorList = "";
+			foreach(var SynServiceEventHistoryParameter in SynServiceEventHistoryParameterList)
+			{
+				bool bResult = m_publicCRMHandler.UpsertEventHistory( SynServiceEventHistoryParameter );
+				if(!bResult)
+				{
+					//m_responseHandler.Code = ErrorCodeList.Param_Error;
+					errorList += SynServiceEventHistoryParameter.serial_number + ",";
+				}
+			}
 
-			bool bResult = m_publicCRMHandler.UpsertEventHistory(SynServiceEventHistoryParameter);
-
-			if (!bResult)
+			if(errorList != "")
 			{
 				m_responseHandler.Code = ErrorCodeList.Param_Error;
+				m_responseHandler.Content = errorList;
 			}
 			else
 			{
 				m_responseHandler.Content = "true";
 			}
 
-			return Ok(m_responseHandler.GetResult());
+			return Ok( m_responseHandler.GetResult() );
 		}
 
 		[Route( "UpsertMachineInfo" )]
 		[CheckTokenFilter]
 		[HttpPost]
-		public IActionResult UpsertMachineInfo( [FromBody] SynService_MachineInfo SynService_MachineInfoParameter )
+		public IActionResult UpsertMachineInfo( [FromBody] List<SynService_MachineInfo> SynService_MachineInfoParameterList )
 		{
+			string errorList = "";
+			foreach(var SynService_MachineInfoParameter in SynService_MachineInfoParameterList)
+			{
+				bool bResult = m_publicCRMHandler.UpsertMachineInfo( SynService_MachineInfoParameter );
+				if(!bResult)
+				{
+					//m_responseHandler.Code = ErrorCodeList.Param_Error;
+					errorList += SynService_MachineInfoParameter.serial_number + ",";
+				}
+			}
 
-			bool bResult = m_publicCRMHandler.UpsertMachineInfo( SynService_MachineInfoParameter );
-
-			if(!bResult)
+			if(errorList != "")
 			{
 				m_responseHandler.Code = ErrorCodeList.Param_Error;
+				m_responseHandler.Content = errorList;
 			}
 			else
 			{
