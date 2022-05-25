@@ -50,7 +50,20 @@ namespace SyntecITWebAPI.Models.GAS.ApplyUniform
 				return ja;
 			}
 		}
+		internal JArray GetUniformStyleInfoSZ( GetUniformStyleInfoSZ GetUniformStyleInfoSZParameter )
+		{
 
+			DataTable dtResult = m_ApplyUniformDBManager.GetUniformStyleInfoSZ( GetUniformStyleInfoSZParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+		
 		internal bool UpsertUniformQuantityInfo( UpsertUniformQuantityInfo UpsertUniformQuantityInfoParameter )
 		{
 
@@ -78,7 +91,19 @@ namespace SyntecITWebAPI.Models.GAS.ApplyUniform
 				return ja;
 			}
 		}
+		internal JArray GetUniformQuantityInfoSZ( GetUniformQuantityInfoSZ GetUniformQuantityInfoSZParameter )
+		{
 
+			DataTable dtResult = m_ApplyUniformDBManager.GetUniformQuantityInfoSZ( GetUniformQuantityInfoSZParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
 		internal bool InsertUniformOrder( InsertUniformOrder InsertUniformOrderParameter )
 		{
 

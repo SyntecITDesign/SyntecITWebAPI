@@ -40,6 +40,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyUniform
 	{
 
 	}
+	public class GetUniformStyleInfoSZ : UniformStyleInfoAllField
+	{
+
+	}
 
 	public class UniformQuantityAllField
 	{
@@ -73,7 +77,11 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyUniform
 	{
 
 	}
+	public class GetUniformQuantityInfoSZ : UniformQuantityAllField
+	{
 
+	}
+	
 	public class UniformOrderListAllField
 	{
 		public string UniformOrderListNo

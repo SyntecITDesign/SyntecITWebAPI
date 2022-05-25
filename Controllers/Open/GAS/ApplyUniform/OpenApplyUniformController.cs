@@ -96,6 +96,26 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 
 			return Ok(m_responseHandler.GetResult());
 		}
+		[Route( "GetUniformStyleInfoSZ" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult GetUniformStyleInfoSZ( [FromBody] GetUniformStyleInfoSZ GetUniformStyleInfoSZParameter )
+		{
+
+			JArray result = m_publicApplyUniformHandler.GetUniformStyleInfoSZ( GetUniformStyleInfoSZParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 
 		[Route( "UpsertUniformQuantityInfo" )]
 		[CheckTokenFilter]
@@ -154,7 +174,25 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+		[Route( "GetUniformQuantityInfoSZ" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult GetUniformQuantityInfoSZ( [FromBody] GetUniformQuantityInfoSZ GetUniformQuantityInfoSZParameter )
+		{
 
+			JArray result = m_publicApplyUniformHandler.GetUniformQuantityInfoSZ( GetUniformQuantityInfoSZParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 		[Route( "InsertUniformOrder" )]
 		[CheckTokenFilter]
 		[HttpPost]

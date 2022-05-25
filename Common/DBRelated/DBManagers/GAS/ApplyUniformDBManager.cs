@@ -97,6 +97,31 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				return result;
 			}
 		}
+		internal DataTable GetUniformStyleInfoSZ( GetUniformStyleInfoSZ GetUniformStyleInfoSZParameter )
+		{
+			string sql = $@"SELECT *
+						FROM [{m_gas}].[dbo].[UniformStyleInfo_SZ]
+						ORDER BY [No]";
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetUniformStyleInfoSZParameter.UniformStyleNo,
+				GetUniformStyleInfoSZParameter.UniformStyleName,
+				GetUniformStyleInfoSZParameter.UniformStylePrice,
+				GetUniformStyleInfoSZParameter.UniformStyleApplyQuantity
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
+			//return bresult;
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
 
 		internal bool UpsertUniformQuantityInfo( UpsertUniformQuantityInfo UpsertUniformQuantityInfoParameter )
 		{
@@ -174,6 +199,49 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				return result;
 			}
 		}
+		internal DataTable GetUniformQuantityInfoSZ( GetUniformQuantityInfoSZ GetUniformQuantityInfoSZParameter )
+		{
+			string sql = $@"SELECT [UniformStyleInfo_SZ].[Style] as 'StyleName',[UniformQuantityInfo_SZ].[AlertQuantity], [UniformStyleInfo_SZ].[No] as 'Style',[UniformQuantityInfo_SZ].[Size],[UniformQuantityInfo_SZ].[Quantity]
+									FROM[{m_gas}].[dbo].[UniformStyleInfo_SZ]
+									INNER JOIN[{m_gas}].[dbo].[UniformQuantityInfo_SZ]
+									ON[UniformStyleInfo_SZ].[No] =[UniformQuantityInfo_SZ].[Style]
+									WHERE[No] like @Parameter1
+									ORDER BY[No],case 
+							when [No]<>'2' and [No]<>'3' then
+								case 
+								 when [Size]='XS' then 1 
+								 when [Size]='S' then 2 
+								 when [Size]='M' then 3
+								 when [Size]='L' then 4 
+								 when [Size]='XL' then 5 
+								 when [Size]='2L' then 6
+								 when [Size]='3L' then 7
+								end
+							when [No]='2' or [No]='3' then
+								case 
+								 when [Size]='46M' then 1          
+								end
+							end";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetUniformQuantityInfoSZParameter.UniformStyleSize,
+				GetUniformQuantityInfoSZParameter.UniformStyleNo,
+				GetUniformQuantityInfoSZParameter.UniformQuantity,
+				GetUniformQuantityInfoSZParameter.UniformAlertQuantity
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
 
 		internal bool InsertUniformOrderListDetail( InsertUniformOrderListDetail InsertUniformOrderListDetailParameter )
 		{
