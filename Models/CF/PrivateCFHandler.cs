@@ -98,7 +98,7 @@ namespace SyntecITWebAPI.Models
 						OssClient clientOSS = new OssClient( Endpoint, AccessKey, AccessKeySecret );
 						clientOSS.CreateBucket( BucketName );
 						clientOSS.PutObject( BucketName, CurYear + "/" + CurMonth + "/" + Garbled + "/" + fileName, strAttachment );
-						contentStr = contentStr + "<br/> https://" + BucketName+"."+ Endpoint+"/"+ CurYear + "/" + CurMonth + "/" + Garbled + "/" + fileName;
+						contentStr = contentStr + "<br/> https://" + BucketName+"."+ Endpoint+"/"+ CurYear + "/" + CurMonth + "/" + Garbled + "/" + fileName.Replace("+", "%2b" );
 					}
 				}
 				//send Email
