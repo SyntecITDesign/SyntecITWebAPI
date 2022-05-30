@@ -45,6 +45,14 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyDorm
 		{
 			get; set;
 		}
+		public string EmpRemarks
+		{
+			get; set;
+		}
+		public string ApplicationType
+		{
+			get; set;
+		}
 	}
 	
 

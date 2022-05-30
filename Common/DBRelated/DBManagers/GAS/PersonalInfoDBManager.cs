@@ -118,7 +118,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal DataTable GetPersonalGASInfo( GetPersonalGASInfo GetPersonalGASInfoParameter )
 		{
 			string sql = $@"SELECT *
-						  FROM [SyntecGAS].[dbo].[GAS_GAInfoMaster]
+						  FROM [{m_gas}].[dbo].[GAS_GAInfoMaster]
 						  WHERE [EmpID] like @Parameter0
 						  Order by [Avatar] desc";
 
@@ -143,11 +143,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal bool UpsertPersonalGASInfo( UpsertPersonalGASInfo UpsertPersonalGASInfoParameter )
 		{
 			string sql = $@"IF EXISTS (SELECT * FROM [SyntecGAS].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0 )
-							UPDATE [SyntecGAS].[dbo].[GAS_GAInfoMaster] 
+							UPDATE [{m_gas}].[dbo].[GAS_GAInfoMaster] 
 							SET [ExtensionNum]=@Parameter1, [DoorCardNum]=@Parameter2,[MotorLicense]=@Parameter3,[CarLicense]=@Parameter4,[CarLicense_Syntec]=@Parameter5,[MotorLicense_Syntec]=@Parameter11,[DoorCardNum2]=@Parameter6,[UniformSize]=@Parameter7,[JacketSize]=@Parameter8,[SweatshirtSize]=@Parameter9,[UniformLongSize]=@Parameter10
 							WHERE [EmpID]=@Parameter0 
 						ELSE
-						INSERT INTO [SyntecGAS].[dbo].[GAS_GAInfoMaster] ([EmpID],[ExtensionNum],[DoorCardNum],[MotorLicense],[CarLicense],[CarLicense_Syntec],[DoorCardNum2] ,[UniformSize],[JacketSize],[SweatshirtSize],[UniformLongSize]) 
+						INSERT INTO [{m_gas}].[dbo].[GAS_GAInfoMaster] ([EmpID],[ExtensionNum],[DoorCardNum],[MotorLicense],[CarLicense],[CarLicense_Syntec],[DoorCardNum2] ,[UniformSize],[JacketSize],[SweatshirtSize],[UniformLongSize]) 
 						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9,@Parameter10)
 						
 						";
@@ -175,7 +175,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal bool InsertFreshmanGASInfo( InsertFreshmanGASInfo InsertFreshmanGASInfoParameter )
 		{
 			string sql = $@"
-						INSERT INTO [SyntecGAS].[dbo].[GAS_GAInfoMaster] ([EmpName],[MotorLicense],[CarLicense],[UniformSize],[JacketSize],[SweatshirtSize],[Sex],[UniformLongSize],[Avatar]) 
+						INSERT INTO [{m_gas}].[dbo].[GAS_GAInfoMaster] ([EmpName],[MotorLicense],[CarLicense],[UniformSize],[JacketSize],[SweatshirtSize],[Sex],[UniformLongSize],[Avatar]) 
 						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8)";
 
 			List<object> SQLParameterList = new List<object>()
@@ -251,7 +251,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"Select *
 							FROM(SELECT ROW_NUMBER() Over ( Order by [ApplicationDate]) AS 'Row_num',[EmpID],[ApplicationDate],[ApplicationType]
-							  FROM [SyntecGAS].[dbo].[ParkingSpaceApplicationsMaster]
+							  FROM [{m_gas}].[dbo].[ParkingSpaceApplicationsMaster]
 							  WHERE [Finished]='0') AS A
 							  WHERE A.EmpID = @Parameter0";
 
@@ -276,7 +276,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal DataTable GetMeetingRoomProcessingInfo( GetMeetingRoomProcessingInfo GetMeetingRoomProcessingInfoParameter )
 		{
 			string sql = $@"SELECT *
-							FROM [SyntecGAS].[dbo].[MRBS]
+							FROM [{m_gas}].[dbo].[MRBS]
 							WHERE [EmpID]=@Parameter0 and  [PreserveTimeEnd] between getdate()  and   DATEADD(MONTH, 3, GETDATE())
 							ORDER BY [PreserveTimeStart]";
 
@@ -351,7 +351,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal DataTable GetUniformApplyInfo( GetUniformApplyInfo GetUniformApplyInfoParameter )
 		{
 			string sql = $@"SELECT *
-							FROM [SyntecGAS].[dbo].[GAS_UniformApplicationsMaster]
+							FROM [{m_gas}].[dbo].[GAS_UniformApplicationsMaster]
 							WHERE [isDone]=0  and [EmpID]=@Parameter0
 							Order By [ApplicationDate]";
 
@@ -375,7 +375,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal DataTable GetCarBookingInfo( GetCarBookingInfo GetCarBookingInfoParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [SyntecGAS].[dbo].[CarBookingRecord]
+						FROM [{m_gas}].[dbo].[CarBookingRecord]
 						WHERE [ActualStartTime] is NULL and (GETDATE() between [PreserveStartTime] and [PreserveEndTime] or GETDATE() < [PreserveStartTime]) and [EmpID]=@Parameter0";
 
 			List<object> SQLParameterList = new List<object>()
@@ -399,7 +399,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal DataTable GetDormInfo( GetDormInfo GetDormInfoParameter )
 		{
 			string sql = $@"SELECT *
-							FROM [SyntecGAS].[dbo].[DormApplicationsMaster]
+							FROM [{m_gas}].[dbo].[DormApplicationsMaster]
 							WHERE [Finished]=0 and [EmpID]=@Parameter0";
 
 			List<object> SQLParameterList = new List<object>()

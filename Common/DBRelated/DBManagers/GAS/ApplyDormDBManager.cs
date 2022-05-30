@@ -53,8 +53,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool InsertDormApplicationsMaster( InsertDormApplicationsMaster InsertDormApplicationsMasterParameter )
 		{
 			string sql = $@"INSERT INTO [{m_gas}].[dbo].[DormApplicationsMaster] 
-							([EmpID],[ApplicationDate],[Dorm],[RoomNum],[ReservationTime],[Finished],[ApplicationType],[LeaveDate])
-							VAlUES(@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,'CheckOut',@Parameter6)";
+							([EmpID],[ApplicationDate],[Dorm],[RoomNum],[ReservationTime],[Finished],[ApplicationType],[LeaveDate],[EmpRemarks])
+							VAlUES(@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter7,@Parameter6,@Parameter8)";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -64,11 +64,40 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				InsertDormApplicationsMasterParameter.RoomNum,
 				InsertDormApplicationsMasterParameter.ReservationTime,
 				InsertDormApplicationsMasterParameter.Finished,
-				InsertDormApplicationsMasterParameter.LeaveDate
+				InsertDormApplicationsMasterParameter.LeaveDate,
+				InsertDormApplicationsMasterParameter.ApplicationType,
+				InsertDormApplicationsMasterParameter.EmpRemarks
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
+
+		/*
+		internal DataTable GetDormApplicationsMaster( GetDormApplicationsMaster GetDormApplicationsMasterParameter )
+		{
+			string sql = $@"SELECT * 
+							FROM [{m_gas}].[dbo].[DormApplicationsMaster] 
+							WHERE RoomTenantID =@Parameter0";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetDormApplicationsMasterParameter.EmpID
+
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
+			//return bresult;
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+		*/
 
 	}
 	#endregion Internal Methods

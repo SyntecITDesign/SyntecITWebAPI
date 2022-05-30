@@ -19,4 +19,22 @@ namespace SyntecITWebAPI.ParameterModels.GAS.GASNotify
 
 	}
 
+	public class EmailGASNotify
+	{
+
+		public string EmailGASNotifyTitle
+		{
+			get; set;
+		}
+		public string EmailGASNotifyContent
+		{
+			get; set;
+		}
+		public string EmailGASNotifyUserEmail
+		{
+			get; set;
+		}
+		
+	}
+
 }
