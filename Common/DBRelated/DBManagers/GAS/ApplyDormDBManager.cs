@@ -53,8 +53,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool InsertDormApplicationsMaster( InsertDormApplicationsMaster InsertDormApplicationsMasterParameter )
 		{
 			string sql = $@"INSERT INTO [{m_gas}].[dbo].[DormApplicationsMaster] 
-							([EmpID],[ApplicationDate],[Dorm],[RoomNum],[ReservationTime],[Finished],[ApplicationType],[LeaveDate],[EmpRemarks])
-							VAlUES(@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter7,@Parameter6,@Parameter8)";
+							([EmpID],[ApplicationDate],[Dorm],[RoomNum],[ReservationTime],[Finished],[ApplicationType],[LeaveDate],[EmpRemarks],[EmpName],[RoomCompany])
+							VAlUES(@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter7,@Parameter6,@Parameter8,@Parameter9,@Parameter10)";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -66,22 +66,43 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				InsertDormApplicationsMasterParameter.Finished,
 				InsertDormApplicationsMasterParameter.LeaveDate,
 				InsertDormApplicationsMasterParameter.ApplicationType,
-				InsertDormApplicationsMasterParameter.EmpRemarks
+				InsertDormApplicationsMasterParameter.EmpRemarks,
+				InsertDormApplicationsMasterParameter.EmpName,
+				InsertDormApplicationsMasterParameter.RoomCompany
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
 
-		/*
-		internal DataTable GetDormApplicationsMaster( GetDormApplicationsMaster GetDormApplicationsMasterParameter )
+		internal bool UpdateDormApplicationsMaster( UpdateDormApplicationsMaster UpdateDormApplicationsMasterParameter )
 		{
-			string sql = $@"SELECT * 
-							FROM [{m_gas}].[dbo].[DormApplicationsMaster] 
-							WHERE RoomTenantID =@Parameter0";
+			string sql = $@"UPDATE [{m_gas}].[dbo].[DormApplicationsMaster]
+							set [Finished]=@Parameter1, [Remarks]=@Parameter3
+							where [EmpID]=@Parameter0 and [ApplicationType]=@Parameter2";
 
 			List<object> SQLParameterList = new List<object>()
 			{
-				GetDormApplicationsMasterParameter.EmpID
+				UpdateDormApplicationsMasterParameter.EmpID,
+				UpdateDormApplicationsMasterParameter.Finished,
+				UpdateDormApplicationsMasterParameter.ApplicationType,
+				UpdateDormApplicationsMasterParameter.Remarks
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
+
+		
+		internal DataTable GetDormApplicationsMaster_SZ( GetDormApplicationsMaster_SZ GetDormApplicationsMaster_SZ_Parameter )
+		{
+			string sql = $@"SELECT * 
+							FROM [{m_gas}].[dbo].[DormApplicationsMaster] 
+							WHERE [EmpID]=@Parameter0 and [Finished]=@Parameter1";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetDormApplicationsMaster_SZ_Parameter.EmpID,
+				GetDormApplicationsMaster_SZ_Parameter.Finished
 
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
@@ -97,7 +118,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				return result;
 			}
 		}
-		*/
+		
 
 	}
 	#endregion Internal Methods

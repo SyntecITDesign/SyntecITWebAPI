@@ -67,7 +67,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 			List<object> SQLParameterList = new List<object>()
 			{
-			  '%'+GetFuzzyPersonalInfoParameter.EmpID + '%',
+			  GetFuzzyPersonalInfoParameter.EmpID,
 			  GetFuzzyPersonalInfoParameter.QuitDate
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );

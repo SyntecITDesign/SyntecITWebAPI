@@ -34,8 +34,26 @@ namespace SyntecITWebAPI.Models.GAS.ApplyDorm
 			return bResult;
 		}
 
+		internal bool UpdateDormApplicationsMaster( UpdateDormApplicationsMaster UpdateDormApplicationsMasterParameter )
+		{
 
+			bool bResult = m_ApplyDormDBManager.UpdateDormApplicationsMaster( UpdateDormApplicationsMasterParameter );
 
+			return bResult;
+		}
+		internal JArray GetDormApplicationsMaster_SZ( GetDormApplicationsMaster_SZ GetDormApplicationsMaster_SZ_Parameter )
+		{
+
+			DataTable dtResult = m_ApplyDormDBManager.GetDormApplicationsMaster_SZ( GetDormApplicationsMaster_SZ_Parameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
 		#endregion Internal Methods
 
 		#region Private Fields

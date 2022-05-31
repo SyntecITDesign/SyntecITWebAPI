@@ -12,10 +12,25 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyDorm
 
 	{
 		public string EmpID
-		{get;set;
+		{
+			get;set;
 		}
-
+		
 	}
+
+	public class GetDormApplicationsMaster_SZ
+
+	{
+		public string EmpID
+		{
+			get; set;
+		}
+		public string Finished
+		{
+			get; set;
+		}
+	}
+
 	public class InsertDormApplicationsMaster 
 	{
 		public string EmpID
@@ -53,7 +68,33 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyDorm
 		{
 			get; set;
 		}
+		public string EmpName
+		{
+			get; set;
+		}
+		public string RoomCompany
+		{
+			get; set;
+		}
 	}
-	
 
+	public class UpdateDormApplicationsMaster
+	{
+		public string EmpID
+		{
+			get; set;
+		}		
+		public string Finished
+		{
+			get; set;
+		}		
+		public string ApplicationType
+		{
+			get; set;
+		}
+		public string Remarks
+		{
+			get; set;
+		}
+	}
 }
