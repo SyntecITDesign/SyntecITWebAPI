@@ -39,6 +39,32 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GASNotify
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+
+		[Route( "EmailGASNotify" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult EmailGASNotify( [FromBody] EmailGASNotify EmailGASNotifyParameter )
+		{
+			try
+			{
+				INotifier mailNotifier = new MailNotifier();
+
+				mailNotifier.Title = EmailGASNotifyParameter.EmailGASNotifyTitle;
+				mailNotifier.UserName = EmailGASNotifyParameter.EmailGASNotifyUserEmail;
+				int attachmentCount = 0;
+				mailNotifier.Content = EmailGASNotifyParameter.EmailGASNotifyContent;
+				mailNotifier.SetParam( "AttachmentCount", attachmentCount );
+				mailNotifier.Notify();
+
+				#region VDS通知機器人
+
+				Console.Write( "" );
+				#endregion
+			}
+			catch( Exception e ) { Console.Write( e.ToString() ); }
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		#endregion Public Methods
 
 		#region Private Fields
