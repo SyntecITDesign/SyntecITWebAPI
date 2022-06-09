@@ -29,6 +29,11 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyDorm
 		{
 			get; set;
 		}
+		public string ApplicationType
+		{
+			get; set;
+		}
+		
 	}
 
 	public class InsertDormApplicationsMaster 

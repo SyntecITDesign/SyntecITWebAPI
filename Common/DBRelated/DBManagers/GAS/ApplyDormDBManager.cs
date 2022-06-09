@@ -95,12 +95,13 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		{
 			string sql = $@"SELECT * 
 							FROM [{m_gas}].[dbo].[DormApplicationsMaster] 
-							WHERE [EmpID]=@Parameter0 and [Finished]=@Parameter1";
+							WHERE [EmpID] like @Parameter0 and [Finished]=@Parameter1 and [ApplicationType] like @Parameter2";
 
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetDormApplicationsMaster_SZ_Parameter.EmpID,
-				GetDormApplicationsMaster_SZ_Parameter.Finished
+				GetDormApplicationsMaster_SZ_Parameter.Finished,
+				GetDormApplicationsMaster_SZ_Parameter.ApplicationType
 
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
@@ -120,7 +121,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetDormInfo_SZ( GetDormInfo_SZ GetDormInfo_SZParameter )
 		{
 			string sql = $@"SELECT * 
-							FROM [{m_gas}].[dbo].[DormInfo_SZ] 
+							FROM [{m_gas}].[dbo].[DormInfo_SZ]
+							where [EmpID] like @Parameter3
 							order by [ID] desc";
 
 			List<object> SQLParameterList = new List<object>()
