@@ -125,11 +125,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal DataTable GetParkingSpaceApplicationsMaster( GetParkingSpaceApplicationsMaster GetParkingSpaceApplicationsMasterParameter )
 		{
-			string sql = $@"SELECT b.[ApplicantID],b.[ApplicantName],b.[ApplicationDate],b.[ParkingSpaceNum],b.[ReservationTime],b.[ApplicationType],b.[Finished],b.[Remarks], a.[SuperDeptName]
+			string sql = $@"SELECT b.[ApplicantID],b.[ApplicantName],b.[ApplicationDate],b.[ParkingSpaceNum],b.[ReservationTime],b.[ApplicationType],b.[Finished],b.[Remarks], a.[SuperDeptName], b.[ApplicationArea]
 							FROM [{m_gas}].[dbo].[ParkingSpaceApplicationsMaster] as b
 							Inner join (SELECT * FROM [syntecbarcode].[dbo].[TEMP_NAME]) as a
 							ON b.[ApplicantID] collate Chinese_Taiwan_Stroke_CI_AS = a.[EmpID]
-							WHERE b.[Finished]=0 and b.[ApplicantID] like @Parameter1
+							WHERE b.[Finished]=0 and b.[ApplicantID] like @Parameter1 and b.[ApplicationArea] = @Parameter11
 							Order by b.[ApplicationDate]";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -143,7 +143,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				GetParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterReservationTime,
 				GetParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterApplicationType,
 				GetParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterFinished,
-				GetParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterRemarks
+				GetParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterRemarks,
+				GetParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterApplicationArea
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
@@ -160,8 +161,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool InsertParkingSpaceApplicationsMaster( InsertParkingSpaceApplicationsMaster InsertParkingSpaceApplicationsMasterParameter )
 		{
-			string sql = $@"INSERT INTO [{m_gas}].[dbo].[ParkingSpaceApplicationsMaster] ([ApplicantID],[ApplicantName],[FillerID],[FillerName],[ApplicationDate],[ParkingSpaceNum],[ApplicationType],[Finished],[Remarks])
-								VALUES (@Parameter1, @Parameter2, @Parameter3, @Parameter4,@Parameter5, @Parameter6, @Parameter7,@Parameter8,@Parameter9)";
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[ParkingSpaceApplicationsMaster] ([ApplicantID],[ApplicantName],[FillerID],[FillerName],[ApplicationDate],[ParkingSpaceNum],[ApplicationType],[Finished],[Remarks],[ApplicationArea])
+								VALUES (@Parameter1, @Parameter2, @Parameter3, @Parameter4,@Parameter5, @Parameter6, @Parameter7,@Parameter8,@Parameter9,@Parameter10)";
 			List<object> SQLParameterList = new List<object>()
 			{
 				InsertParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterRequisitionID,
@@ -173,7 +174,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				InsertParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterParkingSpaceNum,
 				InsertParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterApplicationType,
 				InsertParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterFinished,
-				InsertParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterRemarks
+				InsertParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterRemarks,
+				InsertParkingSpaceApplicationsMasterParameter.ParkingSpaceApplicationsMasterApplicationArea
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;

@@ -97,4 +97,50 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyDorm
 			get; set;
 		}
 	}
+
+	public class DormInfo_SZAllField
+	{
+		
+		public string DormInfo_SZID
+		{
+			get; set;
+		}
+		
+		public string DormInfo_SZDorm
+		{
+			get; set;
+		}
+		
+		
+		public string DormInfo_SZRoomNum
+		{
+			get; set;
+		}
+		
+		
+		public string DormInfo_SZEmpID
+		{
+			get; set;
+		}
+		public string DormInfo_SZEmpName
+		{
+			get; set;
+		}
+
+	}
+	public class UpsertDormInfo_SZ : DormInfo_SZAllField
+	{
+
+	}
+	public class DeleteDormInfo_SZ : DormInfo_SZAllField
+	{
+
+	}	
+	public class GetDormInfo_SZ : DormInfo_SZAllField
+	{
+
+	}
+
+
+
 }

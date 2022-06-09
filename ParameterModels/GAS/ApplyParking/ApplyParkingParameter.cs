@@ -118,6 +118,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyParking
 		{
 			get; set;
 		}
+		public string ParkingSpaceApplicationsMasterApplicationArea
+		{
+			get; set;
+		}
 	}
 	public class UpdateParkingSpaceApplicationsMaster : ParkingSpaceApplicationsMasterAllField
 	{

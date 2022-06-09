@@ -96,6 +96,68 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyDorm
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "GetDormInfo_SZ" )]
+		[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult GetDormInfo_SZ( [FromBody] GetDormInfo_SZ GetDormInfo_SZParameter )
+		{
+			JArray result = m_publicDormHandler.GetDormInfo_SZ( GetDormInfo_SZParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "UpsertDormInfo_SZ" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertDormInfo_SZ( [FromBody] UpsertDormInfo_SZ UpsertDormInfo_SZParameter )
+		{
+
+			bool bResult = m_publicDormHandler.UpsertDormInfo_SZ( UpsertDormInfo_SZParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "DeleteDormInfo_SZ" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DeleteDormInfo_SZ( [FromBody] DeleteDormInfo_SZ DeleteDormInfo_SZParameter )
+		{
+
+			bool bResult = m_publicDormHandler.DeleteDormInfo_SZ( DeleteDormInfo_SZParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+
+
 		#endregion Public Methods
 
 		#region Private Fields

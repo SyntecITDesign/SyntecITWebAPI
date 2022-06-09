@@ -54,6 +54,36 @@ namespace SyntecITWebAPI.Models.GAS.ApplyDorm
 				return ja;
 			}
 		}
+		internal JArray GetDormInfo_SZ( GetDormInfo_SZ GetDormInfo_SZParameter )
+		{
+
+			DataTable dtResult = m_ApplyDormDBManager.GetDormInfo_SZ( GetDormInfo_SZParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal bool UpsertDormInfo_SZ( UpsertDormInfo_SZ UpsertDormInfo_SZParameter )
+		{
+
+			bool bResult = m_ApplyDormDBManager.UpsertDormInfo_SZ( UpsertDormInfo_SZParameter );
+
+			return bResult;
+		}
+
+		internal bool DeleteDormInfo_SZ( DeleteDormInfo_SZ DeleteDormInfo_SZParameter )
+		{
+
+			bool bResult = m_ApplyDormDBManager.DeleteDormInfo_SZ( DeleteDormInfo_SZParameter );
+
+			return bResult;
+		}
+
 		#endregion Internal Methods
 
 		#region Private Fields

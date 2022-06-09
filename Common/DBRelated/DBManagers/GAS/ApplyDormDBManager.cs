@@ -91,8 +91,6 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			return bResult;
 		}
 
-
-		
 		internal DataTable GetDormApplicationsMaster_SZ( GetDormApplicationsMaster_SZ GetDormApplicationsMaster_SZ_Parameter )
 		{
 			string sql = $@"SELECT * 
@@ -118,8 +116,78 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				return result;
 			}
 		}
-		
 
+		internal DataTable GetDormInfo_SZ( GetDormInfo_SZ GetDormInfo_SZParameter )
+		{
+			string sql = $@"SELECT * 
+							FROM [{m_gas}].[dbo].[DormInfo_SZ] 
+							order by [ID] desc";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetDormInfo_SZParameter.DormInfo_SZID,
+				GetDormInfo_SZParameter.DormInfo_SZDorm,
+				GetDormInfo_SZParameter.DormInfo_SZRoomNum,
+				GetDormInfo_SZParameter.DormInfo_SZEmpID,
+				GetDormInfo_SZParameter.DormInfo_SZEmpName
+
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
+			//return bresult;
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal bool UpsertDormInfo_SZ( UpsertDormInfo_SZ UpsertDormInfo_SZParameter )
+		{
+			string sql = $@"IF EXISTS (SELECT * FROM [{m_gas}].[dbo].[DormInfo_SZ] WHERE [ID]=@Parameter0 )
+							UPDATE [{m_gas}].[dbo].[DormInfo_SZ] SET [Dorm]=@Parameter1, [RoomNum]=@Parameter2, [EmpID]=@Parameter3, [EmpName]=@Parameter4
+							WHERE [ID]=@Parameter0 
+						ELSE
+						INSERT INTO [{m_gas}].[dbo].[DormInfo_SZ] ([Dorm],[RoomNum]) 
+						VALUES (@Parameter1,@Parameter2)";
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpsertDormInfo_SZParameter.DormInfo_SZID,
+				UpsertDormInfo_SZParameter.DormInfo_SZDorm,
+				UpsertDormInfo_SZParameter.DormInfo_SZRoomNum,
+				UpsertDormInfo_SZParameter.DormInfo_SZEmpID,
+				UpsertDormInfo_SZParameter.DormInfo_SZEmpName
+
+
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
+		internal bool DeleteDormInfo_SZ( DeleteDormInfo_SZ DeleteDormInfo_SZParameter )
+		{
+			string sql = $@"DELETE FROM [{m_gas}].[dbo].[DormInfo_SZ]
+						WHERE [ID] = @Parameter0";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				DeleteDormInfo_SZParameter.DormInfo_SZID,
+				DeleteDormInfo_SZParameter.DormInfo_SZDorm,
+				DeleteDormInfo_SZParameter.DormInfo_SZRoomNum,
+				DeleteDormInfo_SZParameter.DormInfo_SZEmpID,
+				DeleteDormInfo_SZParameter.DormInfo_SZEmpName
+
+
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
+		
 	}
 	#endregion Internal Methods
 }
