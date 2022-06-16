@@ -81,6 +81,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyDorm
 		{
 			get; set;
 		}
+		public string Remarks
+		{
+			get; set;
+		}
 	}
 
 	public class UpdateDormApplicationsMaster

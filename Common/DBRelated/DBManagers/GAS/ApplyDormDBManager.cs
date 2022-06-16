@@ -53,8 +53,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool InsertDormApplicationsMaster( InsertDormApplicationsMaster InsertDormApplicationsMasterParameter )
 		{
 			string sql = $@"INSERT INTO [{m_gas}].[dbo].[DormApplicationsMaster] 
-							([EmpID],[ApplicationDate],[Dorm],[RoomNum],[ReservationTime],[Finished],[ApplicationType],[LeaveDate],[EmpRemarks],[EmpName],[RoomCompany])
-							VAlUES(@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter7,@Parameter6,@Parameter8,@Parameter9,@Parameter10)";
+							([EmpID],[ApplicationDate],[Dorm],[RoomNum],[ReservationTime],[Finished],[ApplicationType],[LeaveDate],[EmpRemarks],[EmpName],[RoomCompany],[Remarks])
+							VAlUES(@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter7,@Parameter6,@Parameter8,@Parameter9,@Parameter10,@Parameter11)";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -68,7 +68,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				InsertDormApplicationsMasterParameter.ApplicationType,
 				InsertDormApplicationsMasterParameter.EmpRemarks,
 				InsertDormApplicationsMasterParameter.EmpName,
-				InsertDormApplicationsMasterParameter.RoomCompany
+				InsertDormApplicationsMasterParameter.RoomCompany,
+				InsertDormApplicationsMasterParameter.Remarks
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
