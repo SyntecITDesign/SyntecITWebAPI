@@ -102,7 +102,7 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CarBooking
 	public class UpdateCarTakeInfo
 	{
 		#region Public Properties
-		public string EmpID
+		public string ID
 		{
 			get; set;
 		}

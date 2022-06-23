@@ -155,11 +155,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		{
 			string sql = $@"UPDATE [{m_gas}].[dbo].[CarBookingRecord] 
 							SET [ActualStartTime]=GETDATE(), [CarNumber] = @Parameter1
-							WHERE [EmpID]=@Parameter0 and  [ActualStartTime] is  NULL　and  (GETDATE() between  [PreserveStartTime] and [PreserveEndTime])";
+							WHERE [ID]=@Parameter0 and  [ActualStartTime] is  NULL　and  (GETDATE() between  [PreserveStartTime] and [PreserveEndTime])";
 
 			List<object> SQLParameterList = new List<object>()
 			{
-				UpdateCarTakeInfoParameter.EmpID,
+				UpdateCarTakeInfoParameter.ID,
 				UpdateCarTakeInfoParameter.CarNumber,
 				UpdateCarTakeInfoParameter.AcutalStartTime
 			};
