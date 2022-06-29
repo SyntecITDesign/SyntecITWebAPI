@@ -136,4 +136,35 @@ namespace SyntecITWebAPI.ParameterModels.Notify
 		#endregion Public Properties
 
 	}
+
+	public class SendAlarmMessage
+	{
+		#region Public Properties
+		[Required]
+		public string countryCode
+		{
+			get; set;
+		}
+		[Required]
+		public string phone
+		{
+			get; set;
+		}
+		[Required]
+		public string application
+		{
+			get; set;
+		}
+		public string machineName
+		{
+			get; set;
+		}
+		public string alarmInfo
+		{
+			get; set;
+		}
+
+		#endregion Public Properties
+
+	}
 }

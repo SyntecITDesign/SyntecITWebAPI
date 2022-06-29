@@ -79,6 +79,24 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			}
 			
 		}
+
+		internal bool SendAlarmMessage( SendAlarmMessage SendAlarmMessageParameter )
+		{
+			string sql = "Insert into  [jirareport].[dbo].[SMSHistoryRecord] (phone,smsContent,application,consDate,modiDate) "
+				+ " values (@Parameter0, @Parameter1,@Parameter2,@Parameter3,@Parameter4)";
+			DateTimeOffset now = DateTimeOffset.UtcNow;
+			long unixTimeMilliseconds = now.ToUnixTimeMilliseconds();
+			List<object> SQLParameterList = new List<object>()
+			{
+				SendAlarmMessageParameter.phone,
+				"尊敬的客户，您的機台:"+ SendAlarmMessageParameter.machineName + "發生警報:"+ SendAlarmMessageParameter.alarmInfo + "，詳情請點選:http://syntec.ink/?7mFnNQYB。",
+				SendAlarmMessageParameter.application,
+				unixTimeMilliseconds,
+				unixTimeMilliseconds
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
 		#endregion Internal Methods
 	}
 }

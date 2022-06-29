@@ -77,6 +77,10 @@ namespace SyntecITWebAPI.Models
 					request.RecNum = SendVerifyCodeParameter.phone;//"接收号码，多个号码可以逗号分隔"
 					request.ParamString = "{\"name\":\"\",\"code\":\"" + verifyCode + "\"}";//短信模板中的变量；数字需要转换为字符串；个人用户每个变量长度必须小于15个字符。"
 					SingleSendSmsResponse httpResponse = client.GetAcsResponse( request );
+					if(httpResponse.HttpResponse.Status != 200)
+					{
+						return ErrorCodeList.SMS_Failed;
+					}
 				}
 				catch(Exception ex)
 				{
@@ -93,6 +97,10 @@ namespace SyntecITWebAPI.Models
 					string strTemp = "action=send&&userid=&account=SZGJ00003&password=230AB6B4E96678C32170A42CC3242459";
 					strTemp += "&mobile=" + phone + "&code=8&content=" + result + "&sendTime=&extno=";
 					string postResult = HttpPost( "https://dx.ipyy.net/I18NSms.aspx", strTemp );//操作成功
+					if(postResult.IndexOf( "Faild" ) >= 0)
+					{
+						return ErrorCodeList.SMS_Failed;
+					}
 				}
 				catch(Exception ex)
 				{
@@ -117,13 +125,83 @@ namespace SyntecITWebAPI.Models
 			return bResult;
 		}
 
+		internal ErrorCodeList SendAlarmMessage( SendAlarmMessage SendAlarmMessageParameter )
+		{
+			string application = SendAlarmMessageParameter.application;
+			string content = "";
+			if(SendAlarmMessageParameter.countryCode == "86")//大陸境內-阿里雲
+			{
+				try
+				{
+					IClientProfile profile;
+					profile = DefaultProfile.GetProfile( strRegionId, strAccessKeyId, strSecret );
+					IAcsClient client = new DefaultAcsClient( profile );
+					SingleSendSmsRequest request = new SingleSendSmsRequest();
+
+					request.SignName = strSignName;//"管理控制台中配置的短信签名（状态必须是验证通过）"
+					request.TemplateCode = alarmMessageCode;//管理控制台中配置的审核通过的短信模板的模板CODE（状态必须是验证通过）"
+					request.RecNum = SendAlarmMessageParameter.phone;//"接收号码，多个号码可以逗号分隔"
+					request.ParamString = "{\"machineNmae\":\""+ SendAlarmMessageParameter.machineName + "\",\"alarmInfo\":\"" + SendAlarmMessageParameter.alarmInfo + "\"}";//短信模板中的变量；数字需要转换为字符串；个人用户每个变量长度必须小于15个字符。"
+					SingleSendSmsResponse httpResponse = client.GetAcsResponse( request );
+					if(httpResponse.HttpResponse.Status != 200)
+					{
+						return ErrorCodeList.SMS_Failed;
+					}
+				}
+				catch(Exception ex)
+				{
+					return ErrorCodeList.SMS_Failed;
+				}
+			}
+			else//發送國際短信-華信
+			{
+				try
+				{
+					string phone = SendAlarmMessageParameter.countryCode + Convert.ToInt32( SendAlarmMessageParameter.phone ).ToString();//國際碼+手機號碼去開頭0
+					switch(SendAlarmMessageParameter.countryCode)
+					{
+						case "886":
+							content = "【新代數控】尊敬的客户，您的機台:" + SendAlarmMessageParameter.machineName + "發生警報:"+ SendAlarmMessageParameter.alarmInfo + "，詳情請點選:http://syntec.ink/?7mFnNQYB。";
+							break;
+
+						default:
+							content = "【SYNTEC CO.】Dear customer, your machine: " + SendAlarmMessageParameter.machineName + " has an alarm: " + SendAlarmMessageParameter.alarmInfo + ", for details, please click: http://syntec.ink/?7mFnNQYB.";
+							break;
+					}
+					var bytes = Encoding.BigEndianUnicode.GetBytes( content );
+					var result = ToHexString( bytes );
+					string strTemp = "action=send&&userid=&account=SZGJ00003&password=230AB6B4E96678C32170A42CC3242459";
+					strTemp += "&mobile=" + phone + "&code=8&content=" + result + "&sendTime=&extno=";
+					string postResult = HttpPost( "https://dx.ipyy.net/I18NSms.aspx", strTemp );//發信成功
+					if(postResult.IndexOf( "Faild" ) >= 0)
+					{
+						return ErrorCodeList.SMS_Failed;
+					}
+				}
+				catch(Exception ex)
+				{
+					return ErrorCodeList.SMS_Failed;
+				}
+			}
+			bool bResult = m_publicNotifyDBManager.SendAlarmMessage( SendAlarmMessageParameter );
+			if(bResult != true)
+			{
+				return ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				return ErrorCodeList.Success;
+			}
+		}
+
 		#endregion Internal Methods
 
 		#region Private Fields
 
 		private static readonly char[] HexChars = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
-		private static string CRMChechCode = "SMS_56175037";
+		private static string CRMChechCode = "SMS_56175037";//新代验证码
+		private static string alarmMessageCode = "SMS_244010386";//機台警報訊息
 
 		private static string filePath = Environment.CurrentDirectory + "\\";
 

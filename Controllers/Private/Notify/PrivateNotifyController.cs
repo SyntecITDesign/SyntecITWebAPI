@@ -48,7 +48,24 @@ namespace SyntecITWebAPI.Private.OpenNotifyController
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "SendAlarmMessage" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult SendAlarmMessage( [FromBody] SendAlarmMessage SendAlarmMessageParameter )
+		{
+			ErrorCodeList result = m_publicNotifyHandler.SendAlarmMessage( SendAlarmMessageParameter );
 
+			if(result == ErrorCodeList.Success)
+			{
+				m_responseHandler.Content = true;
+			}
+			else
+			{
+				m_responseHandler.Code = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 
 		#endregion Public Methods
 
