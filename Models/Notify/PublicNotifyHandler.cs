@@ -201,7 +201,7 @@ namespace SyntecITWebAPI.Models
 		private static readonly char[] HexChars = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
 		private static string CRMChechCode = "SMS_56175037";//新代验证码
-		private static string alarmMessageCode = "SMS_244010386";//機台警報訊息
+		private static string alarmMessageCode = "SMS_244850028";//搶鮮版機台警報訊息
 
 		private static string filePath = Environment.CurrentDirectory + "\\";
 
