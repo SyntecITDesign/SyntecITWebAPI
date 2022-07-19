@@ -155,6 +155,27 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.PersonalInfo
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "CheckFreshmanGASInfo" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult CheckFreshmanGASInfo( [FromBody] InsertFreshmanGASInfo CheckFreshmanGASInfoParameter )
+		{
+			JArray result = m_publicPersonalInfoHandler.CheckFreshmanGASInfo( CheckFreshmanGASInfoParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+
 		[Route( "GetProcessingInfo" )]
 		[CheckTokenFilter]
 		//[PrivateCookieFilter]

@@ -106,6 +106,23 @@ namespace SyntecITWebAPI.Models.GAS.PersonalInfo
 
 			return bResult;
 		}
+
+		internal JArray CheckFreshmanGASInfo( InsertFreshmanGASInfo CheckFreshmanGASInfoParameter )
+		{
+
+			DataTable dtResult = m_publicPersonalInfoDBManager.CheckFreshmanGASInfo( CheckFreshmanGASInfoParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
 		internal JArray QueryProcessingInfo( GetProcessingInfo GetProcessingInfoParameter )
 		{
 

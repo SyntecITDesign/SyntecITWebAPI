@@ -195,6 +195,33 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			return bResult;
 		}
 
+		internal DataTable CheckFreshmanGASInfo( InsertFreshmanGASInfo CheckFreshmanGASInfoParameter )
+		{
+			string sql = $@"SELECT *
+						  FROM [{m_gas}].[dbo].[GAS_GAInfoMaster]
+						  WHERE [EmpDept] IS NULL and [EmpName] = @Parameter0 and [CarLicense] like @Parameter1 and [MotorLicense] like @Parameter2
+						  ";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				CheckFreshmanGASInfoParameter.EmpName,
+				CheckFreshmanGASInfoParameter.CarLicense,
+				CheckFreshmanGASInfoParameter.MotorLicense
+
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
 		internal DataTable GetProcessingInfo( GetProcessingInfo GetProcessingInfoParameter )
 		{
 
