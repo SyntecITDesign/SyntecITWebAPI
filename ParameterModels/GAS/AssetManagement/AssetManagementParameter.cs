@@ -90,7 +90,18 @@ namespace SyntecITWebAPI.ParameterModels.GAS.AssetManagement
 		{
 			get; set;
 		}
-
+		public string AssetManagementEquipmentNo
+		{
+			get; set;
+		}
+		public string AssetManagementLicenceAccount
+		{
+			get; set;
+		}
+		public string AssetManagementState
+		{
+			get; set;
+		}
 
 	}
 	public class InsertAssetInfo : AssetManagementAllField
@@ -106,6 +117,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.AssetManagement
 
 	}
 	public class GetAssetInfo : AssetManagementAllField
+	{
+
+	}
+	public class UpdateITInfo : AssetManagementAllField
 	{
 
 	}
@@ -197,5 +212,57 @@ namespace SyntecITWebAPI.ParameterModels.GAS.AssetManagement
 	{
 
 	}
+
+
+
+	public class AssetLogTableAllField
+	{
+		public string AssetLogTableLogNo
+		{
+			get; set;
+		}
+		public string AssetLogTableAssetNo
+		{
+			get; set;
+		}
+		public string AssetLogTableEmpID
+		{
+			get; set;
+		}
+		public string AssetLogTableEmpName
+		{
+			get; set;
+		}
+		public string AssetLogTableChangeDate
+		{
+			get; set;
+		}
+		public string AssetLogTableBefore
+		{
+			get; set;
+		}
+		public string AssetLogTableAfter
+		{
+			get; set;
+		}
+		public string AssetLogTableMemo
+		{
+			get; set;
+		}
+		
+	}
+	public class InsertAssetLogTable : AssetLogTableAllField
+	{
+
+	}
+	
+	public class GetAssetLogTable : AssetLogTableAllField
+	{
+
+	}
+
+
+
+
 
 }

@@ -48,6 +48,14 @@ namespace SyntecITWebAPI.Models.GAS.AssetManagement
 			}
 		}
 
+		internal bool UpdateITInfo( UpdateITInfo UpdateITInfoParameter )
+		{
+
+			bool bResult = m_AssetManagementDBManager.UpdateITInfo( UpdateITInfoParameter );
+
+			return bResult;
+		}
+
 		internal bool InsertAssetSpecList( InsertAssetSpecList InsertAssetSpecListParameter )
 		{
 
@@ -108,6 +116,28 @@ namespace SyntecITWebAPI.Models.GAS.AssetManagement
 		{
 
 			DataTable dtResult = m_AssetManagementDBManager.GetAssetInventory( GetAssetInventoryParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal bool InsertAssetLogTable( InsertAssetLogTable InsertAssetLogTableParameter )
+		{
+
+			bool bResult = m_AssetManagementDBManager.InsertAssetLogTable( InsertAssetLogTableParameter );
+
+			return bResult;
+		}
+
+		internal JArray GetAssetLogTable( GetAssetLogTable GetAssetLogTableParameter )
+		{
+
+			DataTable dtResult = m_AssetManagementDBManager.GetAssetLogTable( GetAssetLogTableParameter );
 
 			if( dtResult == null || dtResult.Rows.Count <= 0 )
 				return null;

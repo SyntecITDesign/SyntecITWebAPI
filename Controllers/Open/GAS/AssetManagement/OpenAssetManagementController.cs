@@ -93,6 +93,25 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.AssetManagement
 			return Ok(m_responseHandler.GetResult());
 		}
 
+		[Route( "UpdateITInfo" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpdateITnfo( [FromBody] UpdateITInfo UpdateITInfoParameter )
+		{
+
+			bool bResult = m_publicAssetManagementHandler.UpdateITInfo( UpdateITInfoParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 
 		[Route( "InsertAssetSpecList" )]
 		[CheckTokenFilter]
@@ -248,7 +267,46 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.AssetManagement
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "InsertAssetLogTable" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult InsertAssetLogTable( [FromBody] InsertAssetLogTable InsertAssetLogTableParameter )
+		{
 
+			bool bResult = m_publicAssetManagementHandler.InsertAssetLogTable( InsertAssetLogTableParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+
+		[Route( "GetAssetLogTable" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult GetAssetLogTable( [FromBody] GetAssetLogTable GetAssetLogTableParameter )
+		{
+
+			JArray result = m_publicAssetManagementHandler.GetAssetLogTable( GetAssetLogTableParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 
 		#endregion Public Methods
 

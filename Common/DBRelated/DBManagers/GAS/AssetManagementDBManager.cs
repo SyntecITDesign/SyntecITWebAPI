@@ -80,7 +80,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool UpdateAssetInfo(UpdateAssetInfo UpdateAssetInfoParameter)
 		{
 			string sql = $@"UPDATE [{m_gas}].[dbo].[AssetManagement]
-							set [AssetName]=@Parameter1,[Spec]=@Parameter2,[AssetType]=@Parameter3,[Property]=@Parameter4,[GetDate]=@Parameter5,[GetCost]=@Parameter6,[Quantity]=@Parameter7,[ManagerID]=@Parameter8,[CostCenter]=@Parameter9,[Storage]=@Parameter10,[FirmName]=@Parameter11,[FirmTel]=@Parameter12,[FirmContactWindow]=@Parameter13, [Memo]=@Parameter14, [IsScrap]=@Parameter15, [SAPNo]=@Parameter16, [PRNo]=@Parameter17, [PONo]=@Parameter18, [Limit]=@Parameter19, [Branch]=@Parameter20
+							set [AssetName]=@Parameter1,[Spec]=@Parameter2,[AssetType]=@Parameter3,[Property]=@Parameter4,[GetDate]=@Parameter5,[GetCost]=@Parameter6,[Quantity]=@Parameter7,[ManagerID]=@Parameter8,[CostCenter]=@Parameter9,[Storage]=@Parameter10,[FirmName]=@Parameter11,[FirmTel]=@Parameter12,[FirmContactWindow]=@Parameter13, [Memo]=@Parameter14, [IsScrap]=@Parameter15, [SAPNo]=@Parameter16, [PRNo]=@Parameter17, [PONo]=@Parameter18, [Branch]=@Parameter20, [State]=@Parameter21
 							where [AssetNo]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -104,7 +104,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				UpdateAssetInfoParameter.AssetManagementPRNo,
 				UpdateAssetInfoParameter.AssetManagementPONo,
 				UpdateAssetInfoParameter.AssetManagementLimit,
-				UpdateAssetInfoParameter.AssetManagementBranch
+				UpdateAssetInfoParameter.AssetManagementBranch,
+				UpdateAssetInfoParameter.AssetManagementState
 
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
@@ -121,7 +122,9 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 							  ,Asset.[FirmTel],Asset.[FirmContactWindow]
 							  ,Asset.[Memo],Asset.[IsScrap]
 							  ,Asset.[SAPNo],Asset.[PRNo]
-							  ,Asset.[PONo],Asset.[Limit],Asset.[Branch],Emp.EmpName,Emp.DeptName
+							  ,Asset.[PONo],Asset.[Limit],Asset.[Branch]
+							  ,Emp.EmpName,Emp.DeptName
+							  ,Asset.[EquipmentNo],Asset.[LicenceAccount],Asset.[State]
 						  FROM [{m_gas}].[dbo].[AssetManagement] as Asset
 						  left join [syntecbarcode].[dbo].[TEMP_NAME] as Emp
 						  on Emp.EmpID COLLATE Chinese_Taiwan_Stroke_CI_AS =Asset.ManagerID COLLATE Chinese_Taiwan_Stroke_CI_AS
@@ -156,6 +159,24 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				return result;
 			}
 		}
+
+		internal bool UpdateITInfo( UpdateITInfo UpdateITInfoParameter )
+		{
+			string sql = $@"UPDATE [{m_gas}].[dbo].[AssetManagement]
+							set [Limit]=@Parameter1,[EquipmentNo]=@Parameter2,[LicenceAccount]=@Parameter3
+							where [AssetNo]=@Parameter0";
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpdateITInfoParameter.AssetManagementAssetNo,
+				UpdateITInfoParameter.AssetManagementLimit,
+				UpdateITInfoParameter.AssetManagementEquipmentNo,
+				UpdateITInfoParameter.AssetManagementLicenceAccount,
+				UpdateITInfoParameter.AssetManagementState
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
 
 		internal bool InsertAssetSpecList( InsertAssetSpecList InsertAssetSpecListParameter )
 		{
@@ -309,6 +330,62 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				return result;
 			}
 		}
+
+		internal bool InsertAssetLogTable( InsertAssetLogTable InsertAssetLogTableParameter )
+		{
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[AssetLogTable]([AssetNo],[EmpID],[ChangeDate],[Before],[After],[Memo])
+						    VALUES (@Parameter1, @Parameter2, @Parameter4, @Parameter5, @Parameter6, @Parameter7)";
+			List<object> SQLParameterList = new List<object>()
+			{
+				InsertAssetLogTableParameter.AssetLogTableLogNo,
+				InsertAssetLogTableParameter.AssetLogTableAssetNo,
+				InsertAssetLogTableParameter.AssetLogTableEmpID,
+				InsertAssetLogTableParameter.AssetLogTableEmpName,
+				InsertAssetLogTableParameter.AssetLogTableChangeDate,
+				InsertAssetLogTableParameter.AssetLogTableBefore,
+				InsertAssetLogTableParameter.AssetLogTableAfter,
+				InsertAssetLogTableParameter.AssetLogTableMemo
+
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		internal DataTable GetAssetLogTable( GetAssetLogTable GetAssetLogTableParameter )
+		{
+			string sql = $@"SELECT [LogNo],[AssetNo],[AssetLogTable].[EmpID],Emp.EmpName,[ChangeDate]
+							,[Before],[After],[Memo]
+							FROM [{m_gas}].[dbo].[AssetLogTable]
+							inner join [syntecbarcode].[dbo].[TEMP_NAME] as Emp
+							on Emp.EmpID COLLATE Chinese_Taiwan_Stroke_CI_AS =AssetLogTable.EmpID COLLATE Chinese_Taiwan_Stroke_CI_AS
+							WHERE [AssetNo] LIKE @Parameter1
+							Order by [LogNo] desc";
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetAssetLogTableParameter.AssetLogTableLogNo,
+				GetAssetLogTableParameter.AssetLogTableAssetNo,
+				GetAssetLogTableParameter.AssetLogTableEmpID,
+				GetAssetLogTableParameter.AssetLogTableEmpName,
+				GetAssetLogTableParameter.AssetLogTableChangeDate,
+				GetAssetLogTableParameter.AssetLogTableBefore,
+				GetAssetLogTableParameter.AssetLogTableAfter,
+				GetAssetLogTableParameter.AssetLogTableMemo
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
+			//return bresult;
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+
+
 	}
 	#endregion Internal Methods
 }
