@@ -124,7 +124,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 							  ,Asset.[SAPNo],Asset.[PRNo]
 							  ,Asset.[PONo],Asset.[Limit],Asset.[Branch]
 							  ,Emp.EmpName,Emp.DeptName
-							  ,Asset.[EquipmentNo],Asset.[LicenceAccount],Asset.[State]
+							  ,Asset.[EquipmentNo],Asset.[LicenceAccount],Asset.[State],Asset.[Warranty]
 						  FROM [{m_gas}].[dbo].[AssetManagement] as Asset
 						  left join [syntecbarcode].[dbo].[TEMP_NAME] as Emp
 						  on Emp.EmpID COLLATE Chinese_Taiwan_Stroke_CI_AS =Asset.ManagerID COLLATE Chinese_Taiwan_Stroke_CI_AS
@@ -144,7 +144,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				GetAssetInfoParameter.AssetManagementStorage,
 				GetAssetInfoParameter.AssetManagementFirmName,
 				GetAssetInfoParameter.AssetManagementFirmTel,
-				GetAssetInfoParameter.AssetManagementFirmContactWindow
+				GetAssetInfoParameter.AssetManagementFirmContactWindow,
+				GetAssetInfoParameter.AssetManagementWarranty
 			};
 			DataTable result = m_dbproxy.GetDataCMD(sql, SQLParameterList.ToArray());
 			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
@@ -163,7 +164,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool UpdateITInfo( UpdateITInfo UpdateITInfoParameter )
 		{
 			string sql = $@"UPDATE [{m_gas}].[dbo].[AssetManagement]
-							set [Limit]=@Parameter1,[EquipmentNo]=@Parameter2,[LicenceAccount]=@Parameter3
+							set [Warranty]=@Parameter5,[EquipmentNo]=@Parameter2,[LicenceAccount]=@Parameter3
 							where [AssetNo]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -171,7 +172,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				UpdateITInfoParameter.AssetManagementLimit,
 				UpdateITInfoParameter.AssetManagementEquipmentNo,
 				UpdateITInfoParameter.AssetManagementLicenceAccount,
-				UpdateITInfoParameter.AssetManagementState
+				UpdateITInfoParameter.AssetManagementState,
+				UpdateITInfoParameter.AssetManagementWarranty
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;

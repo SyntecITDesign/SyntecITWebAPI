@@ -102,7 +102,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.AssetManagement
 		{
 			get; set;
 		}
-
+		public string AssetManagementWarranty
+		{
+			get; set;
+		}
 	}
 	public class InsertAssetInfo : AssetManagementAllField
 	{
