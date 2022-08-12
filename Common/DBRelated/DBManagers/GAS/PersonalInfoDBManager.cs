@@ -451,7 +451,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"SELECT [EmpID],[EmpName],[EmpDept],[ExtensionNum],[ManageRight],[MotorLicense],[MotorLicense_Syntec],[CarLicense],[CarLicense_Syntec],[Sex]
 						  FROM [SyntecGAS].[dbo].[GAS_GAInfoMaster]
-						  WHERE [MotorLicense] like @Parameter0 or [CarLicense] like @Parameter0
+						  WHERE [MotorLicense] like @Parameter0 or [CarLicense] like @Parameter0 or [MotorLicense_Syntec] like @Parameter0 or [CarLicense_Syntec] like @Parameter0
 						  group by [EmpID],[EmpName],[EmpDept],[ExtensionNum],[ManageRight],[MotorLicense],[MotorLicense_Syntec],[CarLicense],[CarLicense_Syntec],[Sex]";
 
 			List<object> SQLParameterList = new List<object>()

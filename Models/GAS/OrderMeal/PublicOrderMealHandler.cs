@@ -40,6 +40,17 @@ namespace SyntecITWebAPI.Models.GAS.OrderMeal
 			}
 		}
 
+		internal JArray GetFuzzyItemInfo( GetMenu GetMenuParameter )
+		{
+			DataTable dtResult = m_OrderMealDBManager.GetFuzzyItemInfo( GetMenuParameter );
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
 		internal JArray GetMenu(GetMenu GetMenuParameter)
 		{
 			DataTable dtResult = m_OrderMealDBManager.GetMenu(GetMenuParameter);

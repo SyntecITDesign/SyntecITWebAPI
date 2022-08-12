@@ -78,7 +78,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		{
 			string sql = $@"SELECT *
 						FROM [{m_gas}].[dbo].[RestaurantInfo]
-						ORDER BY [ResNo]";
+						ORDER BY [ResNo] desc";
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetRestaurantInfoParameter.RestaurantInfoResNo,
@@ -99,11 +99,40 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			}
 		}
 
+		internal DataTable GetFuzzyItemInfo( GetMenu GetMenuParameter )
+		{
+			string sql = $@"SELECT *
+						FROM [{m_gas}].[dbo].[Menu]
+						where [Items] like @Parameter1 and [ResNo] = @Parameter0
+						order by Items desc";
+
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetMenuParameter.MenuResNo,
+				"%"+GetMenuParameter.MenuItems+"%",
+				GetMenuParameter.MenuPrice,
+				GetMenuParameter.MenuFat
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
+			//return bresult;
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
 		internal DataTable GetMenu(GetMenu GetMenuParameter)
 		{
 			string sql = $@"SELECT *
 						FROM [{m_gas}].[dbo].[Menu]
-						where ResNo = @Parameter0";
+						where ResNo = @Parameter0
+						order by Items desc";
 
 			
 			List<object> SQLParameterList = new List<object>()
@@ -128,7 +157,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool InsertMenuItems(InsertMenuItems InsertMenuItemsParameter)
 		{
-			string sql = $@"INSERT INTO [{m_gas}].[dbo].[Menu] ([ResNo], [Items], [Price], [Fat])
+			string sql = $@"IF EXISTS (SELECT * FROM [{m_gas}].[dbo].[Menu] WHERE ResNo = @Parameter0 and [Items] = @Parameter1)
+								UPDATE [{m_gas}].[dbo].[Menu] SET [Fat]=@Parameter3
+								WHERE [ResNo]=@Parameter0 AND [Items]=@Parameter1
+							ELSE
+								INSERT INTO [{m_gas}].[dbo].[Menu] ([ResNo], [Items], [Price], [Fat])
 								VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3)";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -143,13 +176,14 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool DeleteMenuItems(DeleteMenuItems DeleteMenuItemsParameter)
 		{
 			string sql = $@"DELETE [{m_gas}].[dbo].[Menu]
-								where [ResNo]=@Parameter0 AND [Items]=@Parameter1";
+								where [MenuNo]=@Parameter4";
 			List<object> SQLParameterList = new List<object>()
 			{
 				DeleteMenuItemsParameter.MenuResNo,
 				DeleteMenuItemsParameter.MenuItems,
 				DeleteMenuItemsParameter.MenuPrice,
-				DeleteMenuItemsParameter.MenuFat
+				DeleteMenuItemsParameter.MenuFat,
+				DeleteMenuItemsParameter.MenuNo
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
 			return bResult;
@@ -235,7 +269,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 										inner join [{m_gas}].[dbo].[RestaurantInfo] 
 										on [Menu].ResNo=[RestaurantInfo].ResNo) as MealInfo
 							on MealInfo.ResNo = [MealCalendar].ResNo and MealInfo.Items = [MealCalendar].Items
-							Where Convert(varchar,InsertDate,120) like @Parameter3";
+							Where Convert(varchar,InsertDate,120) like @Parameter3
+							order by InsertDate desc";
 
 			List<object> SQLParameterList = new List<object>()
 			{

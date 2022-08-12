@@ -93,6 +93,27 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok(m_responseHandler.GetResult());
 		}
 
+		[Route( "GetFuzzyItemInfo" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult GetFuzzyItemInfo( [FromBody] GetMenu GetMenuParameter )
+		{
+
+			JArray result = m_publicOrderMealHandler.GetFuzzyItemInfo( GetMenuParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+
 		[Route("GetMenu")]
 		[CheckTokenFilter]
 		[HttpPost]
