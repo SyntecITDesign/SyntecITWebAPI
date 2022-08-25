@@ -139,7 +139,25 @@ namespace SyntecITWebAPI.Models
 					SingleSendSmsRequest request = new SingleSendSmsRequest();
 
 					request.SignName = strSignName;//"管理控制台中配置的短信签名（状态必须是验证通过）"
-					request.TemplateCode = alarmMessageCode;//管理控制台中配置的审核通过的短信模板的模板CODE（状态必须是验证通过）"
+					switch(SendAlarmMessageParameter.type)
+					{
+						//管理控制台中配置的审核通过的短信模板的模板CODE（状态必须是验证通过）"
+						case 1://正式版
+							request.TemplateCode = alarmMessageCode_Formal;
+							break;
+						case 2://整合測試
+							request.TemplateCode = alarmMessageCode_IntegrationTest;
+							break;
+						case 3://研發測試
+							request.TemplateCode = alarmMessageCode_RdTest;
+							break;
+						case 4://內部測試
+							request.TemplateCode = alarmMessageCode_InnerIntegrationTest;
+							break;
+						default://搶鮮版
+							request.TemplateCode = alarmMessageCode_Beta;
+							break;
+					}
 					request.RecNum = SendAlarmMessageParameter.phone;//"接收号码，多个号码可以逗号分隔"
 					request.ParamString = "{\"machineNmae\":\""+ SendAlarmMessageParameter.machineName + "\",\"alarmInfo\":\"" + SendAlarmMessageParameter.alarmInfo + "\"}";//短信模板中的变量；数字需要转换为字符串；个人用户每个变量长度必须小于15个字符。"
 					SingleSendSmsResponse httpResponse = client.GetAcsResponse( request );
@@ -158,14 +176,33 @@ namespace SyntecITWebAPI.Models
 				try
 				{
 					string phone = SendAlarmMessageParameter.countryCode + Convert.ToInt32( SendAlarmMessageParameter.phone ).ToString();//國際碼+手機號碼去開頭0
+					string alarmMessageUrl = "";
+					switch(SendAlarmMessageParameter.type)
+					{
+						case 1://正式版
+							alarmMessageUrl = alarmMessageUrl_Formal;
+							break;
+						case 2://整合測試
+							alarmMessageUrl = alarmMessageUrl_IntegrationTest;
+							break;
+						case 3://研發測試
+							alarmMessageUrl = alarmMessageUrl_RdTest;
+							break;
+						case 4://內部測試
+							alarmMessageUrl = alarmMessageUrl_InnerIntegrationTest;
+							break;
+						default://搶鮮版
+							alarmMessageUrl = alarmMessageUrl_Beta;
+							break;
+					}
 					switch(SendAlarmMessageParameter.countryCode)
 					{
 						case "886":
-							content = "【新代數控】尊敬的客户，您的機台:" + SendAlarmMessageParameter.machineName + "發生警報:"+ SendAlarmMessageParameter.alarmInfo + "，詳情請點選:http://syntec.ink/?7mFnNQYB。";
+							content = "【新代數控】尊敬的客户，您的機台:" + SendAlarmMessageParameter.machineName + "發生警報:"+ SendAlarmMessageParameter.alarmInfo + "，詳情請點選:"+ alarmMessageUrl + "。";
 							break;
 
 						default:
-							content = "【SYNTEC CO.】Dear customer, your machine: " + SendAlarmMessageParameter.machineName + " has an alarm: " + SendAlarmMessageParameter.alarmInfo + ", for details, please click: http://syntec.ink/?7mFnNQYB.";
+							content = "【SYNTEC CO.】Dear customer, your machine: " + SendAlarmMessageParameter.machineName + " has an alarm: " + SendAlarmMessageParameter.alarmInfo + ", for details, please click: "+ alarmMessageUrl + ".";
 							break;
 					}
 					var bytes = Encoding.BigEndianUnicode.GetBytes( content );
@@ -201,7 +238,17 @@ namespace SyntecITWebAPI.Models
 		private static readonly char[] HexChars = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
 		private static string CRMChechCode = "SMS_56175037";//新代验证码
-		private static string alarmMessageCode = "SMS_244850028";//搶鮮版機台警報訊息
+		private static string alarmMessageCode_Formal = "SMS_244010386";//正式版機台警報訊息
+		private static string alarmMessageCode_IntegrationTest = "SMS_249195202";//整合測試機台警報訊息
+		private static string alarmMessageCode_RdTest = "SMS_249290160";//研發測試機台警報訊息
+		private static string alarmMessageCode_InnerIntegrationTest = "SMS_249085228";//內部測試機台警報訊息
+		private static string alarmMessageCode_Beta = "SMS_244850028";//搶鮮版機台警報訊息
+
+		private static string alarmMessageUrl_Formal = "http://syntec.ink/?FnbyzVRe";//正式版網址
+		private static string alarmMessageUrl_IntegrationTest = "http://syntec.ink/?iFfqaaU3";//整合測試網址
+		private static string alarmMessageUrl_RdTest = "http://syntec.ink/?MuaibEfy";//研發測試網址
+		private static string alarmMessageUrl_InnerIntegrationTest = "http://syntec.ink/?BA2bybMI";//內部測試網址
+		private static string alarmMessageUrl_Beta = "http://syntec.ink/?7mFnNQYB";//搶鮮版網址
 
 		private static string filePath = Environment.CurrentDirectory + "\\";
 

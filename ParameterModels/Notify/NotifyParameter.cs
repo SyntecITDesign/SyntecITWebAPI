@@ -164,6 +164,11 @@ namespace SyntecITWebAPI.ParameterModels.Notify
 			get; set;
 		}
 
+		public int type
+		{
+			get; set;
+		}
+
 		#endregion Public Properties
 
 	}
