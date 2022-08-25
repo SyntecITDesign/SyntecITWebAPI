@@ -128,7 +128,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 						  FROM [{m_gas}].[dbo].[AssetManagement] as Asset
 						  left join [syntecbarcode].[dbo].[TEMP_NAME] as Emp
 						  on Emp.EmpID COLLATE Chinese_Taiwan_Stroke_CI_AS =Asset.ManagerID COLLATE Chinese_Taiwan_Stroke_CI_AS
-						WHERE Asset.[AssetNo] LIKE @Parameter0";
+						WHERE Asset.[AssetNo] LIKE @Parameter0 or Asset.[EquipmentNo] LIKE @Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetAssetInfoParameter.AssetManagementAssetNo,

@@ -1013,7 +1013,7 @@ WHERE [CarInsuranceName].[Type] = @Parameter0";
 		internal DataTable CheckCarInCompany( CheckCarInCompany CheckCarInCompanyParameter )
 		{
 			string sql = $@"SELECT *  FROM [{m_gas}].[dbo].[CarBookingRecord] 
-						where CarNumber=@Parameter0 and (DATEDIFF(DAY,ActualStartTime,GETDATE())<7 and ActualStartTime IS NOT NULL and ActualEndTime IS NULL)";
+						where CarNumber=@Parameter0 and ActualStartTime IS NOT NULL and ActualEndTime IS NULL";
 
 			List<object> SQLParameterList = new List<object>()
 			{
