@@ -59,6 +59,22 @@ namespace SyntecITWebAPI.Models.GAS.MeetingRoom
 			return bResult;
 		}
 
+		internal bool UpsertMeetingRoom_SZ( UpsertMeetingRoom UpsertMeetingRoomParameter )
+		{
+
+			bool bResult = m_publicMeetingRoomDBManager.UpsertMeetingRoom_SZ( UpsertMeetingRoomParameter );
+
+			return bResult;
+		}
+
+		internal bool DeleteMeetingRoom_SZ( DeleteMeetingRoom DeleteMeetingRoomParameter )
+		{
+
+			bool bResult = m_publicMeetingRoomDBManager.DeleteMeetingRoom_SZ( DeleteMeetingRoomParameter );
+
+			return bResult;
+		}
+
 		internal bool InsertMeetingRoomApplicationsMaster( InsertMeetingRoomApplicationsMaster InsertMeetingRoomApplicationsMasterParameter )
 		{
 

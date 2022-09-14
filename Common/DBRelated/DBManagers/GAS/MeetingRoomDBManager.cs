@@ -92,6 +92,43 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			return bResult;
 		}
 
+
+		internal bool UpsertMeetingRoom_SZ( UpsertMeetingRoom UpsertMeetingRoomParameter )
+		{
+			string sql = $@"IF EXISTS (SELECT * FROM [{m_gas}].[dbo].[MeetingRoom_SZ] WHERE [ID]=@Parameter0 )
+							UPDATE [{m_gas}].[dbo].[MeetingRoom_SZ] SET [Floor]=@Parameter1, [MeetingRoom]=@Parameter2
+							WHERE [ID]=@Parameter0 
+						ELSE
+						INSERT INTO [{m_gas}].[dbo].[MeetingRoom_SZ] ([Floor],[MeetingRoom]) 
+						VALUES (@Parameter1,@Parameter2)";
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpsertMeetingRoomParameter.ID,
+				UpsertMeetingRoomParameter.Floor,
+				UpsertMeetingRoomParameter.MeetingRoom,
+
+
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
+		internal bool DeleteMeetingRoom_SZ( DeleteMeetingRoom DeleteMeetingRoomParameter )
+		{
+			string sql = $@"DELETE FROM [{m_gas}].[dbo].[MeetingRoom_SZ]
+						WHERE [ID] = @Parameter0";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				DeleteMeetingRoomParameter.ID
+
+
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
+
 		internal bool InsertMeetingRoomApplicationsMaster( InsertMeetingRoomApplicationsMaster InsertMeetingRoomApplicationsMasterParameter )
 		{
 			string sql = $@"INSERT INTO [{m_gas}].[dbo].[MeetingRoomApplicationsMaster] ([FillerID],[FillerName],[ApplicationDate],[ApplicantID],[ApplicantName],[ApplicantDept],[ApplyType],[StartDate],[EndDate],[Memo],[MRBS_ID],[StopDate])

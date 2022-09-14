@@ -96,6 +96,46 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.MeetingRoom
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "UpsertMeetingRoom_SZ" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertMeetingRoom_SZ( [FromBody] UpsertMeetingRoom UpsertMeetingRoomParameter )
+		{
+
+			bool bResult = m_publicMeetigRoomHandler.UpsertMeetingRoom_SZ( UpsertMeetingRoomParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "DeleteMeetingRoom_SZ" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DeleteMeetingRoom_SZ( [FromBody] DeleteMeetingRoom DeleteMeetingRoomParameter )
+		{
+
+			bool bResult = m_publicMeetigRoomHandler.DeleteMeetingRoom_SZ( DeleteMeetingRoomParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		[Route( "InsertMeetingRoomApplicationsMaster" )]
 		[CheckTokenFilter]
 		[HttpPost]
