@@ -48,7 +48,7 @@ namespace SyntecITWebAPI.Models
 					{
 						string fileName = "";
 						HttpClient client = new HttpClient();
-						client.Timeout = TimeSpan.FromMinutes(10);//最多等待10分鐘，實測20MB需約4分鐘左右
+						client.Timeout = TimeSpan.FromMinutes(15);//最多等待10分鐘，實測20MB需約4分鐘左右
 
 						//get title by pageid
 						string targetUrl = "https://confluence.syntecclub.com/rest/api/content/" + pageID;
