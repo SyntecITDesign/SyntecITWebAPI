@@ -171,6 +171,28 @@ namespace SyntecITWebAPI.Models
 			return bResult;
 		}
 
+		internal JArray GetUsedTime( GetUsedTime GetUsedTimeParameter )
+		{
+
+			DataTable dtResult = m_publicCRMDBManager.GetUsedTime( GetUsedTimeParameter );
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+		internal bool UpsertCRMUploadList( SynService_CRMUpload SynService_CRMUploadListParameter )
+		{
+
+			bool bResult = m_publicCRMDBManager.UpsertCRMUploadList( SynService_CRMUploadListParameter );
+
+			return bResult;
+		}
+
 		#endregion Internal Methods
 
 		#region Private Fields

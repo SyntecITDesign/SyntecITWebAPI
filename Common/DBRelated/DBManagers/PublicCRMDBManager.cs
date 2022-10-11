@@ -6,6 +6,7 @@ using SyntecITWebAPI.ParameterModels.CRM;
 using Syntec.JiraHelper;
 using System.Net;
 using Newtonsoft.Json;
+using TQMLibrary;
 
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 {
@@ -338,6 +339,38 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				SynService_ExceptionLogParameter.physical_memory,
 				SynService_ExceptionLogParameter.diskA_space,
 				SynService_ExceptionLogParameter.diskC_space
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
+		internal DataTable GetUsedTime( GetUsedTime GetUsedTimeParameter )
+		{
+
+			ProductSN _ProductSN = new ProductSN();
+			System.Data.DataTable result = _ProductSN.GetSNInfo( GetUsedTimeParameter.SN, "ITROBOT" );
+
+			
+			if(result == null || result.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal bool UpsertCRMUploadList( SynService_CRMUpload SynService_CRMUploadListParameter )
+		{
+			string sql = m_dbSQL.UpsertCRMUploadList;
+			List<object> SQLParameterList = new List<object>()
+			{
+				SynService_CRMUploadListParameter.crm_id,
+				SynService_CRMUploadListParameter.serial_number,
+				SynService_CRMUploadListParameter.used_time,
+				SynService_CRMUploadListParameter.cons_date,
+				SynService_CRMUploadListParameter.modi_date
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;

@@ -846,6 +846,44 @@ namespace SyntecITWebAPI.ParameterModels.CRM
 
 	}
 
+	public class GetUsedTime
+	{
+
+		public string SN
+		{
+			get; set;
+		}
+
+	}
+
+	public class SynService_CRMUpload
+	{
+		#region Public Properties
+
+		public string crm_id
+		{
+			get; set;
+		}
+		public string serial_number
+		{
+			get; set;
+		}
+		public long used_time
+		{
+			get; set;
+		}
+		public string cons_date
+		{
+			get; set;
+		}
+		public string modi_date
+		{
+			get; set;
+		}
+		#endregion Public Properties
+
+	}
+
 	public class Fields
 	{
 		public string customfield_13340

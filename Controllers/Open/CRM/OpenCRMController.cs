@@ -471,6 +471,55 @@ namespace SyntecITWebAPI.Open.User
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "GetUsedTime" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult GetUsedTime( [FromBody] GetUsedTime GetUsedTimeParameter )
+		{
+
+			JArray result = m_publicCRMHandler.GetUsedTime( GetUsedTimeParameter );
+
+			if(result == null)
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "UpsertCRMUploadList" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertCRMUploadList( [FromBody] List<SynService_CRMUpload> SynService_CRMUploadListParameterList )
+		{
+			string errorList = "";
+			foreach(var SynService_CRMUploadListParameter in SynService_CRMUploadListParameterList)
+			{
+				bool bResult = m_publicCRMHandler.UpsertCRMUploadList( SynService_CRMUploadListParameter );
+				if(!bResult)
+				{
+					//m_responseHandler.Code = ErrorCodeList.Param_Error;
+					errorList += SynService_CRMUploadListParameter.serial_number + ",";
+				}
+			}
+
+			if(errorList != "")
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+				m_responseHandler.Content = errorList;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		#endregion Public Methods
 
 		#region Private Fields

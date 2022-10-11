@@ -536,6 +536,15 @@ namespace SyntecITWebAPI.Common.DBRelated
 			}
 		}
 
+		public string UpsertCRMUploadList
+		{
+			get {
+				return $@"
+						INSERT INTO [{m_crm}].[dbo].[SynService_CRMUploadList] ([crm_id],[serial_number],[used_time],[cons_date],[modi_date]) 
+						VALUES (@Parameter0, @Parameter1, @Parameter2, DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))";
+			}
+		}
+
 		#endregion Public Properties
 
 		#region Public Methods
