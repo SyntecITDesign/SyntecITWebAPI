@@ -535,6 +535,12 @@ namespace SyntecITWebAPI.Common.DBRelated
 						VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6, @Parameter7, @Parameter8,DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))  ";
 			}
 		}
+		public string GetGetUsedTime
+		{
+			get {
+				return $@"select dbo.Get_ProductBadUseTime(@Parameter0,@Parameter1) as ProductBadUseTime";
+			}
+		}
 
 		public string UpsertCRMUploadList
 		{

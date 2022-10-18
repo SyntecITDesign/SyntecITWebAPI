@@ -853,6 +853,10 @@ namespace SyntecITWebAPI.ParameterModels.CRM
 		{
 			get; set;
 		}
+		public string Date
+		{
+			get; set;
+		}
 
 	}
 

@@ -346,11 +346,17 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 		internal DataTable GetUsedTime( GetUsedTime GetUsedTimeParameter )
 		{
+			string sql = m_dbSQL.GetGetUsedTime;
 
-			ProductSN _ProductSN = new ProductSN();
-			System.Data.DataTable result = _ProductSN.GetSNInfo( GetUsedTimeParameter.SN, "ITROBOT" );
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetUsedTimeParameter.SN,
+				GetUsedTimeParameter.Date
 
-			
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
 			if(result == null || result.Rows.Count <= 0)
 			{
 				return null;
@@ -359,6 +365,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			{
 				return result;
 			}
+
 		}
 
 		internal bool UpsertCRMUploadList( SynService_CRMUpload SynService_CRMUploadListParameter )
