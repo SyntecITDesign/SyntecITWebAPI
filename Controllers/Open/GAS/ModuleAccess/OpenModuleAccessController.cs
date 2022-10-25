@@ -16,10 +16,8 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ModuleAccess
 	{
 		#region Public Methods
 
-		
-		
 		[Route( "GetModuleAccess" )]
-		[CheckTokenFilter]
+		//[CheckTokenFilter]
 		[HttpPost]
 		public IActionResult GetModuleAccess( [FromBody] GetModuleAccess GetModuleAccessParameter)
 		{

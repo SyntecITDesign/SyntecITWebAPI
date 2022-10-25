@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SyntecITWebAPI.Models.GAS.OrderMeal
 {
 
-	internal class PublicOrderMealHandler
+	internal class PublicHealthManagementHandler
 	{
 		#region Internal Methods
 		internal bool InsertRestaurant(InsertRestaurant InsertRestaurantParameter)

@@ -502,7 +502,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 		#region Private Fields
 
 		private ResponseHandler m_responseHandler = new ResponseHandler();
-		private PublicOrderMealHandler m_publicOrderMealHandler = new PublicOrderMealHandler();
+		private PublicHealthManagementHandler m_publicOrderMealHandler = new PublicHealthManagementHandler();
 
 		#endregion Private Fields
 	}
