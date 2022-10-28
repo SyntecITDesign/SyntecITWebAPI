@@ -234,7 +234,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			string sql = $@"SELECT *
 							FROM [{m_gas}].[dbo].[HealthExaminationItems]
 							WHERE [No] LIKE @Parameter0 or [Hospital] LIKE @Parameter1
-							Order by [No]";
+							Order by [No] desc";
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetHealthExaminationItemsParameter.HealthExaminationItemsNo,
@@ -555,8 +555,10 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetHealthExaminationApplicationsDetail( GetHealthExaminationApplicationsDetail GetHealthExaminationApplicationsDetailParameter )
 		{
 			string sql = $@"SELECT *
-							FROM [SyntecGAS].[dbo].[HealthExaminationApplicationsDetail]
-							WHERE (Finished=0 AND IsCancel=0) and ([ApplicantID] = @Parameter2 or [RequisitionID]=@Parameter1 or [DetailID] = @Parameter0 or [ID] = @Parameter6)";
+							FROM [SyntecGAS].[dbo].[HealthExaminationApplicationsDetail] AS D
+							INNER JOIN [SyntecGAS].[dbo].[HealthExaminationApplicationsMaster] AS M
+							ON M.RequisitionID = D.RequisitionID
+							WHERE (Finished=0 AND IsCancel=0) and ([ApplicantID] = @Parameter2 or D.[RequisitionID]=@Parameter1 or [DetailID] = @Parameter0 or [ID] = @Parameter6)";
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetHealthExaminationApplicationsDetailParameter.HealthExaminationApplicationsDetailDetailID,
