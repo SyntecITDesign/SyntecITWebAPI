@@ -106,6 +106,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.AssetManagement
 		{
 			get; set;
 		}
+		public string AssetManagementStatus
+		{
+			get; set;
+		}
 	}
 	public class InsertAssetInfo : AssetManagementAllField
 	{
@@ -139,6 +143,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.AssetManagement
 			get; set;
 		}
 		public string AssetSpecListName
+		{
+			get; set;
+		}
+		public string AssetSpecListID
 		{
 			get; set;
 		}

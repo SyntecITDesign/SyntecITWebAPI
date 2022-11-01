@@ -164,7 +164,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool UpdateITInfo( UpdateITInfo UpdateITInfoParameter )
 		{
 			string sql = $@"UPDATE [{m_gas}].[dbo].[AssetManagement]
-							set [Warranty]=@Parameter5,[EquipmentNo]=@Parameter2,[LicenceAccount]=@Parameter3
+							set [Warranty]=@Parameter5,[EquipmentNo]=@Parameter2,[LicenceAccount]=@Parameter3,[Status]=@Parameter6
 							where [AssetNo]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -173,7 +173,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				UpdateITInfoParameter.AssetManagementEquipmentNo,
 				UpdateITInfoParameter.AssetManagementLicenceAccount,
 				UpdateITInfoParameter.AssetManagementState,
-				UpdateITInfoParameter.AssetManagementWarranty
+				UpdateITInfoParameter.AssetManagementWarranty,
+				UpdateITInfoParameter.AssetManagementStatus
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
@@ -196,9 +197,10 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool DeleteAssetSpecList( DeleteAssetSpecList DeleteAssetSpecListParameter )
 		{
 			string sql = $@"DELETE [{m_gas}].[dbo].[AssetSpecList]
-								where [Usage]=@Parameter0 AND [No]=@Parameter1";
+								where [ID]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
+				DeleteAssetSpecListParameter.AssetSpecListID,
 				DeleteAssetSpecListParameter.AssetSpecListUsage,
 				DeleteAssetSpecListParameter.AssetSpecListNo,
 				DeleteAssetSpecListParameter.AssetSpecListName
@@ -209,10 +211,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool UpdateAssetSpecList( UpdateAssetSpecList UpdateAssetSpecListParameter )
 		{
 			string sql = $@"UPDATE [{m_gas}].[dbo].[AssetSpecList]
-							set [Name]=@Parameter2
-							where [Usage]=@Parameter0 AND [No]=@Parameter1";
+							set [Name]=@Parameter3
+							where [ID]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
+				UpdateAssetSpecListParameter.AssetSpecListID,
 				UpdateAssetSpecListParameter.AssetSpecListUsage,
 				UpdateAssetSpecListParameter.AssetSpecListNo,
 				UpdateAssetSpecListParameter.AssetSpecListName
@@ -224,9 +227,10 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		{
 			string sql = $@"SELECT *
 						FROM [{m_gas}].[dbo].[AssetSpecList]
-						WHERE [Usage] LIKE @Parameter0";
+						WHERE [Usage] LIKE @Parameter1";
 			List<object> SQLParameterList = new List<object>()
 			{
+				GetAssetSpecListParameter.AssetSpecListID,
 				GetAssetSpecListParameter.AssetSpecListUsage,
 				GetAssetSpecListParameter.AssetSpecListNo,
 				GetAssetSpecListParameter.AssetSpecListName
