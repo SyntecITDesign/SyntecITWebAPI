@@ -33,4 +33,24 @@ namespace SyntecITWebAPI.ParameterModels.GAS.Parking
 
 		#endregion Public Properties
 	}
+
+	public class InsertCarNumBatch
+	{
+		#region Public Properties
+
+		public string EmpID
+		{
+			get; set;
+		}
+		public string CarNum
+		{
+			get; set;
+		}
+		public string ParkingNum
+		{
+			get; set;
+		}
+
+		#endregion Public Properties
+	}
 }

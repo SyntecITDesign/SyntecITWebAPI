@@ -55,8 +55,26 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Parking
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+			
+		[Route( "InsertCarNumBatch" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult InsertCarNumBatch( [FromBody] InsertCarNumBatch InsertCarNumBatchParameter )
+		{
 
+			bool bResult = m_publicParkingHandler.InsertCarNumBatch( InsertCarNumBatchParameter );
 
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 		#endregion Public Methods
 
 		#region Private Fields

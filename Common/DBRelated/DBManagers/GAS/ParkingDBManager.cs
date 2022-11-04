@@ -70,6 +70,27 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			return bResult;
 		}
 
+		internal bool InsertCarNumBatch( InsertCarNumBatch InsertCarNumBatchParameter )
+		{
+
+			string sql = $@"IF EXISTS (SELECT * FROM [{m_gas}].[dbo].[ParkingNumber] WHERE [CarNum]=@Parameter1)
+							UPDATE [{m_gas}].[dbo].[ParkingNumber]
+							SET [ParkingNum]=@Parameter2
+							WHERE [CarNum]=@Parameter1
+							ELSE
+						    INSERT INTO [{m_gas}].[dbo].[ParkingNumber]([EmpID],[CarNum],[ParkingNum])  
+							VALUES (@Parameter0, @Parameter1, @Parameter2) ";
+			
+			List<object> SQLParameterList = new List<object>()
+			{
+				InsertCarNumBatchParameter.EmpID, //0
+				InsertCarNumBatchParameter.CarNum, //1
+				InsertCarNumBatchParameter.ParkingNum //2
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
 	}
 	#endregion Internal Methods
 }

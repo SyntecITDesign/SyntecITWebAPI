@@ -39,6 +39,15 @@ namespace SyntecITWebAPI.Models.GAS.Parking
 
 			return bResult;
 		}
+
+		internal bool InsertCarNumBatch( InsertCarNumBatch InsertCarNumBatchParameter )
+		{
+
+			bool bResult = m_publicParkingDBManager.InsertCarNumBatch( InsertCarNumBatchParameter );
+
+			return bResult;
+		}
+
 		#endregion Internal Methods
 
 		#region Private Fields
