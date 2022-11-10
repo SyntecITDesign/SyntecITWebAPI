@@ -124,7 +124,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 							  ,Asset.[SAPNo],Asset.[PRNo]
 							  ,Asset.[PONo],Asset.[Limit],Asset.[Branch]
 							  ,Emp.EmpName,Emp.DeptName
-							  ,Asset.[EquipmentNo],Asset.[LicenceAccount],Asset.[State],Asset.[Warranty]
+							  ,Asset.[EquipmentNo],Asset.[LicenceAccount],Asset.[State],Asset.[Warranty],Asset.[Status]
 						  FROM [{m_gas}].[dbo].[AssetManagement] as Asset
 						  left join [syntecbarcode].[dbo].[TEMP_NAME] as Emp
 						  on Emp.EmpID COLLATE Chinese_Taiwan_Stroke_CI_AS =Asset.ManagerID COLLATE Chinese_Taiwan_Stroke_CI_AS
@@ -145,7 +145,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				GetAssetInfoParameter.AssetManagementFirmName,
 				GetAssetInfoParameter.AssetManagementFirmTel,
 				GetAssetInfoParameter.AssetManagementFirmContactWindow,
-				GetAssetInfoParameter.AssetManagementWarranty
+				GetAssetInfoParameter.AssetManagementWarranty,
+				GetAssetInfoParameter.AssetManagementStatus
 			};
 			DataTable result = m_dbproxy.GetDataCMD(sql, SQLParameterList.ToArray());
 			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());

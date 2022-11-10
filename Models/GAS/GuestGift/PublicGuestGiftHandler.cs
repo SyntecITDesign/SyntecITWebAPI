@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SyntecITWebAPI.Models.GAS.GuestGift
 {
 
-	internal class PublicGuestGiftHandler
+	internal class PublicVisitorRegistrationHandler
 	{
 		#region Internal Methods
 		internal bool InsertGuestGiftType( InsertGuestGiftType InsertGuestGiftTypeParameter )

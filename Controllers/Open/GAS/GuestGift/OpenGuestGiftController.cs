@@ -333,7 +333,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 		#region Private Fields
 
 		private ResponseHandler m_responseHandler = new ResponseHandler();
-		private PublicGuestGiftHandler m_publicGuestGiftHandler = new PublicGuestGiftHandler();
+		private PublicVisitorRegistrationHandler m_publicGuestGiftHandler = new PublicVisitorRegistrationHandler();
 
 		#endregion Private Fields
 	}
