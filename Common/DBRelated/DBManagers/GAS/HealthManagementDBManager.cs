@@ -267,7 +267,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 									FROM [SyntecGAS].[dbo].[HealthExaminationProjects] as Projects
 									inner join [SyntecGAS].[dbo].[HealthExaminationItems] as Items
 									on Projects.Hospital = Items.Hospital) as HospitalProjects
-									inner join (SELECT max([No]) as 'NewItemNo' FROM [SyntecGAS].[dbo].[HealthExaminationItems] where [Hospital] = @Parameter7) as NewItem
+									inner join (SELECT top(@Parameter8) ([No]) as 'NewItemNo' FROM [SyntecGAS].[dbo].[HealthExaminationItems] where [Hospital] = @Parameter7 order by [No] desc) as NewItem
 									on NewItem.NewItemNo=HospitalProjects.ItemNo";
 
 			List<object> SQLParameterList = new List<object>()
@@ -279,7 +279,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				InsertHealthExaminationOptionsParameter.HealthExaminationOptionsOptionalNum,
 				InsertHealthExaminationOptionsParameter.HealthExaminationOptionsMemo,
 				InsertHealthExaminationOptionsParameter.HealthExaminationOptionsState,
-				InsertHealthExaminationOptionsParameter.HealthExaminationOptionsHospitalNo
+				InsertHealthExaminationOptionsParameter.HealthExaminationOptionsHospitalNo,
+				InsertHealthExaminationOptionsParameter.HealthExaminationOptionsBatchNum
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;

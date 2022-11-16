@@ -142,6 +142,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.HealthManagement
 		{
 			get; set;
 		}
+		public int HealthExaminationOptionsBatchNum
+		{
+			get; set;
+		}
 
 	}
 	public class InsertHealthExaminationOptions : HealthExaminationOptionsAllField
