@@ -307,7 +307,6 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 						  ";
 			DataTable result = m_dbproxy.GetDataWithNoParaCMD( sql );
 
-
 			if(result == null || result.Rows.Count <= 0)
 			{
 				return null;
@@ -712,7 +711,6 @@ WHERE [CarInsuranceName].[Type] = @Parameter0";
 
 		internal DataTable GetBeenRentCarSpecTime( GetBeenRentCarSpecTime GetBeenRentCarSpecTimeParameter )
 		{
-			
 			string sql = $@"select * from [{m_gas}].[dbo].[CarBookingRecord] where 
 						(CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
 						and  CONVERT(datetime,@Parameter1,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
@@ -727,7 +725,10 @@ WHERE [CarInsuranceName].[Type] = @Parameter0";
 						and  CONVERT(datetime,@Parameter1,120) != CONVERT(datetime,PreserveStartTime,120) and ActualEndTime IS NULL)
 						or
 						(CONVERT(datetime,@Parameter0,120)<CONVERT(datetime,PreserveStartTime,120) 
-						and CONVERT(datetime,@Parameter1,120)>CONVERT(datetime,PreserveEndTime,120) and ActualEndTime IS NULL)";
+						and CONVERT(datetime,@Parameter1,120)>CONVERT(datetime,PreserveEndTime,120) and ActualEndTime IS NULL)
+						or
+						([ActualStartTime] is not null AND [ActualEndTime] is null)
+						";
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetBeenRentCarSpecTimeParameter.StartTime,
@@ -860,7 +861,6 @@ WHERE [CarInsuranceName].[Type] = @Parameter0";
 
 			List<object> SQLParameterList = new List<object>()
 			{
-
 				InsertReserveToCarBookingRecordParameter.EmpID,
 				InsertReserveToCarBookingRecordParameter.Type,
 				InsertReserveToCarBookingRecordParameter.Title,
