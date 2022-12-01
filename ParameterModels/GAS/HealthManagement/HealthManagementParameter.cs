@@ -355,6 +355,267 @@ namespace SyntecITWebAPI.ParameterModels.GAS.HealthManagement
 	public class DeleteHealthExaminationApplicationsDetail : HealthExaminationApplicationsDetailAllField
 	{
 	}
+
+	public class HealthExaminationReportsAllField
+	{
+		public int HealthExaminationReportsNo
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsExaminatedDate
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsEmpID
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsEmpName
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsDeptName
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsGender
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsBirthday
+		{
+			get; set;
+		}
+		public int HealthExaminationReportsWorkHourPerWeek
+		{
+			get; set;
+		}
+		public int HealthExaminationReportsEachWeekdaySleepHourAvg
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsSelfPerceivedSymptoms
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsMedicalHistory
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsBH
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsBW
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsWaistline
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsBMI
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsSBP
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsDBP
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsUncorrected_L
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsUncorrected_R
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsCorrected_L
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsCorrected_R
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsColorVision
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsPureToneAudiometry_L
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsPureToneAudiometry_R
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsHeadNeck
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsRespiratory
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsCardiovascular
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsDigestive
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsNervous
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsSpineLimbs
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsSkin
+		{
+			get; set;
+		}
+		public bool HealthExaminationReportsChewingBetelNuts
+		{
+			get; set;
+		}
+		public bool HealthExaminationReportsIsSmoker
+		{
+			get; set;
+		}
+		public bool HealthExaminationReportsIsAlcoholic
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsAddictionNote
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsWBC
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsHb
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsTG
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsTC
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsHDL
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsLDL
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsACSugar
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsALT_GPT
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsCr
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsU_OB
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsUrineProtein
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsXRay
+		{
+			get; set;
+		}
+		public bool HealthExaminationReportsMetabolicSyndrome
+		{
+			get; set;
+		}
+		public float HealthExaminationReportsTenYearsCVDRisk
+		{
+			get; set;
+		}
+		public int HealthExaminationReportsGrading
+		{
+			get; set;
+		}
+		public string HealthExaminationReportsMemo
+		{
+			get; set;
+		}
+
+	}
+	public class InsertHealthExaminationReports : HealthExaminationReportsAllField
+	{
+	}
+	public class UpdateHealthExaminationReports : HealthExaminationReportsAllField
+	{
+	}
+	public class GetHealthExaminationReports : HealthExaminationReportsAllField
+	{
+	}
+	public class DeleteHealthExaminationReports : HealthExaminationReportsAllField
+	{
+	}
+
+
+	public class HealthExaminationCheckListsAllField
+	{
+		public int HealthExaminationCheckListsNo
+		{
+			get; set;
+		}
+		public string HealthExaminationCheckListsUsage
+		{
+			get; set;
+		}
+		public string HealthExaminationCheckListsItems
+		{
+			get; set;
+		}
+		public float HealthExaminationCheckListsMIN
+		{
+			get; set;
+		}
+		public float HealthExaminationCheckListsMAX
+		{
+			get; set;
+		}
+		public float HealthExaminationCheckListsFemaleScore
+		{
+			get; set;
+		}
+		public float HealthExaminationCheckListsMaleScore
+		{
+			get; set;
+		}
+		public string HealthExaminationCheckListsMemo
+		{
+			get; set;
+		}
+	}
 	
+	public class GetHealthExaminationCheckLists : HealthExaminationCheckListsAllField
+	{
+	}
 
 }

@@ -190,9 +190,44 @@ namespace SyntecITWebAPI.Models.GAS.HealthManagement
 			}
 		}
 
+		internal bool InsertHealthExaminationReports( InsertHealthExaminationReports InsertHealthExaminationReportsParameter )
+		{
+			bool bResult = m_HealthManagementDBManager.InsertHealthExaminationReports( InsertHealthExaminationReportsParameter );
+			return bResult;
+		}
+		internal bool DeleteHealthExaminationReports( DeleteHealthExaminationReports DeleteHealthExaminationReportsParameter )
+		{
+			bool bResult = m_HealthManagementDBManager.DeleteHealthExaminationReports( DeleteHealthExaminationReportsParameter );
+			return bResult;
+		}
+		internal bool UpdateHealthExaminationReports( UpdateHealthExaminationReports UpdateHealthExaminationReportsParameter )
+		{
+			bool bResult = m_HealthManagementDBManager.UpdateHealthExaminationReports( UpdateHealthExaminationReportsParameter );
+			return bResult;
+		}
+		internal JArray GetHealthExaminationReports( GetHealthExaminationReports GetHealthExaminationReportsParameter )
+		{
+			DataTable dtResult = m_HealthManagementDBManager.GetHealthExaminationReports( GetHealthExaminationReportsParameter );
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
 
-
-
+		internal JArray GetHealthExaminationCheckLists( GetHealthExaminationCheckLists GetHealthExaminationCheckListsParameter )
+		{
+			DataTable dtResult = m_HealthManagementDBManager.GetHealthExaminationCheckLists( GetHealthExaminationCheckListsParameter );
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
 
 		#endregion Internal Methods
 

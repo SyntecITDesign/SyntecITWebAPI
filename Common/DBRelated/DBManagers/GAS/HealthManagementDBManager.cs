@@ -261,13 +261,13 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		{
 
 
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[HealthExaminationOptions]([ProjectNo],[ItemNo],[OptionType],[OptionalNum],[Memo])
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[HealthExaminationOptions]([ProjectNo],[ItemNo],[OptionType],[OptionalNum],[Memo])
 							SELECT HospitalProjects.ProjectNo,HospitalProjects.ItemNo,@Parameter3 as 'OptionType',@Parameter4 as 'OptionalNum',@Parameter5 as 'Memo'
 							FROM (SELECT Projects.[No] as 'ProjectNo',Items.[No] as 'ItemNo'
-									FROM [SyntecGAS].[dbo].[HealthExaminationProjects] as Projects
-									inner join [SyntecGAS].[dbo].[HealthExaminationItems] as Items
+									FROM [{m_gas}].[dbo].[HealthExaminationProjects] as Projects
+									inner join [{m_gas}].[dbo].[HealthExaminationItems] as Items
 									on Projects.Hospital = Items.Hospital) as HospitalProjects
-									inner join (SELECT top(@Parameter8) ([No]) as 'NewItemNo' FROM [SyntecGAS].[dbo].[HealthExaminationItems] where [Hospital] = @Parameter7 order by [No] desc) as NewItem
+									inner join (SELECT top(@Parameter8) ([No]) as 'NewItemNo' FROM [{m_gas}].[dbo].[HealthExaminationItems] where [Hospital] = @Parameter7 order by [No] desc) as NewItem
 									on NewItem.NewItemNo=HospitalProjects.ItemNo";
 
 			List<object> SQLParameterList = new List<object>()
@@ -327,8 +327,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 									,[OptionType]
 									,[OptionalNum]
 									,Items.[Memo],Items.[Price]
-							FROM [SyntecGAS].[dbo].[HealthExaminationOptions] as Options
-							right join [SyntecGAS].[dbo].[HealthExaminationItems] as Items
+							FROM [{m_gas}].[dbo].[HealthExaminationOptions] as Options
+							right join [{m_gas}].[dbo].[HealthExaminationItems] as Items
 							on Options.[ItemNo] = Items.No
 							WHERE (Options.[ProjectNo] LIKE @Parameter1)";
 			List<object> SQLParameterList = new List<object>()
@@ -358,7 +358,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetHealthExaminationEmpInfo( GetHealthExaminationEmpInfo GetHealthExaminationEmpInfoParameter )
 		{
 			string sql = $@"SELECT *
-							FROM [SyntecGAS].[dbo].[HealthExaminationEmpInfo]
+							FROM [{m_gas}].[dbo].[HealthExaminationEmpInfo]
 							WHERE [EmpID] LIKE @Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -392,7 +392,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool InsertHealthExaminationApplicationsMaster( InsertHealthExaminationApplicationsMaster InsertHealthExaminationApplicationsMasterParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[HealthExaminationApplicationsMaster]([FillerID],[FillerName],[ApplicationDate]) VALUES (@Parameter1,@Parameter2,@Parameter3)";
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[HealthExaminationApplicationsMaster]([FillerID],[FillerName],[ApplicationDate]) VALUES (@Parameter1,@Parameter2,@Parameter3)";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -435,7 +435,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetHealthExaminationApplicationsMaster( GetHealthExaminationApplicationsMaster GetHealthExaminationApplicationsMasterParameter )
 		{
 			string sql = $@"SELECT TOP (1) [RequisitionID],[FillerID],[FillerName],[ApplicationDate]
-							FROM [SyntecGAS].[dbo].[HealthExaminationApplicationsMaster]
+							FROM [{m_gas}].[dbo].[HealthExaminationApplicationsMaster]
 							order by [RequisitionID] desc";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -460,7 +460,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool InsertHealthExaminationApplicationsDetail( InsertHealthExaminationApplicationsDetail InsertHealthExaminationApplicationsDetailParameter )
 		{
-			string sql = $@"INSERT INTO [SyntecGAS].[dbo].[HealthExaminationApplicationsDetail]([RequisitionID],[ApplicantID],[ApplicantName],[Type],[Name],[ID],[Birthday],[PhoneNumber],[Sex],[Hospital],[ProjectNo],[OptionalItems],[AdditionItems],[AppointmentDate1],[AppointmentDate2],[Total]) VALUES (@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9,@Parameter10,@Parameter11,@Parameter12,@Parameter13,@Parameter14,@Parameter15,@Parameter16)";
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[HealthExaminationApplicationsDetail]([RequisitionID],[ApplicantID],[ApplicantName],[Type],[Name],[ID],[Birthday],[PhoneNumber],[Sex],[Hospital],[ProjectNo],[OptionalItems],[AdditionItems],[AppointmentDate1],[AppointmentDate2],[Total]) VALUES (@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9,@Parameter10,@Parameter11,@Parameter12,@Parameter13,@Parameter14,@Parameter15,@Parameter16)";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -517,7 +517,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 		internal bool UpdateHealthExaminationApplicationsDetail( UpdateHealthExaminationApplicationsDetail UpdateHealthExaminationApplicationsDetailParameter )
 		{
-			
+
 			string sql = $@"IF @Parameter18 = 0	
 								UPDATE [{m_gas}].[dbo].[HealthExaminationApplicationsDetail]
 								set [AppointmentDate1] = @Parameter14,[AppointmentDate2] = @Parameter15
@@ -548,7 +548,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				UpdateHealthExaminationApplicationsDetailParameter.HealthExaminationApplicationsDetailIsCancel,
 				UpdateHealthExaminationApplicationsDetailParameter.HealthExaminationApplicationsDetailFinished,
 				UpdateHealthExaminationApplicationsDetailParameter.HealthExaminationApplicationsDetailCancelDateTime,
-				
+
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
@@ -556,8 +556,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetHealthExaminationApplicationsDetail( GetHealthExaminationApplicationsDetail GetHealthExaminationApplicationsDetailParameter )
 		{
 			string sql = $@"SELECT *
-							FROM [SyntecGAS].[dbo].[HealthExaminationApplicationsDetail] AS D
-							INNER JOIN [SyntecGAS].[dbo].[HealthExaminationApplicationsMaster] AS M
+							FROM [{m_gas}].[dbo].[HealthExaminationApplicationsDetail] AS D
+							INNER JOIN [{m_gas}].[dbo].[HealthExaminationApplicationsMaster] AS M
 							ON M.RequisitionID = D.RequisitionID
 							WHERE (Finished=0 AND IsCancel=0) and ([ApplicantID] = @Parameter2 or D.[RequisitionID]=@Parameter1 or [DetailID] = @Parameter0 or [ID] = @Parameter6)";
 			List<object> SQLParameterList = new List<object>()
@@ -596,9 +596,297 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			}
 		}
 
+		internal bool InsertHealthExaminationReports( InsertHealthExaminationReports InsertHealthExaminationReportsParameter )
+		{
+			string sql = 
+				$@"INSERT INTO [{m_gas}].[dbo].[HealthExaminationReports](
+				 [ExaminatedDate],[EmpID],[EmpName],[DeptName],[Gender],[Birthday],[WorkHourPerWeek],
+				 [EachWeekdaySleepHourAvg],[SelfPerceivedSymptoms],[MedicalHistory],[BH],[BW],
+				 [Waistline],[BMI],[SBP],[DBP],[Uncorrected_L],[Uncorrected_R],[Corrected_L],[Corrected_R],
+				 [ColorVision],[PureToneAudiometry_L],[PureToneAudiometry_R],[HeadNeck],[Respiratory],
+				 [Cardiovascular],[Digestive],[Nervous],[SpineLimbs],[Skin],[ChewingBetelNuts],
+				 [IsSmoker],[IsAlcoholic],[AddictionNote],[WBC],[Hb],[TG],[TC],[HDL],[LDL],[ACSugar],
+				 [ALT_GPT],[Cr],[U_OB],[UrineProtein],[XRay],[MetabolicSyndrome],[TenYearsCVDRisk],[Grading]) VALUES (@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9,@Parameter10,@Parameter11,@Parameter12,@Parameter13,@Parameter14,@Parameter15,@Parameter16,@Parameter17,@Parameter18,@Parameter19,@Parameter20,@Parameter21,@Parameter22,@Parameter23,@Parameter24,@Parameter25,@Parameter26,@Parameter27,@Parameter28,@Parameter29,@Parameter30,@Parameter31,@Parameter32,@Parameter33,@Parameter34,@Parameter35,@Parameter36,@Parameter37,@Parameter38,@Parameter39,@Parameter40,@Parameter41,@Parameter42,@Parameter43,@Parameter44,@Parameter45,@Parameter46,@Parameter47,@Parameter48,@Parameter49)";
 
+			List<object> SQLParameterList = new List<object>()
+			{
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsNo,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsExaminatedDate,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsEmpID,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsEmpName,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsDeptName,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsGender,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsBirthday,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsWorkHourPerWeek,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsEachWeekdaySleepHourAvg,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsSelfPerceivedSymptoms,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsMedicalHistory,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsBH,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsBW,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsWaistline,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsBMI,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsSBP,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsDBP,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsUncorrected_L,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsUncorrected_R,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsCorrected_L,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsCorrected_R,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsColorVision,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsPureToneAudiometry_L,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsPureToneAudiometry_R,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsHeadNeck,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsRespiratory,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsCardiovascular,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsDigestive,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsNervous,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsSpineLimbs,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsSkin,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsChewingBetelNuts,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsIsSmoker,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsIsAlcoholic,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsAddictionNote,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsWBC,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsHb,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsTG,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsTC,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsHDL,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsLDL,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsACSugar,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsALT_GPT,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsCr,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsU_OB,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsUrineProtein,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsXRay,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsMetabolicSyndrome,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsTenYearsCVDRisk,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsGrading,
+				InsertHealthExaminationReportsParameter.HealthExaminationReportsMemo
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		internal bool DeleteHealthExaminationReports( DeleteHealthExaminationReports DeleteHealthExaminationReportsParameter )
+		{
+			string sql = $@"DELETE [{m_gas}].[dbo].[HealthExaminationReports] WHERE [RequisitionID]=@Parameter1 or [DetailID] = @Parameter0";
+			List<object> SQLParameterList = new List<object>()
+			{
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsNo,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsExaminatedDate,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsEmpID,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsEmpName,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsDeptName,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsGender,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsBirthday,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsWorkHourPerWeek,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsEachWeekdaySleepHourAvg,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsSelfPerceivedSymptoms,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsMedicalHistory,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsBH,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsBW,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsWaistline,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsBMI,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsSBP,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsDBP,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsUncorrected_L,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsUncorrected_R,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsCorrected_L,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsCorrected_R,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsColorVision,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsPureToneAudiometry_L,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsPureToneAudiometry_R,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsHeadNeck,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsRespiratory,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsCardiovascular,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsDigestive,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsNervous,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsSpineLimbs,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsSkin,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsChewingBetelNuts,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsIsSmoker,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsIsAlcoholic,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsAddictionNote,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsWBC,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsHb,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsTG,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsTC,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsHDL,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsLDL,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsACSugar,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsALT_GPT,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsCr,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsU_OB,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsUrineProtein,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsXRay,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsTenYearsCVDRisk,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsGrading,
+				DeleteHealthExaminationReportsParameter.HealthExaminationReportsMemo
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		internal bool UpdateHealthExaminationReports( UpdateHealthExaminationReports UpdateHealthExaminationReportsParameter )
+		{
 
+			string sql = $@"UPDATE [{m_gas}].[dbo].[HealthExaminationReports]
+							set [AppointmentDate1] = @Parameter14,[AppointmentDate2] = @Parameter15
+							where [ID] = @Parameter6";
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsNo,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsExaminatedDate,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsEmpID,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsEmpName,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsDeptName,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsGender,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsBirthday,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsWorkHourPerWeek,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsEachWeekdaySleepHourAvg,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsSelfPerceivedSymptoms,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsMedicalHistory,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsBH,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsBW,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsWaistline,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsBMI,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsSBP,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsDBP,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsUncorrected_L,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsUncorrected_R,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsCorrected_L,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsCorrected_R,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsColorVision,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsPureToneAudiometry_L,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsPureToneAudiometry_R,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsHeadNeck,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsRespiratory,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsCardiovascular,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsDigestive,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsNervous,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsSpineLimbs,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsSkin,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsChewingBetelNuts,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsIsSmoker,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsIsAlcoholic,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsAddictionNote,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsWBC,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsHb,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsTG,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsTC,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsHDL,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsLDL,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsACSugar,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsALT_GPT,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsCr,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsU_OB,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsUrineProtein,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsXRay,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsTenYearsCVDRisk,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsGrading,
+				UpdateHealthExaminationReportsParameter.HealthExaminationReportsMemo
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		internal DataTable GetHealthExaminationReports( GetHealthExaminationReports GetHealthExaminationReportsParameter )
+		{
+			string sql = $@"SELECT *
+							FROM [{m_gas}].[dbo].[HealthExaminationReports]
+							WHERE [No] = @Parameter0 or [ExaminatedDate] = @Parameter1 or [EmpID] = @Parameter2";
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetHealthExaminationReportsParameter.HealthExaminationReportsNo,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsExaminatedDate,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsEmpID,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsEmpName,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsDeptName,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsGender,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsBirthday,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsWorkHourPerWeek,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsEachWeekdaySleepHourAvg,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsSelfPerceivedSymptoms,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsMedicalHistory,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsBH,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsBW,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsWaistline,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsBMI,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsSBP,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsDBP,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsUncorrected_L,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsUncorrected_R,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsCorrected_L,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsCorrected_R,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsColorVision,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsPureToneAudiometry_L,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsPureToneAudiometry_R,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsHeadNeck,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsRespiratory,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsCardiovascular,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsDigestive,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsNervous,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsSpineLimbs,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsSkin,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsChewingBetelNuts,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsIsSmoker,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsIsAlcoholic,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsAddictionNote,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsWBC,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsHb,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsTG,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsTC,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsHDL,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsLDL,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsACSugar,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsALT_GPT,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsCr,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsU_OB,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsUrineProtein,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsXRay,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsTenYearsCVDRisk,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsGrading,
+				GetHealthExaminationReportsParameter.HealthExaminationReportsMemo
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
+			//return bresult;
 
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal DataTable GetHealthExaminationCheckLists( GetHealthExaminationCheckLists GetHealthExaminationCheckListsParameter )
+		{
+			string sql = $@"SELECT *
+							FROM [{m_gas}].[dbo].[HealthExaminationCheckLists]
+							WHERE [Usage] like @Parameter1";
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetHealthExaminationCheckListsParameter.HealthExaminationCheckListsNo,
+				GetHealthExaminationCheckListsParameter.HealthExaminationCheckListsUsage,
+				GetHealthExaminationCheckListsParameter.HealthExaminationCheckListsItems,
+				GetHealthExaminationCheckListsParameter.HealthExaminationCheckListsMIN,
+				GetHealthExaminationCheckListsParameter.HealthExaminationCheckListsMAX,
+				GetHealthExaminationCheckListsParameter.HealthExaminationCheckListsFemaleScore,
+				GetHealthExaminationCheckListsParameter.HealthExaminationCheckListsMaleScore,
+				GetHealthExaminationCheckListsParameter.HealthExaminationCheckListsMemo
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
+			//return bresult;
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
 
 	}
 	#endregion Internal Methods

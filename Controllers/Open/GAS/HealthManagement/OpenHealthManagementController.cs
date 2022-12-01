@@ -499,6 +499,104 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.HealthManagement
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+		
+		[Route( "InsertHealthExaminationReports" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult InsertHealthExaminationReports( [FromBody] InsertHealthExaminationReports InsertHealthExaminationReportsParameter )
+		{
+
+			bool bResult = m_publicHealthManagementHandler.InsertHealthExaminationReports( InsertHealthExaminationReportsParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "DeleteHealthExaminationReports" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DeleteHealthExaminationReports( [FromBody] DeleteHealthExaminationReports DeleteHealthExaminationReportsParameter )
+		{
+
+			bool bResult = m_publicHealthManagementHandler.DeleteHealthExaminationReports( DeleteHealthExaminationReportsParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "UpdateHealthExaminationReports" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpdateHealthExaminationReports( [FromBody] UpdateHealthExaminationReports UpdateHealthExaminationReportsParameter )
+		{
+
+			bool bResult = m_publicHealthManagementHandler.UpdateHealthExaminationReports( UpdateHealthExaminationReportsParameter );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		[Route( "GetHealthExaminationReports" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult GetHealthExaminationReports( [FromBody] GetHealthExaminationReports GetHealthExaminationReportsParameter )
+		{
+
+			JArray result = m_publicHealthManagementHandler.GetHealthExaminationReports( GetHealthExaminationReportsParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "GetHealthExaminationCheckLists" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult GetHealthExaminationCheckLists( [FromBody] GetHealthExaminationCheckLists GetHealthExaminationCheckListsParameter )
+		{
+
+			JArray result = m_publicHealthManagementHandler.GetHealthExaminationCheckLists( GetHealthExaminationCheckListsParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 
 		#endregion Public Methods
 

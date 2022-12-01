@@ -142,7 +142,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 		internal bool UpsertPersonalGASInfo( UpsertPersonalGASInfo UpsertPersonalGASInfoParameter )
 		{
-			string sql = $@"IF EXISTS (SELECT * FROM [SyntecGAS].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0 )
+			string sql = $@"IF EXISTS (SELECT * FROM [{m_gas}].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0 )
 							UPDATE [{m_gas}].[dbo].[GAS_GAInfoMaster] 
 							SET [ExtensionNum]=@Parameter1, [DoorCardNum]=@Parameter2,[MotorLicense]=@Parameter3,[CarLicense]=@Parameter4,[CarLicense_Syntec]=@Parameter5,[MotorLicense_Syntec]=@Parameter11,[DoorCardNum2]=@Parameter6,[UniformSize]=@Parameter7,[JacketSize]=@Parameter8,[SweatshirtSize]=@Parameter9,[UniformLongSize]=@Parameter10
 							WHERE [EmpID]=@Parameter0 
@@ -450,7 +450,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal DataTable GetGASLicenseInfo( GetGASLicenseInfo GetGASLicenseInfoParameter )
 		{
 			string sql = $@"SELECT [EmpID],[EmpName],[EmpDept],[ExtensionNum],[ManageRight],[MotorLicense],[MotorLicense_Syntec],[CarLicense],[CarLicense_Syntec],[Sex]
-						  FROM [SyntecGAS].[dbo].[GAS_GAInfoMaster]
+						  FROM [{m_gas}].[dbo].[GAS_GAInfoMaster]
 						  WHERE [MotorLicense] like @Parameter0 or [CarLicense] like @Parameter0 or [MotorLicense_Syntec] like @Parameter0 or [CarLicense_Syntec] like @Parameter0
 						  group by [EmpID],[EmpName],[EmpDept],[ExtensionNum],[ManageRight],[MotorLicense],[MotorLicense_Syntec],[CarLicense],[CarLicense_Syntec],[Sex]";
 
