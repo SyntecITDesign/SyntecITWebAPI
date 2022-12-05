@@ -13,7 +13,7 @@ namespace SyntecITWebAPI.Models.GAS.VisitorRegistration
 	internal class PublicVisitorRegistrationHandler
 	{
 		#region Internal Methods
-		
+
 		internal bool InsertVisitorRegistrationApplicationsMaster( InsertVisitorRegistrationApplicationsMaster InsertVisitorRegistrationApplicationsMasterParameter )
 		{
 
@@ -21,6 +21,35 @@ namespace SyntecITWebAPI.Models.GAS.VisitorRegistration
 
 			return bResult;
 		}
+		//in use--
+		internal bool InsertVisitorApplication( InsertVisitorApplication InsertVisitorApplicationParameter )
+		{
+
+			bool bResult = m_VisitorRegistrationDBManager.InsertVisitorApplication( InsertVisitorApplicationParameter );
+
+			return bResult;
+		}
+		internal JArray GetVisitorRecord()
+		{
+
+			DataTable dtResult = m_VisitorRegistrationDBManager.GetVisitorRecord();
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+		internal bool DeleteRecord( DeleteRecord DeleteRecordParameter )
+		{
+
+			bool bResult = m_VisitorRegistrationDBManager.DeleteRecord( DeleteRecordParameter );
+
+			return bResult;
+		}
+		//--
 		internal bool UpdateVisitorRegistrationApplicationsMaster( UpdateVisitorRegistrationApplicationsMaster UpdateGuestReceptionApplicationsMasterParameter )
 		{
 
@@ -34,7 +63,7 @@ namespace SyntecITWebAPI.Models.GAS.VisitorRegistration
 
 			DataTable dtResult = m_VisitorRegistrationDBManager.GetVisitorRegistrationApplicationsMaster( GetGuestReceptionApplicationsMasterParameter );
 
-			if( dtResult == null || dtResult.Rows.Count <= 0 )
+			if(dtResult == null || dtResult.Rows.Count <= 0)
 				return null;
 			else
 			{
@@ -66,3 +95,5 @@ namespace SyntecITWebAPI.Models.GAS.VisitorRegistration
 		#endregion Private Fields
 	}
 }
+
+

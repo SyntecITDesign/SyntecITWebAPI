@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace SyntecITWebAPI.ParameterModels.GAS.VisitorRegistration
 {
-	
-
 	public class VisitorRegistrationApplicationsMasterAllField
 	{
 		public int VisitorRegistrationApplicationsMasterRequisitionID
@@ -108,7 +106,53 @@ namespace SyntecITWebAPI.ParameterModels.GAS.VisitorRegistration
 		{
 			get; set;
 		}
-				
+
+		//start from here
+		public string VisitorRegistrationApplicationsApplyTime
+		{
+			get; set;
+		}
+		public string VisitorRegistrationApplicationsVisitorName
+		{
+			get; set;
+		}
+		public string VisitorRegistrationApplicationsVisitorTel
+		{
+			get; set;
+		}
+		public string VisitorRegistrationApplicationsIntervieweeName
+		{
+			get; set;
+		}
+		public string VisitorRegistrationApplicationsVisitorCompany
+		{
+			get; set;
+		}
+		public string VisitorRegistrationApplicationsParkingCar
+		{
+			get; set;
+		}
+		public string VisitorRegistrationApplicationsVisitorCardNum
+		{
+			get; set;
+		}
+		public string VisitorRegistrationApplicationsVisitorRFIDCardNum
+		{
+			get; set;
+		}
+		public string VisitorRegistrationApplicationsReturnTime
+		{
+			get; set;
+		}
+		public string VisitorRegistrationApplicationsAffirmant
+		{
+			get; set;
+		}
+		public string VisitorRegistrationApplicationsBringComputer
+		{
+			get; set;
+		}
+
 	}
 	public class InsertVisitorRegistrationApplicationsMaster : VisitorRegistrationApplicationsMasterAllField
 	{
@@ -135,7 +179,12 @@ namespace SyntecITWebAPI.ParameterModels.GAS.VisitorRegistration
 	{
 
 	}
+	public class InsertVisitorApplication : VisitorRegistrationApplicationsMasterAllField
+	{
 
+	}
+	public class DeleteRecord : VisitorRegistrationApplicationsMasterAllField
+	{
 
-
+	}
 }

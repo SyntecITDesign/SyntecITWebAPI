@@ -15,7 +15,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.VisitorRegistration
 	public class OpenCRMController : ControllerBase
 	{
 		#region Public Methods
-		
+
 		[Route( "InsertVisitorRegistrationApplicationsMaster" )]
 		//[CheckTokenFilter]
 		[HttpPost]
@@ -24,7 +24,27 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.VisitorRegistration
 
 			bool bResult = m_publicVisitorRegistrationHandler.InsertVisitorRegistrationApplicationsMaster( InsertVisitorRegistrationApplicationsMasterParameter );
 
-			if( !bResult )
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		//in use--
+		[Route( "InsertVisitorApplication" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult InsertVisitorApplication( [FromBody] InsertVisitorApplication InsertVisitorApplicationParameter )
+		{
+
+			bool bResult = m_publicVisitorRegistrationHandler.InsertVisitorApplication( InsertVisitorApplicationParameter );
+
+			if(!bResult)
 			{
 				m_responseHandler.Code = ErrorCodeList.Param_Error;
 			}
@@ -36,6 +56,46 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.VisitorRegistration
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "GetVisitorRecord" )]
+		[CheckTokenFilter]
+		[HttpGet] //get/post
+		public IActionResult GetVisitorRecord()
+		{
+
+			JArray result = m_publicVisitorRegistrationHandler.GetVisitorRecord();
+
+			if(result == null)
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "DeleteRecord" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult DeleteRecord( [FromBody] DeleteRecord DeleteRecordParameter )
+		{
+
+			bool bResult = m_publicVisitorRegistrationHandler.DeleteRecord( DeleteRecordParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		//--
 		[Route( "GetVisitorRegistrationApplicationsMaster" )]
 		[CheckTokenFilter]
 		[HttpPost]
@@ -44,7 +104,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.VisitorRegistration
 
 			JArray result = m_publicVisitorRegistrationHandler.GetVisitorRegistrationApplicationsMaster( GetVisitorRegistrationApplicationsMasterParameter );
 
-			if( result == null )
+			if(result == null)
 			{
 				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
 			}
@@ -64,7 +124,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.VisitorRegistration
 
 			bool bResult = m_publicVisitorRegistrationHandler.UpdateVisitorRegistrationApplicationsMaster( UpdateVisitorRegistrationApplicationsMasterParameter );
 
-			if( !bResult )
+			if(!bResult)
 			{
 				m_responseHandler.Code = ErrorCodeList.Param_Error;
 			}
@@ -84,7 +144,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.VisitorRegistration
 
 			bool bResult = m_publicVisitorRegistrationHandler.VisitorCheckIn( VisitorCheckInParameter );
 
-			if( !bResult )
+			if(!bResult)
 			{
 				m_responseHandler.Code = ErrorCodeList.Param_Error;
 			}
@@ -104,7 +164,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.VisitorRegistration
 
 			bool bResult = m_publicVisitorRegistrationHandler.VisitorCheckOut( VisitorCheckOutParameter );
 
-			if( !bResult )
+			if(!bResult)
 			{
 				m_responseHandler.Code = ErrorCodeList.Param_Error;
 			}
