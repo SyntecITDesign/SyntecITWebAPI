@@ -91,6 +91,44 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplySport
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+		//在個人專區的處理中事項分頁抓取該工號目前有預約那些運動場
+		[Route( "GetSportCourtReserve" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult GetSportCourtReserve( [FromBody] GetSportCourtReserve GetSportCourtReserveParameter )
+		{
+			JArray result = m_publicApplySportHandler.GetSportCourtReserve( GetSportCourtReserveParameter );
+
+			if(result == null)
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		//在個人專區的處理中事項分頁刪除預約後更新
+		[Route( "UpdateSportCourtReserve" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpdateSportCourtReserve( [FromBody] UpdateSportCourtReserve UpdateSportCourtReserveParameter )
+		{
+			bool bResult = m_publicApplySportHandler.UpdateSportCourtReserve( UpdateSportCourtReserveParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 		//[Route( "UpdateParkingSpaceStatusMaster" )]
 		//[CheckTokenFilter]
 		//[HttpPost]

@@ -55,6 +55,24 @@ namespace SyntecITWebAPI.Models.GAS.ApplySport
 				return ja;
 			}
 		}
+		internal JArray GetSportCourtReserve( GetSportCourtReserve GetSportCourtReserveParameter )
+		{
+			DataTable dtResult = m_ApplySportDBManager.GetSportCourtReserve( GetSportCourtReserveParameter );
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+		internal bool UpdateSportCourtReserve( UpdateSportCourtReserve UpdateSportCourtReserveParameter )
+		{
+			bool bResult = m_ApplySportDBManager.UpdateSportCourtReserve( UpdateSportCourtReserveParameter );
+
+			return bResult;
+		}
 		//internal bool UpdateParkingSpaceStatusMaster( UpdateParkingSpaceStatusMaster UpdateParkingSpaceStatusMasterParameter )
 		//{
 

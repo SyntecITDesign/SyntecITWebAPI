@@ -39,15 +39,31 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplySport
 
 	public class InsertCourtReserve : CourtRecordAllField //和API同名
 	{
-	
+
 	}
 
 	public class GetUsingCourt : CourtRecordAllField
 	{
-	
+
 	}
 	public class DuplicateReserve : CourtRecordAllField
 	{
-	
+
+	}
+	public class GetSportCourtReserve : CourtRecordAllField
+	{
+		public string Today
+		{
+			get; set;
+		}
+
+	}
+	public class UpdateSportCourtReserve : CourtRecordAllField
+	{
+		public string ID
+		{
+			get; set;
+		}
+
 	}
 }

@@ -108,6 +108,40 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				return result;
 			}
 		}
+		internal DataTable GetSportCourtReserve( GetSportCourtReserve GetSportCourtReserveParameter )
+		{
+			string sql = $@"SELECT *
+							FROM [{m_gas}].[dbo].[CourtRecord]
+							WHERE [EmpID]=@Parameter0 AND [ReserveDate] > @Parameter1";
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetSportCourtReserveParameter.EmpID,
+				GetSportCourtReserveParameter.Today
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+			if(result == null || result.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+		internal bool UpdateSportCourtReserve( UpdateSportCourtReserve UpdateSportCourtReserveParameter )
+		{
+			string sql = $@"DELETE FROM [{m_gas}].[dbo].[CourtRecord] 
+							WHERE [ID]=@Parameter0
+							";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpdateSportCourtReserveParameter.ID
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
 		//internal bool DeleteCarBookingApplicationsMaster( DeleteCarBookingApplicationsMaster DeleteCarBookingApplicationsMasterParameter )
 		//{
 		//	string sql = $@"DELETE FROM [{m_gas}].[dbo].[CarBookingApplicationsMaster]
