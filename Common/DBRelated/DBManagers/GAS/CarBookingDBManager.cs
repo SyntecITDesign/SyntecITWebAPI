@@ -711,24 +711,17 @@ WHERE [CarInsuranceName].[Type] = @Parameter0";
 
 		internal DataTable GetBeenRentCarSpecTime( GetBeenRentCarSpecTime GetBeenRentCarSpecTimeParameter )
 		{
-			string sql = $@"select * from [{m_gas}].[dbo].[CarBookingRecord] where 
-						(CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
-						and  CONVERT(datetime,@Parameter1,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
-						and ActualEndTime IS NULL)
-						or
-						(CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
-						and  CONVERT(datetime,@Parameter1,120) NOT BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
-						and  CONVERT(datetime,@Parameter0,120) != CONVERT(datetime,PreserveEndTime,120) and ActualEndTime IS NULL)
-						or
-						(CONVERT(datetime,@Parameter0,120) NOT BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
-						and  CONVERT(datetime,@Parameter1,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) 
-						and  CONVERT(datetime,@Parameter1,120) != CONVERT(datetime,PreserveStartTime,120) and ActualEndTime IS NULL)
-						or
-						(CONVERT(datetime,@Parameter0,120)<CONVERT(datetime,PreserveStartTime,120) 
-						and CONVERT(datetime,@Parameter1,120)>CONVERT(datetime,PreserveEndTime,120) and ActualEndTime IS NULL)
-						or
-						([ActualStartTime] is not null AND [ActualEndTime] is null)
-						";
+			string sql = $@"select CASE " +
+					"WHEN ([CarBookingRecord].CarNumber is null) and ([CarInfo].CarNumber is null) THEN null " +
+					"WHEN ([CarBookingRecord].CarNumber is not null) and ([CarInfo].CarNumber is null) THEN [CarBookingRecord].CarNumber " +
+					"WHEN ([CarBookingRecord].CarNumber is null) and ([CarInfo].CarNumber is not null) THEN [CarInfo].CarNumber END AS 'CarNumber' " +
+				$@"from (select * from [{m_gas}].[dbo].[CarInfo] " +
+				"where ( " +
+					"CarNumber = 'AWJ8120') and " +
+					"((DATEPART (DW, CONVERT(datetime,@Parameter0,120))= 1 and DATEPART (DW, CONVERT(datetime,@Parameter0,120)) = 7 and DATEPART (DW, CONVERT(datetime,@Parameter1,120))= 1 and DATEPART (DW, CONVERT(datetime,@Parameter1,120)) = 7) or " +
+					"(not((CONVERT(datetime,@Parameter0,120) BETWEEN '" + GetBeenRentCarSpecTimeParameter.StartTime.Split( ' ' )[ 0 ] + " 9:30' AND '" + GetBeenRentCarSpecTimeParameter.StartTime.Split( ' ' )[ 0 ] + " 17:00')) and not((CONVERT(datetime,@Parameter1,120) BETWEEN '" + GetBeenRentCarSpecTimeParameter.EndTime.Split( ' ' )[ 0 ] + " 9:30' AND '" + GetBeenRentCarSpecTimeParameter.EndTime.Split( ' ' )[ 0 ] + " 17:00'))))) as CarInfo " +
+				$@"Full outer join( select * from [{m_gas}].[dbo].[CarBookingRecord] where (CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) and  CONVERT(datetime,@Parameter1,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) and ActualEndTime IS NULL) or (CONVERT(datetime,@Parameter0,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) and  CONVERT(datetime,@Parameter1,120) NOT BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) and  CONVERT(datetime,@Parameter0,120) != CONVERT(datetime,PreserveEndTime,120) and ActualEndTime IS NULL) or (CONVERT(datetime,@Parameter0,120) NOT BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) and  CONVERT(datetime,@Parameter1,120) BETWEEN CONVERT(datetime,PreserveStartTime,120)  AND CONVERT(datetime,PreserveEndTime,120) and  CONVERT(datetime,@Parameter1,120) != CONVERT(datetime,PreserveStartTime,120) and ActualEndTime IS NULL) or (CONVERT(datetime,@Parameter0,120)<CONVERT(datetime,PreserveStartTime,120) and CONVERT(datetime,@Parameter1,120)>CONVERT(datetime,PreserveEndTime,120) and ActualEndTime IS NULL) or ([ActualStartTime] is not null AND [ActualEndTime] is null)) as [CarBookingRecord] on [CarInfo].CarNumber = [CarBookingRecord].CarNumber";
+			
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetBeenRentCarSpecTimeParameter.StartTime,

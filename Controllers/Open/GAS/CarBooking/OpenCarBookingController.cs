@@ -732,7 +732,8 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Uniform
 			{
 				m_responseHandler.Content = result;
 			}
-
+			
+			
 			return Ok( m_responseHandler.GetResult() );
 		}
 
