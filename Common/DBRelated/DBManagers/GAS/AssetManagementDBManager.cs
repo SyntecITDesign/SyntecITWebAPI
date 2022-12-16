@@ -161,7 +161,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				return result;
 			}
 		}
-
+		
 		internal bool UpdateITInfo( UpdateITInfo UpdateITInfoParameter )
 		{
 			string sql = $@"UPDATE [{m_gas}].[dbo].[AssetManagement]
