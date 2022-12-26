@@ -26,7 +26,77 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			m_gas = configuration["gas"].Trim();
 		}
 
+		//in use--
+		internal bool InsertVisitorApplication( InsertVisitorApplication InsertVisitorApplicationParameter )
+		{
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[VisitorRegistration] ([ApplyTime]
+						  ,[VisitorName]
+						  ,[VisitorTel]
+						  ,[IntervieweeName]
+						  ,[VisitorCompany]
+						  ,[ParkingCar]
+						  ,[BringComputer])
+						VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6)";
+			List<object> SQLParameterList = new List<object>()
+			{
+				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsApplyTime,
+				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsVisitorName,
+				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsVisitorTel,
+				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsIntervieweeName,
+				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsVisitorCompany,
+				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsParkingCar,
+				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsBringComputer
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		internal DataTable GetVisitorRecord()
+		{
+			string sql = $@"SELECT [ApplyTime], [VisitorName], [VisitorTel], [VisitorRFIDCardNum],[VisitorCardNum]  FROM [{m_gas}].[dbo].[VisitorRegistration]
+							WHERE [ReturnTime] IS NULL OR [ReturnTime]=''";
+			
+			DataTable result = m_dbproxy.GetDataWithNoParaCMD( sql );
 
+			if(result == null || result.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+		internal bool DeleteRecord( DeleteRecord DeleteRecordParameter )
+		{
+			string sql = $@"UPDATE [{m_gas}].[dbo].[VisitorRegistration]
+							set [ReturnTime]=@Parameter2,[Affirmant]=@Parameter3
+							where [VisitorName]=@Parameter1 and [ApplyTime]=@Parameter0";
+			List<object> SQLParameterList = new List<object>()
+			{
+				DeleteRecordParameter.VisitorRegistrationApplicationsApplyTime,
+				DeleteRecordParameter.VisitorRegistrationApplicationsVisitorName,
+				DeleteRecordParameter.VisitorRegistrationApplicationsReturnTime,
+				DeleteRecordParameter.VisitorRegistrationApplicationsAffirmant
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		internal bool UpdateRecord( UpdateRecord UpdateRecordParameter )
+		{
+			string sql = $@"UPDATE [{m_gas}].[dbo].[VisitorRegistration]
+							set [VisitorRFIDCardNum]=@Parameter2,[VisitorCardNum]=@Parameter3
+							where [VisitorName]=@Parameter1 and [ApplyTime]=@Parameter0";
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpdateRecordParameter.VisitorRegistrationApplicationsApplyTime,
+				UpdateRecordParameter.VisitorRegistrationApplicationsVisitorName,
+				UpdateRecordParameter.VisitorRegistrationApplicationsVisitorRFIDCardNum,
+				UpdateRecordParameter.VisitorRegistrationApplicationsVisitorCardNum
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+		//--
 		internal bool InsertVisitorRegistrationApplicationsMaster( InsertVisitorRegistrationApplicationsMaster InsertVisitorRegistrationApplicationsMasterParameter )
 		{
 			string sql = $@"INSERT INTO [{m_gas}].[dbo].[VisitorRegistrationApplicationsMaster] ([FillDate],[PreserveVisitDateTime],[VisitorCompany],[Visitor],[VisitorNum],[VisitorType],[VisitorTel],[IntervieweeName],[ParkingCarsName],[ParkingCarsNum],[HealthDeclaration],[Disseminate],[CarryOn])
@@ -66,67 +136,6 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
-		//in use--
-		internal bool InsertVisitorApplication( InsertVisitorApplication InsertVisitorApplicationParameter )
-		{
-			string sql = $@"INSERT INTO [{m_gas}].[dbo].[VisitorRegistration] ([ApplyTime]
-						  ,[VisitorName]
-						  ,[VisitorTel]
-						  ,[IntervieweeName]
-						  ,[VisitorCompany]
-						  ,[ParkingCar]
-						  ,[VisitorCardNum]
-						  ,[VisitorRFIDCardNum]
-						  ,[BringComputer])
-						VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6, @Parameter7, @Parameter8)";
-			List<object> SQLParameterList = new List<object>()
-			{
-				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsApplyTime,
-				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsVisitorName,
-				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsVisitorTel,
-				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsIntervieweeName,
-				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsVisitorCompany,
-				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsParkingCar,
-				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsVisitorCardNum,
-				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsVisitorRFIDCardNum,
-				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsBringComputer
-			};
-			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
-			return bResult;
-		}
-		internal DataTable GetVisitorRecord()
-		{
-			string sql = $@"SELECT [ApplyTime], [VisitorName], [VisitorTel] FROM [{m_gas}].[dbo].[VisitorRegistration]
-							WHERE [ReturnTime] IS NULL";
-			
-			DataTable result = m_dbproxy.GetDataWithNoParaCMD( sql );
-
-			if(result == null || result.Rows.Count <= 0)
-			{
-				return null;
-			}
-			else
-			{
-				return result;
-			}
-		}
-		internal bool DeleteRecord( DeleteRecord DeleteRecordParameter )
-		{
-			string sql = $@"UPDATE [{m_gas}].[dbo].[VisitorRegistration]
-							set [ReturnTime]=@Parameter2,[Affirmant]=@Parameter3
-							where [VisitorName]=@Parameter1 and [VisitorTel]=@Parameter0";
-			List<object> SQLParameterList = new List<object>()
-			{
-				DeleteRecordParameter.VisitorRegistrationApplicationsVisitorTel,
-				DeleteRecordParameter.VisitorRegistrationApplicationsVisitorName,
-				DeleteRecordParameter.VisitorRegistrationApplicationsReturnTime,
-				DeleteRecordParameter.VisitorRegistrationApplicationsAffirmant
-			};
-			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
-			return bResult;
-		}
-
-		//--
 		internal DataTable GetVisitorRegistrationApplicationsMaster( GetVisitorRegistrationApplicationsMaster GetVisitorRegistrationApplicationsMasterParameter )
 		{
 			string sql = $@"SELECT *

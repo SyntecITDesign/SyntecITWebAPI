@@ -16,28 +16,9 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.VisitorRegistration
 	{
 		#region Public Methods
 
-		[Route( "InsertVisitorRegistrationApplicationsMaster" )]
-		//[CheckTokenFilter]
-		[HttpPost]
-		public IActionResult InsertVisitorRegistrationApplicationsMaster( [FromBody] InsertVisitorRegistrationApplicationsMaster InsertVisitorRegistrationApplicationsMasterParameter )
-		{
-
-			bool bResult = m_publicVisitorRegistrationHandler.InsertVisitorRegistrationApplicationsMaster( InsertVisitorRegistrationApplicationsMasterParameter );
-
-			if(!bResult)
-			{
-				m_responseHandler.Code = ErrorCodeList.Param_Error;
-			}
-			else
-			{
-				m_responseHandler.Content = "true";
-			}
-
-			return Ok( m_responseHandler.GetResult() );
-		}
 		//in use--
 		[Route( "InsertVisitorApplication" )]
-		[CheckTokenFilter]
+		//[CheckTokenFilter] 取消是為了讓外部可以連接
 		[HttpPost]
 		public IActionResult InsertVisitorApplication( [FromBody] InsertVisitorApplication InsertVisitorApplicationParameter )
 		{
@@ -95,7 +76,47 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.VisitorRegistration
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+		//更新訪客證號
+		[Route( "UpdateRecord" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpdateRecord( [FromBody] UpdateRecord UpdateRecordParameter )
+		{
+
+			bool bResult = m_publicVisitorRegistrationHandler.UpdateRecord( UpdateRecordParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 		//--
+		[Route( "InsertVisitorRegistrationApplicationsMaster" )]
+		//[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult InsertVisitorRegistrationApplicationsMaster( [FromBody] InsertVisitorRegistrationApplicationsMaster InsertVisitorRegistrationApplicationsMasterParameter )
+		{
+
+			bool bResult = m_publicVisitorRegistrationHandler.InsertVisitorRegistrationApplicationsMaster( InsertVisitorRegistrationApplicationsMasterParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		[Route( "GetVisitorRegistrationApplicationsMaster" )]
 		[CheckTokenFilter]
 		[HttpPost]

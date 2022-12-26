@@ -14,13 +14,6 @@ namespace SyntecITWebAPI.Models.GAS.VisitorRegistration
 	{
 		#region Internal Methods
 
-		internal bool InsertVisitorRegistrationApplicationsMaster( InsertVisitorRegistrationApplicationsMaster InsertVisitorRegistrationApplicationsMasterParameter )
-		{
-
-			bool bResult = m_VisitorRegistrationDBManager.InsertVisitorRegistrationApplicationsMaster( InsertVisitorRegistrationApplicationsMasterParameter );
-
-			return bResult;
-		}
 		//in use--
 		internal bool InsertVisitorApplication( InsertVisitorApplication InsertVisitorApplicationParameter )
 		{
@@ -49,7 +42,22 @@ namespace SyntecITWebAPI.Models.GAS.VisitorRegistration
 
 			return bResult;
 		}
+		internal bool UpdateRecord( UpdateRecord UpdateRecordParameter )
+		{
+
+			bool bResult = m_VisitorRegistrationDBManager.UpdateRecord( UpdateRecordParameter );
+
+			return bResult;
+		}
 		//--
+
+		internal bool InsertVisitorRegistrationApplicationsMaster( InsertVisitorRegistrationApplicationsMaster InsertVisitorRegistrationApplicationsMasterParameter )
+		{
+
+			bool bResult = m_VisitorRegistrationDBManager.InsertVisitorRegistrationApplicationsMaster( InsertVisitorRegistrationApplicationsMasterParameter );
+
+			return bResult;
+		}
 		internal bool UpdateVisitorRegistrationApplicationsMaster( UpdateVisitorRegistrationApplicationsMaster UpdateGuestReceptionApplicationsMasterParameter )
 		{
 

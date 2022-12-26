@@ -55,7 +55,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Parking
 
 			return Ok( m_responseHandler.GetResult() );
 		}
-			
+		//ParkingNumber.aspx的送出按鈕	
 		[Route( "InsertCarNumBatch" )]
 		[CheckTokenFilter]
 		[HttpPost]

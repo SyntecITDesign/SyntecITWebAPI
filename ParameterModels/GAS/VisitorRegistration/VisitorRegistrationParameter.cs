@@ -187,4 +187,8 @@ namespace SyntecITWebAPI.ParameterModels.GAS.VisitorRegistration
 	{
 
 	}
+	public class UpdateRecord : VisitorRegistrationApplicationsMasterAllField
+	{
+
+	}
 }

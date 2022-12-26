@@ -39,7 +39,8 @@ namespace SyntecITWebAPI.Models.GAS.Parking
 
 			return bResult;
 		}
-
+		
+		//ParkingNumber.aspx的送出按鈕
 		internal bool InsertCarNumBatch( InsertCarNumBatch InsertCarNumBatchParameter )
 		{
 

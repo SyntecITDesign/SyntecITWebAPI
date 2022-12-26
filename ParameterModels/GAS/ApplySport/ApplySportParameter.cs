@@ -37,6 +37,17 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplySport
 		}
 	}
 
+	//public class GetAllCourt : CourtRecordAllField
+	//{
+	//	public string StartTime
+	//	{
+	//		get; set;
+	//	}
+	//	public string EndTime
+	//	{
+	//		get; set;
+	//	}
+	//}
 	public class InsertCourtReserve : CourtRecordAllField //和API同名
 	{
 

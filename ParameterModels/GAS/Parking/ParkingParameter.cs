@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 namespace SyntecITWebAPI.ParameterModels.GAS.Parking
 {
 
-
 	public class GetParkingInfo
 	{
 		#region Public Properties
@@ -42,15 +41,23 @@ namespace SyntecITWebAPI.ParameterModels.GAS.Parking
 		{
 			get; set;
 		}
-		public string CarNum
+		public string MotorLicense
 		{
 			get; set;
 		}
-		public string ParkingNum
+		public string MotorLicense_Syntec
 		{
 			get; set;
 		}
-
+		//public string CarLicense
+		//{
+		//	get; set;
+		//}
+		//public string CarLicense_Syntec
+		//{
+		//	get; set;
+		//}
 		#endregion Public Properties
 	}
+
 }
