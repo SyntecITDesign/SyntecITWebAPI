@@ -443,9 +443,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				GetOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailOrderDate,
 				GetOrderMealApplicationsDetailParameter.OrderMealApplicationsDetailFinished
 			};
-			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
-			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
-			//return bresult;
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );			
 
 			if( result == null || result.Rows.Count <= 0 )
 			{
@@ -520,6 +518,43 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		}
 
 
+		internal DataTable GetOrderMealGAS_DailyLunch( GetOrderMealGAS_DailyLunch GetOrderMealGAS_DailyLunchParameter )
+		{
+			string sql = $@"SELECT *
+						FROM [{m_gas}].[dbo].[GAS_DailyLunch]
+						order by [UpdateDate] desc";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetOrderMealGAS_DailyLunchParameter.OrderMealGAS_DailyLunchLunchDate,
+				GetOrderMealGAS_DailyLunchParameter.OrderMealGAS_DailyLunchDailySupplyMealNum
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+		internal bool UpsertOrderMealGAS_DailyLunch( UpsertOrderMealGAS_DailyLunch UpsertOrderMealGAS_DailyLunchParameter )
+		{
+			string sql = $@"IF EXISTS (SELECT * FROM [{m_gas}].[dbo].[GAS_DailyLunch] WHERE [LunchDate]=@Parameter0 )
+							UPDATE [{m_gas}].[dbo].[GAS_DailyLunch] SET [DailySupplyMealNum]=@Parameter1
+							WHERE [LunchDate]=@Parameter0 
+						ELSE
+						INSERT INTO [{m_gas}].[dbo].[GAS_DailyLunch] ([LunchDate] ,[DailySupplyMealNum]) 
+						VALUES (@Parameter0,@Parameter1)";
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpsertOrderMealGAS_DailyLunchParameter.OrderMealGAS_DailyLunchLunchDate,
+				UpsertOrderMealGAS_DailyLunchParameter.OrderMealGAS_DailyLunchDailySupplyMealNum
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
 	}
 	#endregion Internal Methods
 }

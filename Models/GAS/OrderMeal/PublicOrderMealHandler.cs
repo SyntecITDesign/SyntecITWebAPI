@@ -193,6 +193,22 @@ namespace SyntecITWebAPI.Models.GAS.OrderMeal
 			return bResult;
 		}
 
+		internal JArray GetOrderMealGAS_DailyLunch( GetOrderMealGAS_DailyLunch GetOrderMealGAS_DailyLunchParameter )
+		{
+			DataTable dtResult = m_OrderMealDBManager.GetOrderMealGAS_DailyLunch( GetOrderMealGAS_DailyLunchParameter );
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+		internal bool UpsertOrderMealGAS_DailyLunch( UpsertOrderMealGAS_DailyLunch UpsertOrderMealGAS_DailyLunchParameter )
+		{
+			bool bResult = m_OrderMealDBManager.UpsertOrderMealGAS_DailyLunch( UpsertOrderMealGAS_DailyLunchParameter );
+			return bResult;
+		}
 		#endregion Internal Methods
 
 		#region Private Fields

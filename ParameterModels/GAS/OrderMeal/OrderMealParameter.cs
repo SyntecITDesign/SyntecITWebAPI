@@ -204,4 +204,24 @@ namespace SyntecITWebAPI.ParameterModels.GAS.OrderMeal
 	public class DeleteOrderMealApplicationsDetail : OrderMealApplicationsDetailAllField
 	{
 	}
+
+	public class OrderMealGAS_DailyLunchAllField
+	{
+		public string OrderMealGAS_DailyLunchLunchDate
+		{
+			get; set;
+		}
+		public int OrderMealGAS_DailyLunchDailySupplyMealNum
+		{
+			get; set;
+		}		
+	}
+	public class UpsertOrderMealGAS_DailyLunch : OrderMealGAS_DailyLunchAllField
+	{
+	}
+	public class GetOrderMealGAS_DailyLunch : OrderMealGAS_DailyLunchAllField
+	{
+	}
+	
+
 }
