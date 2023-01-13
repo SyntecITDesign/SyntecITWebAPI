@@ -448,7 +448,7 @@ ORDER BY UniformInfo.[No],case
 		{
 			string sql = $@"SELECT *
 						FROM [{m_gas}].[dbo].[UniformApplicationsMaster]
-						Where Convert(varchar,ApplicationDate,120) like @Parameter3 and [ApplicantID] like @Parameter4 and [ClothesType] like @Parameter8 and [ApplyType] like @Parameter9 and [Finished]=@Parameter14
+						Where Convert(varchar,ApplicationDate,120) like @Parameter3 and [ApplicantID] like @Parameter4 and [ClothesType] like @Parameter8 and [ApplyType] like @Parameter9 and [Finished]=@Parameter14 and [IsCancel]=0
 						ORDER BY [RequisitionID] desc";
 			List<object> SQLParameterList = new List<object>()
 			{
