@@ -55,7 +55,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Parking
 
 			return Ok( m_responseHandler.GetResult() );
 		}
-		//ParkingNumber.aspx的送出按鈕	
+		//ParkingNumber.aspx的送出按鈕	for scooter
 		[Route( "InsertCarNumBatch" )]
 		[CheckTokenFilter]
 		[HttpPost]
@@ -63,6 +63,26 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Parking
 		{
 
 			bool bResult = m_publicParkingHandler.InsertCarNumBatch( InsertCarNumBatchParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		//for car
+		[Route( "InsertCarNumBatchCar" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult InsertCarNumBatchCar([FromBody] InsertCarNumBatch InsertCarNumBatchParameter )
+		{
+
+			bool bResult = m_publicParkingHandler.InsertCarNumBatchCar( InsertCarNumBatchParameter );
 
 			if(!bResult)
 			{

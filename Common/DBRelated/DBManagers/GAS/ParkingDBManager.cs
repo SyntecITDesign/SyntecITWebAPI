@@ -91,6 +91,26 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
+		internal bool InsertCarNumBatchCar( InsertCarNumBatch InsertCarNumBatchParameter )
+		{
+
+			string sql = $@"IF EXISTS (SELECT * FROM [{m_gas}].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0)
+							UPDATE [{m_gas}].[dbo].[GAS_GAInfoMaster]
+							SET [CarLicense]=@Parameter1,[CarLicense_Syntec]=@Parameter2
+							WHERE [EmpID]=@Parameter0
+							ELSE
+						    INSERT INTO [{m_gas}].[dbo].[GAS_GAInfoMaster]([EmpID],[CarLicense],[CarLicense_Syntec],[Avatar])  
+							VALUES (@Parameter0, @Parameter1, @Parameter2, 0) ";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				InsertCarNumBatchParameter.EmpID, //0
+				InsertCarNumBatchParameter.CarLicense, //1
+				InsertCarNumBatchParameter.CarLicense_Syntec //2
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
 
 	}
 	#endregion Internal Methods

@@ -3,7 +3,29 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SyntecITWebAPI.ParameterModels.GAS.Parking
 {
-
+	public class ParkingAllField
+	{
+		public string EmpID
+		{
+			get; set;
+		}
+		public string MotorLicense
+		{
+			get; set;
+		}
+		public string MotorLicense_Syntec
+		{
+			get; set;
+		}
+		public string CarLicense
+		{
+			get; set;
+		}
+		public string CarLicense_Syntec
+		{
+			get; set;
+		}
+	}
 	public class GetParkingInfo
 	{
 		#region Public Properties
@@ -33,31 +55,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.Parking
 		#endregion Public Properties
 	}
 
-	public class InsertCarNumBatch
+	public class InsertCarNumBatch:ParkingAllField
 	{
-		#region Public Properties
-
-		public string EmpID
-		{
-			get; set;
-		}
-		public string MotorLicense
-		{
-			get; set;
-		}
-		public string MotorLicense_Syntec
-		{
-			get; set;
-		}
-		//public string CarLicense
-		//{
-		//	get; set;
-		//}
-		//public string CarLicense_Syntec
-		//{
-		//	get; set;
-		//}
-		#endregion Public Properties
+		
 	}
+	
 
 }
