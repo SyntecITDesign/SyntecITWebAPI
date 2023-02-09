@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SyntecITWebAPI.Common;
 using SyntecITWebAPI.Enums;
-using Newtonsoft.Json.Linq;
+
 using SyntecITWebAPI.ParameterModels.GAS.GASNotify;
 using System;
 using SyntecITWebAPI.Filter;

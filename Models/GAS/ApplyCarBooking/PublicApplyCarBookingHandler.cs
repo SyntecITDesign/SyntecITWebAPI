@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SyntecITWebAPI.Models.GAS.ApplyCarBooking
 {
 
-	internal class PublicApplyCarBookingHandler
+	internal class PublicJiraAPIHandler
 	{
 		#region Internal Methods
 		internal JArray GetCarBookingApplicationsMaster( GetCarBookingApplicationsMaster GetCarBookingApplicationsMasterParameter )

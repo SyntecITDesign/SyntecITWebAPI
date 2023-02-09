@@ -12,7 +12,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyCarBooking
 	[EnableCors( "AllowAllPolicy" )]
 	[Route( "Open/GAS/ApplyCarBooking" )]
 	[ApiController]
-	public class OpenApplyCarBookingController : ControllerBase
+	public class OpenJiraAPIController : ControllerBase
 	{
 		#region Public Methods
 
@@ -80,7 +80,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyCarBooking
 		#region Private Fields
 
 		private ResponseHandler m_responseHandler = new ResponseHandler();
-		private PublicApplyCarBookingHandler m_publicCarBookingHandler = new PublicApplyCarBookingHandler();
+		private PublicJiraAPIHandler m_publicCarBookingHandler = new PublicJiraAPIHandler();
 
 		#endregion Private Fields
 	}

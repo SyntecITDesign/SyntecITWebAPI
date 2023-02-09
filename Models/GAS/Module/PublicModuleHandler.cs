@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SyntecITWebAPI.Models.GAS.Module
 {
 
-	internal class PublicModuleHandler
+	internal class PublicJiraAPIHandler
 	{
 		#region Internal Methods
 		internal bool InsertFeatures(InsertFeatures InsertFeaturesParameter)

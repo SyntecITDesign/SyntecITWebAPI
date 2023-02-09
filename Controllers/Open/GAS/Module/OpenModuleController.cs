@@ -122,7 +122,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Module
 		#region Private Fields
 
 		private ResponseHandler m_responseHandler = new ResponseHandler();
-		private PublicModuleHandler m_publicModuleHandler = new PublicModuleHandler();
+		private PublicJiraAPIHandler m_publicModuleHandler = new PublicJiraAPIHandler();
 
 		#endregion Private Fields
 	}
