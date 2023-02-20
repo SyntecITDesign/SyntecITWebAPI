@@ -460,7 +460,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool InsertHealthExaminationApplicationsDetail( InsertHealthExaminationApplicationsDetail InsertHealthExaminationApplicationsDetailParameter )
 		{
-			string sql = $@"INSERT INTO [{m_gas}].[dbo].[HealthExaminationApplicationsDetail]([RequisitionID],[ApplicantID],[ApplicantName],[Type],[Name],[ID],[Birthday],[PhoneNumber],[Sex],[Hospital],[ProjectNo],[OptionalItems],[AdditionItems],[AppointmentDate1],[AppointmentDate2],[Total]) VALUES (@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9,@Parameter10,@Parameter11,@Parameter12,@Parameter13,@Parameter14,@Parameter15,@Parameter16)";
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[HealthExaminationApplicationsDetail]([RequisitionID],[ApplicantID],[ApplicantName],[Type],[Name],[ID],[Birthday],[PhoneNumber],[Sex],[Hospital],[ProjectNo],[OptionalItems],[AdditionItems],[AppointmentDate1],[AppointmentDate2],[Total],[SelfPay],[SyntecPay]) VALUES (@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9,@Parameter10,@Parameter11,@Parameter12,@Parameter13,@Parameter14,@Parameter15,@Parameter16,@Parameter19,@Parameter20)";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -482,7 +482,9 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				InsertHealthExaminationApplicationsDetailParameter.HealthExaminationApplicationsDetailAppointmentDate2,
 				InsertHealthExaminationApplicationsDetailParameter.HealthExaminationApplicationsDetailTotal,
 				InsertHealthExaminationApplicationsDetailParameter.HealthExaminationApplicationsDetailIsCancel,
-				InsertHealthExaminationApplicationsDetailParameter.HealthExaminationApplicationsDetailFinished
+				InsertHealthExaminationApplicationsDetailParameter.HealthExaminationApplicationsDetailFinished,
+				InsertHealthExaminationApplicationsDetailParameter.HealthExaminationApplicationsDetailSelfPay,
+				InsertHealthExaminationApplicationsDetailParameter.HealthExaminationApplicationsDetailSyntecPay
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;

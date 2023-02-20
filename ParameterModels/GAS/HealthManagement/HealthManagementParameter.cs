@@ -301,11 +301,11 @@ namespace SyntecITWebAPI.ParameterModels.GAS.HealthManagement
 		{
 			get; set;
 		}
-		public int HealthExaminationApplicationsDetailHospital
+		public string HealthExaminationApplicationsDetailHospital
 		{
 			get; set;
 		}
-		public int HealthExaminationApplicationsDetailProjectNo
+		public string HealthExaminationApplicationsDetailProjectNo
 		{
 			get; set;
 		}
@@ -341,7 +341,15 @@ namespace SyntecITWebAPI.ParameterModels.GAS.HealthManagement
 		{
 			get; set;
 		}
-		
+		public int HealthExaminationApplicationsDetailSelfPay
+		{
+			get; set;
+		}
+		public int HealthExaminationApplicationsDetailSyntecPay
+		{
+			get; set;
+		}
+
 	}
 	public class InsertHealthExaminationApplicationsDetail : HealthExaminationApplicationsDetailAllField
 	{

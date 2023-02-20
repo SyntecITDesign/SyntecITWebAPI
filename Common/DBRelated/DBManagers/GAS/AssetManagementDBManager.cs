@@ -80,7 +80,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool UpdateAssetInfo(UpdateAssetInfo UpdateAssetInfoParameter)
 		{
 			string sql = $@"UPDATE [{m_gas}].[dbo].[AssetManagement]
-							set [AssetName]=@Parameter1,[Spec]=@Parameter2,[AssetType]=@Parameter3,[Property]=@Parameter4,[GetDate]=@Parameter5,[GetCost]=@Parameter6,[Quantity]=@Parameter7,[ManagerID]=@Parameter8,[CostCenter]=@Parameter9,[Storage]=@Parameter10,[FirmName]=@Parameter11,[FirmTel]=@Parameter12,[FirmContactWindow]=@Parameter13, [Memo]=@Parameter14, [IsScrap]=@Parameter15, [SAPNo]=@Parameter16, [PRNo]=@Parameter17, [PONo]=@Parameter18, [Branch]=@Parameter20, [State]=@Parameter21
+							set [AssetName]=@Parameter1,[Spec]=@Parameter2,[GetDate]=@Parameter5,[GetCost]=@Parameter6,[Quantity]=@Parameter7,[ManagerID]=@Parameter8,[CostCenter]=@Parameter9,[Storage]=@Parameter10,[FirmName]=@Parameter11,[FirmTel]=@Parameter12,[FirmContactWindow]=@Parameter13, [Memo]=@Parameter14, [IsScrap]=@Parameter15, [SAPNo]=@Parameter16, [PRNo]=@Parameter17, [PONo]=@Parameter18, [Branch]=@Parameter20, [State]=@Parameter21
 							where [AssetNo]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
