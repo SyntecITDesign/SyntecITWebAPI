@@ -527,7 +527,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 							ELSE
 								UPDATE [{m_gas}].[dbo].[HealthExaminationApplicationsDetail]
 								set [IsCancel]=@Parameter17,[Finished]=@Parameter18,[CancelDateTime]=@Parameter19
-								where [DetailID]=@Parameter0";
+								where [RequisitionID]=@Parameter1";
 			List<object> SQLParameterList = new List<object>()
 			{
 				UpdateHealthExaminationApplicationsDetailParameter.HealthExaminationApplicationsDetailDetailID,
