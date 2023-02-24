@@ -209,6 +209,23 @@ namespace SyntecITWebAPI.Models.GAS.OrderMeal
 			bool bResult = m_OrderMealDBManager.UpsertOrderMealGAS_DailyLunch( UpsertOrderMealGAS_DailyLunchParameter );
 			return bResult;
 		}
+		internal JArray GetGuestMealsDept()
+		{
+			DataTable dtResult = m_OrderMealDBManager.GetGuestMealsDept();
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+		internal bool InsertLunchGuest( InsertLunchGuest InsertLunchGuestParameter )
+		{
+			bool bResult = m_OrderMealDBManager.InsertLunchGuest( InsertLunchGuestParameter );
+			return bResult;
+		}
 		#endregion Internal Methods
 
 		#region Private Fields
