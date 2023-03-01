@@ -555,6 +555,52 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
+
+		internal DataTable GetGuestMealsDept()
+		{
+			string sql = $@"SELECT Distinct [FSe7en_Org_DeptInfo].DisplayName, [FSe7en_Org_DeptStruct].[DeptID] 
+FROM [BPMPro].dbo.[FSe7en_Org_DeptInfo],[BPMPro].dbo.[FSe7en_Org_DeptStruct]  
+where  [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID = [BPMPro].dbo.[FSe7en_Org_DeptStruct].[DeptID] AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID Like 'TWST%' AND ([BPMPro].dbo.[FSe7en_Org_DeptStruct].[GradeNum]='60' OR [BPMPro].dbo.[FSe7en_Org_DeptStruct].[GradeNum]='70' )AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID = [BPMPro].dbo.[FSe7en_Org_DeptStruct].[DeptID] AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWST111' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWST113' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWST130' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWSTISO' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWSTISOM' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWSTLEAN' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWST57'
+Union
+SELECT Distinct [FSe7en_Org_DeptInfo].DisplayName, [FSe7en_Org_DeptStruct].[DeptID] 
+FROM [BPMPro].dbo.[FSe7en_Org_DeptInfo],[BPMPro].dbo.[FSe7en_Org_DeptStruct]  
+where  [FSe7en_Org_DeptInfo].DeptID = [FSe7en_Org_DeptStruct].[DeptID] AND [FSe7en_Org_DeptInfo].DeptID in ('LEANTECTWLT5010','LEANTEC30','LEANTECTWLT1010')";
+
+			DataTable result = m_BPMdbproxy.GetDataWithNoParaCMD( sql );
+
+			if(result == null || result.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal bool InsertLunchGuest( InsertLunchGuest InsertLunchGuestParameter )
+		{
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[GuestMeals] ([ApplyTime]
+						  ,[VisitorType]
+						  ,[Company]
+						  ,[Department]
+						  ,[ApplicantID]
+						  ,[Name]
+						  ,[Quantity])
+								VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6)";
+			List<object> SQLParameterList = new List<object>()
+			{
+				InsertLunchGuestParameter.ApplyTime,
+				InsertLunchGuestParameter.VisitorType,
+				InsertLunchGuestParameter.Company,
+				InsertLunchGuestParameter.Department,
+				InsertLunchGuestParameter.ApplicantID,
+				InsertLunchGuestParameter.Name,
+				InsertLunchGuestParameter.Quantity
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
 	}
 	#endregion Internal Methods
 }

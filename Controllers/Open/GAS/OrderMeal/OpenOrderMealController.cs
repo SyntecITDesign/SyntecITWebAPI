@@ -535,6 +535,48 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+
+		[Route( "GetGuestMealsDept" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpGet]
+		public IActionResult GetGuestMealsDept()
+		{
+			JArray result = m_publicOrderMealHandler.GetGuestMealsDept();
+
+			if(result == null)
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "InsertLunchGuest" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult InsertLunchGuest( [FromBody] InsertLunchGuest InsertLunchGuestParameter )
+		{
+			bool bResult = m_publicOrderMealHandler.InsertLunchGuest( InsertLunchGuestParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		#endregion Public Methods
 
 		#region Private Fields

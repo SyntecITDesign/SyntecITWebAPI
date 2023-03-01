@@ -82,6 +82,34 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 				return result;
 			}
 		}
+		internal DataTable GetFuzzyPersonalInfoNoToken( GetFuzzyPersonalInfo GetFuzzyPersonalInfoParameter )
+		{
+			string sql = $@"IF @Parameter1 = 'empty'
+								SELECT *
+								FROM [syntecbarcode].[dbo].[TEMP_NAME]
+								WHERE [DeptName] IS not null and ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0)  AND ([QuitDate] is NULL OR [QuitDate] >= GETDATE())
+							ELSE
+								SELECT *
+								FROM [syntecbarcode].[dbo].[TEMP_NAME]
+								WHERE [DeptName] IS not null and ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0) AND [QuitDate] is not NULL";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+			  GetFuzzyPersonalInfoParameter.EmpID.Replace("+", "%20"),
+			  GetFuzzyPersonalInfoParameter.QuitDate
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+
+			if(result == null || result.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
 
 		internal DataTable GetPersonalInfoByNameOrg( GetPersonalInfoByNameOrg GetPersonalInfoByNameOrgParameter )
 		{
