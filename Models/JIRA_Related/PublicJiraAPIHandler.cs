@@ -75,7 +75,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related
 			HttpContent HContent = new StringContent( "{\"fields\": {" +
 					"\"project\": {\"id\": \"15590\" }," + //危機處理測試專區 project id:15590；危機處理專區 project id:15390
 					"\"reporter\": {\"name\": \"" + CreateJiraIssueParameter.reporter + "\" }," +  //報告人
-					"\"customfield_16821\":  {\"value\":\"" + CreateJiraIssueParameter.createDept + "\"}," +  //發起單位
+					"\"customfield_17121\":  {\"value\":\"" + CreateJiraIssueParameter.createDept + "\"}," +  //發起單位
 					"\"summary\": \"" + CreateJiraIssueParameter.summary + "\"," + //摘要
 					"\"description\": \"" + CreateJiraIssueParameter.description + "\"," + //描述
 					"\"assignee\": {\"name\": \"" + CreateJiraIssueParameter.assignee + "\" }," + //負責人
@@ -111,7 +111,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related
 			HttpContent HContent = new StringContent( "{\"fields\": {" +
 					"\"assignee\": {\"name\": \"" + EditJiraIssueParameter.teamLeader + "\" }," + //負責人
 					"\"duedate\": \"" + EditJiraIssueParameter.duedate + "\"," + //到期日
-					"\"customfield_16827\": \"" + EditJiraIssueParameter.teamLeaderDept + "\"," + //當責單位
+					"\"customfield_16827\":  {\"value\":\"" + EditJiraIssueParameter.teamLeaderDept + "\"}," + //當責單位
 					"\"customfield_17021\": \"" + EditJiraIssueParameter.teamMembers + "\"" + //危機小組成員
 				"}}", Encoding.UTF8, "application/json" );
 			string targetUrl = "https://jira.syntecclub.com/rest/api/2/issue/" + EditJiraIssueParameter.issueID;
@@ -129,8 +129,8 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related
 			//變更議題欄位內容
 			HttpContent HContent = new StringContent( "{\"fields\": {" +
 					"\"assignee\": {\"name\": \"" + EditJiraIssueParameter.teamLeader + "\" }," + //負責人
-					"\"customfield_17027\": \"" + EditJiraIssueParameter.teamLeaderDept + "\"," + //短期對策處理單位
-					"\"customfield_16827\": \"" + EditJiraIssueParameter.teamLeaderDept + "\"," + //當責單位
+					"\"customfield_17123\":  {\"value\":\"" + EditJiraIssueParameter.teamLeaderDept + "\"}," + //短期對策處理單位
+					"\"customfield_16827\":  {\"value\":\"" + EditJiraIssueParameter.teamLeaderDept + "\"}," + //當責單位
 					"\"customfield_17023\": \"" + EditJiraIssueParameter.problemAnalysis + "\"," + //問題標定
 					"\"customfield_16829\": \"" + EditJiraIssueParameter.shortTermPlan + "\"," + //短期對策策劃
 					"\"customfield_16837\": \"" + EditJiraIssueParameter.shortTermDueDate + "\"" + //短期對策預計完成日
@@ -168,8 +168,8 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related
 			//變更議題欄位內容
 			HttpContent HContent = new StringContent( "{\"fields\": {" +
 					"\"assignee\": {\"name\": \"" + EditJiraIssueParameter.teamLeader + "\" }," + //負責人
-					"\"customfield_17028\": \"" + EditJiraIssueParameter.teamLeaderDept + "\"," + //長期對策處理單位
-					"\"customfield_16827\": \"" + EditJiraIssueParameter.teamLeaderDept + "\"," + //當責單位
+					"\"customfield_17124\":  {\"value\":\"" + EditJiraIssueParameter.teamLeaderDept + "\"}," + //長期對策處理單位
+					"\"customfield_16827\":  {\"value\":\"" + EditJiraIssueParameter.teamLeaderDept + "\"}," + //當責單位
 					"\"customfield_17026\": \"" + EditJiraIssueParameter.problemAnalysis + "\"," + //真因分析
 					"\"customfield_16830\": \"" + EditJiraIssueParameter.longTermPlan + "\"," + //長期對策策劃
 					"\"customfield_16840\": \"" + EditJiraIssueParameter.longTermDueDate + "\"," + //長期對策預計完成日
