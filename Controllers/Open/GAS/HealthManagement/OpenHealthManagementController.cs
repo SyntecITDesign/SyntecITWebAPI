@@ -597,7 +597,25 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.HealthManagement
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "GetHealthExaminationAppointmentDate" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult GetHealthExaminationAppointmentDate( [FromBody] GetHealthExaminationAppointmentDate GetHealthExaminationAppointmentDateParameter )
+		{
 
+			JArray result = m_publicHealthManagementHandler.GetHealthExaminationAppointmentDate( GetHealthExaminationAppointmentDateParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 		#endregion Public Methods
 
 		#region Private Fields
