@@ -892,7 +892,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal DataTable GetHealthExaminationAppointmentDate( GetHealthExaminationAppointmentDate GetHealthExaminationAppointmentDateParameter )
 		{
-			string sql = $@"SELECT [EmpID],[Email],[ID],[AppointmentDate1]
+			string sql = $@"SELECT [EmpID],[Email],[ID],[AppointmentDate1],[Hospital],[Type],[ProjectNo],[OptionalItems],[AdditionItems],[ApplicantName],[Name],[SelfPay],[SyntecPay]
 							FROM [{m_gas}].[dbo].[HealthExaminationEmpInfo],[{m_gas}].[dbo].[HealthExaminationApplicationsDetail]
 							WHERE [HealthExaminationEmpInfo].EmpID = [HealthExaminationApplicationsDetail].ApplicantID AND [HealthExaminationApplicationsDetail].ID = @Parameter1";
 			List<object> SQLParameterList = new List<object>()
