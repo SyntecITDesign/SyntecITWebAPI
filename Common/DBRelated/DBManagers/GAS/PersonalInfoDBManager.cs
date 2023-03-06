@@ -29,7 +29,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			string sql = $@"IF @Parameter1 = 'empty'	
 								SELECT *
 								FROM [syntecbarcode].[dbo].[TEMP_NAME]
-								WHERE [DeptName] IS not null and ([EmpID]=@Parameter0 OR [EmpName]=@Parameter0)  AND ([QuitDate] is NULL OR [QuitDate] >= GETDATE())
+								WHERE [DeptName] IS not null and ([EmpID]=@Parameter0 OR [EmpName]=@Parameter0)  AND ([QuitDate] is NULL OR [QuitDate] > GETDATE())
 							ELSE
 								SELECT *
 								FROM [syntecbarcode].[dbo].[TEMP_NAME]
@@ -59,7 +59,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			string sql = $@"IF @Parameter1 = 'empty'
 								SELECT *
 								FROM [syntecbarcode].[dbo].[TEMP_NAME]
-								WHERE [DeptName] IS not null and ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0)  AND ([QuitDate] is NULL OR [QuitDate] >= GETDATE())
+								WHERE [DeptName] IS not null and ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0)  AND ([QuitDate] is NULL OR [QuitDate] > GETDATE())
 							ELSE
 								SELECT *
 								FROM [syntecbarcode].[dbo].[TEMP_NAME]
@@ -87,7 +87,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			string sql = $@"IF @Parameter1 = 'empty'
 								SELECT *
 								FROM [syntecbarcode].[dbo].[TEMP_NAME]
-								WHERE [DeptName] IS not null and ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0)  AND ([QuitDate] is NULL OR [QuitDate] >= GETDATE())
+								WHERE [DeptName] IS not null and ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0)  AND ([QuitDate] is NULL OR [QuitDate] > GETDATE())
 							ELSE
 								SELECT *
 								FROM [syntecbarcode].[dbo].[TEMP_NAME]

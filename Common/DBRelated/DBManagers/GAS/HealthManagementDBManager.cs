@@ -522,7 +522,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 			string sql = $@"IF @Parameter18 = 0	
 								UPDATE [{m_gas}].[dbo].[HealthExaminationApplicationsDetail]
-								set [AppointmentDate1] = @Parameter14,[AppointmentDate2] = @Parameter15
+								set [AppointmentDate1] = @Parameter14,[AppointmentDate2] = @Parameter15, [Finished]=1
 								where [ID] = @Parameter6
 							ELSE
 								UPDATE [{m_gas}].[dbo].[HealthExaminationApplicationsDetail]
@@ -561,7 +561,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 							FROM [{m_gas}].[dbo].[HealthExaminationApplicationsDetail] AS D
 							INNER JOIN [{m_gas}].[dbo].[HealthExaminationApplicationsMaster] AS M
 							ON M.RequisitionID = D.RequisitionID
-							WHERE (Finished=0 AND IsCancel=0) and ([ApplicantID] = @Parameter2 or D.[RequisitionID]=@Parameter1 or [DetailID] = @Parameter0 or [ID] = @Parameter6)";
+							WHERE (Finished=@Parameter18 AND IsCancel=0) and ([ApplicantID] = @Parameter2 or D.[RequisitionID]=@Parameter1 or [DetailID] = @Parameter0 or [ID] = @Parameter6)";
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetHealthExaminationApplicationsDetailParameter.HealthExaminationApplicationsDetailDetailID,
@@ -889,6 +889,33 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				return result;
 			}
 		}
+
+		internal DataTable GetHealthExaminationAppointmentDate( GetHealthExaminationAppointmentDate GetHealthExaminationAppointmentDateParameter )
+		{
+			string sql = $@"SELECT [EmpID],[Email],[ID],[AppointmentDate1]
+							FROM [{m_gas}].[dbo].[HealthExaminationEmpInfo],[{m_gas}].[dbo].[HealthExaminationApplicationsDetail]
+							WHERE [HealthExaminationEmpInfo].EmpID = [HealthExaminationApplicationsDetail].ApplicantID AND [HealthExaminationApplicationsDetail].ID = @Parameter1";
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetHealthExaminationAppointmentDateParameter.HealthExaminationAppointmentDateEmpID,
+				GetHealthExaminationAppointmentDateParameter.HealthExaminationAppointmentDateID,
+				GetHealthExaminationAppointmentDateParameter.HealthExaminationAppointmentDateEmail,
+				GetHealthExaminationAppointmentDateParameter.HealthExaminationAppointmentDateFinalDate
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+
+
 
 	}
 	#endregion Internal Methods

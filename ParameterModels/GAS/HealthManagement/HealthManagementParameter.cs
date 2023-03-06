@@ -625,5 +625,29 @@ namespace SyntecITWebAPI.ParameterModels.GAS.HealthManagement
 	public class GetHealthExaminationCheckLists : HealthExaminationCheckListsAllField
 	{
 	}
+	public class HealthExaminationAppointmentDateAllField
+	{
+		
+		
+		public string HealthExaminationAppointmentDateEmpID
+		{
+			get; set;
+		}
+		public string HealthExaminationAppointmentDateEmail
+		{
+			get; set;
+		}
+		public string HealthExaminationAppointmentDateID
+		{
+			get; set;
+		}
+		public string HealthExaminationAppointmentDateFinalDate
+		{
+			get; set;
+		}
+	}
 
+	public class GetHealthExaminationAppointmentDate : HealthExaminationAppointmentDateAllField
+	{
+	}
 }
