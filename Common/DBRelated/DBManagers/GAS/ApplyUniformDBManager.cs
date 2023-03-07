@@ -511,7 +511,30 @@ ORDER BY UniformInfo.[No],case
 			return bResult;
 		}
 
+		internal DataTable GetRecentUniformSize( GetUniformApplicationsMaster GetUniformApplicationsMasterParameter )
+		{
+			string sql = $@"SELECT top (1)*
+						FROM [{m_gas}].[dbo].[UniformApplicationsMaster]
+						Where [ApplicantID] = @Parameter0 and [ClothesType] like @Parameter1
+						ORDER BY [RequisitionID] desc";
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetUniformApplicationsMasterParameter.UniformApplicationsMasterApplicantID,
+				GetUniformApplicationsMasterParameter.UniformApplicationsMasterClothesType,
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
+			//return bresult;
 
+			if(result == null || result.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
 
 	}
 	#endregion Internal Methods

@@ -212,6 +212,19 @@ namespace SyntecITWebAPI.Models.GAS.ApplyUniform
 
 			return bResult;
 		}
+		internal JArray GetRecentUniformSize( GetUniformApplicationsMaster GetUniformApplicationsMasterParameter )
+		{
+
+			DataTable dtResult = m_ApplyUniformDBManager.GetRecentUniformSize( GetUniformApplicationsMasterParameter );
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
 
 		#endregion Internal Methods
 

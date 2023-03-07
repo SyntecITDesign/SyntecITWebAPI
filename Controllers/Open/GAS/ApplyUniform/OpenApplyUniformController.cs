@@ -430,6 +430,26 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "GetRecentUniformSize" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult GetRecentUniformSize( [FromBody] GetUniformApplicationsMaster GetUniformApplicationsMasterParameter )
+		{
+
+			JArray result = m_publicApplyUniformHandler.GetRecentUniformSize( GetUniformApplicationsMasterParameter );
+
+			if(result == null)
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		#endregion Public Methods
 
 		#region Private Fields
