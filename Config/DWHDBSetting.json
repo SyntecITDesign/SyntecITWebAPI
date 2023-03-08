@@ -1,0 +1,7 @@
+{
+  "dataSource": "rm-bp1aam632w2z15p85so.sqlserver.rds.aliyuncs.com,1433",
+  "initialCatalog": "dwh",
+  "userID": "sa_sys",
+  "userPassword": "S0larRdS"
+}
+
