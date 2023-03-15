@@ -577,17 +577,43 @@ where  [FSe7en_Org_DeptInfo].DeptID = [FSe7en_Org_DeptStruct].[DeptID] AND [FSe7
 				return result;
 			}
 		}
+		internal DataTable GetGuestMealsRecord()
+		{
+			string sql = $@"SELECT *
+						FROM [{m_gas}].[dbo].[GuestMeals]
+						where CONVERT( varchar(50), [ApplyTime], 127) > CONVERT( varchar( 50 ), getdate(), 120 )
+						order by [ApplyTime] asc";
+			
+			DataTable result = m_dbproxy.GetDataWithNoParaCMD( sql );
+			if(result == null || result.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
 
 		internal bool InsertLunchGuest( InsertLunchGuest InsertLunchGuestParameter )
 		{
-			string sql = $@"INSERT INTO [{m_gas}].[dbo].[GuestMeals] ([ApplyTime]
-						  ,[VisitorType]
-						  ,[Company]
-						  ,[Department]
-						  ,[ApplicantID]
-						  ,[Name]
-						  ,[Quantity])
-								VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6)";
+			string sql = $@"IF EXISTS 
+							(SELECT * FROM  [{m_gas}].[dbo].[GuestMeals] WHERE [ID]=@Parameter7 )
+							UPDATE  [{m_gas}].[dbo].[GuestMeals] SET [Company] = @Parameter2
+							  ,[Department] = @Parameter3
+							  ,[ApplicantID] = @Parameter4
+							  ,[Name] = @Parameter5
+							  ,[Quantity] = @Parameter6
+							WHERE [ID]=@Parameter7
+							ELSE
+							INSERT INTO [{m_gas}].[dbo].[GuestMeals] ([ApplyTime]
+							  ,[VisitorType]
+							  ,[Company]
+							  ,[Department]
+							  ,[ApplicantID]
+							  ,[Name]
+							  ,[Quantity])
+							VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6)";
 			List<object> SQLParameterList = new List<object>()
 			{
 				InsertLunchGuestParameter.ApplyTime,
@@ -596,7 +622,20 @@ where  [FSe7en_Org_DeptInfo].DeptID = [FSe7en_Org_DeptStruct].[DeptID] AND [FSe7
 				InsertLunchGuestParameter.Department,
 				InsertLunchGuestParameter.ApplicantID,
 				InsertLunchGuestParameter.Name,
-				InsertLunchGuestParameter.Quantity
+				InsertLunchGuestParameter.Quantity,
+				InsertLunchGuestParameter.ID
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
+		internal bool DeleteLunchGuest( GuestMealsAllField GuestMealsAllFieldParameter )
+		{
+			string sql = $@"DELETE FROM [{m_gas}].[dbo].[GuestMeals]
+							WHERE [ID] = @Parameter0";
+			List<object> SQLParameterList = new List<object>()
+			{
+				GuestMealsAllFieldParameter.ID
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;

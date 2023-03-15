@@ -556,6 +556,26 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "GetGuestMealsRecord" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpGet]
+		public IActionResult GetGuestMealsRecord()
+		{
+			JArray result = m_publicOrderMealHandler.GetGuestMealsRecord();
+
+			if(result == null)
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		[Route( "InsertLunchGuest" )]
 		//[CheckTokenFilter]
 		//[PrivateCookieFilter]
@@ -577,12 +597,33 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.OrderMeal
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "DeleteLunchGuest" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult DeleteLunchGuest( [FromBody] GuestMealsAllField GuestMealsAllFieldParameter )
+		{
+			bool bResult = m_publicOrderMealHandler.DeleteLunchGuest( GuestMealsAllFieldParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		#endregion Public Methods
 
 		#region Private Fields
 
 		private ResponseHandler m_responseHandler = new ResponseHandler();
-		private PublicHealthManagementHandler m_publicOrderMealHandler = new PublicHealthManagementHandler();
+		private PublicOrderMealHandler m_publicOrderMealHandler = new PublicOrderMealHandler();
 
 		#endregion Private Fields
 	}
