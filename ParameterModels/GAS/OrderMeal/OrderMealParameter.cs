@@ -222,7 +222,7 @@ namespace SyntecITWebAPI.ParameterModels.GAS.OrderMeal
 	public class GetOrderMealGAS_DailyLunch : OrderMealGAS_DailyLunchAllField
 	{
 	}
-	public class InsertLunchGuest
+	public class GuestMealsAllField
 	{
 		public string ApplyTime
 		{
@@ -252,5 +252,13 @@ namespace SyntecITWebAPI.ParameterModels.GAS.OrderMeal
 		{
 			get; set;
 		}
+		public string ID
+		{
+			get; set;
+		}
 	}
+	public class InsertLunchGuest:GuestMealsAllField
+	{
+	}
+	
 }

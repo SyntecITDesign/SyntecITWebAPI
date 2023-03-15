@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SyntecITWebAPI.Models.GAS.OrderMeal
 {
 
-	internal class PublicHealthManagementHandler
+	internal class PublicOrderMealHandler
 	{
 		#region Internal Methods
 		internal bool InsertRestaurant(InsertRestaurant InsertRestaurantParameter)
@@ -221,9 +221,26 @@ namespace SyntecITWebAPI.Models.GAS.OrderMeal
 				return ja;
 			}
 		}
+		internal JArray GetGuestMealsRecord()
+		{
+			DataTable dtResult = m_OrderMealDBManager.GetGuestMealsRecord();
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
 		internal bool InsertLunchGuest( InsertLunchGuest InsertLunchGuestParameter )
 		{
 			bool bResult = m_OrderMealDBManager.InsertLunchGuest( InsertLunchGuestParameter );
+			return bResult;
+		}
+		internal bool DeleteLunchGuest( GuestMealsAllField GuestMealsAllFieldParameter )
+		{
+			bool bResult = m_OrderMealDBManager.DeleteLunchGuest( GuestMealsAllFieldParameter );
 			return bResult;
 		}
 		#endregion Internal Methods
