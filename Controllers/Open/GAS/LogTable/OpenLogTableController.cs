@@ -37,7 +37,26 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.LogTable
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "InsertLogTableNoToken" )]
+		//[CheckTokenFilter]
+		//[PrivateCookieFilter]
+		[HttpPost]
+		public IActionResult InsertLogTableNoToken( [FromBody] InsertLogTable InsertLogTableParameter )
+		{
 
+			bool bResult = m_publicLogTableHandler.InsertLogTable( InsertLogTableParameter );
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 
 		#endregion Public Methods
 
