@@ -13,7 +13,7 @@ using System.Text;
 namespace SyntecITWebAPI.Models.JiraAPI_Related
 {
 
-	internal class PublicJiraAPIHandler
+	internal class PublicJiraWorklogAPIHandler
 	{
 		#region
 
