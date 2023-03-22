@@ -13,7 +13,7 @@ using System.Text;
 namespace SyntecITWebAPI.Models.JiraAPI_Related
 {
 
-	internal class PublicJiraAPIHandler
+	internal class PublicJiraWorklogAPIHandler
 	{
 		#region
 
@@ -79,7 +79,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related
 					"\"summary\": \"" + CreateJiraIssueParameter.summary + "\"," + //摘要
 					"\"description\": \"" + CreateJiraIssueParameter.description + "\"," + //描述
 					"\"assignee\": {\"name\": \"" + CreateJiraIssueParameter.assignee + "\" }," + //負責人
-					"\"duedate\": \"" + CreateJiraIssueParameter.duedate + "\"," + //到期日
+					//"\"duedate\": \"" + CreateJiraIssueParameter.duedate + "\"," + //到期日
 					"\"issuetype\": {\"name\": \"故事\" }," + //類型
 					"\"priority\": {\"id\": \"1\" }," + //嚴重程度
 					"\"components\": [{\"name\": \"危機處理\" }]" + //模組
@@ -110,7 +110,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related
 			//變更議題欄位內容
 			HttpContent HContent = new StringContent( "{\"fields\": {" +
 					"\"assignee\": {\"name\": \"" + EditJiraIssueParameter.teamLeader + "\" }," + //負責人
-					"\"duedate\": \"" + EditJiraIssueParameter.duedate + "\"," + //到期日
+					//"\"duedate\": \"" + EditJiraIssueParameter.duedate + "\"," + //到期日
 					"\"customfield_16827\":  {\"value\":\"" + EditJiraIssueParameter.teamLeaderDept + "\"}," + //當責單位
 					"\"customfield_17021\": \"" + EditJiraIssueParameter.teamMembers + "\"" + //危機小組成員
 				"}}", Encoding.UTF8, "application/json" );
@@ -149,7 +149,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related
 			var client = new HttpClient();
 			//變更議題欄位內容
 			HttpContent HContent = new StringContent( "{\"fields\": {" +
-					"\"duedate\": \"" + EditJiraIssueParameter.duedate + "\"," + //到期日
+					//"\"duedate\": \"" + EditJiraIssueParameter.duedate + "\"," + //到期日
 					"\"customfield_16835\": \"" + EditJiraIssueParameter.shortTermExecuteResponding + "\"," + //短期執行回覆
 					"\"customfield_17024\": \"" + EditJiraIssueParameter.shortTermExecuteResolutiondate + "\"" + //短期對策實際完成日
 				"}}", Encoding.UTF8, "application/json" );
@@ -189,7 +189,8 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related
 			var client = new HttpClient();
 			//變更議題欄位內容
 			HttpContent HContent = new StringContent( "{\"fields\": {" +
-					"\"duedate\": \"" + EditJiraIssueParameter.duedate + "\"," + //到期日
+					//"\"duedate\": \"" + EditJiraIssueParameter.duedate + "\"," + //到期日
+					"\"assignee\": {\"name\": \"" + EditJiraIssueParameter.assignee + "\" }," + //負責人
 					"\"customfield_16838\": \"" + EditJiraIssueParameter.longTermExecuteResponding + "\"," + //長期執行回覆
 					"\"customfield_17031\": \"" + EditJiraIssueParameter.longTermExecuteResolutiondate + "\"," + //長期對策實際完成日
 					"\"customfield_16926\": \"" + EditJiraIssueParameter.avoidancePolicyExecuteResponding + "\"" + //防治再發執行回覆
@@ -208,8 +209,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related
 			var client = new HttpClient();
 			//變更議題欄位內容
 			HttpContent HContent = new StringContent( "{\"fields\": {" +
-					"\"assignee\": {\"name\": \"" + CloseJiraIssueParameter.assignee + "\" }," + //負責人
-					"\"duedate\": \"" + CloseJiraIssueParameter.duedate + "\"," + //到期日
+					//"\"duedate\": \"" + CloseJiraIssueParameter.duedate + "\"," + //到期日
 					"\"customfield_17032\": \"" + CloseJiraIssueParameter.reviewExplain + "\"," + //品保審查說明
 					"\"customfield_17033\": \"" + CloseJiraIssueParameter.closeDate + "\"," + //結案日
 					"\"customfield_16841\": {\"id\": \"" + CloseJiraIssueParameter.resolution + "\" }" + //危機處理解決方式id:18466[長短期對策皆已完成], 18467[短期已完成但無須長期對策], 18468[誤判不處理]  
