@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using SyntecITWebAPI.Models.JiraAPI_Related.Worklogger;
 using Newtonsoft.Json.Linq;
+using SyntecITWebAPI.Enums;
 
 namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.Worklogger
 {
@@ -66,7 +67,106 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.Worklogger
 			return Ok( m_responseHandler.GetResult() );
 		}
 
-		
+		[Route( "UpsertJiraWorkLogRelatedIssue" )]
+		[HttpPost]
+		public IActionResult UpsertJiraWorkLogRelatedIssue( [FromBody] UpsertJiraWorkLogRelatedIssue UpsertJiraWorkLogRelatedIssueParameter )
+		{
+
+			var bResult = m_publicJiraWorklogAPIHandler.UpsertJiraWorkLogRelatedIssue( UpsertJiraWorkLogRelatedIssueParameter );
+			//m_responseHandler.Content = bResult;
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "InsertWorkLogs" )]
+		[HttpPost]
+		public IActionResult InsertWorkLogs( [FromBody] InsertWorkLogs InsertWorkLogsParameter )
+		{
+
+			var bResult = m_publicJiraWorklogAPIHandler.InsertWorkLogs( InsertWorkLogsParameter );
+			//m_responseHandler.Content = bResult;
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "InsertJiraProjects" )]
+		[HttpPost]
+		public IActionResult InsertJiraProjects( [FromBody] InsertJiraProjects InsertJiraProjectsParameter )
+		{
+
+			var bResult = m_publicJiraWorklogAPIHandler.InsertJiraProjects( InsertJiraProjectsParameter );
+			//m_responseHandler.Content = JObject.Parse( bResult.Replace("[","").Replace( "]", "" ).Split("},{")[0]+"}" );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "InsertProjectTag" )]
+		[HttpPost]
+		public IActionResult InsertProjectTag( [FromBody] InsertProjectTag InsertProjectTagParameter )
+		{
+
+			var bResult = m_publicJiraWorklogAPIHandler.InsertProjectTag( InsertProjectTagParameter );
+			//m_responseHandler.Content = JObject.Parse( bResult.Replace("[","").Replace( "]", "" ).Split("},{")[0]+"}" );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+
+		[Route( "DeleteProjectTag" )]
+		[HttpPost]
+		public IActionResult DeleteProjectTag( [FromBody] DeleteProjectTag DeleteProjectTagParameter )
+		{
+
+			var bResult = m_publicJiraWorklogAPIHandler.DeleteProjectTag( DeleteProjectTagParameter );
+			//m_responseHandler.Content = JObject.Parse( bResult.Replace("[","").Replace( "]", "" ).Split("},{")[0]+"}" );
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 
 		#endregion Public Methods
 
