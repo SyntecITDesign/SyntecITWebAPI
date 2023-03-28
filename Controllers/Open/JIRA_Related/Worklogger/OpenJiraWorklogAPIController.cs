@@ -107,25 +107,28 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.Worklogger
 			return Ok( m_responseHandler.GetResult() );
 		}
 
-		[Route( "InsertJiraProjects" )]
+
+		[Route( "GetProjectTags" )]
 		[HttpPost]
-		public IActionResult InsertJiraProjects( [FromBody] InsertJiraProjects InsertJiraProjectsParameter )
+		public IActionResult GetProjectTags( [FromBody] GetProjectTags GetProjectTagsParameter )
 		{
 
-			var bResult = m_publicJiraWorklogAPIHandler.InsertJiraProjects( InsertJiraProjectsParameter );
-			//m_responseHandler.Content = JObject.Parse( bResult.Replace("[","").Replace( "]", "" ).Split("},{")[0]+"}" );
+			JArray result = m_publicJiraWorklogAPIHandler.GetProjectTags( GetProjectTagsParameter );
 
-			if( !bResult )
+			if( result == null )
 			{
-				m_responseHandler.Code = ErrorCodeList.Param_Error;
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
 			}
 			else
 			{
-				m_responseHandler.Content = "true";
+				m_responseHandler.Content = result;
 			}
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+
+
+
 
 		[Route( "InsertProjectTag" )]
 		[HttpPost]

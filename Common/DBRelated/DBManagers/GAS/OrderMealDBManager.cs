@@ -318,8 +318,6 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				GetAreaInfoParameter.AreaInfoAreaName
 			};
 			DataTable result = m_dbproxy.GetDataCMD(sql, SQLParameterList.ToArray());
-			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
-			//return bresult;
 
 			if (result == null || result.Rows.Count <= 0)
 			{

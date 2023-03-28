@@ -72,6 +72,10 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.Worklogger
 		{
 			get; set;
 		}
+		public string status
+		{
+			get; set;
+		}
 		public string originalEstimate
 		{
 			get; set;
@@ -128,6 +132,22 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.Worklogger
 		{
 			get; set;
 		}
+		public int spendDay
+		{
+			get; set;
+		}
+		public int spendHour
+		{
+			get; set;
+		}
+		public int spendMinute
+		{
+			get; set;
+		}
+		public string BasicAuth
+		{
+			get; set;
+		}
 	}
 
 	public class InsertWorkLogs : JiraWorkLogsAllField
@@ -140,11 +160,7 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.Worklogger
 		public int No
 		{
 			get; set;
-		}
-		public string projectID
-		{
-			get; set;
-		}
+		}		
 		public string projectKey
 		{
 			get; set;
@@ -166,13 +182,12 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.Worklogger
 			get; set;
 		}
 	}
-	
 
-	public class InsertJiraProjects : JiraProjectTagsAllField
+
+	public class GetProjectTags : JiraProjectTagsAllField
 	{
 
 	}
-
 	public class InsertProjectTag : JiraProjectTagsAllField
 	{
 
