@@ -40,19 +40,20 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.Worklogger
 		internal List<string> GetJiraIssues( JiraWorkLog JiraWorkLogParameter )
 		{
 			HttpClient client = new HttpClient();
-
 			int startAt = 0;
-			int maxResults = 50;
 			int total = 1;
 			List<string> Allissuekey = new List<string>();
 
 			while( total >= startAt )
 			{
-				string JIRAIssues_pre = "";
+				HttpContent HContent = new StringContent( "{\"jql\": \"" + JiraWorkLogParameter.JQL + "\"}", Encoding.UTF8, "application/json" );
+				string targetUrl = "https://jira.syntecclub.com/rest/api/2/search";
+				//Basic Authentication
+				client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue( "Basic", JiraWorkLogParameter.BasicAuth );
 
-				JIRAIssues_pre = JiraHelper.GetIssuesByJQL( "issuerobot", "Syntec1234", JiraWorkLogParameter.JQL + "&maxResults=" + maxResults + "&startAt=" + startAt, maxResults );
+				HttpResponseMessage Response = client.PostAsync( targetUrl, HContent ).Result;
 
-				JObject jobjectRI_pre = JObject.Parse( JIRAIssues_pre );
+				JObject jobjectRI_pre = JObject.Parse( Response.Content.ReadAsStringAsync().Result );
 
 				total = (int)jobjectRI_pre[ "total" ];
 
@@ -74,9 +75,9 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.Worklogger
 
 			string targetUrl = "https://jira.syntecclub.com/rest/api/2/issue/" + UpsertJiraWorkLogRelatedIssueParameter.issueID;
 			//Basic Authentication
-			client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue( "Basic", "aXNzdWVyb2JvdDpTeW50ZWMxMjM0" );
+			client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue( "Basic", UpsertJiraWorkLogRelatedIssueParameter.BasicAuth );
 
-			HttpResponseMessage response = client.GetAsync( targetUrl).Result;
+			HttpResponseMessage response = client.GetAsync( targetUrl ).Result;
 
 			JObject jobjectRI = JObject.Parse( response.Content.ReadAsStringAsync().Result );
 
@@ -85,13 +86,13 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.Worklogger
 
 
 			UpsertJiraWorkLogRelatedIssueParameter.type = jobjectRI[ "fields" ][ "issuetype" ][ "name" ].ToString();
-
+			UpsertJiraWorkLogRelatedIssueParameter.status = jobjectRI[ "fields" ][ "status" ][ "name" ].ToString();
 
 			try
 			{
 				foreach( var component in jobjectRI[ "fields" ][ "components" ] )
 				{
-					UpsertJiraWorkLogRelatedIssueParameter.components = UpsertJiraWorkLogRelatedIssueParameter.components  + component[ "name" ]+ ",";
+					UpsertJiraWorkLogRelatedIssueParameter.components = UpsertJiraWorkLogRelatedIssueParameter.components + component[ "name" ] + ",";
 				}
 			}
 			catch
@@ -104,7 +105,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.Worklogger
 				foreach( var label in jobjectRI[ "fields" ][ "labels" ] )
 				{
 					UpsertJiraWorkLogRelatedIssueParameter.labels = UpsertJiraWorkLogRelatedIssueParameter.labels + label.ToString() + ",";
-				}				
+				}
 			}
 			catch
 			{
@@ -135,7 +136,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.Worklogger
 			{
 				if( jobjectRI[ "fields" ][ "timetracking" ][ "originalEstimate" ] != null )
 				{
-				UpsertJiraWorkLogRelatedIssueParameter.originalEstimate = jobjectRI[ "fields" ][ "timetracking" ][ "originalEstimate" ].ToString();
+					UpsertJiraWorkLogRelatedIssueParameter.originalEstimate = jobjectRI[ "fields" ][ "timetracking" ][ "originalEstimate" ].ToString();
 				}
 			}
 			catch
@@ -145,7 +146,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.Worklogger
 
 			bool bResult = m_WorkloggerDBManager.UpsertJiraWorkLogRelatedIssue( UpsertJiraWorkLogRelatedIssueParameter );
 
-			
+
 			return bResult;
 		}
 
@@ -176,30 +177,19 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.Worklogger
 			return jobjectRI;
 		}
 
-		//新增JIRA專案到DB
-		internal bool InsertJiraProjects( InsertJiraProjects InsertJiraProjectsParameter )
+		//取得不同project的tag列表
+		internal JArray GetProjectTags( GetProjectTags GetProjectTagsParameter )
 		{
-			HttpClient client = new HttpClient();
-
-			string targetUrl = "https://jira.syntecclub.com/rest/api/2/project";
-			//Basic Authentication
-			client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue( "Basic", "aXNzdWVyb2JvdDpTeW50ZWMxMjM0" );
-
-			HttpResponseMessage response = client.GetAsync( targetUrl ).Result;
-
-			bool bResult = false;
-			foreach( var project in response.Content.ReadAsStringAsync().Result.Replace( "[{", "" ).Replace( "}]", "" ).Split( "},{" ) )
+			DataTable dtResult = m_WorkloggerDBManager.GetProjectTags( GetProjectTagsParameter );
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
 			{
-				JObject jobjectRI = JObject.Parse( "{"+project+"}" );
-
-				InsertJiraProjectsParameter.projectID = jobjectRI[ "id" ].ToString();
-				InsertJiraProjectsParameter.projectKey = jobjectRI[ "key" ].ToString();
-				InsertJiraProjectsParameter.projectName = jobjectRI[ "name" ].ToString();
-				InsertJiraProjectsParameter.projectTypeKey = jobjectRI[ "projectTypeKey" ].ToString();
-				bResult = m_WorkloggerDBManager.InsertJiraProjects( InsertJiraProjectsParameter );
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
 			}
-			return bResult;
 		}
+
 		//新增各專案報工tag到DB
 		internal bool InsertProjectTag( InsertProjectTag InsertProjectTagParameter )
 		{

@@ -34,7 +34,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 							"[Labels]=@Parameter4," +
 							"[Assignee]=@Parameter5," +
 							"[Duedate]=@Parameter6," +
-							"[OriginalEstimate]=@Parameter7 " +
+							"[OriginalEstimate]=@Parameter7," +
+							"[Status]=@Parameter8 " +
 						"WHERE  [IssueID]=@Parameter0" +
 						$@" ELSE INSERT INTO [{m_dwh}].[dbo].[JiraWorkLogRelatedIssues] ([IssueID],[Summary],[Type],[Components],[Labels],[Assignee],[Duedate],[OriginalEstimate]) VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7)";
 			List<object> SQLParameterList = new List<object>()
@@ -46,7 +47,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 				UpsertJiraWorkLogRelatedIssueParameter.labels,
 				UpsertJiraWorkLogRelatedIssueParameter.assignee,
 				UpsertJiraWorkLogRelatedIssueParameter.duedate,
-				UpsertJiraWorkLogRelatedIssueParameter.originalEstimate
+				UpsertJiraWorkLogRelatedIssueParameter.originalEstimate,
+				UpsertJiraWorkLogRelatedIssueParameter.status
 			};
 			bool bResult = m_DWHdbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
@@ -70,18 +72,29 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 			bool bResult = m_DWHdbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
-		internal bool InsertJiraProjects( InsertJiraProjects InsertJiraProjectsParameter )
+		internal DataTable GetProjectTags( GetProjectTags GetProjectTagsParameter )
 		{
-			string sql = $@"INSERT INTO [{m_dwh}].[dbo].[JiraProjects]([ProjectID],[ProjectKey],[ProjectName],[ProjectTypeKey]) VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3)";
+			string sql = $@"SELECT *
+						FROM [{m_dwh}].[dbo].[JiraProjectTags]
+						WHERE [ProjectKey] = @Parameter1
+						ORDER BY [No]";
+
 			List<object> SQLParameterList = new List<object>()
 			{
-				InsertJiraProjectsParameter.projectID,
-				InsertJiraProjectsParameter.projectKey,
-				InsertJiraProjectsParameter.projectName,
-				InsertJiraProjectsParameter.projectTypeKey
+				GetProjectTagsParameter.No,
+				GetProjectTagsParameter.projectKey,
+				GetProjectTagsParameter.tagName
 			};
-			bool bResult = m_DWHdbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
-			return bResult;
+			DataTable result = m_DWHdbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
 		}
 		internal bool InsertProjectTag( InsertProjectTag InsertProjectTagParameter )
 		{
@@ -90,7 +103,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 			{
 				InsertProjectTagParameter.No,
 				InsertProjectTagParameter.tagName,
-				InsertProjectTagParameter.projectID
+				InsertProjectTagParameter.projectKey
 			};
 			bool bResult = m_DWHdbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
