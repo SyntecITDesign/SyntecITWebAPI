@@ -303,7 +303,7 @@ ORDER BY M.[RequisitionID] desc";
 								Where [ID] like @Parameter0
 								Order by [ID] desc, [PreserveTimeStart]
 							ELSE
-								SELECT MAX(ID)+1 as 'MAXID'
+								SELECT MAX(CAST(ID AS decimal))+1 as 'MAXID'
   FROM [{m_gas}].[dbo].[MRBS] where ID!='NaN' and ID!='undefined' ";
 
 			
