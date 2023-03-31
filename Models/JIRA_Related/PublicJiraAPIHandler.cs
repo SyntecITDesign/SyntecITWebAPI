@@ -102,7 +102,22 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related
 
 			return response.Content.ReadAsStringAsync().Result;
 		}
+		//危機處理不開案
+		internal string EditJiraIssueForRejectExecute( EditJiraIssue EditJiraIssueParameter )
+		{
+			HttpClient client = new HttpClient();
+			//變更議題欄位內容
+			HttpContent HContent = new StringContent( "{\"fields\": {" +
+					"\"assignee\": {\"name\": \"" + EditJiraIssueParameter.assignee + "\" }," + //負責人
+					"\"customfield_17023\": \"" + EditJiraIssueParameter.problemAnalysis + "\"" + //問題標定
+				"}}", Encoding.UTF8, "application/json" );
+			string targetUrl = "https://jira.syntecclub.com/rest/api/2/issue/" + EditJiraIssueParameter.issueID;
+			client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue( "Basic", "aXNzdWVyb2JvdDpTeW50ZWMxMjM0" );
 
+			HttpResponseMessage response = client.PutAsync( targetUrl, HContent ).Result;
+
+			return response.ToString();
+		}
 		//危機處理議題派工
 		internal string EditJiraIssueForShortTermCreate( EditJiraIssue EditJiraIssueParameter )
 		{
@@ -149,6 +164,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related
 			var client = new HttpClient();
 			//變更議題欄位內容
 			HttpContent HContent = new StringContent( "{\"fields\": {" +
+					"\"assignee\": {\"name\": \"" + EditJiraIssueParameter.teamLeader + "\" }," + //負責人
 					//"\"duedate\": \"" + EditJiraIssueParameter.duedate + "\"," + //到期日
 					"\"customfield_16835\": \"" + EditJiraIssueParameter.shortTermExecuteResponding + "\"," + //短期執行回覆
 					"\"customfield_17124\":  {\"value\":\"" + EditJiraIssueParameter.teamLeaderDept + "\"}," + //長期對策處理單位
@@ -169,7 +185,6 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related
 			var client = new HttpClient();
 			//變更議題欄位內容
 			HttpContent HContent = new StringContent( "{\"fields\": {" +
-					"\"assignee\": {\"name\": \"" + EditJiraIssueParameter.teamLeader + "\" }," + //負責人		
 					"\"customfield_17026\": \"" + EditJiraIssueParameter.problemAnalysis + "\"," + //真因分析
 					"\"customfield_16830\": \"" + EditJiraIssueParameter.longTermPlan + "\"," + //長期對策策劃
 					"\"customfield_16840\": \"" + EditJiraIssueParameter.longTermDueDate + "\"," + //長期對策預計完成日

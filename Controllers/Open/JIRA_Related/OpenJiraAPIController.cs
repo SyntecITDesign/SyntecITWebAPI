@@ -62,6 +62,22 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related
 			catch( Exception e ) { Console.Write( e.ToString() ); }
 			return Ok( m_responseHandler.GetResult() );
 		}
+
+		[Route( "EditJiraIssueForRejectExecute" )]
+		[HttpPost]
+		public IActionResult EditJiraIssueForRejectExecute( [FromBody] EditJiraIssue EditJiraIssueParameter )
+		{
+			try
+			{
+				var content = m_publicJiraAPIHandler.EditJiraIssueForRejectExecute( EditJiraIssueParameter );
+
+				m_responseHandler.Content = content.ToString();
+
+			}
+			catch( Exception e ) { Console.Write( e.ToString() ); }
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		[Route( "EditJiraIssueForShortTermCreate" )]
 		[HttpPost]
 		public IActionResult EditJiraIssueForShortTermCreate( [FromBody] EditJiraIssue EditJiraIssueParameter )
