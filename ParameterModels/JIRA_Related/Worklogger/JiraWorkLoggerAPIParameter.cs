@@ -1,5 +1,5 @@
 ﻿
-namespace SyntecITWebAPI.ParameterModels.JIRA_Related.Worklogger
+namespace SyntecITWebAPI.ParameterModels.JIRA_Related.WorkLogger
 {
 
 	public class JiraWorkLog
@@ -85,7 +85,10 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.Worklogger
 			get; set;
 		}
 
-		
+		public string ProjectKey
+		{
+			get; set;
+		}
 	}
 
 	public class UpsertJiraWorkLogRelatedIssue : JiraWorkLogRelatedIssueAllField

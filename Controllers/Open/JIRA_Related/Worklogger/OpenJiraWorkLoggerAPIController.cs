@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using SyntecITWebAPI.Common;
-using SyntecITWebAPI.ParameterModels.JIRA_Related.Worklogger;
+using SyntecITWebAPI.ParameterModels.JIRA_Related.WorkLogger;
 using System;
 using System.Linq;
 using Syntec.JiraHelper;
@@ -9,14 +9,15 @@ using System.Net.Http;
 using System.Text;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SyntecITWebAPI.Models.JiraAPI_Related.Worklogger;
+using SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger;
 using Newtonsoft.Json.Linq;
 using SyntecITWebAPI.Enums;
+using SyntecITWebAPI.Models.JiraAPI_Related;
 
-namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.Worklogger
+namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.WorkLogger
 {
 	[EnableCors( "AllowAllPolicy" )]
-	[Route( "Open/JIRA_Related/Worklogger" )]
+	[Route( "Open/JIRA_Related/WorkLogger" )]
 	[ApiController]
 	public class OpenJIRA_RelatedController : ControllerBase
 	{
@@ -28,7 +29,7 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.Worklogger
 		{
 			try
 			{
-				var content = m_publicJiraWorklogAPIHandler.JiraLogin( JiraWorkLogParameter );
+				var content = m_publicJiraWorkLoggerAPIHandler.JiraLogin( JiraWorkLogParameter );
 
 				m_responseHandler.Content = content;
 
@@ -43,7 +44,7 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.Worklogger
 		{
 			try
 			{
-				var content = m_publicJiraWorklogAPIHandler.GetJiraIssues( JiraWorkLogParameter );
+				var content = m_publicJiraWorkLoggerAPIHandler.GetJiraIssues( JiraWorkLogParameter );
 
 				m_responseHandler.Content = content;
 
@@ -52,13 +53,13 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.Worklogger
 			return Ok( m_responseHandler.GetResult() );
 		}
 
-		[Route( "AddWorklog" )]
+		[Route( "AddWorkLog" )]
 		[HttpPost]
-		public IActionResult AddWorklog( [FromBody] JiraWorkLog JiraWorkLogParameter )
+		public IActionResult AddWorkLog( [FromBody] JiraWorkLog JiraWorkLogParameter )
 		{
 			try
 			{
-				var content = m_publicJiraWorklogAPIHandler.AddWorklog( JiraWorkLogParameter );
+				var content = m_publicJiraWorkLoggerAPIHandler.AddWorkLog( JiraWorkLogParameter );
 
 				m_responseHandler.Content = content;
 
@@ -72,7 +73,7 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.Worklogger
 		public IActionResult UpsertJiraWorkLogRelatedIssue( [FromBody] UpsertJiraWorkLogRelatedIssue UpsertJiraWorkLogRelatedIssueParameter )
 		{
 
-			var bResult = m_publicJiraWorklogAPIHandler.UpsertJiraWorkLogRelatedIssue( UpsertJiraWorkLogRelatedIssueParameter );
+			var bResult = m_publicJiraWorkLoggerAPIHandler.UpsertJiraWorkLogRelatedIssue( UpsertJiraWorkLogRelatedIssueParameter );
 			//m_responseHandler.Content = bResult;
 
 			if( !bResult )
@@ -92,7 +93,7 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.Worklogger
 		public IActionResult InsertWorkLogs( [FromBody] InsertWorkLogs InsertWorkLogsParameter )
 		{
 
-			var bResult = m_publicJiraWorklogAPIHandler.InsertWorkLogs( InsertWorkLogsParameter );
+			var bResult = m_publicJiraWorkLoggerAPIHandler.InsertWorkLogs( InsertWorkLogsParameter );
 			//m_responseHandler.Content = bResult;
 
 			if( !bResult )
@@ -113,7 +114,7 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.Worklogger
 		public IActionResult GetProjectTags( [FromBody] GetProjectTags GetProjectTagsParameter )
 		{
 
-			JArray result = m_publicJiraWorklogAPIHandler.GetProjectTags( GetProjectTagsParameter );
+			JArray result = m_publicJiraWorkLoggerAPIHandler.GetProjectTags( GetProjectTagsParameter );
 
 			if( result == null )
 			{
@@ -135,7 +136,7 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.Worklogger
 		public IActionResult InsertProjectTag( [FromBody] InsertProjectTag InsertProjectTagParameter )
 		{
 
-			var bResult = m_publicJiraWorklogAPIHandler.InsertProjectTag( InsertProjectTagParameter );
+			var bResult = m_publicJiraWorkLoggerAPIHandler.InsertProjectTag( InsertProjectTagParameter );
 			//m_responseHandler.Content = JObject.Parse( bResult.Replace("[","").Replace( "]", "" ).Split("},{")[0]+"}" );
 
 			if( !bResult )
@@ -156,7 +157,7 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.Worklogger
 		public IActionResult DeleteProjectTag( [FromBody] DeleteProjectTag DeleteProjectTagParameter )
 		{
 
-			var bResult = m_publicJiraWorklogAPIHandler.DeleteProjectTag( DeleteProjectTagParameter );
+			var bResult = m_publicJiraWorkLoggerAPIHandler.DeleteProjectTag( DeleteProjectTagParameter );
 			//m_responseHandler.Content = JObject.Parse( bResult.Replace("[","").Replace( "]", "" ).Split("},{")[0]+"}" );
 
 			if( !bResult )
@@ -176,7 +177,7 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.Worklogger
 		#region Private Fields
 
 		public ResponseHandler m_responseHandler = new ResponseHandler();
-		private PublicJiraWorklogAPIHandler m_publicJiraWorklogAPIHandler = new PublicJiraWorklogAPIHandler();
+		private PublicJiraWorkLoggerAPIHandler m_publicJiraWorkLoggerAPIHandler = new PublicJiraWorkLoggerAPIHandler();
 
 		#endregion Private Fields
 

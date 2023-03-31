@@ -12,6 +12,8 @@ namespace SyntecITWebAPI.Abstract
 
 		private protected IDBAccess m_DWHdbproxy = DWHDBProxy.GetInstance();
 
+		private protected IDBAccess m_JiraWorkLoggerdbproxy = JiraWorkLoggerdbproxy.GetInstance();
+
 		private protected IDBAccess m_BPMdbproxy = BPMDBProxy.GetInstance();
 
 		private protected IDBAccess m_SyntecBBSdbproxy = SyntecBBSDBProxy.GetInstance();
