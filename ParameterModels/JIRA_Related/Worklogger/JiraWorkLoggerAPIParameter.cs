@@ -41,7 +41,6 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.WorkLogger
 			get; set;
 		}
 	}
-
 	public class JiraWorkLogRelatedIssueAllField
 	{
 		public string issueID
@@ -90,12 +89,10 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.WorkLogger
 			get; set;
 		}
 	}
-
 	public class UpsertJiraWorkLogRelatedIssue : JiraWorkLogRelatedIssueAllField
 	{
 
 	}
-
 
 	public class JiraWorkLogsAllField
 	{
@@ -152,12 +149,10 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.WorkLogger
 			get; set;
 		}
 	}
-
 	public class InsertWorkLogs : JiraWorkLogsAllField
 	{
 
 	}
-
 	public class JiraProjectTagsAllField
 	{
 		public int No
@@ -186,7 +181,6 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.WorkLogger
 		}
 	}
 
-
 	public class GetProjectTags : JiraProjectTagsAllField
 	{
 
@@ -195,9 +189,17 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.WorkLogger
 	{
 
 	}
-
 	public class DeleteProjectTag : JiraProjectTagsAllField
 	{
 
 	}
+
+	public class GetEmpInfo
+	{
+		public string empID
+		{
+			get; set;
+		}
+	}
+
 }

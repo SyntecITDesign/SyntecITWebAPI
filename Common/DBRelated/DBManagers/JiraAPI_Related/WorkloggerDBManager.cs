@@ -13,6 +13,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 	internal class WorkLoggerDBManager : AbstractDBManager
 	{
 		#region Internal Methods
+		public string m_barcode;
 		public string m_JiraWorkLogger;
 		public WorkLoggerDBManager()
 		{
@@ -21,6 +22,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 			.AddJsonFile( path: "DBTableNameSetting.json", optional: false )
 			.Build();
 
+			m_barcode = configuration[ "barcode" ].Trim();
 			m_JiraWorkLogger = configuration[ "WorkLogger" ].Trim();
 		}
 		
@@ -121,6 +123,27 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 			bool bResult = m_JiraWorkLoggerdbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
+		internal DataTable GetEmpInfo( GetEmpInfo GetEmpInfoParameter )
+		{
+			string sql = $@"SELECT [EmpID],[EmpName],[DeptName],[DeptNo],[Title],[SuperDeptName],[Email],[OrgID_SAP] FROM [{m_barcode}].[dbo].[TEMP_NAME]
+						WHERE [EmpID] = @Parameter0";
+			
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetEmpInfoParameter.empID
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+		
 	}
 	#endregion Internal Methods
 }

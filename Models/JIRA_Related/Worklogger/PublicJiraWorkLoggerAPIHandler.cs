@@ -36,7 +36,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 			return LogInResponseJson;
 		}
 
-
+		//取得Jira議題
 		internal List<string> GetJiraIssues( JiraWorkLog JiraWorkLogParameter )
 		{
 			HttpClient client = new HttpClient();
@@ -68,9 +68,9 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 			return Allissuekey;
 		}
 
+		//取得Jira議題並更新到DB
 		internal bool UpsertJiraWorkLogRelatedIssue( UpsertJiraWorkLogRelatedIssue UpsertJiraWorkLogRelatedIssueParameter )
 		{
-
 			HttpClient client = new HttpClient();
 
 			string targetUrl = "https://jira.syntecclub.com/rest/api/2/issue/" + UpsertJiraWorkLogRelatedIssueParameter.issueID;
@@ -198,11 +198,26 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 			bool bResult = m_WorkLoggerDBManager.InsertProjectTag( InsertProjectTagParameter );
 			return bResult;
 		}
+
 		internal bool DeleteProjectTag( DeleteProjectTag DeleteProjectTagParameter )
 		{
 			bool bResult = m_WorkLoggerDBManager.DeleteProjectTag( DeleteProjectTagParameter );
 			return bResult;
 		}
+
+		//取得員工相關資訊
+		internal JArray GetEmpInfo( GetEmpInfo GetEmpInfoParameter )
+		{
+			DataTable dtResult = m_WorkLoggerDBManager.GetEmpInfo( GetEmpInfoParameter );
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
 		#endregion Internal Methods
 
 		#region Private Fields

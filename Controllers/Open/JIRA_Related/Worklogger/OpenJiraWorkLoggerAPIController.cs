@@ -21,7 +21,6 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.WorkLogger
 	[ApiController]
 	public class OpenJIRA_RelatedController : ControllerBase
 	{
-
 		#region Public Methods
 		[Route( "JiraLogin" )]
 		[HttpPost]
@@ -30,9 +29,7 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.WorkLogger
 			try
 			{
 				var content = m_publicJiraWorkLoggerAPIHandler.JiraLogin( JiraWorkLogParameter );
-
 				m_responseHandler.Content = content;
-
 			}
 			catch( Exception e ) { Console.Write( e.ToString() ); }
 			return Ok( m_responseHandler.GetResult() );
@@ -72,7 +69,6 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.WorkLogger
 		[HttpPost]
 		public IActionResult UpsertJiraWorkLogRelatedIssue( [FromBody] UpsertJiraWorkLogRelatedIssue UpsertJiraWorkLogRelatedIssueParameter )
 		{
-
 			var bResult = m_publicJiraWorkLoggerAPIHandler.UpsertJiraWorkLogRelatedIssue( UpsertJiraWorkLogRelatedIssueParameter );
 			//m_responseHandler.Content = bResult;
 
@@ -92,7 +88,6 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.WorkLogger
 		[HttpPost]
 		public IActionResult InsertWorkLogs( [FromBody] InsertWorkLogs InsertWorkLogsParameter )
 		{
-
 			var bResult = m_publicJiraWorkLoggerAPIHandler.InsertWorkLogs( InsertWorkLogsParameter );
 			//m_responseHandler.Content = bResult;
 
@@ -107,7 +102,6 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.WorkLogger
 
 			return Ok( m_responseHandler.GetResult() );
 		}
-
 
 		[Route( "GetProjectTags" )]
 		[HttpPost]
@@ -127,9 +121,6 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.WorkLogger
 
 			return Ok( m_responseHandler.GetResult() );
 		}
-
-
-
 
 		[Route( "InsertProjectTag" )]
 		[HttpPost]
@@ -151,7 +142,6 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.WorkLogger
 			return Ok( m_responseHandler.GetResult() );
 		}
 
-
 		[Route( "DeleteProjectTag" )]
 		[HttpPost]
 		public IActionResult DeleteProjectTag( [FromBody] DeleteProjectTag DeleteProjectTagParameter )
@@ -167,6 +157,26 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.WorkLogger
 			else
 			{
 				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+
+		[Route( "GetEmpInfo" )]
+		[HttpPost]
+		public IActionResult GetEmpInfo( [FromBody] GetEmpInfo GetEmpInfoParameter )
+		{
+
+			JArray result = m_publicJiraWorkLoggerAPIHandler.GetEmpInfo( GetEmpInfoParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
 			}
 
 			return Ok( m_responseHandler.GetResult() );
