@@ -125,8 +125,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 		}
 		internal DataTable GetEmpInfo( GetEmpInfo GetEmpInfoParameter )
 		{
-			string sql = $@"SELECT [EmpID],[EmpName],[DeptName],[DeptNo],[Title],[SuperDeptName],[Email],[OrgID_SAP] FROM [{m_barcode}].[dbo].[TEMP_NAME]
-						WHERE [EmpID] = @Parameter0";
+			string sql = $@"SELECT [EmpID],[EmpName],[DeptName],[DeptNo],[Title],[BjDept],[SuperDeptName],[Email],[OrgID_SAP] FROM [{m_barcode}].[dbo].[TEMP_NAME],[rds_ex_bpm.syntecclub.com,1433].[BPMPro].[dbo].[FSe7en_Org_DeptMapping] WHERE [EmpID] = @Parameter0 and [FSe7en_Org_DeptMapping].[DeptID] = [TEMP_NAME].[OrgID_SAP] COLLATE Chinese_PRC_CI_AS + [TEMP_NAME].[DeptNo] COLLATE Chinese_PRC_CI_AS";
 			
 			List<object> SQLParameterList = new List<object>()
 			{
