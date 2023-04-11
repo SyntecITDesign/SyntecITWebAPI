@@ -35,8 +35,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 						  ,[IntervieweeName]
 						  ,[VisitorCompany]
 						  ,[ParkingCar]
-						  ,[BringComputer])
-						VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6)";
+						  ,[BringComputer]
+						  ,[City]
+						  ,[Dist]
+						  ,[Address])
+						VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6, @Parameter7, @Parameter8, @Parameter9)";
 			List<object> SQLParameterList = new List<object>()
 			{
 				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsApplyTime,
@@ -45,7 +48,10 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsIntervieweeName,
 				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsVisitorCompany,
 				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsParkingCar,
-				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsBringComputer
+				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsBringComputer,
+				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsCity,
+				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsDist,
+				InsertVisitorApplicationParameter.VisitorRegistrationApplicationsAddress,
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
