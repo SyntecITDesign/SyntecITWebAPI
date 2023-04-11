@@ -173,7 +173,7 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related
 		#region Private Fields
 
 		public ResponseHandler m_responseHandler = new ResponseHandler();
-		private PublicJiraWorklogAPIHandler m_publicJiraAPIHandler = new PublicJiraWorklogAPIHandler();
+		private PublicJiraAPIHandler m_publicJiraAPIHandler = new PublicJiraAPIHandler();
 
 		#endregion Private Fields
 

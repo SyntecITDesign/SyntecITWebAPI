@@ -8,5 +8,6 @@
   "syntecbbs": "SyntecBBS",
   "bpm": "BPMPro",
   "dwh": "dwh",
-  "MessageNotice": "MessageNotice"
+  "MessageNotice": "MessageNotice",
+  "WorkLogger": "WorkLogger"
 }
