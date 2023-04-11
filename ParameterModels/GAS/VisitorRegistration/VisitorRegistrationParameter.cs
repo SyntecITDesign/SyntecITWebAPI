@@ -152,6 +152,20 @@ namespace SyntecITWebAPI.ParameterModels.GAS.VisitorRegistration
 		{
 			get; set;
 		}
+		public string VisitorRegistrationApplicationsCity
+		{
+			get; set;
+		}
+
+		public string VisitorRegistrationApplicationsDist
+		{
+			get; set;
+		}
+
+		public string VisitorRegistrationApplicationsAddress
+		{
+			get; set;
+		}
 
 	}
 	public class InsertVisitorRegistrationApplicationsMaster : VisitorRegistrationApplicationsMasterAllField
