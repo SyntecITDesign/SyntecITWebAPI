@@ -75,7 +75,7 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.WorkLogger
 		{
 			get; set;
 		}
-		public string originalEstimate
+		public int originalEstimate
 		{
 			get; set;
 		}
