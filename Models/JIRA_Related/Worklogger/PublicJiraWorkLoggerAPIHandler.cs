@@ -138,12 +138,32 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 			{
 				if( jobjectRI[ "fields" ][ "timetracking" ][ "originalEstimate" ] != null )
 				{
-					UpsertJiraWorkLogRelatedIssueParameter.originalEstimate = jobjectRI[ "fields" ][ "timetracking" ][ "originalEstimate" ].ToString();
+					int extimateSec = 0;
+					foreach( string extimate in jobjectRI[ "fields" ][ "timetracking" ][ "originalEstimate" ].ToString().Split( " " ) )
+					{
+						if( extimate.Contains( "w" ) )
+						{
+							int extimateInt = Convert.ToInt32( extimate.Replace( "w", "" ) );
+							extimateSec = extimateSec + extimateSec * 5 * 8 * 60 * 60;
+						}
+						if( extimate.Contains( "d" ) )
+						{
+							int extimateInt = Convert.ToInt32( extimate.Replace( "d", "" ) );
+							extimateSec = extimateSec+extimateInt * 8 * 60 * 60;
+						}
+						if( extimate.Contains( "h" ) )
+						{
+							int extimateInt = Convert.ToInt32( extimate.Replace( "h", "" ) );
+							extimateSec = extimateSec + extimateSec * 60 * 60;
+						}
+					}
+					UpsertJiraWorkLogRelatedIssueParameter.originalEstimate = extimateSec;
+
 				}
 			}
 			catch
 			{
-				UpsertJiraWorkLogRelatedIssueParameter.originalEstimate = "";
+				UpsertJiraWorkLogRelatedIssueParameter.originalEstimate = 0;
 			}
 
 			bool bResult = m_WorkLoggerDBManager.UpsertJiraWorkLogRelatedIssue( UpsertJiraWorkLogRelatedIssueParameter );
