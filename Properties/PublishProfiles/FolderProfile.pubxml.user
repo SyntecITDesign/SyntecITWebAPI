@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+此檔案由您的 Web 專案發佈/封裝處理序使用。您可以藉由編輯此 MSBuild 檔案，
+自訂此處理序的行為。若要深入了解，請前往 https://go.microsoft.com/fwlink/?LinkID=208121。 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <History>True|2022-01-20T06:53:10.2656261Z;True|2022-01-20T13:58:06.5016261+08:00;True|2022-01-14T18:19:42.7291574+08:00;True|2022-01-14T16:57:57.2751574+08:00;True|2022-01-06T11:03:16.5581574+08:00;True|2022-01-06T10:57:16.1561574+08:00;True|2022-01-04T19:38:57.9466188+08:00;True|2022-01-04T11:14:08.2342317+08:00;True|2021-12-28T20:17:56.3312317+08:00;False|2021-12-28T20:12:03.1222317+08:00;True|2021-05-10T10:34:05.2726461+08:00;</History>
+  </PropertyGroup>
+</Project>
