@@ -238,6 +238,19 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 			}
 		}
 
+		//取得相關報工資訊
+		internal JArray GetSumSpentSeconds( GetSumSpentSeconds GetSumSpentSecondsParameter )
+		{
+			DataTable dtResult = m_WorkLoggerDBManager.GetSumSpentSeconds( GetSumSpentSecondsParameter );
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
 		//取得JiraWorklogger後台權限資訊
 		internal JArray GetJiraWorkLoggerAccess( GetJiraWorkLoggerAccess GetJiraWorkLoggerAccessParameter )
 		{

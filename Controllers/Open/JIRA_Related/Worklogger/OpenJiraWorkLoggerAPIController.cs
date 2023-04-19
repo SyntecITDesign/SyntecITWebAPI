@@ -175,6 +175,25 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.WorkLogger
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "GetSumSpentSeconds" )]
+		[HttpPost]
+		public IActionResult GetSumSpentSeconds( [FromBody] GetSumSpentSeconds GetSumSpentSecondsParameter )
+		{
+
+			JArray result = m_publicJiraWorkLoggerAPIHandler.GetSumSpentSeconds( GetSumSpentSecondsParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 
 		[Route( "UpdateJiraWorkLoggerAccess" )]
 		[HttpPost]

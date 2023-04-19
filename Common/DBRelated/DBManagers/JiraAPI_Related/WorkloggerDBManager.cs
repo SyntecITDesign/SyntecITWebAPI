@@ -143,6 +143,26 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 			}
 		}
 
+		internal DataTable GetSumSpentSeconds( GetSumSpentSeconds GetSumSpentSecondsParameter )
+		{
+			string sql = $@"SELECT [EmpID] ,sum([TimeSpentSeconds]) as sumSpentSeconds ,[Started] FROM [{m_JiraWorkLogger}].[dbo].[JiraWorkLogs] where [Started] = @Parameter1 and EmpID = @Parameter0 group by [Started],[EmpID]";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetSumSpentSecondsParameter.empID,
+				GetSumSpentSecondsParameter.started
+			};
+			DataTable result = m_JiraWorkLoggerdbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
 
 
 		internal DataTable GetJiraWorkLoggerAccess( GetJiraWorkLoggerAccess GetJiraWorkLoggerAccessParameter )

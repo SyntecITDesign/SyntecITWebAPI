@@ -149,6 +149,12 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.WorkLogger
 			get; set;
 		}
 	}
+	public class GetSumSpentSeconds : JiraWorkLogsAllField
+	{
+
+	}
+
+
 	public class InsertWorkLogs : JiraWorkLogsAllField
 	{
 
