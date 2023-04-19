@@ -202,4 +202,40 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.WorkLogger
 		}
 	}
 
+
+	
+	public class JiraWorkLoggerAccessAllField
+	{
+		public int No
+		{
+			get; set;
+		}
+		public string projectKey
+		{
+			get; set;
+		}
+		public string SuperDeptName
+		{
+			get; set;
+		}
+		public string Managers
+		{
+			get; set;
+		}
+		public string Viewers
+		{
+			get; set;
+		}
+	}
+	public class GetJiraWorkLoggerAccess : JiraWorkLoggerAccessAllField
+	{
+
+	}
+	public class UpdateJiraWorkLoggerAccess : JiraWorkLoggerAccessAllField
+	{
+
+	}
+
+
+
 }

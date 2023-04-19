@@ -238,6 +238,28 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 			}
 		}
 
+		//取得JiraWorklogger後台權限資訊
+		internal JArray GetJiraWorkLoggerAccess( GetJiraWorkLoggerAccess GetJiraWorkLoggerAccessParameter )
+		{
+			DataTable dtResult = m_WorkLoggerDBManager.GetJiraWorkLoggerAccess( GetJiraWorkLoggerAccessParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+		//更新JiraWorklogger後台權限資訊
+		internal bool UpdateJiraWorkLoggerAccess( UpdateJiraWorkLoggerAccess UpdateJiraWorkLoggerAccessParameter )
+		{
+			bool bResult = m_WorkLoggerDBManager.UpdateJiraWorkLoggerAccess( UpdateJiraWorkLoggerAccessParameter );
+			return bResult;
+		}
+
+
+
 		#endregion Internal Methods
 
 		#region Private Fields
