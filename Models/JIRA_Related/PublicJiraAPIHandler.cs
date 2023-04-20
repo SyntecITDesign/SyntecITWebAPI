@@ -73,7 +73,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related
 		{
 			HttpClient client = new HttpClient();
 			HttpContent HContent = new StringContent( "{\"fields\": {" +
-					"\"project\": {\"id\": \"15590\" }," + //危機處理測試專區 project id:15590；危機處理專區 project id:15390
+					"\"project\": {\"id\": \"" + CreateJiraIssueParameter.projectID + "\" }," + //危機處理測試專區 project id:15590；危機處理專區 project id:15390
 					"\"reporter\": {\"name\": \"" + CreateJiraIssueParameter.reporter + "\" }," +  //報告人
 					"\"customfield_17121\":  {\"value\":\"" + CreateJiraIssueParameter.createDept + "\"}," +  //發起單位
 					"\"summary\": \"" + CreateJiraIssueParameter.summary + "\"," + //摘要

@@ -142,7 +142,77 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 				return result;
 			}
 		}
-		
+
+		internal DataTable GetSumSpentSeconds( GetSumSpentSeconds GetSumSpentSecondsParameter )
+		{
+			string sql = $@"SELECT [EmpID] ,sum([TimeSpentSeconds]) as sumSpentSeconds ,[Started] FROM [{m_JiraWorkLogger}].[dbo].[JiraWorkLogs] where [Started] = @Parameter1 and EmpID = @Parameter0 group by [Started],[EmpID]";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetSumSpentSecondsParameter.empID,
+				GetSumSpentSecondsParameter.started
+			};
+			DataTable result = m_JiraWorkLoggerdbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+
+		internal DataTable GetJiraWorkLoggerAccess( GetJiraWorkLoggerAccess GetJiraWorkLoggerAccessParameter )
+		{
+			string sql_where = "";
+			if( GetJiraWorkLoggerAccessParameter.Managers != null )
+			{
+				sql_where = "[Managers] like @Parameter3";
+			}
+			else
+			{
+				sql_where = "[Viewers] like @Parameter4";
+			}
+			string sql = $@"SELECT * FROM [{m_JiraWorkLogger}].[dbo].[JiraWorkloggerAccess] WHERE "+sql_where;
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetJiraWorkLoggerAccessParameter.No,
+				GetJiraWorkLoggerAccessParameter.projectKey,
+				GetJiraWorkLoggerAccessParameter.SuperDeptName,
+				GetJiraWorkLoggerAccessParameter.Managers,
+				GetJiraWorkLoggerAccessParameter.Viewers
+			};
+			DataTable result = m_JiraWorkLoggerdbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+		internal bool UpdateJiraWorkLoggerAccess( UpdateJiraWorkLoggerAccess UpdateJiraWorkLoggerAccessParameter )
+		{
+			string sql = $@"UPDATE [{m_JiraWorkLogger}].[dbo].[JiraWorkLoggerAccesss] " +
+						"SET [Viewers]=@Parameter4 WHERE [No]=@Parameter0";
+			List<object> SQLParameterList = new List<object>()
+			{
+				UpdateJiraWorkLoggerAccessParameter.No,
+				UpdateJiraWorkLoggerAccessParameter.projectKey,
+				UpdateJiraWorkLoggerAccessParameter.SuperDeptName,
+				UpdateJiraWorkLoggerAccessParameter.Managers,
+				UpdateJiraWorkLoggerAccessParameter.Viewers
+			};
+			bool bResult = m_JiraWorkLoggerdbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
 	}
 	#endregion Internal Methods
 }

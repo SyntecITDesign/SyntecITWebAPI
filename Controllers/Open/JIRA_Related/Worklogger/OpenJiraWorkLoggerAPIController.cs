@@ -3,16 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using SyntecITWebAPI.Common;
 using SyntecITWebAPI.ParameterModels.JIRA_Related.WorkLogger;
 using System;
-using System.Linq;
-using Syntec.JiraHelper;
-using System.Net.Http;
-using System.Text;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger;
 using Newtonsoft.Json.Linq;
 using SyntecITWebAPI.Enums;
-using SyntecITWebAPI.Models.JiraAPI_Related;
 
 namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.WorkLogger
 {
@@ -181,6 +174,66 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.WorkLogger
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+
+		[Route( "GetSumSpentSeconds" )]
+		[HttpPost]
+		public IActionResult GetSumSpentSeconds( [FromBody] GetSumSpentSeconds GetSumSpentSecondsParameter )
+		{
+
+			JArray result = m_publicJiraWorkLoggerAPIHandler.GetSumSpentSeconds( GetSumSpentSecondsParameter );
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+
+		[Route( "UpdateJiraWorkLoggerAccess" )]
+		[HttpPost]
+		public IActionResult UpdateJiraWorkLoggerAccess( [FromBody] UpdateJiraWorkLoggerAccess UpdateJiraWorkLoggerAccessParameter )
+		{
+			var bResult = m_publicJiraWorkLoggerAPIHandler.UpdateJiraWorkLoggerAccess( UpdateJiraWorkLoggerAccessParameter );
+			//m_responseHandler.Content = bResult;
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+		[Route( "GetJiraWorkLoggerAccess" )]
+		[HttpPost]
+		public IActionResult GetJiraWorkLoggerAccess( [FromBody] GetJiraWorkLoggerAccess GetJiraWorkLoggerAccessParameter )
+		{
+
+			JArray result = m_publicJiraWorkLoggerAPIHandler.GetJiraWorkLoggerAccess( GetJiraWorkLoggerAccessParameter );
+			
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 
 		#endregion Public Methods
 
