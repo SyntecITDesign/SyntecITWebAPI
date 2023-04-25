@@ -185,7 +185,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 		{
 			HttpClient client = new HttpClient();
 
-			HttpContent AddWorkLogHContent = new StringContent( "{\"comment\":\"" + JiraWorkLogParameter.comment + "\", \"started\":\"" + JiraWorkLogParameter.started + "\",\"timeSpentSeconds\":" + JiraWorkLogParameter.timeSpentSeconds + "}", Encoding.UTF8, "application/json" );
+			HttpContent AddWorkLogHContent = new StringContent( "{\"comment\":\"" + JiraWorkLogParameter.comment.Replace("\n","\\n").Replace( "\"", "\'" ) + "\", \"started\":\"" + JiraWorkLogParameter.started + "\",\"timeSpentSeconds\":" + JiraWorkLogParameter.timeSpentSeconds + "}", Encoding.UTF8, "application/json" );
 
 			string targetUrl = "https://jira.syntecclub.com/rest/api/2/issue/" + JiraWorkLogParameter.issueID + "/worklog";
 			//Basic Authentication

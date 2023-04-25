@@ -125,7 +125,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 		}
 		internal DataTable GetEmpInfo( GetEmpInfo GetEmpInfoParameter )
 		{
-			string sql = $@"SELECT [EmpID],[EmpName],[DeptName],[Dept50],[DeptNo],[Title],[BjDept],[SuperDeptName],[Email],[OrgID_SAP] FROM [{m_barcode}].[dbo].[TEMP_NAME],[rds_ex_bpm.syntecclub.com,1433].[BPMPro].[dbo].[FSe7en_Org_DeptMapping] WHERE [EmpID] = @Parameter0 and [FSe7en_Org_DeptMapping].[DeptID] = [TEMP_NAME].[OrgID_SAP] COLLATE Chinese_PRC_CI_AS + [TEMP_NAME].[DeptNo] COLLATE Chinese_PRC_CI_AS";
+			string sql = $@"SELECT [EmpID],[EmpName],[DeptName],[Dept50],[DeptNo],[Title],[BjDept],[SuperDeptName],[Email],[OrgID_SAP] FROM [{m_barcode}].[dbo].[TEMP_NAME],[rds_ex_bpm.syntecclub.com,1433].[BPMPro].[dbo].[FSe7en_Org_DeptMapping] WHERE [EmpID] like @Parameter0 and [FSe7en_Org_DeptMapping].[DeptID] = [TEMP_NAME].[OrgID_SAP] COLLATE Chinese_PRC_CI_AS + [TEMP_NAME].[DeptNo] COLLATE Chinese_PRC_CI_AS";
 			
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -170,13 +170,14 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 			string sql_where = "";
 			if( GetJiraWorkLoggerAccessParameter.Managers != null )
 			{
-				sql_where = "[Managers] like @Parameter3";
+				sql_where = "Worklogger.[Managers] like @Parameter3";
 			}
 			else
 			{
-				sql_where = "[Viewers] like @Parameter4";
+				sql_where = "[EmpID] = @Parameter4";
 			}
-			string sql = $@"SELECT * FROM [{m_JiraWorkLogger}].[dbo].[JiraWorkloggerAccess] WHERE "+sql_where;
+			string sql = $@"ALTER DATABASE [syntecbarcode] SET COMPATIBILITY_LEVEL = 130; SELECT [EmpID],[EmpName],Worklogger.[SuperDeptName],[ProjectKey],[Managers],[No] FROM [{m_barcode}].[dbo].[TEMP_NAME],(SELECT [ProjectKey],[SuperDeptName],[Managers],value,[No] FROM [rm-bp1oo0b1btai11by5.sqlserver.rds.aliyuncs.com,3433].[{m_JiraWorkLogger}].[dbo].[JiraWorkloggerAccess] OUTER APPLY STRING_SPLIT([Viewers], ',')) as Worklogger WHERE "+ sql_where + " and Worklogger.value = [TEMP_NAME].[EmpID] COLLATE Chinese_PRC_CI_AS order by Worklogger.[ProjectKey]";
+
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -186,7 +187,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 				GetJiraWorkLoggerAccessParameter.Managers,
 				GetJiraWorkLoggerAccessParameter.Viewers
 			};
-			DataTable result = m_JiraWorkLoggerdbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 
 			if( result == null || result.Rows.Count <= 0 )
 			{
@@ -200,8 +201,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 
 		internal bool UpdateJiraWorkLoggerAccess( UpdateJiraWorkLoggerAccess UpdateJiraWorkLoggerAccessParameter )
 		{
-			string sql = $@"UPDATE [{m_JiraWorkLogger}].[dbo].[JiraWorkLoggerAccesss] " +
-						"SET [Viewers]=@Parameter4 WHERE [No]=@Parameter0";
+			string sql = $@"UPDATE [{m_JiraWorkLogger}].[dbo].[JiraWorkLoggerAccess] SET [Viewers]=@Parameter4 WHERE [ProjectKey]=@Parameter1";
 			List<object> SQLParameterList = new List<object>()
 			{
 				UpdateJiraWorkLoggerAccessParameter.No,
