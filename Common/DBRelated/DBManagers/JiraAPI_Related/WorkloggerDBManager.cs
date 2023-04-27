@@ -38,7 +38,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 							"[Duedate]=@Parameter6," +
 							"[OriginalEstimate]=@Parameter7," +
 							"[Status]=@Parameter8," +
-							"[ProjectKey]=@Parameter9 " +
+							"[ProjectKey]=@Parameter9," +
+							"[WorkloggerUpdateTime]=getdate() " +
 						"WHERE  [IssueID]=@Parameter0" +
 						$@" ELSE INSERT INTO [{m_JiraWorkLogger}].[dbo].[JiraWorkLogRelatedIssues] ([IssueID],[Summary],[Type],[Components],[Labels],[Assignee],[Duedate],[OriginalEstimate],[Status],[ProjectKey]) VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9)";
 			List<object> SQLParameterList = new List<object>()
@@ -57,6 +58,25 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 			bool bResult = m_JiraWorkLoggerdbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
+		internal DataTable CheckIssueUpdateTime( UpsertJiraWorkLogRelatedIssue UpsertJiraWorkLogRelatedIssue )
+		{
+			string sql = $@"SELECT [IssueID],[WorkloggerUpdateTime] FROM [WorkLogger].[dbo].[JiraWorkLogRelatedIssues] where DATEDIFF(DAY,[WorkloggerUpdateTime],GETDATE()) > 0";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+			};
+			DataTable result = m_JiraWorkLoggerdbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
 
 		internal bool InsertWorkLogs( InsertWorkLogs InsertWorkLogsParameter )
 		{
@@ -125,7 +145,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 		}
 		internal DataTable GetEmpInfo( GetEmpInfo GetEmpInfoParameter )
 		{
-			string sql = $@"SELECT [EmpID],[EmpName],[DeptName],[Dept50],[DeptNo],[Title],[BjDept],[SuperDeptName],[Email],[OrgID_SAP] FROM [{m_barcode}].[dbo].[TEMP_NAME],[rds_ex_bpm.syntecclub.com,1433].[BPMPro].[dbo].[FSe7en_Org_DeptMapping] WHERE [EmpID] like @Parameter0 and [FSe7en_Org_DeptMapping].[DeptID] = [TEMP_NAME].[OrgID_SAP] COLLATE Chinese_PRC_CI_AS + [TEMP_NAME].[DeptNo] COLLATE Chinese_PRC_CI_AS";
+			string sql = $@"SELECT [EmpID],[EmpName],[DeptName],[Dept50],[DeptNo],[Title],[BjDept],[SuperDeptName],[Email],[OrgID_SAP] FROM [{m_barcode}].[dbo].[TEMP_NAME],[rds_ex_bpm.syntecclub.com,1433].[BPMPro].[dbo].[FSe7en_Org_DeptMapping] WHERE ([EmpID] like @Parameter0 or [EmpName] like @Parameter0) and (QuitDate is null)  and [FSe7en_Org_DeptMapping].[DeptID] = [TEMP_NAME].[OrgID_SAP] COLLATE Chinese_PRC_CI_AS + [TEMP_NAME].[DeptNo] COLLATE Chinese_PRC_CI_AS";
 			
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -145,7 +165,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 
 		internal DataTable GetSumSpentSeconds( GetSumSpentSeconds GetSumSpentSecondsParameter )
 		{
-			string sql = $@"SELECT [EmpID] ,sum([TimeSpentSeconds]) as sumSpentSeconds ,[Started] FROM [{m_JiraWorkLogger}].[dbo].[JiraWorkLogs] where [Started] = @Parameter1 and EmpID = @Parameter0 group by [Started],[EmpID]";
+			string sql = $@"SELECT [EmpID] ,sum([TimeSpentSeconds]) as sumSpentSeconds FROM [{m_JiraWorkLogger}].[dbo].[JiraWorkLogs] where CONVERT(varchar(100), [Started], 23) = @Parameter1 and EmpID = @Parameter0 group by [EmpID]";
 
 			List<object> SQLParameterList = new List<object>()
 			{

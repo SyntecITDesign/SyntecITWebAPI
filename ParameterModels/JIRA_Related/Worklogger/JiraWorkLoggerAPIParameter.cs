@@ -93,6 +93,11 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.WorkLogger
 	{
 
 	}
+	public class CheckIssueUpdateTime : JiraWorkLogRelatedIssueAllField
+	{
+
+	}
+
 
 	public class JiraWorkLogsAllField
 	{

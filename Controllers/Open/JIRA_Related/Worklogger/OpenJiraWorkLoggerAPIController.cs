@@ -77,6 +77,28 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.WorkLogger
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+
+		
+		[ Route( "CheckIssueUpdateTime" ) ]
+		[ HttpPost ]
+		public IActionResult CheckIssueUpdateTime( [FromBody] UpsertJiraWorkLogRelatedIssue UpsertJiraWorkLogRelatedIssueParameter )
+		{
+
+			bool result = m_publicJiraWorkLoggerAPIHandler.CheckIssueUpdateTime( UpsertJiraWorkLogRelatedIssueParameter );
+			//m_responseHandler.Detail = result.ToString();
+
+			if( !result )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		[Route( "InsertWorkLogs" )]
 		[HttpPost]
 		public IActionResult InsertWorkLogs( [FromBody] InsertWorkLogs InsertWorkLogsParameter )

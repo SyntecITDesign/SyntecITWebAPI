@@ -172,6 +172,28 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 			return bResult;
 		}
 
+		//確認是否有一天內沒更新的議題資訊
+		internal bool CheckIssueUpdateTime( UpsertJiraWorkLogRelatedIssue UpsertJiraWorkLogRelatedIssueParameter )
+		{
+			DataTable dtResult = m_WorkLoggerDBManager.CheckIssueUpdateTime( UpsertJiraWorkLogRelatedIssueParameter );
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return false;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				bool IssueUpdateOK = true;
+				foreach( var issue in ja )
+				{
+					UpsertJiraWorkLogRelatedIssueParameter.issueID = issue[ "IssueID" ].ToString();
+					IssueUpdateOK = UpsertJiraWorkLogRelatedIssue( UpsertJiraWorkLogRelatedIssueParameter );
+				}
+
+				return IssueUpdateOK;
+			}
+		}
+
+
+		//同步新增的Jira WorkLogsw資料到DB
 		internal bool InsertWorkLogs( InsertWorkLogs InsertWorkLogsParameter )
 		{
 			bool bResult = m_WorkLoggerDBManager.InsertWorkLogs( InsertWorkLogsParameter );
