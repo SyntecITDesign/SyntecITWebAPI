@@ -78,9 +78,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 							UPDATE [{m_gas}].[dbo].[GAS_GAInfoMaster]
 							SET [MotorLicense]=@Parameter1,[MotorLicense_Syntec]=@Parameter2
 							WHERE [EmpID]=@Parameter0
-							ELSE
-						    INSERT INTO [{m_gas}].[dbo].[GAS_GAInfoMaster]([EmpID],[MotorLicense],[MotorLicense_Syntec],[Avatar])  
-							VALUES (@Parameter0, @Parameter1, @Parameter2, 0) ";
+							";
 			
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -98,9 +96,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 							UPDATE [{m_gas}].[dbo].[GAS_GAInfoMaster]
 							SET [CarLicense]=@Parameter1,[CarLicense_Syntec]=@Parameter2
 							WHERE [EmpID]=@Parameter0
-							ELSE
-						    INSERT INTO [{m_gas}].[dbo].[GAS_GAInfoMaster]([EmpID],[CarLicense],[CarLicense_Syntec],[Avatar])  
-							VALUES (@Parameter0, @Parameter1, @Parameter2, 0) ";
+							";
 
 			List<object> SQLParameterList = new List<object>()
 			{
