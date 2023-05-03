@@ -196,7 +196,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 			{
 				sql_where = "[EmpID] = @Parameter4";
 			}
-			string sql = $@"ALTER DATABASE [syntecbarcode] SET COMPATIBILITY_LEVEL = 130; SELECT [EmpID],[EmpName],Worklogger.[SuperDeptName],[ProjectKey],[Managers],[No] FROM [{m_barcode}].[dbo].[TEMP_NAME],(SELECT [ProjectKey],[SuperDeptName],[Managers],value,[No] FROM [rm-bp1oo0b1btai11by5.sqlserver.rds.aliyuncs.com,3433].[{m_JiraWorkLogger}].[dbo].[JiraWorkloggerAccess] OUTER APPLY STRING_SPLIT([Viewers], ',')) as Worklogger WHERE "+ sql_where + " and Worklogger.value = [TEMP_NAME].[EmpID] COLLATE Chinese_PRC_CI_AS order by Worklogger.[ProjectKey]";
+			string sql = $@"ALTER DATABASE [syntecbarcode] SET COMPATIBILITY_LEVEL = 130; SELECT [EmpID],[EmpName],Worklogger.[SuperDeptName],[ProjectKey],[Managers],[No],(case when [Viewers] is null then '' else [Viewers] end) as 'Viewers' FROM [{m_barcode}].[dbo].[TEMP_NAME],(SELECT [ProjectKey],[SuperDeptName],[Managers],[Viewers],value,[No] FROM [rm-bp1oo0b1btai11by5.sqlserver.rds.aliyuncs.com,3433].[{m_JiraWorkLogger}].[dbo].[JiraWorkloggerAccess] OUTER APPLY STRING_SPLIT([Managers]+','+(case when [Viewers] is null then '' else [Viewers] end), ',')) as Worklogger WHERE " + sql_where + " and Worklogger.value = [TEMP_NAME].[EmpID] COLLATE Chinese_PRC_CI_AS order by Worklogger.[ProjectKey]";
 
 
 			List<object> SQLParameterList = new List<object>()
