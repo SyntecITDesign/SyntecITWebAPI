@@ -88,6 +88,10 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.WorkLogger
 		{
 			get; set;
 		}
+		public string NeedToCheckProjectKeys
+		{
+			get; set;
+		}
 	}
 	public class UpsertJiraWorkLogRelatedIssue : JiraWorkLogRelatedIssueAllField
 	{

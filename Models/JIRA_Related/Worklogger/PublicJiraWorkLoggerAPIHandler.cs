@@ -80,94 +80,99 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 			HttpResponseMessage response = client.GetAsync( targetUrl ).Result;
 
 			JObject jobjectRI = JObject.Parse( response.Content.ReadAsStringAsync().Result );
-
-
-			UpsertJiraWorkLogRelatedIssueParameter.summary = jobjectRI[ "fields" ][ "summary" ].ToString();
-
-
-			UpsertJiraWorkLogRelatedIssueParameter.type = jobjectRI[ "fields" ][ "issuetype" ][ "name" ].ToString();
-			UpsertJiraWorkLogRelatedIssueParameter.ProjectKey = jobjectRI[ "fields" ][ "project" ][ "key" ].ToString();
-
-			UpsertJiraWorkLogRelatedIssueParameter.status = jobjectRI[ "fields" ][ "status" ][ "name" ].ToString();
-
-			try
-			{
-				foreach( var component in jobjectRI[ "fields" ][ "components" ] )
+				bool bResult = false;
+				try
 				{
-					UpsertJiraWorkLogRelatedIssueParameter.components = UpsertJiraWorkLogRelatedIssueParameter.components + component[ "name" ] + ",";
+					UpsertJiraWorkLogRelatedIssueParameter.summary = jobjectRI[ "fields" ][ "summary" ].ToString();
 				}
-			}
-			catch
-			{
-				UpsertJiraWorkLogRelatedIssueParameter.components = "";
-			}
-
-			try
-			{
-				foreach( var label in jobjectRI[ "fields" ][ "labels" ] )
+				catch
 				{
-					UpsertJiraWorkLogRelatedIssueParameter.labels = UpsertJiraWorkLogRelatedIssueParameter.labels + label.ToString() + ",";
+					UpsertJiraWorkLogRelatedIssueParameter.summary = "";
 				}
-			}
-			catch
-			{
-				UpsertJiraWorkLogRelatedIssueParameter.labels = "";
-			}
 
-			try
-			{
-				UpsertJiraWorkLogRelatedIssueParameter.assignee = jobjectRI[ "fields" ][ "assignee" ][ "name" ].ToString();
-			}
-			catch
-			{
-				UpsertJiraWorkLogRelatedIssueParameter.assignee = "";
-			}
+				UpsertJiraWorkLogRelatedIssueParameter.type = jobjectRI[ "fields" ][ "issuetype" ][ "name" ].ToString();
+				UpsertJiraWorkLogRelatedIssueParameter.ProjectKey = jobjectRI[ "fields" ][ "project" ][ "key" ].ToString();
 
-			try
-			{
-				UpsertJiraWorkLogRelatedIssueParameter.duedate = jobjectRI[ "fields" ][ "duedate" ].ToString();
-			}
-			catch
-			{
-				UpsertJiraWorkLogRelatedIssueParameter.duedate = "";
-			}
+				UpsertJiraWorkLogRelatedIssueParameter.status = jobjectRI[ "fields" ][ "status" ][ "name" ].ToString();
 
-
-
-			try
-			{
-				if( jobjectRI[ "fields" ][ "timetracking" ][ "originalEstimate" ] != null )
+				try
 				{
-					int extimateSec = 0;
-					foreach( string extimate in jobjectRI[ "fields" ][ "timetracking" ][ "originalEstimate" ].ToString().Split( " " ) )
+					foreach( var component in jobjectRI[ "fields" ][ "components" ] )
 					{
-						if( extimate.Contains( "w" ) )
-						{
-							int extimateInt = Convert.ToInt32( extimate.Replace( "w", "" ) );
-							extimateSec = extimateSec + extimateSec * 5 * 8 * 60 * 60;
-						}
-						if( extimate.Contains( "d" ) )
-						{
-							int extimateInt = Convert.ToInt32( extimate.Replace( "d", "" ) );
-							extimateSec = extimateSec+extimateInt * 8 * 60 * 60;
-						}
-						if( extimate.Contains( "h" ) )
-						{
-							int extimateInt = Convert.ToInt32( extimate.Replace( "h", "" ) );
-							extimateSec = extimateSec + extimateSec * 60 * 60;
-						}
+						UpsertJiraWorkLogRelatedIssueParameter.components = UpsertJiraWorkLogRelatedIssueParameter.components + component[ "name" ] + ",";
 					}
-					UpsertJiraWorkLogRelatedIssueParameter.originalEstimate = extimateSec;
-
 				}
-			}
-			catch
-			{
-				UpsertJiraWorkLogRelatedIssueParameter.originalEstimate = 0;
-			}
+				catch
+				{
+					UpsertJiraWorkLogRelatedIssueParameter.components = "";
+				}
 
-			bool bResult = m_WorkLoggerDBManager.UpsertJiraWorkLogRelatedIssue( UpsertJiraWorkLogRelatedIssueParameter );
+				try
+				{
+					foreach( var label in jobjectRI[ "fields" ][ "labels" ] )
+					{
+						UpsertJiraWorkLogRelatedIssueParameter.labels = UpsertJiraWorkLogRelatedIssueParameter.labels + label.ToString() + ",";
+					}
+				}
+				catch
+				{
+					UpsertJiraWorkLogRelatedIssueParameter.labels = "";
+				}
 
+				try
+				{
+					UpsertJiraWorkLogRelatedIssueParameter.assignee = jobjectRI[ "fields" ][ "assignee" ][ "name" ].ToString();
+				}
+				catch
+				{
+					UpsertJiraWorkLogRelatedIssueParameter.assignee = "";
+				}
+
+				try
+				{
+					UpsertJiraWorkLogRelatedIssueParameter.duedate = jobjectRI[ "fields" ][ "duedate" ].ToString();
+				}
+				catch
+				{
+					UpsertJiraWorkLogRelatedIssueParameter.duedate = "";
+				}
+
+
+
+				try
+				{
+					if( jobjectRI[ "fields" ][ "timetracking" ][ "originalEstimate" ] != null )
+					{
+						int extimateSec = 0;
+						foreach( string extimate in jobjectRI[ "fields" ][ "timetracking" ][ "originalEstimate" ].ToString().Split( " " ) )
+						{
+							if( extimate.Contains( "w" ) )
+							{
+								int extimateInt = Convert.ToInt32( extimate.Replace( "w", "" ) );
+								extimateSec = extimateSec + extimateSec * 5 * 8 * 60 * 60;
+							}
+							if( extimate.Contains( "d" ) )
+							{
+								int extimateInt = Convert.ToInt32( extimate.Replace( "d", "" ) );
+								extimateSec = extimateSec + extimateInt * 8 * 60 * 60;
+							}
+							if( extimate.Contains( "h" ) )
+							{
+								int extimateInt = Convert.ToInt32( extimate.Replace( "h", "" ) );
+								extimateSec = extimateSec + extimateSec * 60 * 60;
+							}
+						}
+						UpsertJiraWorkLogRelatedIssueParameter.originalEstimate = extimateSec;
+
+					}
+				}
+				catch
+				{
+					UpsertJiraWorkLogRelatedIssueParameter.originalEstimate = 0;
+				}
+
+				bResult = m_WorkLoggerDBManager.UpsertJiraWorkLogRelatedIssue( UpsertJiraWorkLogRelatedIssueParameter );
+			
 
 			return bResult;
 		}
@@ -181,16 +186,17 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 			else
 			{
 				JArray ja = JArray.FromObject( dtResult );
-				bool IssueUpdateOK = true;
-				foreach( var issue in ja )
-				{
-					UpsertJiraWorkLogRelatedIssueParameter.issueID = issue[ "IssueID" ].ToString();
-					IssueUpdateOK = UpsertJiraWorkLogRelatedIssue( UpsertJiraWorkLogRelatedIssueParameter );
-				}
-
-				return IssueUpdateOK;
+			bool IssueUpdateOK = true;
+			foreach( var issue in ja )
+			{
+				UpsertJiraWorkLogRelatedIssueParameter.issueID = issue[ "IssueID" ].ToString();
+				IssueUpdateOK = UpsertJiraWorkLogRelatedIssue( UpsertJiraWorkLogRelatedIssueParameter );
 			}
+
+			return IssueUpdateOK;
 		}
+
+	}
 
 
 		//同步新增的Jira WorkLogsw資料到DB
