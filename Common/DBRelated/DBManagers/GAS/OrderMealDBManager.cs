@@ -557,12 +557,17 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetGuestMealsDept()
 		{
 			string sql = $@"SELECT Distinct [FSe7en_Org_DeptInfo].DisplayName, [FSe7en_Org_DeptStruct].[DeptID] 
-FROM [BPMPro].dbo.[FSe7en_Org_DeptInfo],[BPMPro].dbo.[FSe7en_Org_DeptStruct]  
-where  [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID = [BPMPro].dbo.[FSe7en_Org_DeptStruct].[DeptID] AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID Like 'TWST%' AND ([BPMPro].dbo.[FSe7en_Org_DeptStruct].[GradeNum]='60' OR [BPMPro].dbo.[FSe7en_Org_DeptStruct].[GradeNum]='70' )AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID = [BPMPro].dbo.[FSe7en_Org_DeptStruct].[DeptID] AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWST111' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWST113' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWST130' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWSTISO' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWSTISOM' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWSTLEAN' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWST57'
-Union
-SELECT Distinct [FSe7en_Org_DeptInfo].DisplayName, [FSe7en_Org_DeptStruct].[DeptID] 
-FROM [BPMPro].dbo.[FSe7en_Org_DeptInfo],[BPMPro].dbo.[FSe7en_Org_DeptStruct]  
-where  [FSe7en_Org_DeptInfo].DeptID = [FSe7en_Org_DeptStruct].[DeptID] AND [FSe7en_Org_DeptInfo].DeptID in ('LEANTECTWLT5010','LEANTEC30','LEANTECTWLT1010')";
+			FROM [BPMPro].dbo.[FSe7en_Org_DeptInfo],[BPMPro].dbo.[FSe7en_Org_DeptStruct]  
+			where  [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID = [BPMPro].dbo.[FSe7en_Org_DeptStruct].[DeptID] AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID Like 'TWST%' 
+			AND ([BPMPro].dbo.[FSe7en_Org_DeptStruct].[GradeNum]='60' OR [BPMPro].dbo.[FSe7en_Org_DeptStruct].[GradeNum]='70' )
+			AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID = [BPMPro].dbo.[FSe7en_Org_DeptStruct].[DeptID] 
+			AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWST111' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWST113' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWST130' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWSTISO' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWSTISOM' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWSTLEAN' AND [BPMPro].dbo.[FSe7en_Org_DeptInfo].DeptID != 'TWST57'
+			Union
+			SELECT Distinct [FSe7en_Org_DeptInfo].DisplayName, [FSe7en_Org_DeptStruct].[DeptID] 
+			FROM [BPMPro].dbo.[FSe7en_Org_DeptInfo],[BPMPro].dbo.[FSe7en_Org_DeptStruct]  
+			where  [FSe7en_Org_DeptInfo].DeptID = [FSe7en_Org_DeptStruct].[DeptID] 
+			AND [FSe7en_Org_DeptInfo].DeptID like 'LEANTEC%'
+			AND ([BPMPro].dbo.[FSe7en_Org_DeptStruct].[GradeNum]='60' OR [BPMPro].dbo.[FSe7en_Org_DeptStruct].[GradeNum]='70' )";
 
 			DataTable result = m_BPMdbproxy.GetDataWithNoParaCMD( sql );
 
