@@ -141,6 +141,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.PersonalInfo
 		{
 			get; set;
 		}
+		public string EngName
+		{
+			get; set;
+		}
 		public string MotorLicense
 		{
 			get; set;

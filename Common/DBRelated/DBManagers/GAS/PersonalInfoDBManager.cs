@@ -203,12 +203,13 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal bool InsertFreshmanGASInfo( InsertFreshmanGASInfo InsertFreshmanGASInfoParameter )
 		{
 			string sql = $@"
-						INSERT INTO [{m_gas}].[dbo].[GAS_GAInfoMaster] ([EmpName],[MotorLicense],[CarLicense],[UniformSize],[JacketSize],[SweatshirtSize],[Sex],[UniformLongSize],[Avatar]) 
-						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8)";
+						INSERT INTO [{m_gas}].[dbo].[GAS_GAInfoMaster] ([EmpName],[EngName],[MotorLicense],[CarLicense],[UniformSize],[JacketSize],[SweatshirtSize],[Sex],[UniformLongSize],[Avatar]) 
+						VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8,@Parameter9)";
 
 			List<object> SQLParameterList = new List<object>()
 			{
 				InsertFreshmanGASInfoParameter.EmpName,
+				InsertFreshmanGASInfoParameter.EngName,
 				InsertFreshmanGASInfoParameter.MotorLicense,
 				InsertFreshmanGASInfoParameter.CarLicense,
 				InsertFreshmanGASInfoParameter.UniformSize,
