@@ -137,12 +137,12 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.WorkLogger
 			return Ok( m_responseHandler.GetResult() );
 		}
 
-		[Route( "InsertProjectTag" )]
+		[Route( "UpsertProjectTag" )]
 		[HttpPost]
-		public IActionResult InsertProjectTag( [FromBody] InsertProjectTag InsertProjectTagParameter )
+		public IActionResult UpsertProjectTag( [FromBody] UpsertProjectTag UpsertProjectTagParameter )
 		{
 
-			var bResult = m_publicJiraWorkLoggerAPIHandler.InsertProjectTag( InsertProjectTagParameter );
+			var bResult = m_publicJiraWorkLoggerAPIHandler.UpsertProjectTag( UpsertProjectTagParameter );
 			//m_responseHandler.Content = JObject.Parse( bResult.Replace("[","").Replace( "]", "" ).Split("},{")[0]+"}" );
 
 			if( !bResult )
@@ -243,6 +243,26 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.WorkLogger
 
 			JArray result = m_publicJiraWorkLoggerAPIHandler.GetJiraWorkLoggerAccess( GetJiraWorkLoggerAccessParameter );
 			
+
+			if( result == null )
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+		
+		[Route( "GetSuperDeptOfWorkLogs" )]
+		[HttpPost]
+		public IActionResult GetSuperDeptOfWorkLogs( [FromBody] GetSuperDeptOfWorkLogs GetSuperDeptOfWorkLogsParameter )
+		{
+
+			JArray result = m_publicJiraWorkLoggerAPIHandler.GetSuperDeptOfWorkLogs( GetSuperDeptOfWorkLogsParameter );
+
 
 			if( result == null )
 			{

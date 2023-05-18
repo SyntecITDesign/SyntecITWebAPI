@@ -241,9 +241,9 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 		}
 
 		//新增各專案報工tag到DB
-		internal bool InsertProjectTag( InsertProjectTag InsertProjectTagParameter )
+		internal bool UpsertProjectTag( UpsertProjectTag UpsertProjectTagParameter )
 		{
-			bool bResult = m_WorkLoggerDBManager.InsertProjectTag( InsertProjectTagParameter );
+			bool bResult = m_WorkLoggerDBManager.UpsertProjectTag( UpsertProjectTagParameter );
 			return bResult;
 		}
 
@@ -292,6 +292,22 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 				return ja;
 			}
 		}
+
+		//取得特定project的Worklog部門資訊
+		internal JArray GetSuperDeptOfWorkLogs( GetSuperDeptOfWorkLogs GetSuperDeptOfWorkLogsParameter )
+		{
+			DataTable dtResult = m_WorkLoggerDBManager.GetSuperDeptOfWorkLogs( GetSuperDeptOfWorkLogsParameter );
+
+			if( dtResult == null || dtResult.Rows.Count <= 0 )
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
+
+
 		//更新JiraWorklogger後台權限資訊
 		internal bool UpdateJiraWorkLoggerAccess( UpdateJiraWorkLoggerAccess UpdateJiraWorkLoggerAccessParameter )
 		{

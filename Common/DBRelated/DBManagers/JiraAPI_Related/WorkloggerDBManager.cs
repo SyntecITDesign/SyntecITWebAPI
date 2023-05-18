@@ -102,7 +102,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 			string sql = $@"SELECT *
 						FROM [{m_JiraWorkLogger}].[dbo].[JiraProjectTags]
 						WHERE [ProjectKey] = @Parameter1
-						ORDER BY [No]";
+						ORDER BY [TagGroup],[No]";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -121,14 +121,19 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 				return result;
 			}
 		}
-		internal bool InsertProjectTag( InsertProjectTag InsertProjectTagParameter )
+		internal bool UpsertProjectTag( UpsertProjectTag UpsertProjectTagParameter )
 		{
-			string sql = $@"INSERT INTO [{m_JiraWorkLogger}].[dbo].[JiraProjectTags]([ProjectID],[TagName]) VALUES (@Parameter2,@Parameter1)";
+			string sql = $@"IF EXISTS (SELECT * FROM [{m_JiraWorkLogger}].[dbo].[JiraProjectTags] WHERE [No]=@Parameter0)
+								UPDATE [{m_JiraWorkLogger}].[dbo].[JiraProjectTags] SET [TagGroup]=@Parameter3, [TagName]=@Parameter1 WHERE [No]=@Parameter0
+							ELSE
+								INSERT INTO [{m_JiraWorkLogger}].[dbo].[JiraProjectTags]([TagName],[ProjectKey],[TagGroup]) VALUES (@Parameter1,@Parameter2,@Parameter3)";
+
 			List<object> SQLParameterList = new List<object>()
 			{
-				InsertProjectTagParameter.No,
-				InsertProjectTagParameter.tagName,
-				InsertProjectTagParameter.projectKey
+				UpsertProjectTagParameter.No,
+				UpsertProjectTagParameter.tagName,
+				UpsertProjectTagParameter.projectKey,
+				UpsertProjectTagParameter.tagGroup
 			};
 			bool bResult = m_JiraWorkLoggerdbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
@@ -139,7 +144,10 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 			string sql = $@"DELETE FROM [{m_JiraWorkLogger}].[dbo].[JiraProjectTags] WHERE [No]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
-				DeleteProjectTagParameter.No
+				DeleteProjectTagParameter.No,
+				DeleteProjectTagParameter.tagName,
+				DeleteProjectTagParameter.projectKey,
+				DeleteProjectTagParameter.tagGroup
 			};
 			bool bResult = m_JiraWorkLoggerdbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
@@ -185,7 +193,6 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 			}
 		}
 
-
 		internal DataTable GetJiraWorkLoggerAccess( GetJiraWorkLoggerAccess GetJiraWorkLoggerAccessParameter )
 		{
 			string sql_where = "";
@@ -198,7 +205,6 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 				sql_where = "[EmpID] = @Parameter4";
 			}
 			string sql = $@"ALTER DATABASE [syntecbarcode] SET COMPATIBILITY_LEVEL = 130; SELECT [EmpID],[EmpName],Worklogger.[SuperDeptName],[ProjectKey],[Managers],[No],(case when [Viewers] is null then '' else [Viewers] end) as 'Viewers' FROM [{m_barcode}].[dbo].[TEMP_NAME],(SELECT [ProjectKey],[SuperDeptName],[Managers],[Viewers],value,[No] FROM [rm-bp1oo0b1btai11by5.sqlserver.rds.aliyuncs.com,3433].[{m_JiraWorkLogger}].[dbo].[JiraWorkloggerAccess] OUTER APPLY STRING_SPLIT([Managers]+','+(case when [Viewers] is null then '' else [Viewers] end), ',')) as Worklogger WHERE " + sql_where + " and Worklogger.value = [TEMP_NAME].[EmpID] COLLATE Chinese_PRC_CI_AS order by Worklogger.[ProjectKey]";
-
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -219,6 +225,33 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 				return result;
 			}
 		}
+
+		internal DataTable GetSuperDeptOfWorkLogs( GetSuperDeptOfWorkLogs GetSuperDeptOfWorkLogsParameter )
+		{
+			string sql = $@"SELECT [SuperDeptName] FROM [rm-bp1oo0b1btai11by5.sqlserver.rds.aliyuncs.com,3433].[{m_JiraWorkLogger}].[dbo].[JiraWorkLogs] INNER JOIN (SELECT [EmpID],[SuperDeptName] FROM [{m_barcode}].[dbo].[TEMP_NAME]) AS TEMP_NAME ON TEMP_NAME.[EmpID] COLLATE Chinese_PRC_CI_AS  = [JiraWorkLogs].[EmpID] WHERE SUBSTRING([IssueID],1,CHARINDEX('-',[IssueID])-1) in ('" + GetSuperDeptOfWorkLogsParameter.projectKey + "') GROUP BY [SuperDeptName]";
+
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetSuperDeptOfWorkLogsParameter.No,
+				GetSuperDeptOfWorkLogsParameter.projectKey,
+				GetSuperDeptOfWorkLogsParameter.SuperDeptName,
+				GetSuperDeptOfWorkLogsParameter.Managers,
+				GetSuperDeptOfWorkLogsParameter.Viewers
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+
+			if( result == null || result.Rows.Count <= 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
+
+
+
 
 		internal bool UpdateJiraWorkLoggerAccess( UpdateJiraWorkLoggerAccess UpdateJiraWorkLoggerAccessParameter )
 		{

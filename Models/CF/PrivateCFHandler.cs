@@ -67,7 +67,7 @@ namespace SyntecITWebAPI.Models
 						}
 						//download pdf by pageid scope current vs descendants
 						string strTemplateID = "116c3042-9aa8-4a4a-a689-252080131b52";
-						string url = "https://confluence.syntecclub.com/plugins/servlet/scroll-pdf/api/public/0/export-sync?templateId=" + strTemplateID
+						string url = "https://confluence.syntecclub.com/plugins/servlet/scroll-pdf/api/public/1/export-sync?templateId=" + strTemplateID
 								+ "&pageId=" + pageID + "&scope=current&os_username=" + strConfluenceAccount + "&os_password=" + strConfluencePassword;
 
 						System.IO.FileStream fs;

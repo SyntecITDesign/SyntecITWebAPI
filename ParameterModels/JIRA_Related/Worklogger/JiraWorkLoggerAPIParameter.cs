@@ -178,29 +178,23 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.WorkLogger
 		{
 			get; set;
 		}
-		public string projectName
+		public string tagGroup
 		{
 			get; set;
 		}
-		public string projectTypeKey
-		{
-			get; set;
-		}
+		
 		public string tagName
 		{
 			get; set;
 		}
-		public string SuperDeptName
-		{
-			get; set;
-		}
+		
 	}
 
 	public class GetProjectTags : JiraProjectTagsAllField
 	{
 
 	}
-	public class InsertProjectTag : JiraProjectTagsAllField
+	public class UpsertProjectTag : JiraProjectTagsAllField
 	{
 
 	}
@@ -250,7 +244,10 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.WorkLogger
 	{
 
 	}
+	public class GetSuperDeptOfWorkLogs : JiraWorkLoggerAccessAllField
+	{
 
+	}
 
 
 }
