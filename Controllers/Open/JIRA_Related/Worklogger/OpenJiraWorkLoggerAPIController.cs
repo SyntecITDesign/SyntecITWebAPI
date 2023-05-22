@@ -277,6 +277,25 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.WorkLogger
 		}
 
 
+		[Route( "InsertActionLog" )]
+		[HttpPost]
+		public IActionResult InsertActionLog( [FromBody] InsertActionLog InsertActionLogParameter )
+		{
+			var bResult = m_publicJiraWorkLoggerAPIHandler.InsertActionLog( InsertActionLogParameter );
+			//m_responseHandler.Content = bResult;
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		#endregion Public Methods
 
 		#region Private Fields

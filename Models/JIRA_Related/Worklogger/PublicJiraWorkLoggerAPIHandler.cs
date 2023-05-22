@@ -316,6 +316,13 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 		}
 
 
+		//新增使用者操作系統log
+		internal bool InsertActionLog( InsertActionLog InsertActionLogParameter )
+		{
+			bool bResult = m_WorkLoggerDBManager.InsertActionLog( InsertActionLogParameter );
+			return bResult;
+		}
+
 
 		#endregion Internal Methods
 

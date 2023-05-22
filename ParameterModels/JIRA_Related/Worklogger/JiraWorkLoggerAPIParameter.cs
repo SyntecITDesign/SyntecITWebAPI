@@ -249,5 +249,31 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.WorkLogger
 
 	}
 
+	public class ActionLogTableAllField
+	{
+		
+		public string Action
+		{
+			get; set;
+		}
+		public string ActionContent
+		{
+			get; set;
+		}
+		public string Memo
+		{
+			get; set;
+		}
+		public string EmpID
+		{
+			get; set;
+		}
+	}
+
+	public class InsertActionLog : ActionLogTableAllField
+	{
+
+	}
+
 
 }

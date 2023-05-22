@@ -267,6 +267,24 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 			bool bResult = m_JiraWorkLoggerdbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;
 		}
+
+
+		internal bool InsertActionLog( InsertActionLog InsertActionLogParameter )
+		{
+			string sql = $@"INSERT INTO [{m_JiraWorkLogger}].[dbo].[ActionLogTable] ([Action],[ActionContent],[Memo],[EmpID]) VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3)";
+			List<object> SQLParameterList = new List<object>()
+			{
+				InsertActionLogParameter.Action,
+				InsertActionLogParameter.ActionContent,
+				InsertActionLogParameter.Memo,
+				InsertActionLogParameter.EmpID
+			};
+			bool bResult = m_JiraWorkLoggerdbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
+
+
 	}
 	#endregion Internal Methods
 }
