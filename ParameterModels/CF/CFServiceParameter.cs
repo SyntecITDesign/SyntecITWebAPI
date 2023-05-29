@@ -28,6 +28,11 @@ namespace SyntecITWebAPI.ParameterModels.CF
 			get; set;
 		}
 
+		public string Includpage
+		{
+			get; set;
+		}
+
 		#endregion Public Properties
 
 	}

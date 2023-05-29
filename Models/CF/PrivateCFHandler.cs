@@ -69,7 +69,11 @@ namespace SyntecITWebAPI.Models
 						string strTemplateID = "116c3042-9aa8-4a4a-a689-252080131b52";
 						string url = "https://confluence.syntecclub.com/plugins/servlet/scroll-pdf/api/public/1/export-sync?templateId=" + strTemplateID
 								+ "&pageId=" + pageID + "&scope=current&os_username=" + strConfluenceAccount + "&os_password=" + strConfluencePassword;
-
+						if(CFService_CFSendPdfEmailParameter.Includpage == "T")
+						{
+							url = "https://confluence.syntecclub.com/plugins/servlet/scroll-pdf/api/public/1/export-sync?templateId=" + strTemplateID
+								+ "&pageId=" + pageID + "&os_username=" + strConfluenceAccount + "&os_password=" + strConfluencePassword;
+						}
 						System.IO.FileStream fs;
 						client.DefaultRequestHeaders.Add( "User-Agent", @"Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)" ); // add autonomous driving is very important, no detailed study, will be able to download the file does add on
 						client.DefaultRequestHeaders.Add( "Accept", @"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" ); // add data format
