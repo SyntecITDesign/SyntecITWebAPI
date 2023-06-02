@@ -66,6 +66,10 @@ namespace SyntecITWebAPI.Models
 						responseHandler.Code = Enums.ErrorCodeList.Password_Wrong;
 						responseHandler.Detail = "帳號密碼錯誤 Account or password wrong";
 						break;
+					case "E011":
+						responseHandler.Code = Enums.ErrorCodeList.Password_Need_Change;
+						responseHandler.Detail = "超過六個月未更換密碼 Password wrong need to change.";
+						break;
 
 					case "0000":
 						if( loginResult.IndexOf( "Website" ) >= 0 )
@@ -99,7 +103,7 @@ namespace SyntecITWebAPI.Models
 		{
 			var callClient = WebServiceSetting.USER_SERVICE_CLIENT;
 
-			Task<LoginProcessPlatformOPTIONResponse> loginProcessPlatformOPTIONResponseTask = callClient.LoginProcessPlatformOPTIONAsync( new LoginProcessPlatformOPTIONRequest( userID, userPassword, (int)Syntec.Meta.ICTPlatform.Option ) );
+			Task<LoginProcessPlatformOPTIONResponse> loginProcessPlatformOPTIONResponseTask = callClient.LoginProcessPlatformOPTIONAsync( new LoginProcessPlatformOPTIONRequest( userID, userPassword, (int)Syntec.Meta.ICTPlatform.GEM ) );
 
 			LoginProcessPlatformOPTIONResponse response = loginProcessPlatformOPTIONResponseTask.Result;
 
