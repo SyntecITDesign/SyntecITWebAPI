@@ -60,7 +60,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 		}
 		internal DataTable CheckIssueUpdateTime( UpsertJiraWorkLogRelatedIssue UpsertJiraWorkLogRelatedIssue )
 		{
-			string sql = $@"SELECT [IssueID],[WorkloggerUpdateTime] FROM [WorkLogger].[dbo].[JiraWorkLogRelatedIssues] where DATEDIFF(DAY,[WorkloggerUpdateTime],GETDATE()) > 0 and [ProjectKey] in ('"+ UpsertJiraWorkLogRelatedIssue.NeedToCheckProjectKeys + "') and [Status] = '已結案'";
+			string sql = $@"SELECT [IssueID],[WorkloggerUpdateTime] FROM [WorkLogger].[dbo].[JiraWorkLogRelatedIssues] where DATEDIFF(DAY,[WorkloggerUpdateTime],GETDATE()) > 0 and [ProjectKey] in ('"+ UpsertJiraWorkLogRelatedIssue.NeedToCheckProjectKeys + "') and [Status] != '已結案'";
 
 			List<object> SQLParameterList = new List<object>()
 			{

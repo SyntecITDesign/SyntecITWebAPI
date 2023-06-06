@@ -80,7 +80,10 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 			HttpResponseMessage response = client.GetAsync( targetUrl ).Result;
 
 			JObject jobjectRI = JObject.Parse( response.Content.ReadAsStringAsync().Result );
-				bool bResult = false;
+			bool bResult = false;
+			if( !(jobjectRI[ "fields" ] == null) )
+			{
+
 				try
 				{
 					UpsertJiraWorkLogRelatedIssueParameter.summary = jobjectRI[ "fields" ][ "summary" ].ToString();
@@ -165,6 +168,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 						UpsertJiraWorkLogRelatedIssueParameter.originalEstimate = extimateSec;
 
 					}
+
 				}
 				catch
 				{
@@ -172,9 +176,15 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 				}
 
 				bResult = m_WorkLoggerDBManager.UpsertJiraWorkLogRelatedIssue( UpsertJiraWorkLogRelatedIssueParameter );
-			
 
-			return bResult;
+
+				return bResult;
+			}
+			else
+			{
+				return true;
+			}
+
 		}
 
 		//確認是否有一天內沒更新的議題資訊
@@ -186,17 +196,17 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 			else
 			{
 				JArray ja = JArray.FromObject( dtResult );
-			bool IssueUpdateOK = true;
-			foreach( var issue in ja )
-			{
-				UpsertJiraWorkLogRelatedIssueParameter.issueID = issue[ "IssueID" ].ToString();
-				IssueUpdateOK = UpsertJiraWorkLogRelatedIssue( UpsertJiraWorkLogRelatedIssueParameter );
+				bool IssueUpdateOK = true;
+				foreach( var issue in ja )
+				{
+					UpsertJiraWorkLogRelatedIssueParameter.issueID = issue[ "IssueID" ].ToString();
+					IssueUpdateOK = UpsertJiraWorkLogRelatedIssue( UpsertJiraWorkLogRelatedIssueParameter );
+				}
+
+				return IssueUpdateOK;
 			}
 
-			return IssueUpdateOK;
 		}
-
-	}
 
 
 		//同步新增的Jira WorkLogsw資料到DB
@@ -213,7 +223,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 		{
 			HttpClient client = new HttpClient();
 
-			HttpContent AddWorkLogHContent = new StringContent( "{\"comment\":\"" + JiraWorkLogParameter.comment.Replace("\n","\\n").Replace( "\"", "\'" ) + "\", \"started\":\"" + JiraWorkLogParameter.started + "\",\"timeSpentSeconds\":" + JiraWorkLogParameter.timeSpentSeconds + "}", Encoding.UTF8, "application/json" );
+			HttpContent AddWorkLogHContent = new StringContent( "{\"comment\":\"" + JiraWorkLogParameter.comment.Replace( "\n", "\\n" ).Replace( "\"", "\'" ) + "\", \"started\":\"" + JiraWorkLogParameter.started + "\",\"timeSpentSeconds\":" + JiraWorkLogParameter.timeSpentSeconds + "}", Encoding.UTF8, "application/json" );
 
 			string targetUrl = "https://jira.syntecclub.com/rest/api/2/issue/" + JiraWorkLogParameter.issueID + "/worklog";
 			//Basic Authentication
