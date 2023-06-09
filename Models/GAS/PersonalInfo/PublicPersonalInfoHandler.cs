@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using Syntec.CRM;
 using Syntec.Flow.Utility;
@@ -7,6 +8,7 @@ using SyntecITWebAPI.Common.DBRelated.DBManagers;
 using SyntecITWebAPI.ParameterModels.GAS.PersonalInfo;
 using System.Data;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace SyntecITWebAPI.Models.GAS.PersonalInfo
 {
@@ -116,9 +118,24 @@ namespace SyntecITWebAPI.Models.GAS.PersonalInfo
 
 		internal bool InsertFreshmanGASInfo( InsertFreshmanGASInfo InsertFreshmanGASInfoParameter )
 		{
+			FileStream fs = new FileStream( "InsertFreshmanGASInfo_log.txt", System.IO.FileMode.Append, System.IO.FileAccess.Write );
+			StreamWriter sw = new StreamWriter( fs, System.Text.Encoding.UTF8 );
+			//紀錄新增操作到txt檔(操作DB前)
+			sw.WriteLine( DateTime.Now.ToString( "G" ) + "：[新增新人資料 Start][資料:Avatar-" + InsertFreshmanGASInfoParameter.Avatar+ "；EmpName-" + InsertFreshmanGASInfoParameter.EmpName + "；EngName-" + InsertFreshmanGASInfoParameter.EngName + "；Sex-" + InsertFreshmanGASInfoParameter.Sex + "；MotorLicense-" + InsertFreshmanGASInfoParameter.MotorLicense + "；CarLicense-" + InsertFreshmanGASInfoParameter.CarLicense + "；UniformSize-" + InsertFreshmanGASInfoParameter.UniformSize + "；UniformLongSize-" + InsertFreshmanGASInfoParameter.UniformLongSize + "]" );
+			//sw.Close();
 
 			bool bResult = m_publicPersonalInfoDBManager.InsertFreshmanGASInfo( InsertFreshmanGASInfoParameter );
+			//紀錄新增操作到txt檔(操作DB後)
+			if( bResult )
+			{
+				sw.WriteLine( DateTime.Now.ToString( "G" ) + "：[新增新人資料 End][執行結果：true]" );
+			}
+			else
+			{
+				sw.WriteLine( DateTime.Now.ToString( "G" ) + "：[新增新人資料 End][執行結果：false]" );
 
+			}
+			sw.Close();
 			return bResult;
 		}
 

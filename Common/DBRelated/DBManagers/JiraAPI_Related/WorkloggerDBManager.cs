@@ -283,7 +283,19 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 			return bResult;
 		}
 
+		internal bool DeleteJiraWorkLog( DeleteJiraWorkLog DeleteJiraWorkLogParameter )
+		{
+			string sql = $@"UPDATE [{m_JiraWorkLogger}].[dbo].[JiraWorkLogs] SET [TimeSpentSeconds] =1,[Memo] = '作廢' WHERE [IssueID]=@Parameter0 AND  [WorkLogID]=@Parameter1";
+			List<object> SQLParameterList = new List<object>()
+			{
+				DeleteJiraWorkLogParameter.issueID,
+				DeleteJiraWorkLogParameter.workLogID
+			};
+			bool bResult = m_JiraWorkLoggerdbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
 
+		
 
 	}
 	#endregion Internal Methods

@@ -296,6 +296,26 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related.WorkLogger
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "DeleteJiraWorkLog" )]
+		[HttpPost]
+		public IActionResult DeleteJiraWorkLog( [FromBody] DeleteJiraWorkLog DeleteJiraWorkLogParameter )
+		{
+			var bResult = m_publicJiraWorkLoggerAPIHandler.DeleteJiraWorkLog( DeleteJiraWorkLogParameter );
+			//m_responseHandler.Content = bResult;
+
+			if( !bResult )
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+
 		#endregion Public Methods
 
 		#region Private Fields

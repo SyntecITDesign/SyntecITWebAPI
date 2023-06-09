@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Syntec.JiraHelper;
 using System.Net.Http;
 using System.Text;
+using System.IO;
 
 
 namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
@@ -46,6 +47,11 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 
 			while( total >= startAt )
 			{
+				FileStream fss = new FileStream( "JiraAPI_Related_GetWorkLog_log.txt", System.IO.FileMode.Append, System.IO.FileAccess.Write );
+				StreamWriter sws = new StreamWriter( fss, System.Text.Encoding.UTF8 );
+				sws.WriteLine( DateTime.Now.ToString( "G" ) + "：[JQL:" + JiraWorkLogParameter.JQL + "]\n" );
+				sws.Close();
+
 				HttpContent HContent = new StringContent( "{\"jql\": \"" + JiraWorkLogParameter.JQL + "\"}", Encoding.UTF8, "application/json" );
 				string targetUrl = "https://jira.syntecclub.com/rest/api/2/search";
 				//Basic Authentication
@@ -65,6 +71,11 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 				startAt += 49;
 			}
 
+			FileStream fse = new FileStream( "JiraAPI_Related_GetWorkLog_log.txt", System.IO.FileMode.Append, System.IO.FileAccess.Write );
+			StreamWriter swe = new StreamWriter( fse, System.Text.Encoding.UTF8 );
+			swe.WriteLine( DateTime.Now.ToString( "G" ) + "：[Allissuekey:" + Allissuekey + "]\n" );
+			swe.Close();
+
 			return Allissuekey;
 		}
 
@@ -81,7 +92,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 
 			JObject jobjectRI = JObject.Parse( response.Content.ReadAsStringAsync().Result );
 			bool bResult = false;
-			if( !(jobjectRI[ "fields" ] == null) )
+			if( !( jobjectRI[ "fields" ] == null ) )
 			{
 
 				try
@@ -222,7 +233,6 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 		internal JObject AddWorkLog( JiraWorkLog JiraWorkLogParameter )
 		{
 			HttpClient client = new HttpClient();
-
 			HttpContent AddWorkLogHContent = new StringContent( "{\"comment\":\"" + JiraWorkLogParameter.comment.Replace( "\n", "\\n" ).Replace( "\"", "\'" ) + "\", \"started\":\"" + JiraWorkLogParameter.started + "\",\"timeSpentSeconds\":" + JiraWorkLogParameter.timeSpentSeconds + "}", Encoding.UTF8, "application/json" );
 
 			string targetUrl = "https://jira.syntecclub.com/rest/api/2/issue/" + JiraWorkLogParameter.issueID + "/worklog";
@@ -233,6 +243,11 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 			HttpResponseMessage response = client.PostAsync( targetUrl, AddWorkLogHContent ).Result;
 
 			JObject jobjectRI = JObject.Parse( response.Content.ReadAsStringAsync().Result );
+
+			FileStream fs = new FileStream( "JiraAPI_Related_AddWorkLog_log.txt", System.IO.FileMode.Append, System.IO.FileAccess.Write );
+			StreamWriter sw = new StreamWriter( fs, System.Text.Encoding.UTF8 );
+			sw.WriteLine( DateTime.Now.ToString( "G" ) + "：[worklogID:" + jobjectRI[ "id" ] + "][issueID:" + jobjectRI[ "issueId" ] + "]\n" );
+			sw.Close();
 
 			return jobjectRI;
 		}
@@ -256,7 +271,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 			bool bResult = m_WorkLoggerDBManager.UpsertProjectTag( UpsertProjectTagParameter );
 			return bResult;
 		}
-
+		//刪除tag
 		internal bool DeleteProjectTag( DeleteProjectTag DeleteProjectTagParameter )
 		{
 			bool bResult = m_WorkLoggerDBManager.DeleteProjectTag( DeleteProjectTagParameter );
@@ -326,12 +341,45 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 		}
 
 
-		//新增使用者操作系統log
+		//新增使用者操作系統log table
 		internal bool InsertActionLog( InsertActionLog InsertActionLogParameter )
 		{
 			bool bResult = m_WorkLoggerDBManager.InsertActionLog( InsertActionLogParameter );
 			return bResult;
 		}
+
+		//刪除worklog (JIRA and DB 非直接刪除資料，而是將報工時間改為1秒)
+		internal bool DeleteJiraWorkLog( DeleteJiraWorkLog DeleteJiraWorkLogParameter )
+		{
+			bool bResult = m_WorkLoggerDBManager.DeleteJiraWorkLog( DeleteJiraWorkLogParameter );
+			if( bResult )
+			{
+				try
+				{
+					HttpClient client = new HttpClient();
+					HttpContent DeleteWorkLogHContent = new StringContent( "{\"timeSpent\":\"0.03m\"}", Encoding.UTF8, "application/json" );
+
+					string targetUrl = "https://jira.syntecclub.com/rest/api/2/issue/" + DeleteJiraWorkLogParameter.issueID + "/worklog/" + DeleteJiraWorkLogParameter.workLogID;
+					//Basic Authentication
+					client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue( "Basic", DeleteJiraWorkLogParameter.BasicAuth );
+
+					HttpResponseMessage response = client.PutAsync( targetUrl, DeleteWorkLogHContent ).Result;
+
+					JObject jobjectRI = JObject.Parse( response.Content.ReadAsStringAsync().Result );
+
+					if( jobjectRI[ "timeSpentSeconds" ].ToString() != "1")
+					{
+						bResult = false;
+					}
+				}
+				catch
+				{
+					bResult = false;
+				}
+			}
+			return bResult;
+		}
+
 
 
 		#endregion Internal Methods

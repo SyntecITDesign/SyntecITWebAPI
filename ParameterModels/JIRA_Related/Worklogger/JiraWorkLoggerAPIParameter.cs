@@ -162,6 +162,12 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related.WorkLogger
 	{
 
 	}
+	public class DeleteJiraWorkLog : JiraWorkLogsAllField
+	{
+
+	}
+
+
 
 
 	public class InsertWorkLogs : JiraWorkLogsAllField
