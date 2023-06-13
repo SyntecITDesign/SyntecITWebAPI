@@ -168,6 +168,20 @@ namespace SyntecITWebAPI.Controllers.Open.JIRA_Related
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "UpdateRepeatedJiraIssue" )]
+		[HttpPost]
+		public IActionResult UpdateRepeatedJiraIssue( [FromBody] EditJiraIssue UpdateRepeatedJiraIssueParameter )
+		{
+			try
+			{
+				var content = m_publicJiraAPIHandler.UpdateRepeatedJiraIssue( UpdateRepeatedJiraIssueParameter );
+				m_responseHandler.Content = content.ToString();
+
+			}
+			catch( Exception e ) { Console.Write( e.ToString() ); }
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		#endregion Public Methods
 
 		#region Private Fields

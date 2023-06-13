@@ -76,14 +76,13 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 			string sql = $@"IF EXISTS (SELECT * FROM [{m_gas}].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0)
 							UPDATE [{m_gas}].[dbo].[GAS_GAInfoMaster]
-							SET [MotorLicense]=@Parameter1,[MotorLicense_Syntec]=@Parameter2
+							SET [MotorLicense_Syntec]=@Parameter1
 							WHERE [EmpID]=@Parameter0
 							";
 			
 			List<object> SQLParameterList = new List<object>()
 			{
 				InsertCarNumBatchParameter.EmpID, //0
-				InsertCarNumBatchParameter.MotorLicense, //1
 				InsertCarNumBatchParameter.MotorLicense_Syntec //2
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
@@ -94,14 +93,13 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 			string sql = $@"IF EXISTS (SELECT * FROM [{m_gas}].[dbo].[GAS_GAInfoMaster] WHERE [EmpID]=@Parameter0)
 							UPDATE [{m_gas}].[dbo].[GAS_GAInfoMaster]
-							SET [CarLicense]=@Parameter1,[CarLicense_Syntec]=@Parameter2
+							SET [CarLicense_Syntec]=@Parameter1
 							WHERE [EmpID]=@Parameter0
 							";
 
 			List<object> SQLParameterList = new List<object>()
 			{
 				InsertCarNumBatchParameter.EmpID, //0
-				InsertCarNumBatchParameter.CarLicense, //1
 				InsertCarNumBatchParameter.CarLicense_Syntec //2
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );

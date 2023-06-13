@@ -83,6 +83,14 @@ namespace SyntecITWebAPI.ParameterModels.JIRA_Related
 		{
 			get; set;
 		}
+		public string summary
+		{
+			get; set;
+		}
+		public string description
+		{
+			get; set;
+		}
 		public string assignee
 		{
 			get; set;

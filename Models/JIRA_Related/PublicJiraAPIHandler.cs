@@ -295,6 +295,22 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related
 			return response.ToString();
 		}
 
+		//重複議題更新欄位
+		internal string UpdateRepeatedJiraIssue( EditJiraIssue UpdateRepeatedJiraIssueParameter )
+		{
+			var client = new HttpClient();
+			//變更議題欄位內容
+			HttpContent HContent = new StringContent( "{\"fields\": {" +
+					"\"summary\": \"" + UpdateRepeatedJiraIssueParameter.summary.Replace( "\n", "\\n" ).Replace( "\"", "\'" ) + "\"," + //摘要
+					"\"description\":\"" + UpdateRepeatedJiraIssueParameter.description.Replace( "\n", "\\n" ).Replace( "\"", "\'" ) + "\"" + //描述  
+				"}}", Encoding.UTF8, "application/json" );
+			string targetUrl = "https://jira.syntecclub.com/rest/api/2/issue/" + UpdateRepeatedJiraIssueParameter.issueID;
+			client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue( "Basic", "aXNzdWVyb2JvdDpTeW50ZWMxMjM0" );
+
+			HttpResponseMessage response = client.PutAsync( targetUrl, HContent ).Result;
+
+			return response.ToString();
+		}
 
 		#endregion Internal Methods
 
