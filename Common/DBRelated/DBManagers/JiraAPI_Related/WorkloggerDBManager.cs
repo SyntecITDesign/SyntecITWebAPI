@@ -195,16 +195,15 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 
 		internal DataTable GetJiraWorkLoggerAccess( GetJiraWorkLoggerAccess GetJiraWorkLoggerAccessParameter )
 		{
-			string sql_where = "";
+			string sql = "";
 			if( GetJiraWorkLoggerAccessParameter.Managers != null )
 			{
-				sql_where = "Worklogger.[Managers] like @Parameter3";
+				sql = $@"ALTER DATABASE [syntecbarcode] SET COMPATIBILITY_LEVEL = 130; SELECT [EmpID],[EmpName],Worklogger.[SuperDeptName],[ProjectKey],[Managers],[No],(case when [Viewers] is null then '' else [Viewers] end) as 'Viewers' FROM [{m_barcode}].[dbo].[TEMP_NAME],(SELECT [ProjectKey],[SuperDeptName],[Managers],[Viewers],value,[No] FROM [rm-bp1oo0b1btai11by5.sqlserver.rds.aliyuncs.com,3433].[{m_JiraWorkLogger}].[dbo].[JiraWorkloggerAccess] OUTER APPLY STRING_SPLIT([Managers]+','+(case when [Viewers] is null then '' else [Viewers] end), ',')) as Worklogger WHERE Worklogger.[Managers] like @Parameter3 and Worklogger.value = [TEMP_NAME].[EmpID] COLLATE Chinese_PRC_CI_AS order by Worklogger.[ProjectKey]";
 			}
 			else
 			{
-				sql_where = "[EmpID] = @Parameter4";
+				sql = $@"SELECT [ProjectKey], (case when [Viewers] like @Parameter4 OR [Managers] like @Parameter4 then 1 else 0 end) as 'IsViewer' FROM [rm-bp1oo0b1btai11by5.sqlserver.rds.aliyuncs.com,3433].[{m_JiraWorkLogger}].[dbo].[JiraWorkloggerAccess]";
 			}
-			string sql = $@"ALTER DATABASE [syntecbarcode] SET COMPATIBILITY_LEVEL = 130; SELECT [EmpID],[EmpName],Worklogger.[SuperDeptName],[ProjectKey],[Managers],[No],(case when [Viewers] is null then '' else [Viewers] end) as 'Viewers' FROM [{m_barcode}].[dbo].[TEMP_NAME],(SELECT [ProjectKey],[SuperDeptName],[Managers],[Viewers],value,[No] FROM [rm-bp1oo0b1btai11by5.sqlserver.rds.aliyuncs.com,3433].[{m_JiraWorkLogger}].[dbo].[JiraWorkloggerAccess] OUTER APPLY STRING_SPLIT([Managers]+','+(case when [Viewers] is null then '' else [Viewers] end), ',')) as Worklogger WHERE " + sql_where + " and Worklogger.value = [TEMP_NAME].[EmpID] COLLATE Chinese_PRC_CI_AS order by Worklogger.[ProjectKey]";
 
 			List<object> SQLParameterList = new List<object>()
 			{
