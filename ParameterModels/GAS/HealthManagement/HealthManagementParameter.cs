@@ -349,6 +349,14 @@ namespace SyntecITWebAPI.ParameterModels.GAS.HealthManagement
 		{
 			get; set;
 		}
+		public string HealthExaminationApplicationsDetailDietaryRequirement
+		{
+			get; set;
+		}
+		public string HealthExaminationApplicationsDetailMemo
+		{
+			get; set;
+		}
 
 	}
 	public class InsertHealthExaminationApplicationsDetail : HealthExaminationApplicationsDetailAllField
