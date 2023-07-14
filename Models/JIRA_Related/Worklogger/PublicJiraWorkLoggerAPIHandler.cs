@@ -52,7 +52,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 				sws.WriteLine( DateTime.Now.ToString( "G" ) + "：[JQL:" + JiraWorkLogParameter.JQL + "]\n" );
 				sws.Close();
 
-				HttpContent HContent = new StringContent( "{\"jql\": \"" + JiraWorkLogParameter.JQL + "\"}", Encoding.UTF8, "application/json" );
+				HttpContent HContent = new StringContent( "{\"jql\": \"" + JiraWorkLogParameter.JQL + "\",\"maxResults\": 50,\"startAt\": " + startAt.ToString() + "}", Encoding.UTF8, "application/json" );
 				string targetUrl = "https://jira.syntecclub.com/rest/api/2/search";
 				//Basic Authentication
 				client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue( "Basic", JiraWorkLogParameter.BasicAuth );
@@ -68,7 +68,7 @@ namespace SyntecITWebAPI.Models.JiraAPI_Related.WorkLogger
 					Allissuekey.Add( jobjectRI_pre[ "issues" ][ i ][ "key" ].ToString() + " " + jobjectRI_pre[ "issues" ][ i ][ "fields" ][ "summary" ].ToString() );
 				}
 
-				startAt += 49;
+				startAt += 50;
 			}
 
 			FileStream fse = new FileStream( "JiraAPI_Related_GetWorkLog_log.txt", System.IO.FileMode.Append, System.IO.FileAccess.Write );
