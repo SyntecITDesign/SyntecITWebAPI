@@ -383,6 +383,23 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			return bResult;
 		}
 
+		internal bool UpsertCRMPARA( SynService_CRMPARA SynService_CRMPARAParameter )
+		{
+			string sql = m_dbSQL.UpsertCRMPARA;
+			List<object> SQLParameterList = new List<object>()
+			{
+				SynService_CRMPARAParameter.crm_number,
+				SynService_CRMPARAParameter.serial_number,
+				SynService_CRMPARAParameter.axis_id,
+				SynService_CRMPARAParameter.axis_name,
+				SynService_CRMPARAParameter.detail_json,
+				SynService_CRMPARAParameter.cons_date,
+				SynService_CRMPARAParameter.modi_date
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
 		#endregion Internal Methods
 	}
 }

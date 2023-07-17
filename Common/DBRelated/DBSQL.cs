@@ -551,6 +551,15 @@ namespace SyntecITWebAPI.Common.DBRelated
 			}
 		}
 
+		public string UpsertCRMPARA
+		{
+			get {
+				return $@"
+						INSERT INTO [{m_crm}].[dbo].[SynService_Parameter] ([crm_number],[serial_number],[axis_id],[axis_name],[detail_json],[cons_date],[modi_date]) 
+						VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))";
+			}
+		}
+
 		#endregion Public Properties
 
 		#region Public Methods

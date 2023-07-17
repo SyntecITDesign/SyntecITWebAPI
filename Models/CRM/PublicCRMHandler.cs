@@ -193,6 +193,14 @@ namespace SyntecITWebAPI.Models
 			return bResult;
 		}
 
+		internal bool UpsertCRMPARA( SynService_CRMPARA SynService_CRMPARAParameter )
+		{
+
+			bool bResult = m_publicCRMDBManager.UpsertCRMPARA( SynService_CRMPARAParameter );
+
+			return bResult;
+		}
+
 		#endregion Internal Methods
 
 		#region Private Fields

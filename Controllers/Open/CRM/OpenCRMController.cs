@@ -520,6 +520,36 @@ namespace SyntecITWebAPI.Open.User
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "UpsertCRMParameter" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertCRMPARA( [FromBody] List<SynService_CRMPARA> SynService_CRMPARAParameterList )
+		{
+			string errorList = "";
+			foreach(var SynService_CRMPARAParameter in SynService_CRMPARAParameterList)
+			{
+				bool bResult = m_publicCRMHandler.UpsertCRMPARA( SynService_CRMPARAParameter );
+				if(!bResult)
+				{
+					//m_responseHandler.Code = ErrorCodeList.Param_Error;
+					errorList += SynService_CRMPARAParameter.serial_number + ",";
+				}
+			}
+
+			if(errorList != "")
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+				m_responseHandler.Content = errorList;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
+
 		#endregion Public Methods
 
 		#region Private Fields
