@@ -144,6 +144,9 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				GetAssetInfoParameter.AssetManagementStorage,
 				GetAssetInfoParameter.AssetManagementFirmName,
 				GetAssetInfoParameter.AssetManagementFirmTel,
+				GetAssetInfoParameter.AssetManagementSAPNo,
+				GetAssetInfoParameter.AssetManagementPRNo,
+				GetAssetInfoParameter.AssetManagementPONo,
 				GetAssetInfoParameter.AssetManagementFirmContactWindow,
 				GetAssetInfoParameter.AssetManagementWarranty,
 				GetAssetInfoParameter.AssetManagementStatus
