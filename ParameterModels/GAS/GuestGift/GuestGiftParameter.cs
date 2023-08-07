@@ -239,6 +239,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.GuestGift
 		{
 			get; set;
 		}
+		public bool GuestReceptionApplicationsMasterNeedFruit
+		{
+			get; set;
+		}
 		public int GuestReceptionApplicationsMasterVeggieLunch
 		{
 			get; set;

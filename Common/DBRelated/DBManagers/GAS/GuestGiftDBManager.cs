@@ -143,7 +143,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 
-			if( result == null || result.Rows.Count <= 0 )
+			if(result == null || result.Rows.Count <= 0)
 			{
 				return null;
 			}
@@ -266,12 +266,12 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 
 		internal bool InsertGuestReceptionApplicationsMaster( InsertGuestReceptionApplicationsMaster InsertGuestReceptionApplicationsMasterParameter )
 		{
-			string sql = $@"INSERT INTO [{m_gas}].[dbo].[GuestReceptionApplicationsMaster] ([FillerID] ,[FillerName] ,[ApplicationDate] ,[ApplicantID] ,[ApplicantName] ,[ApplicantDept] ,[ApplicantExt],[IntervieweeID],[IntervieweeDeptName],[Visitors],[VisitorsCompany],[VisitorsNum],[VisitStartDateTime],[VisitEndDateTime],[MeetingRoom],[NeedElectronicPoster],[NeedWater],[NeedCoffee],[NeedTea],[VeggieLunch],[MeatLunch],[ParkingCarName],[ParkingCarCounting],[NeedVideoPPT]
+			string sql = $@"INSERT INTO [{m_gas}].[dbo].[GuestReceptionApplicationsMaster] ([FillerID] ,[FillerName] ,[ApplicationDate] ,[ApplicantID] ,[ApplicantName] ,[ApplicantDept] ,[ApplicantExt],[IntervieweeID],[IntervieweeDeptName],[Visitors],[VisitorsCompany],[VisitorsNum],[VisitStartDateTime],[VisitEndDateTime],[MeetingRoom],[NeedElectronicPoster],[NeedWater],[NeedCoffee],[NeedTea],[NeedFruit],[VeggieLunch],[MeatLunch],[ParkingCarName],[ParkingCarCounting],[NeedVideoPPT]
       ,[NeedCatalog]
       ,[SouvenirType]
       ,[SouvenirNum]
       ,[Memo])
-						VALUES (@Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6, @Parameter7, @Parameter9, @Parameter10, @Parameter11, @Parameter12, @Parameter13, @Parameter14, @Parameter15, @Parameter16, @Parameter17, @Parameter18, @Parameter19, @Parameter20, @Parameter21, @Parameter22, @Parameter23, @Parameter24, @Parameter25, @Parameter26, @Parameter27, @Parameter28, @Parameter29)";
+						VALUES (@Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6, @Parameter7, @Parameter9, @Parameter10, @Parameter11, @Parameter12, @Parameter13, @Parameter14, @Parameter15, @Parameter16, @Parameter17, @Parameter18, @Parameter19, @Parameter20, @Parameter21, @Parameter22, @Parameter23, @Parameter24, @Parameter25, @Parameter26, @Parameter27, @Parameter28, @Parameter29, @Parameter30)";
 			List<object> SQLParameterList = new List<object>()
 			{
 				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterRequisitionID,
@@ -297,6 +297,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedWater,
 				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedCoffee,
 				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedTea,
+				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedFruit,
 
 				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVeggieLunch,
 				InsertGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterMeatLunch,
@@ -344,6 +345,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedWater,
 				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedCoffee,
 				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedTea,
+				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedFruit,
 				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVeggieLunch,
 				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterMeatLunch,
 				GetGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterParkingCarName,
@@ -399,6 +401,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedWater,
 				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedCoffee,
 				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedTea,
+				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterNeedFruit,
 
 				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterVeggieLunch,
 				UpdateGuestReceptionApplicationsMasterParameter.GuestReceptionApplicationsMasterMeatLunch,

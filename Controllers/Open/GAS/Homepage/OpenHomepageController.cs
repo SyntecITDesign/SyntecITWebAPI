@@ -73,6 +73,25 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.Homepage
 
 			return Ok(m_responseHandler.GetResult());
 		}
+		[Route( "GetHomepageAlertEvents_SZ" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult GetHomepageAlertEvents( [FromBody] GetHomepageAlertEvents_SZ GetHomepageAlertEventsParameter_SZ )
+		{
+
+			JArray result = m_publicHomepageHandler.GetHomepageAlertEvents_SZ( GetHomepageAlertEventsParameter_SZ );
+
+			if(result == null)
+			{
+				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
+			}
+			else
+			{
+				m_responseHandler.Content = result;
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
 		[Route("GetHomepageAlertEvents")]
 		[CheckTokenFilter]
 		[HttpPost]

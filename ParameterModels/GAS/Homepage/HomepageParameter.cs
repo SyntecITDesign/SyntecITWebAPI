@@ -29,6 +29,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.Homepage
 	{
 
     }
+	public class GetHomepageAlertEvents_SZ : HomepageAlertEventsAllField
+	{
+
+	}
 
 	public class HomepageFinishEventsAllField
 	{

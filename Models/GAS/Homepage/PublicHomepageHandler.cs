@@ -34,6 +34,19 @@ namespace SyntecITWebAPI.Models.GAS.Homepage
 
 			return bResult;
 		}
+		internal JArray GetHomepageAlertEvents_SZ( GetHomepageAlertEvents_SZ GetHomepageAlertEventsParameter_SZ )
+		{
+
+			DataTable dtResult = m_HomepageDBManager.GetHomepageAlertEvents_SZ( GetHomepageAlertEventsParameter_SZ );
+
+			if(dtResult == null || dtResult.Rows.Count <= 0)
+				return null;
+			else
+			{
+				JArray ja = JArray.FromObject( dtResult );
+				return ja;
+			}
+		}
 		internal JArray GetHomepageAlertEvents(GetHomepageAlertEvents GetHomepageAlertEventsParameter)
 		{
 

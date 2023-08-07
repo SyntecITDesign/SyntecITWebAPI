@@ -139,7 +139,7 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 
 			JArray result = m_publicGuestGiftHandler.GetGuestGiftQuantityInfo( GetGuestGiftQuantityInfoParameter );
 
-			if( result == null )
+			if(result == null)
 			{
 				m_responseHandler.Code = ErrorCodeList.Select_Problem_No_Data;
 			}
@@ -150,7 +150,6 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.GuestGift
 
 			return Ok( m_responseHandler.GetResult() );
 		}
-
 		[Route( "InsertGuestGiftOrder" )]
 		[CheckTokenFilter]
 		[HttpPost]

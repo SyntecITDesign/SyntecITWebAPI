@@ -7,6 +7,7 @@ using SyntecITWebAPI.Abstract;
 using SyntecITWebAPI.ParameterModels.GAS.Homepage;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using System.Windows.Shapes;
 
 namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 {
@@ -25,12 +26,39 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			m_bpm = configuration[ "bpm" ].Trim();
 			m_gas = configuration[ "gas" ].Trim();
 		}
+		internal DataTable GetHomepageAlertEvents_SZ( GetHomepageAlertEvents_SZ GetHomepageAlertEventsParameter_SZ )
+		{
+			string sql = $@"SELECT[HomepageAlertEvents].*
+						FROM[{m_gas}].[dbo].[HomepageAlertEvents], [{m_gas}].[dbo].[GuestReceptionApplicationsMaster]
+						where([HomepageAlertEvents].[ID] = 'GuestReception_' + CONVERT( varchar, [GuestReceptionApplicationsMaster].[RequisitionID] ))
+						AND ([GuestReceptionApplicationsMaster].[MeetingRoom] LIKE 'B%'
+						or [GuestReceptionApplicationsMaster].[MeetingRoom] LIKE 'C%')";
 
+			List<object> SQLParameterList = new List<object>()
+			{
+				GetHomepageAlertEventsParameter_SZ.HomepageAlertEventsNo,
+				GetHomepageAlertEventsParameter_SZ.HomepageAlertEventsTitle,
+				GetHomepageAlertEventsParameter_SZ.HomepageAlertEventsStartDate,
+				GetHomepageAlertEventsParameter_SZ.HomepageAlertEventsID,
+				GetHomepageAlertEventsParameter_SZ.HomepageAlertEventsAlertUrl
+			};
+			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			if(result == null || result.Rows.Count <= 0)
+			{
+				return null;
+			}
+			else
+			{
+				return result;
+			}
+		}
 		internal DataTable GetHomepageAlertEvents( GetHomepageAlertEvents GetHomepageAlertEventsParameter )
 		{
-			string sql = $@"SELECT *
-						FROM [{m_gas}].[dbo].[HomepageAlertEvents]
-						ORDER BY [ID]";
+			string sql = $@"SELECT[HomepageAlertEvents].*
+						FROM[{m_gas}].[dbo].[HomepageAlertEvents], [{m_gas}].[dbo].[GuestReceptionApplicationsMaster]
+						where([HomepageAlertEvents].[ID] = 'GuestReception_' + CONVERT( varchar, [GuestReceptionApplicationsMaster].[RequisitionID] ))
+						AND NOT([GuestReceptionApplicationsMaster].[MeetingRoom] LIKE 'B%'
+						or [GuestReceptionApplicationsMaster].[MeetingRoom] LIKE 'C%')";
 
 			List<object> SQLParameterList = new List<object>()
 			{

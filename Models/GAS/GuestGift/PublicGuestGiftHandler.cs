@@ -67,7 +67,7 @@ namespace SyntecITWebAPI.Models.GAS.GuestGift
 
 			DataTable dtResult = m_CleanGuestGiftDBManager.GetGuestGiftQuantityInfo( GetGuestGiftQuantityInfoParameter );
 
-			if( dtResult == null || dtResult.Rows.Count <= 0 )
+			if(dtResult == null || dtResult.Rows.Count <= 0)
 				return null;
 			else
 			{
