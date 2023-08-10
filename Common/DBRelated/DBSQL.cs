@@ -334,7 +334,7 @@ namespace SyntecITWebAPI.Common.DBRelated
 				return $@"IF EXISTS (SELECT * FROM [{m_crm}].[dbo].SynService_Alarm WHERE serial_number=@Parameter0 and [time] = @Parameter1 
 							and [alarm_id]=@Parameter2 and [alarm_info]=@Parameter3)
 							UPDATE [{m_crm}].[dbo].SynService_Alarm SET [duration]=@Parameter4, [modi_date]=DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() ))  
-							WHERE serial_number=@Parameter0 and [time] = @Parameter1 and [alarm_id]=@Parameter2 and [alarm_info]=@Parameter3
+							WHERE serial_number=@Parameter0 and [time] = @Parameter1 and [alarm_id]=@Parameter2 and [alarm_info]=@Parameter3 and [cons_date]> DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -2168, GETDATE()))
 						ELSE
 						INSERT INTO [{m_crm}].[dbo].SynService_Alarm ([serial_number],[time],[alarm_id],[alarm_info],[duration],[cons_date],[modi_date]) 
 						VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))  ";
@@ -425,7 +425,7 @@ namespace SyntecITWebAPI.Common.DBRelated
 			{
 				return $@"IF EXISTS (SELECT * FROM [{m_crm}].[dbo].SynService_alarm_history WHERE serial_number=@Parameter0 and start_time = @Parameter1 and [alarm_id]=@Parameter3 and [alarm_info]=@Parameter4 )
 							UPDATE [{m_crm}].[dbo].SynService_alarm_history SET end_time = @Parameter2,[alarm_trigger]=@Parameter5, [modi_date]=DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() ))
-							WHERE serial_number=@Parameter0 and start_time = @Parameter1 and [alarm_id]=@Parameter3 and [alarm_info]=@Parameter4
+							WHERE serial_number=@Parameter0 and start_time = @Parameter1 and [alarm_id]=@Parameter3 and [alarm_info]=@Parameter4 and [cons_date]> DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -2168, GETDATE()))
 						ELSE
 						INSERT INTO [{m_crm}].[dbo].SynService_alarm_history ([serial_number],[start_time],[end_time],[alarm_id],[alarm_info],[alarm_trigger],[cons_date],[modi_date]) 
 						VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))  ";
