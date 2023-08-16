@@ -480,7 +480,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"SELECT [EmpID],[EmpName],[EmpDept],[ExtensionNum],[ManageRight],[MotorLicense],[MotorLicense_Syntec],[CarLicense],[CarLicense_Syntec],[Sex]
 						  FROM [{m_gas}].[dbo].[GAS_GAInfoMaster]
-						  WHERE [MotorLicense] like @Parameter0 or [CarLicense] like @Parameter0 or [MotorLicense_Syntec] like @Parameter0 or [CarLicense_Syntec] like @Parameter0
+						  WHERE (([MotorLicense] like @Parameter0 and not [MotorLicense] like '%離職') or ([CarLicense] like @Parameter0 and not [CarLicense] like '%離職') or [MotorLicense_Syntec] like @Parameter0 or [CarLicense_Syntec] like @Parameter0) and not ([EmpID]='') and ([EmpDept] is not NULL)
 						  group by [EmpID],[EmpName],[EmpDept],[ExtensionNum],[ManageRight],[MotorLicense],[MotorLicense_Syntec],[CarLicense],[CarLicense_Syntec],[Sex]";
 
 			List<object> SQLParameterList = new List<object>()

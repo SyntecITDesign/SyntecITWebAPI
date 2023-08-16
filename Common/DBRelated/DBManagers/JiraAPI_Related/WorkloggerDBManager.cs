@@ -126,7 +126,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 			string sql = $@"IF EXISTS (SELECT * FROM [{m_JiraWorkLogger}].[dbo].[JiraProjectTags] WHERE [No]=@Parameter0)
 								UPDATE [{m_JiraWorkLogger}].[dbo].[JiraProjectTags] SET [TagGroup]=@Parameter3, [TagName]=@Parameter1 WHERE [No]=@Parameter0
 							ELSE
-								INSERT INTO [{m_JiraWorkLogger}].[dbo].[JiraProjectTags]([TagName],[ProjectKey],[TagGroup]) VALUES (@Parameter1,@Parameter2,@Parameter3)";
+								IF NOT EXISTS (SELECT * FROM [{m_JiraWorkLogger}].[dbo].[JiraProjectTags] WHERE [TagName] = @Parameter1 and [ProjectKey] = @Parameter2)
+									INSERT INTO [{m_JiraWorkLogger}].[dbo].[JiraProjectTags]([TagName],[ProjectKey],[TagGroup]) VALUES (@Parameter1,@Parameter2,@Parameter3)";
 
 			List<object> SQLParameterList = new List<object>()
 			{
