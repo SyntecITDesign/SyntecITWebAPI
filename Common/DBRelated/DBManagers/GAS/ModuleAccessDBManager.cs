@@ -26,7 +26,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		internal DataTable GetModuleAccess( GetModuleAccess GetModuleAccessParameter )
 		{
 			string sql = $@"SELECT *
-						FROM [{m_gas}].[dbo].[ModuleAccess]";
+						FROM [{m_gas}].[dbo].[ModuleAccess] ORDER BY [secondGroup] ASC";
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetModuleAccessParameter.ModuleAccessModule,
