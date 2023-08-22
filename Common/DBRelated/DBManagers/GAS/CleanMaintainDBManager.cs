@@ -487,7 +487,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal DataTable GetCleanStaffInfo( GetCleanStaffInfo GetCleanStaffInfoParameter )
 		{
 			string sql = $@"SELECT*
-									FROM(SELECT [CleanStaffInfo].[ID],[CleanStaffInfo].[Name],[CleanStaffInfo].[Tel],[CleanStaffInfo].[Cell],[CleanStaffInfo].[Address],FirmInfo.[Firm],[CleanStaffInfo].[Firm] as 'FirmNo',FirmInfo.[Type],[CleanStaffInfo].[Type] as 'TypeNo',FirmInfo.[TypeColor],[CleanStaffInfo].[BirthDate]
+									FROM(SELECT [CleanStaffInfo].[ID],[CleanStaffInfo].[AccessNumber],[CleanStaffInfo].[Name],[CleanStaffInfo].[Tel],[CleanStaffInfo].[Cell],[CleanStaffInfo].[Address],FirmInfo.[Firm],[CleanStaffInfo].[Firm] as 'FirmNo',FirmInfo.[Type],[CleanStaffInfo].[Type] as 'TypeNo',FirmInfo.[TypeColor],[CleanStaffInfo].[BirthDate]
 									FROM [{m_gas}].[dbo].[CleanStaffInfo]
 									INNER JOIN (SELECT TypeInfo.[StaffID],TypeInfo.[Type],[CleanFirmInfo].[Firm],TypeInfo.[TypeColor]
 														FROM[{m_gas}].[dbo].[CleanFirmInfo]
@@ -564,7 +564,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 		internal bool UpdateCleanStaffInfo( UpdateCleanStaffInfo UpdateCleanStaffInfoParameter )
 		{
 			string sql = $@"UPDATE [{m_gas}].[dbo].[CleanStaffInfo]
-							set [Name]=@Parameter1,[Tel]=@Parameter2,[Cell]=@Parameter3,[Address]=@Parameter4,[Firm]=@Parameter5,[Type]=@Parameter6,[BirthDate]=@Parameter7
+							set [Name]=@Parameter1,[Tel]=@Parameter2,[Cell]=@Parameter3,[Address]=@Parameter4,[Firm]=@Parameter5,[Type]=@Parameter6,[BirthDate]=@Parameter7,[AccessNumber]=@Parameter8
 							where [ID]=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -575,7 +575,8 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 				UpdateCleanStaffInfoParameter.CleanStaffInfoAddress,
 				UpdateCleanStaffInfoParameter.CleanStaffInfoFirm,
 				UpdateCleanStaffInfoParameter.CleanStaffInfoType,
-				UpdateCleanStaffInfoParameter.CleanStaffInfoBirthDate
+				UpdateCleanStaffInfoParameter.CleanStaffInfoBirthDate,
+				UpdateCleanStaffInfoParameter.CleanStaffInfoAccessNumber
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 			return bResult;

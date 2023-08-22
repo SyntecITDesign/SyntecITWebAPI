@@ -1,0 +1,8 @@
+{
+  "dataSource": "rds63ulurnras8alwosqnpublic.sqlserver.rds.aliyuncs.com,3433",
+  "dataSource_bpm": "rds_ex_bpm.syntecclub.com,1433",
+  "initialCatalog": "syntecbarcode",
+  "initialCatalog_bpm": "BPMPro",
+  "userID": "sa_sys",
+  "userPassword": "S0larRdS"
+}
