@@ -400,6 +400,25 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 			return bResult;
 		}
 
+		internal bool UpsertFunctionLog( SynService_FunctionLog SynService_FunctionLogParameter )
+		{
+			string sql = m_dbSQL.UpsertFunctionLog;
+			List<object> SQLParameterList = new List<object>()
+			{
+				SynService_FunctionLogParameter.crm_number,
+				SynService_FunctionLogParameter.serial_number,
+				SynService_FunctionLogParameter.function_no,
+				SynService_FunctionLogParameter.usage_count,
+				SynService_FunctionLogParameter.final_setting,
+				SynService_FunctionLogParameter.final_setting_time,
+				SynService_FunctionLogParameter.setting_logs,
+				SynService_FunctionLogParameter.cons_date,
+				SynService_FunctionLogParameter.modi_date
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
+
 		#endregion Internal Methods
 	}
 }

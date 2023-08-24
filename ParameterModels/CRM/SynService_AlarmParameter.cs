@@ -924,6 +924,60 @@ namespace SyntecITWebAPI.ParameterModels.CRM
 
 	}
 
+	public class SynService_FunctionLog
+	{
+		#region Public Properties
+
+		public string crm_number
+		{
+			get; set;
+		}
+
+		public string serial_number
+		{
+			get; set;
+		}
+
+		public int function_no
+		{
+			get; set;
+		}
+
+		public int usage_count
+		{
+			get; set;
+		}
+
+		public string final_setting
+		{
+			get; set;
+		}
+
+		public string final_setting_time
+		{
+			get; set;
+		}
+
+		public string setting_logs
+		{
+			get; set;
+		}
+
+		public long cons_date
+		{
+			get; set;
+		}
+
+		public long modi_date
+		{
+			get; set;
+		}
+
+
+		#endregion Public Properties
+
+	}
+
 	public class Fields
 	{
 		public string customfield_13340
