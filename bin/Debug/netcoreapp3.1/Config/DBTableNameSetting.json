@@ -1,0 +1,13 @@
+{
+  "option": "syntecoption",
+  "barcode": "syntecbarcode",
+  "cloud": "synteccloud",
+  "jirareport": "jirareport",
+  "crm": "synteccrm",
+  "gas": "SyntecGAS_test",
+  "syntecbbs": "SyntecBBS",
+  "bpm": "BPMPro",
+  "dwh": "dwh",
+  "MessageNotice": "MessageNotice",
+  "WorkLogger": "WorkLogger"
+}

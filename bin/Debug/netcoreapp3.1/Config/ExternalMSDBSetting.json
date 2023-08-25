@@ -1,0 +1,6 @@
+{
+  "dataSource": "rds63ulurnras8alwosqnpublic.sqlserver.rds.aliyuncs.com,3433",
+  "initialCatalog": "syntecbarcode",
+  "userID": "sa_sys",
+  "userPassword": "S0larRdS"
+}
