@@ -1,5 +1,5 @@
 {
-  "dataSource": "rm-bp1oo0b1btai11by5.sqlserver.rds.aliyuncs.com,3433",
+  "dataSource": "syntecjira-in.sqlserver.rds.aliyuncs.com,3433",
   "initialCatalog": "WorkLogger",
   "userID": "worklog_API",
   "userPassword": "SynteC@89660813"

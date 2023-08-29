@@ -1,0 +1,8 @@
+﻿2023/8/28 下午 03:04:30：[JQL:(reporter = 10190441 or assignee = 10190441 or creator  = 10190441 or watcher = 10190441) AND type = 非議題 AND status != Closed order by created DESC]
+
+2023/8/28 下午 03:04:31：[Allissuekey:System.Collections.Generic.List`1[System.String]]
+
+2023/8/28 下午 04:07:33：[JQL:(reporter = 10190441 or assignee = 10190441 or creator  = 10190441 or watcher = 10190441) AND type = 管理議題 AND status != Closed order by created DESC]
+
+2023/8/28 下午 04:07:33：[Allissuekey:System.Collections.Generic.List`1[System.String]]
+
