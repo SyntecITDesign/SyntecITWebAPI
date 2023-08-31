@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "fYl+kfSrJnXpqmxDb1HYXVMtyyhsUG+SjgaF3zCGWBw=",
+  "Source": "SyntecITAPI",
+  "BasePath": "_content/SyntecITAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
