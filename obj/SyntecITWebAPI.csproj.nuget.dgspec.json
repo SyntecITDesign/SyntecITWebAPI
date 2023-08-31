@@ -1,38 +1,37 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Syntec\\gas_api\\iICT-14169_ParkingLicenceUpgrade\\SyntecITWebAPI.csproj": {}
+    "C:\\Users\\10190441\\Documents\\SyntecGAS\\iICT-14169_ParkingLicenceUpgrade\\SyntecITWebAPI.csproj": {}
   },
   "projects": {
-    "C:\\Syntec\\gas_api\\iICT-14169_ParkingLicenceUpgrade\\SyntecITWebAPI.csproj": {
+    "C:\\Users\\10190441\\Documents\\SyntecGAS\\iICT-14169_ParkingLicenceUpgrade\\SyntecITWebAPI.csproj": {
       "version": "1.5.0-alpha",
       "restore": {
-        "projectUniqueName": "C:\\Syntec\\gas_api\\iICT-14169_ParkingLicenceUpgrade\\SyntecITWebAPI.csproj",
+        "projectUniqueName": "C:\\Users\\10190441\\Documents\\SyntecGAS\\iICT-14169_ParkingLicenceUpgrade\\SyntecITWebAPI.csproj",
         "projectName": "SyntecITAPI",
-        "projectPath": "C:\\Syntec\\gas_api\\iICT-14169_ParkingLicenceUpgrade\\SyntecITWebAPI.csproj",
-        "packagesPath": "C:\\Users\\10190500\\.nuget\\packages\\",
-        "outputPath": "C:\\Syntec\\gas_api\\iICT-14169_ParkingLicenceUpgrade\\obj\\",
+        "projectPath": "C:\\Users\\10190441\\Documents\\SyntecGAS\\iICT-14169_ParkingLicenceUpgrade\\SyntecITWebAPI.csproj",
+        "packagesPath": "C:\\Users\\10190441\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\10190441\\Documents\\SyntecGAS\\iICT-14169_ParkingLicenceUpgrade\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\10190500\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\10190441\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "net6.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "\\\\10.10.1.249\\ITRel\\IT_NuGet_Repo": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -40,11 +39,14 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "default"
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
             "Aliyun.OSS.SDK.NetCore": {
               "target": "Package",
@@ -117,7 +119,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-preview.6.23330.14\\RuntimeIdentifierGraph.json"
         }
       }
     }

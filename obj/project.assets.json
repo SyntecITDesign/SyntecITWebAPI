@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {
+    "net6.0": {
       "Aliyun.OSS.SDK.NetCore/2.13.0": {
         "type": "package",
         "compile": {
@@ -3947,7 +3947,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": [
+    "net6.0": [
       "Aliyun.OSS.SDK.NetCore >= 2.13.0",
       "AutoMapper >= 10.1.1",
       "JWT >= 8.1.3",
@@ -3963,38 +3963,37 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\10190500\\.nuget\\packages\\": {},
+    "C:\\Users\\10190441\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.5.0-alpha",
     "restore": {
-      "projectUniqueName": "C:\\Syntec\\gas_api\\iICT-14169_ParkingLicenceUpgrade\\SyntecITWebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\10190441\\Documents\\SyntecGAS\\iICT-14169_ParkingLicenceUpgrade\\SyntecITWebAPI.csproj",
       "projectName": "SyntecITAPI",
-      "projectPath": "C:\\Syntec\\gas_api\\iICT-14169_ParkingLicenceUpgrade\\SyntecITWebAPI.csproj",
-      "packagesPath": "C:\\Users\\10190500\\.nuget\\packages\\",
-      "outputPath": "C:\\Syntec\\gas_api\\iICT-14169_ParkingLicenceUpgrade\\obj\\",
+      "projectPath": "C:\\Users\\10190441\\Documents\\SyntecGAS\\iICT-14169_ParkingLicenceUpgrade\\SyntecITWebAPI.csproj",
+      "packagesPath": "C:\\Users\\10190441\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\10190441\\Documents\\SyntecGAS\\iICT-14169_ParkingLicenceUpgrade\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\10190500\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\10190441\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "netcoreapp3.1"
+        "net6.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "\\\\10.10.1.249\\ITRel\\IT_NuGet_Repo": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "projectReferences": {}
         }
       },
@@ -4002,11 +4001,14 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "default"
       }
     },
     "frameworks": {
-      "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
+      "net6.0": {
+        "targetAlias": "net6.0",
         "dependencies": {
           "Aliyun.OSS.SDK.NetCore": {
             "target": "Package",
@@ -4079,8 +4081,30 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-preview.6.23330.14\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "套件 'Newtonsoft.Json' 12.0.3 具有已知的 中度 嚴重性弱點，https://github.com/advisories/GHSA-5crp-9r3c-p9vr。",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1901",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "套件 'System.Data.SqlClient' 4.8.2 具有已知的 低 嚴重性弱點，https://github.com/advisories/GHSA-8g2p-5pqh-5jmc。",
+      "libraryId": "System.Data.SqlClient",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }
