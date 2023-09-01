@@ -305,6 +305,10 @@ namespace SyntecITWebAPI.ParameterModels.GAS.CleanMaintain
 		{
 			get; set;
 		}
+		public string CleanStaffInfoAccessNumber
+		{
+			get; set;
+		}
 	}
 	public class InsertCleanStaffInfo : CleanStaffInfoAllField
 	{

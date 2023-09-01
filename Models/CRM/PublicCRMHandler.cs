@@ -201,6 +201,14 @@ namespace SyntecITWebAPI.Models
 			return bResult;
 		}
 
+		internal bool UpsertFunctionLog( SynService_FunctionLog SynService_FunctionLogParameter )
+		{
+
+			bool bResult = m_publicCRMDBManager.UpsertFunctionLog( SynService_FunctionLogParameter );
+
+			return bResult;
+		}
+
 		#endregion Internal Methods
 
 		#region Private Fields

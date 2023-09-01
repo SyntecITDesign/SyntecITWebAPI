@@ -560,6 +560,14 @@ namespace SyntecITWebAPI.Common.DBRelated
 			}
 		}
 
+		public string UpsertFunctionLog
+		{
+			get {
+				return $@"INSERT INTO [{m_crm}].[dbo].SynService_FunctionLog ([crm_number],[serial_number],[function_no],[usage_count],[final_setting],[final_setting_time],[setting_logs],[cons_date],[modi_date]) 
+						VALUES (@Parameter0, @Parameter1, @Parameter2, @Parameter3, @Parameter4, @Parameter5, @Parameter6,DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )), DATEDIFF_BIG(ms, '1970-01-01 00:00:00', DATEADD(HOUR, -8, GETDATE() )))  ";
+			}
+		}
+
 		#endregion Public Properties
 
 		#region Public Methods

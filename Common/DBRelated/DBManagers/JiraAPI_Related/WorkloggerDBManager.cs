@@ -78,7 +78,6 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 			}
 		}
 
-
 		internal bool InsertWorkLogs( InsertWorkLogs InsertWorkLogsParameter )
 		{
 			string sql = $@"INSERT INTO [{m_JiraWorkLogger}].[dbo].[JiraWorkLogs]([EmpID],[IssueID],[WorkLogID],[TimeSpentSeconds],[Created],[Started],[Type],[Tags],[Comment]) VALUES (@Parameter0,@Parameter1,@Parameter2,@Parameter3,@Parameter4,@Parameter5,@Parameter6,@Parameter7,@Parameter8)";
@@ -199,11 +198,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 			string sql = "";
 			if( GetJiraWorkLoggerAccessParameter.Managers != null )
 			{
-				sql = $@"ALTER DATABASE [syntecbarcode] SET COMPATIBILITY_LEVEL = 130; SELECT [EmpID],[EmpName],Worklogger.[SuperDeptName],[ProjectKey],[Managers],[No],(case when [Viewers] is null then '' else [Viewers] end) as 'Viewers' FROM [{m_barcode}].[dbo].[TEMP_NAME],(SELECT [ProjectKey],[SuperDeptName],[Managers],[Viewers],value,[No] FROM [rm-bp1oo0b1btai11by5.sqlserver.rds.aliyuncs.com,3433].[{m_JiraWorkLogger}].[dbo].[JiraWorkloggerAccess] OUTER APPLY STRING_SPLIT([Managers]+','+(case when [Viewers] is null then '' else [Viewers] end), ',')) as Worklogger WHERE Worklogger.[Managers] like @Parameter3 and Worklogger.value = [TEMP_NAME].[EmpID] COLLATE Chinese_PRC_CI_AS order by Worklogger.[ProjectKey]";
+				sql = $@"SELECT [EmpID],[EmpName],Worklogger.[SuperDeptName],[ProjectKey],[Managers],[No],(case when [Viewers] is null then '' else [Viewers] end) as 'Viewers' FROM TQM.[{m_barcode}].[dbo].[TEMP_NAME],(SELECT [ProjectKey],[SuperDeptName],[Managers],[Viewers],value,[No] FROM [{m_JiraWorkLogger}].[dbo].[JiraWorkloggerAccess] OUTER APPLY STRING_SPLIT([Managers]+','+(case when [Viewers] is null then '' else [Viewers] end), ',')) as Worklogger WHERE Worklogger.[Managers] like @Parameter3 and Worklogger.value = [TEMP_NAME].[EmpID] COLLATE Chinese_PRC_CI_AS order by Worklogger.[ProjectKey]";
 			}
 			else
 			{
-				sql = $@"SELECT [ProjectKey], (case when [Viewers] like @Parameter4 OR [Managers] like @Parameter4 then 1 else 0 end) as 'IsViewer' FROM [rm-bp1oo0b1btai11by5.sqlserver.rds.aliyuncs.com,3433].[{m_JiraWorkLogger}].[dbo].[JiraWorkloggerAccess]";
+				sql = $@"SELECT [ProjectKey], (case when [Viewers] like @Parameter4 OR [Managers] like @Parameter4 then 1 else 0 end) as 'IsViewer' FROM [{m_JiraWorkLogger}].[dbo].[JiraWorkloggerAccess]";
 			}
 
 			List<object> SQLParameterList = new List<object>()
@@ -214,7 +213,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 				GetJiraWorkLoggerAccessParameter.Managers,
 				GetJiraWorkLoggerAccessParameter.Viewers
 			};
-			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			DataTable result = m_JiraWorkLoggerdbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 
 			if( result == null || result.Rows.Count <= 0 )
 			{
@@ -228,7 +227,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 
 		internal DataTable GetSuperDeptOfWorkLogs( GetSuperDeptOfWorkLogs GetSuperDeptOfWorkLogsParameter )
 		{
-			string sql = $@"SELECT [SuperDeptName] FROM [rm-bp1oo0b1btai11by5.sqlserver.rds.aliyuncs.com,3433].[{m_JiraWorkLogger}].[dbo].[JiraWorkLogs] INNER JOIN (SELECT [EmpID],[SuperDeptName] FROM [{m_barcode}].[dbo].[TEMP_NAME]) AS TEMP_NAME ON TEMP_NAME.[EmpID] COLLATE Chinese_PRC_CI_AS  = [JiraWorkLogs].[EmpID] WHERE SUBSTRING([IssueID],1,CHARINDEX('-',[IssueID])-1) in ('" + GetSuperDeptOfWorkLogsParameter.projectKey + "') GROUP BY [SuperDeptName]";
+			string sql = $@"SELECT [SuperDeptName] FROM [{m_JiraWorkLogger}].[dbo].[JiraWorkLogs] INNER JOIN ( SELECT [EmpID],[SuperDeptName] FROM TQM.[{m_barcode}].[dbo].[TEMP_NAME]) AS TEMP_NAME ON TEMP_NAME.[EmpID] COLLATE Chinese_PRC_CI_AS  = [JiraWorkLogs].[EmpID] WHERE SUBSTRING([IssueID],1,CHARINDEX('-',[IssueID])-1) in ('" + GetSuperDeptOfWorkLogsParameter.projectKey + "') GROUP BY [SuperDeptName]";
 
 			List<object> SQLParameterList = new List<object>()
 			{
@@ -238,7 +237,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.JIRA_Related
 				GetSuperDeptOfWorkLogsParameter.Managers,
 				GetSuperDeptOfWorkLogsParameter.Viewers
 			};
-			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
+			DataTable result = m_JiraWorkLoggerdbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 
 			if( result == null || result.Rows.Count <= 0 )
 			{

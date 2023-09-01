@@ -549,6 +549,35 @@ namespace SyntecITWebAPI.Open.User
 			return Ok( m_responseHandler.GetResult() );
 		}
 
+		[Route( "UpsertFunctionLog" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult UpsertFunctionLog( [FromBody] List<SynService_FunctionLog> SynService_FunctionLogParameterList )
+		{
+			string errorList = "";
+			foreach(var SynService_FunctionLogParameter in SynService_FunctionLogParameterList)
+			{
+				bool bResult = m_publicCRMHandler.UpsertFunctionLog( SynService_FunctionLogParameter );
+				if(!bResult)
+				{
+					//m_responseHandler.Code = ErrorCodeList.Param_Error;
+					errorList += SynService_FunctionLogParameter.serial_number + ",";
+				}
+			}
+
+			if(errorList != "")
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+				m_responseHandler.Content = errorList;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 
 		#endregion Public Methods
 
