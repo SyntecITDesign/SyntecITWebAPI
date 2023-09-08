@@ -616,6 +616,27 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.HealthManagement
 
 			return Ok( m_responseHandler.GetResult() );
 		}
+
+		[Route( "ClosureHealthExamination" )]
+		[CheckTokenFilter]
+		[HttpPost]
+		public IActionResult ClosureHealthExamination( [FromBody] GetHealthExaminationEmpInfo ClosureHealthExaminationParameter )
+		{
+
+			bool bResult = m_publicHealthManagementHandler.ClosureHealthExamination();
+
+			if(!bResult)
+			{
+				m_responseHandler.Code = ErrorCodeList.Param_Error;
+			}
+			else
+			{
+				m_responseHandler.Content = "true";
+			}
+
+			return Ok( m_responseHandler.GetResult() );
+		}
+
 		#endregion Public Methods
 
 		#region Private Fields

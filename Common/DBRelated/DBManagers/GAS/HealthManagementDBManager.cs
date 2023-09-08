@@ -916,7 +916,16 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers.GAS
 			}
 		}
 
+		internal bool ClosureHealthExamination()
+		{
 
+			string sql = $@"UPDATE [{m_gas}].[dbo].[HealthExaminationEmpInfo] SET [LastBalance] = [Balance],[Balance] = [Balance]-Applications.SyntecPayTotal FROM [{m_gas}].[dbo].[HealthExaminationEmpInfo], (SELECT Master.RequisitionID,Detail.SyntecPayTotal,Detail.ApplicantID FROM [{m_gas}].[dbo].[HealthExaminationApplicationsMaster] as Master,(SELECT [RequisitionID],[ApplicantID],sum(CONVERT(int,[SyntecPay])) as SyntecPayTotal FROM [{m_gas}].[dbo].[HealthExaminationApplicationsDetail] group by [RequisitionID],[ApplicantID]) as Detail where Master.RequisitionID = Detail.RequisitionID and IsClosed = 0) as Applications where [HealthExaminationEmpInfo].EmpID = Applications.ApplicantID;UPDATE [{m_gas}].[dbo].[HealthExaminationEmpInfo] SET [IsZeroingYear] = null, [Balance] = 0, [ZeroingYear] = DATEPART(YYYY,getdate())+3 where [ZeroingYear] = DATEPART(YYYY,getdate()); UPDATE [{m_gas}].[dbo].[HealthExaminationApplicationsMaster] SET [IsClosed] = 1 WHERE [IsClosed]=0";
+			List<object> SQLParameterList = new List<object>()
+			{
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+			return bResult;
+		}
 
 
 	}

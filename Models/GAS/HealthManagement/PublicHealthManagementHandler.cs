@@ -239,6 +239,14 @@ namespace SyntecITWebAPI.Models.GAS.HealthManagement
 				return ja;
 			}
 		}
+		internal bool ClosureHealthExamination()
+		{
+			bool bResult = m_HealthManagementDBManager.ClosureHealthExamination();
+			return bResult;
+		}
+		
+
+
 		#endregion Internal Methods
 
 		#region Private Fields
