@@ -452,7 +452,6 @@ ORDER BY UniformInfo.[No],case
 						ORDER BY [RequisitionID] desc";
 			List<object> SQLParameterList = new List<object>()
 			{
-
 				GetUniformApplicationsMasterParameter.UniformApplicationsMasterRequisitionID,
 				GetUniformApplicationsMasterParameter.UniformApplicationsMasterFillerID,
 				GetUniformApplicationsMasterParameter.UniformApplicationsMasterFillerName,
@@ -470,8 +469,6 @@ ORDER BY UniformInfo.[No],case
 				GetUniformApplicationsMasterParameter.UniformApplicationsMasterFinished
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
-			//bool bresult = m_dbproxy.ChangeDataCMD(sql, SQLParameterList.ToArray());
-			//return bresult;
 
 			if( result == null || result.Rows.Count <= 0 )
 			{
@@ -536,6 +533,32 @@ ORDER BY UniformInfo.[No],case
 			}
 		}
 
+
+		internal bool BatchUpdateUniformApplications()
+		{
+			string sql = $@"UPDATE [{m_gas}].[dbo].[UniformQuantityInfo]
+SET [Quantity] = [Quantity]-totalApplyQuantity
+FROM [{m_gas}].[dbo].[UniformQuantityInfo],(SELECT [No],[ClothesType],sum([UniformApplicationsMaster].[ApplyQuantity]) AS totalApplyQuantity,[Size]
+													  FROM [{m_gas}].[dbo].[UniformApplicationsMaster],[{m_gas}].[dbo].[UniformStyleInfo]
+													  WHERE [Finished] = 0 and [ApplyType]='Periodic' and [UniformApplicationsMaster].[ClothesType]=[UniformStyleInfo].[Style]
+													  GROUP BY [ClothesType],[Size],[No]) as UniformApplicationsInfo
+WHERE [UniformQuantityInfo].Style = UniformApplicationsInfo.No and  [UniformQuantityInfo].Size = UniformApplicationsInfo.Size";
+			List<object> SQLParameterList = new List<object>()
+			{
+				
+			};
+			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+
+			if(bResult)
+			{
+				sql = $@"UPDATE [{m_gas}].[dbo].[UniformApplicationsMaster] SET [Finished] = 1,[FinishedDateTime] = getDate() WHERE [Finished] = 0 and [ApplyType] = 'Periodic';";
+				 
+				bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
+				
+			}
+
+			return bResult;
+		}
 	}
 	#endregion Internal Methods
 }

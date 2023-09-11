@@ -226,6 +226,14 @@ namespace SyntecITWebAPI.Models.GAS.ApplyUniform
 			}
 		}
 
+		internal bool BatchUpdateUniformApplications()
+		{
+
+			bool bResult = m_ApplyUniformDBManager.BatchUpdateUniformApplications();
+
+			return bResult;
+		}
+
 		#endregion Internal Methods
 
 		#region Private Fields
