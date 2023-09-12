@@ -534,7 +534,7 @@ ORDER BY UniformInfo.[No],case
 		}
 
 
-		internal bool BatchUpdateUniformApplications()
+		internal bool BatchUpdateUniformApplications( BatchUpdateUniformApplications BatchUpdateUniformApplicationsParameter )
 		{
 			string sql = $@"UPDATE [{m_gas}].[dbo].[UniformQuantityInfo]
 SET [Quantity] = [Quantity]-totalApplyQuantity
@@ -542,16 +542,17 @@ FROM [{m_gas}].[dbo].[UniformQuantityInfo],(SELECT [No],[ClothesType],sum([Unifo
 													  FROM [{m_gas}].[dbo].[UniformApplicationsMaster],[{m_gas}].[dbo].[UniformStyleInfo]
 													  WHERE [Finished] = 0 and [ApplyType]='Periodic' and [UniformApplicationsMaster].[ClothesType]=[UniformStyleInfo].[Style]
 													  GROUP BY [ClothesType],[Size],[No]) as UniformApplicationsInfo
-WHERE [UniformQuantityInfo].Style = UniformApplicationsInfo.No and  [UniformQuantityInfo].Size = UniformApplicationsInfo.Size";
+WHERE [UniformQuantityInfo].Style = UniformApplicationsInfo.No and  [UniformQuantityInfo].Size = UniformApplicationsInfo.Size and No=@Parameter0";
 			List<object> SQLParameterList = new List<object>()
 			{
-				
+				BatchUpdateUniformApplicationsParameter.UniformStyleNo,
+				BatchUpdateUniformApplicationsParameter.UniformStyleName
 			};
 			bool bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 
 			if(bResult)
 			{
-				sql = $@"UPDATE [{m_gas}].[dbo].[UniformApplicationsMaster] SET [Finished] = 1,[FinishedDateTime] = getDate() WHERE [Finished] = 0 and [ApplyType] = 'Periodic';";
+				sql = $@"UPDATE [{m_gas}].[dbo].[UniformApplicationsMaster] SET [Finished] = 1,[FinishedDateTime] = getDate() WHERE [Finished] = 0 and [ApplyType] = 'Periodic' and [ClothesType]=@Parameter1;";
 				 
 				bResult = m_dbproxy.ChangeDataCMD( sql, SQLParameterList.ToArray() );
 				

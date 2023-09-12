@@ -454,10 +454,10 @@ namespace SyntecITWebAPI.Controllers.Open.GAS.ApplyUniform
 		[Route( "BatchUpdateUniformApplications" )]
 		[CheckTokenFilter]
 		[HttpPost]
-		public IActionResult BatchUpdateUniformApplications( [FromBody] UpdateUniformApplicationsMaster BatchUpdateUniformApplicationsParameter )
+		public IActionResult BatchUpdateUniformApplications( [FromBody] BatchUpdateUniformApplications BatchUpdateUniformApplicationsParameter )
 		{
 
-			bool bResult = m_publicApplyUniformHandler.BatchUpdateUniformApplications();
+			bool bResult = m_publicApplyUniformHandler.BatchUpdateUniformApplications( BatchUpdateUniformApplicationsParameter );
 
 			if(!bResult)
 			{

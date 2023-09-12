@@ -226,10 +226,10 @@ namespace SyntecITWebAPI.Models.GAS.ApplyUniform
 			}
 		}
 
-		internal bool BatchUpdateUniformApplications()
+		internal bool BatchUpdateUniformApplications( BatchUpdateUniformApplications BatchUpdateUniformApplicationsParameter )
 		{
 
-			bool bResult = m_ApplyUniformDBManager.BatchUpdateUniformApplications();
+			bool bResult = m_ApplyUniformDBManager.BatchUpdateUniformApplications( BatchUpdateUniformApplicationsParameter );
 
 			return bResult;
 		}

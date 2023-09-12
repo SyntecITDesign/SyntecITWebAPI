@@ -45,6 +45,20 @@ namespace SyntecITWebAPI.ParameterModels.GAS.ApplyUniform
 
 	}
 
+	public class BatchUpdateUniformApplications
+	{
+		public string UniformStyleNo
+		{
+			get; set;
+		}
+		public string UniformStyleName
+		{
+			get; set;
+		}
+	}
+	
+
+
 	public class UniformQuantityAllField
 	{
 		public string UniformStyleNo
