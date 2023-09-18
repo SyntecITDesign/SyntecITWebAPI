@@ -13,6 +13,7 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		#region Internal Methods
 		public string m_bpm;
 		public string m_gas;
+		public string m_barcode;
 		public PublicPersonalInfoDBManager()
 		{
 			var configuration = new ConfigurationBuilder()
@@ -22,17 +23,18 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 			m_bpm = configuration[ "bpm" ].Trim();
 			m_gas = configuration[ "gas" ].Trim();
+			m_barcode = configuration[ "barcode" ].Trim();
 		}
 
 		internal DataTable GetPersonalInfo( GetPersonalInfo GetPersonalInfoParameter )
 		{
 			string sql = $@"IF @Parameter1 = 'empty'	
 								SELECT *
-								FROM [syntecbarcode].[dbo].[TEMP_NAME]
+								FROM [{m_barcode}].[dbo].[TEMP_NAME]
 								WHERE [DeptName] IS not null and ([EmpID]=@Parameter0 OR [EmpName]=@Parameter0)  AND ([QuitDate] is NULL OR [QuitDate] > GETDATE())
 							ELSE
 								SELECT *
-								FROM [syntecbarcode].[dbo].[TEMP_NAME]
+								FROM [{m_barcode}].[dbo].[TEMP_NAME]
 								WHERE [DeptName] IS not null and ([EmpID]=@Parameter0 OR [EmpName]=@Parameter0) and [QuitDate] is not  NULL";
 
 			List<object> SQLParameterList = new List<object>()
@@ -58,11 +60,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"IF @Parameter1 = 'empty'
 								SELECT *
-								FROM [syntecbarcode].[dbo].[TEMP_NAME]
+								FROM [{m_barcode}].[dbo].[TEMP_NAME]
 								WHERE [DeptName] IS not null and ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0)  AND ([QuitDate] is NULL OR [QuitDate] > GETDATE())
 							ELSE
 								SELECT *
-								FROM [syntecbarcode].[dbo].[TEMP_NAME]
+								FROM [{m_barcode}].[dbo].[TEMP_NAME]
 								WHERE [DeptName] IS not null and ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0) AND [QuitDate] is not NULL";
 
 			List<object> SQLParameterList = new List<object>()
@@ -86,11 +88,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"IF @Parameter1 = 'empty'
 								SELECT *
-								FROM [syntecbarcode].[dbo].[TEMP_NAME]
+								FROM [{m_barcode}].[dbo].[TEMP_NAME]
 								WHERE [DeptName] IS not null and ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0)  AND ([QuitDate] is NULL OR [QuitDate] > GETDATE())
 							ELSE
 								SELECT *
-								FROM [syntecbarcode].[dbo].[TEMP_NAME]
+								FROM [{m_barcode}].[dbo].[TEMP_NAME]
 								WHERE [DeptName] IS not null and ([EmpID] like @Parameter0 OR [EmpName] like @Parameter0) AND [QuitDate] is not NULL";
 
 			List<object> SQLParameterList = new List<object>()
@@ -115,11 +117,11 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 		{
 			string sql = $@"IF @Parameter2 = 'empty'
 								SELECT *
-								FROM [syntecbarcode].[dbo].[TEMP_NAME]
+								FROM [{m_barcode}].[dbo].[TEMP_NAME]
 								WHERE [EmpName] = @Parameter0 AND [DeptName] = @Parameter1 AND [QuitDate] is NULL
 							ELSE
 								SELECT *
-								FROM [syntecbarcode].[dbo].[TEMP_NAME]
+								FROM [{m_barcode}].[dbo].[TEMP_NAME]
 								WHERE [EmpName] = @Parameter0 AND [DeptName] = @Parameter1 AND [QuitDate] is not NULL";
 
 			List<object> SQLParameterList = new List<object>()
@@ -145,15 +147,20 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 		internal DataTable GetPersonalGASInfo( GetPersonalGASInfo GetPersonalGASInfoParameter )
 		{
-			string sql = $@"SELECT *
-						  FROM [{m_gas}].[dbo].[GAS_GAInfoMaster]
-						  WHERE [EmpID] like @Parameter0
-						  Order by [Avatar] desc";
+			string sql = $@"SELECT [GAS_GAInfoMaster].*,temp_name.[DeptName],temp_name.[SuperDeptName],temp_name.[QuitDate],temp_name.[StartDate],temp_name.[Email]
+					FROM [{m_gas}].[dbo].[GAS_GAInfoMaster],(SELECT [EmpID]
+													,[DeptName]
+													,[QuitDate]
+													,[SuperDeptName]
+													,[Email]
+													,[StartDate]
+												FROM [{m_barcode}].[dbo].[TEMP_NAME]) as temp_name
+					WHERE [GAS_GAInfoMaster].[EmpID] like @Parameter0 and temp_name.[EmpID] COLLATE Chinese_PRC_CI_AS = [GAS_GAInfoMaster].[EmpID] 
+					Order by [Avatar] desc";
 
 			List<object> SQLParameterList = new List<object>()
 			{
 				GetPersonalGASInfoParameter.EmpID
-
 			};
 			DataTable result = m_dbproxy.GetDataCMD( sql, SQLParameterList.ToArray() );
 
@@ -253,9 +260,6 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 		internal DataTable GetProcessingInfo( GetProcessingInfo GetProcessingInfoParameter )
 		{
-
-			//string sql = $@"SELECT " + GetProcessingInfoParameter.ApplyString + ".ApplicantID, " + GetProcessingInfoParameter.ApplyString + ".DiagramID, " + GetProcessingInfoParameter.ApplyString + ".ApplicantDateTime FROM  [{m_bpm}].[dbo]." + GetProcessingInfoParameter.ApplyString + "  LEFT JOIN [{m_bpm}].[dbo].[FSe7en_Sys_Requisition] ON " + GetProcessingInfoParameter.ApplyString + ".RequisitionID = [FSe7en_Sys_Requisition].RequisitionID WHERE " + GetProcessingInfoParameter.ApplyString + ".ApplicantID=@Parameter0 AND [FSe7en_Sys_Requisition].Status='0'";
-
 			string sql = "";
 			string[] ApplyStringList = ( GetProcessingInfoParameter.ApplyString ).Split( "," );
 
@@ -478,10 +482,10 @@ namespace SyntecITWebAPI.Common.DBRelated.DBManagers
 
 		internal DataTable GetGASLicenseInfo( GetGASLicenseInfo GetGASLicenseInfoParameter )
 		{
-			string sql = $@"SELECT [EmpID],[EmpName],[EmpDept],[ExtensionNum],[ManageRight],[MotorLicense],[MotorLicense_Syntec],[CarLicense],[CarLicense_Syntec],[Sex]
-						  FROM [{m_gas}].[dbo].[GAS_GAInfoMaster]
-						  WHERE (([MotorLicense] like @Parameter0 and not [MotorLicense] like '%離職') or ([CarLicense] like @Parameter0 and not [CarLicense] like '%離職') or [MotorLicense_Syntec] like @Parameter0 or [CarLicense_Syntec] like @Parameter0) and not ([EmpID]='') and ([EmpDept] is not NULL)
-						  group by [EmpID],[EmpName],[EmpDept],[ExtensionNum],[ManageRight],[MotorLicense],[MotorLicense_Syntec],[CarLicense],[CarLicense_Syntec],[Sex]";
+			string sql = $@"SELECT [GAS_GAInfoMaster].[EmpID],[EmpName],[EmpDept],[ExtensionNum],[ManageRight],[MotorLicense],[MotorLicense_Syntec],[CarLicense],[CarLicense_Syntec],[Sex]
+							FROM [{m_gas}].[dbo].[GAS_GAInfoMaster],(SELECT [EmpID] FROM [{m_barcode}].[dbo].[TEMP_NAME] where QuitDate is null) as temp_name
+							WHERE (([MotorLicense] like @Parameter0) or ([CarLicense] like @Parameter0)) and temp_name.[EmpID] COLLATE Chinese_PRC_CI_AS=[GAS_GAInfoMaster].[EmpID]
+							group by [GAS_GAInfoMaster].[EmpID],temp_name.[EmpID],[GAS_GAInfoMaster].[EmpName],[EmpDept],[ExtensionNum],[ManageRight],[MotorLicense],[MotorLicense_Syntec],[CarLicense],[CarLicense_Syntec],[Sex]";
 
 			List<object> SQLParameterList = new List<object>()
 			{
