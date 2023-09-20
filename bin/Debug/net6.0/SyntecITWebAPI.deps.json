@@ -736,73 +736,9 @@
           }
         }
       },
-      "Syntec.Base/1.0.0.0": {
-        "runtime": {
-          "Syntec.Base.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Syntec.Component/1.0.0.0": {
-        "runtime": {
-          "Syntec.Component.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
       "myHistoryCMD/1.0.0.0": {
         "runtime": {
           "myHistoryCMD.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Syntec.DataAccess.TQM/1.0.0.0": {
-        "runtime": {
-          "Syntec.DataAccess.TQM.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Syntec.DataAccess/1.0.0.0": {
-        "runtime": {
-          "Syntec.DataAccess.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Syntec.DesignPattern/1.0.0.0": {
-        "runtime": {
-          "Syntec.DesignPattern.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Syntec.Command/1.0.0.0": {
-        "runtime": {
-          "Syntec.Command.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Syntec.Controller/1.0.0.0": {
-        "runtime": {
-          "Syntec.Controller.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Syntec.Database/1.0.0.0": {
-        "runtime": {
-          "Syntec.Database.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1414,47 +1350,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Syntec.Base/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Syntec.Component/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
     "myHistoryCMD/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Syntec.DataAccess.TQM/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Syntec.DataAccess/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Syntec.DesignPattern/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Syntec.Command/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Syntec.Controller/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Syntec.Database/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
